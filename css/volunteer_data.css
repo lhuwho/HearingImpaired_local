@@ -1,0 +1,19 @@
+﻿@charset "UTF-8";
+
+input[name="Address"], input[name="email"] {
+	width: 545px;
+}
+
+input[name="zip"] {
+	width: 50px;
+}
+
+textarea {
+	width: 600px;
+	height: 50px;
+	margin: 5px 0;
+}
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}

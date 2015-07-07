@@ -1,0 +1,26 @@
+﻿@charset "UTF-8";
+
+.tableContact, .tableContact td, .tableContact th {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+.tableContact td {
+	text-align: center;
+}
+.tableContact th {
+	height: 30px;
+}
+
+.Perceive {
+	height: 260px;
+	width: 260px;
+	float: left;
+	position: relative;
+}
+.PerceiveDIV {
+	 float: left;
+	 width: 780px;
+	 height: auto;
+	 margin-bottom: 50px;
+}

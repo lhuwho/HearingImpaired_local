@@ -1,0 +1,31 @@
+﻿@charset "UTF-8";
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+.cP {
+    font-size: 18px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 50px;
+}
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact th {
+    background-color: #F9AE56;
+    border: 1px solid #FFFFFF;
+}
+
+.tableContact td{
+    border: 1px solid #F9AE56;
+    text-align: center;
+}
+
+#insertServiceDiv ,#insertLendingDiv{
+	margin-top: 20px;
+}

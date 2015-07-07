@@ -1,0 +1,20 @@
+﻿@charset "UTF-8";
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact th {
+	background-color: #F9AE56;
+	border: 1px solid #ffffff;
+}
+
+.tableContact td {
+	border: 1px solid #F9AE56;
+}
+
+textarea {
+	width: 660px;
+}

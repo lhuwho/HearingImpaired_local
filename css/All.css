@@ -1,0 +1,362 @@
+﻿@charset "UTF-8";
+
+#container {
+	width: 1024px;
+	height: auto;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+}
+
+#header {
+	background-image: url("../images/bg_header.png");
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 1024px;
+	height: 150px;
+	position: relative;
+}
+
+#loginInfo {
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 0;
+	right: 50px;
+	margin: 30px 0 0;
+	font-size: 12px;
+	color: #683812;
+}
+
+#menu {
+    position: absolute;
+    top: 100px;
+	left: 30px;
+	z-index: 10;
+}
+
+#content {
+	background-image: url("../images/bg_header.png");
+	background-repeat: no-repeat;
+	background-position: 0 -150px;
+	width: 1024px;
+	min-height: 200px;
+	height: auto;
+	font-family: Arail,"微軟正黑體";
+}
+
+#mainClass {
+	width: 800px;
+	height: 50px;
+	margin: 0 auto;
+	border-bottom: 2px solid #efa320;
+	color: #683812;
+	font-size: 20px;
+	line-height: 65px;
+}
+
+#main, #mainSearchList, .mainSearchList, .insertDataDiv {
+	display: none;
+}
+
+#mainMenuList, #mainMenuList2 {
+	width: 800px;
+	height: 55px;
+	margin: 0 auto;
+}
+
+#mainMenuList a {
+	color: #683812;
+}
+
+.menuTabs {
+	background-image: url("../images/bg_menutab1.jpg");
+	background-repeat: no-repeat;
+	background-position: top center;
+	border: 1px solid #F9AE56;
+	width: auto;
+	height: auto;
+	line-height: 24px;
+	float: left;
+	color: #683812;
+	margin: 20px 1px 3px;
+	padding: 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+.menuTabs:hover, .menuTabs2:hover, button:hover {
+    filter: alpha(opacity=100);
+    opacity: 1.0;
+}
+
+.menuTabs2 {
+	background-image: url("../images/bg_menutab1.jpg");
+	background-repeat: no-repeat;
+	background-position: top center;
+	border: 1px solid #F9AE56;
+	width: auto;
+	height: auto;
+	line-height: 24px;
+	float: left;
+	color: #683812;
+	margin: 20px 1px 3px;
+	padding: 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+#mainContent, #mainContentSearch, #mainContentIndex, #mainContentIndex2, #mainContentIndex3, #mainContentIndex4, #mainContentInsert {
+	width: 780px;
+	height: auto;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid #f9ae56;
+}
+
+#mainContent > div {
+	display: none;
+	font-size: 14px;
+	color: #683812;
+	line-height: 30px;
+}
+
+#mainContentSearch > div, #mainContentIndex > div, #mainContentIndex2 > div, #mainContentIndex3 > div, #mainContentIndex4 > div, #mainContentInsert > div {
+	font-size: 14px;
+	color: #683812;
+	line-height: 30px;
+}
+
+#mainContent table, #mainSearchForm table, #mainIndexForm table, #mainIndexForm2 table, #mainIndexForm3 table, #mainIndexForm4 table {
+	border-spacing: 0;
+}
+
+.tableList {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableList thead th {
+	background-color: #F9AE56;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+.tableList tbody td {
+	text-align: center;
+}
+
+.tableList tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableList tbody tr:hover {
+	filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+.btnP {
+	text-align: center;
+	margin: 20px 0 5px;
+}
+
+button {
+	border: none;
+	background: none;
+	color: #ffffff;
+	font-size: 16px;
+	filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+.btnSave, .btnUpdate, .btnSaveUdapteData, .btnCancel, .btnDel, .btnAdd2, .btnPrint, .btnRevise, .button, .btnOutdate {
+	display: none;
+	background-image: url("../images/bg_btn.jpg");
+	background-repeat: repeat;
+	background-position: top center;
+	width: auto;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+
+.btnSearch, .btnView, .btnAdd, .btnIndex, .btnIndex2, .btnIndex3, .btnIndex4, .btnSearch2, .btnDelete, .btnUpdateSmall, .btnSaveSmall {
+	background-image: url("../images/bg_btn.jpg");
+	background-repeat: repeat;
+	background-position: top center;
+	width: auto;
+	height: 20px;
+	line-height: 20px;
+	padding: 0 5px;
+	font-size: 12px;
+}
+
+label {
+	margin-left: 2px;
+}
+
+#footer {
+	background-image: url("../images/bg_footer.png");
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 1024px;
+	height: 130px;
+	position: relative;
+}
+
+#footer>div {
+	width: 600px;
+	height: auto;
+	position: absolute;
+	bottom: 0;
+	margin: 20px 0 10px 130px;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+	border: 1px solid #999999;
+	line-height: 20px;
+}
+
+#validationDiv, #validationDiv2 {
+	text-align: right;
+	font-size: 12px;
+	color: Red;
+	padding-right: 20px;
+}
+
+#logout {
+    text-decoration: none;
+    color: #683812;
+    font-size: 13px;
+    text-shadow: 1px 1px rgba(255,255,255,0.75);
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+#loginInfo a:hover {
+	text-decoration: underline;
+}
+
+.ImgJs:hover {
+    cursor: pointer;
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+.fontR {
+	color: Red;
+}
+.fontG {
+	color:Green;
+}
+#top {
+    background-image: url("../images/btn_top.jpg");
+    background-repeat: no-repeat;
+    bottom: 10px;
+    cursor: pointer;
+    display: none;
+    height: 30px;
+    position: fixed;
+    right: 10px;
+    width: 55px;
+}
+
+
+
+/** inline **/
+#inline table caption {
+	font-size: 23px;
+	font-weight: bold;
+	color: #EFA320;
+}
+
+#inline input[type="text"], #inline input[type="password"], #inline select {
+	border: 1px solid #CCCCCC;
+	background-color: #EEEEEE;
+	margin: 5px;
+}
+
+#inline input[type="button"] {
+    width: 100px;
+    height: 40px;
+    background: url(./../images/login.png) no-repeat;
+    font-weight: bold;
+    text-shadow: 1px 1px rgba(53,16,56,0.5);
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    cursor: pointer;
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+}
+
+
+/** menu **/
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.menu {
+	display: table;
+}
+.menu > li {
+	display: inline-block;
+	position: relative;
+}
+.menu > li:hover .sub {
+	left: auto;
+}
+.menu a {
+	display: block;
+	padding: 10px 30px;
+	background: #EFA320;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 15px;
+}
+.menu a:hover {
+	background: #FFA100;
+}
+.sub {
+	position: absolute;
+	width: 100%;
+	left: -9999px;
+}
+.sub a {
+	background: #EFA320;
+	font-size: 13px;
+	text-align: center;
+	padding: 8px 0;
+}
+.sub a:hover {
+	background: #683812;
+}
+
+#mainPagination {
+	text-align: right;
+}
+
+/* pagination */
+.pagination {
+	text-align: center;
+}
+
+
+/*Hide*/
+.hideClassSpan{
+	display: none;
+}
+
+/*Mark*/
+.startMark{
+	color: Red;	
+	font-weight: bold;
+    margin: 0 2px;
+}

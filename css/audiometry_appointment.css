@@ -1,0 +1,28 @@
+﻿@charset "UTF-8";
+
+.ui-widget {
+	font-size: 12px;
+}
+
+#event_edit_container form>ul>li {
+	margin: 5px 0;
+}
+
+input[type='text'], textarea {
+	width: 200px;
+	padding: 3px;
+}
+
+.hitP span {
+	font-size: 10px;
+}
+
+#author {
+	border: none;
+}
+
+#itemOther {
+	display: none;
+	margin: 5px 0 0 62px;
+}
+

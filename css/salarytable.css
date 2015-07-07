@@ -1,0 +1,29 @@
+﻿@charset "UTF-8";
+
+.thSystem {
+	width: 100px;
+}
+.thItem {
+	width: 190px;
+}
+.thItem2 {
+	width: 200px;
+}
+
+.tableTH li {
+	background-color: #F9AE56;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#mainContent ul>li{
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	/*float: left;
+    height: 30px;
+    line-height: 30px;
+    list-style-type: none;*/
+    text-align: center;
+}

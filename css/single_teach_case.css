@@ -1,0 +1,59 @@
+﻿@charset "UTF-8";
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+	text-align: center;
+}
+
+.tableContact2 {
+	border-collapse: collapse;
+	margin: 0 3px;
+}
+
+.tableContact th {
+	background-color: #F9AE56;
+	border: 1px solid #ffffff;
+}
+
+.tableContact td {
+	border: 1px solid #F9AE56;
+}
+
+.cP {
+    font-size: 18px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 50px;
+}
+
+.short {
+	width: 470px;
+}
+
+.tableContact input[type="text"], .tableContact select {
+	margin: 5px 0;
+}
+
+.tableContact select {
+	height: 22px;
+}
+
+.Perceive {
+	height: auto;
+	width: 257px;
+	display: inline-block;
+	*display : inline;
+	*zoom : 1;
+}
+.PerceiveDIV {
+	 /*float: left;
+	 width: 780px;
+	 height: auto;
+	 margin-bottom: 50px;*/
+}

@@ -1,0 +1,23 @@
+﻿@charset "UTF-8";
+
+.tableList th {
+	border: 1px solid #ffffff;
+}
+
+.remark {
+	background-color: #eeeeee;
+	margin-top: 20px;
+}
+
+.tableText {
+	border-collapse: collapse;
+}
+
+.tableText th {
+	background-color: #F9AE56;
+	font-size: 13px;
+	border: 1px solid #ffffff;
+}
+.tableText td {
+	text-align: center;
+}

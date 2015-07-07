@@ -1,0 +1,37 @@
+﻿@charset "UTF-8";
+
+#item2Content select {
+	width: 50px;
+}
+
+.tableText tr:nth-child(even), .tableText2 th {
+	background-color: #eeeeee;
+}
+
+.tableText2 td {
+	text-align: center;
+}
+
+
+.tableContact, .tableContact2 {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+
+.tableContact td, .tableContact th, .tableContact2 td {
+	border: 1px solid #F9AE56;
+}
+
+.tableContact td {
+	text-align: center;
+}
+
+.tableContact thead tr th, #item2Content thead tr th, .tableContact2 thead tr th {
+    background-color: #F9AE56;
+    border: 1px solid #FFFFFF;
+}
+.tableContact tbody tr {
+    height: 30px;
+}

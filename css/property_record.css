@@ -1,0 +1,62 @@
+﻿@charset "UTF-8";
+
+input[type="file"] {
+	width: 150px;
+	text-align: center;
+}
+
+.tableText tr:nth-child(even), .tableText2 th, #item2Content tr:nth-child(even), #item2Content tr:nth-child(even),.tableText3 th{
+	background-color: #eeeeee;
+}
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact th {
+	background-color: #F9AE56;
+	border: 1px solid #ffffff;
+}
+
+.tableContact td {
+	border: 1px solid #F9AE56;
+}
+
+.cP {
+    font-size: 18px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 50px;
+}
+
+#appurtenance td, #ChangesExplainDiv .tableContact td {
+	text-align: center;
+}
+
+.showUploadImg {
+	width: 200px;
+	height: 150px;
+	display: block;
+}
+.showUploadImg * {
+	vertical-align: middle;
+}
+.showUploadImg I {
+	height: 100%;
+	display: inline-block;
+}
+
+.showUploadImg img {
+	width: auto;
+	height: auto;
+	max-width: 200px;
+	max-height: 150px;
+}
+.BdgColor {
+	background-color: #AFD6FF;
+}
+#gosrhLocation, #gosrhCustody {
+	width: 150px;
+}

@@ -1,0 +1,61 @@
+﻿@charset "UTF-8";
+
+input[type="file"] {
+	width: 150px;
+	text-align: center;
+}
+
+#staffPhoto {
+	width: auto;
+	height: auto;
+	max-width: 150px;
+	max-height: 150px;
+}
+
+#staffManualImg {
+	width: auto;
+	height: auto;
+	max-width: 500px;
+	max-height: 300px;
+}
+
+input[name="Address"], input[name="email"] {
+	width: 545px;
+}
+
+input[name="zip"] {
+	width: 50px;
+}
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableContact {
+    border: 1px solid #F9AE56;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.tableContact th, .tableContact td {
+    border: 1px solid #F9AE56;
+    text-align: center;
+}
+
+#item2Content > .tableContact th, #item3Content > .tableContact th, #insertDataDiv1 > .tableContact th, #insertDataDiv2 > .tableContact th, #insertDataDiv3 > .tableContact th{
+	background-color: #F9AE56;
+	border: 1px solid #ffffff;
+}
+#WorkDiv{
+	margin: 20px;
+	width: 600px;
+	height: auto;
+	max-height: 500px;
+}
+#WorkDiv table thead th {
+    background-color: #F9AE56;
+    font-size: 13px;
+}
+#WorkDiv table th, #WorkDiv table td{
+    text-align: center;
+}

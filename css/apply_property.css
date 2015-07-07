@@ -1,0 +1,31 @@
+﻿@charset "UTF-8";
+
+.tableContact {
+    border: 1px solid #F9AE56;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.tableContact thead tr th {
+    background-color: #F9AE56;
+    border: 1px solid #FFFFFF;
+}
+
+.tableContact td, .tableContact th {
+    border: 1px solid #F9AE56;
+}
+
+.tableContact td, .propertyUnit, .propertyQuantity, .propertyFormat, .propertyPrice, .propertySum {
+	text-align: center;
+}
+
+.tableContact input {
+	border: none;
+}
+
+.digit {
+	text-align: center;
+	background-color: #ffffff;
+	color: #000000;
+    font-size: 18px;
+}

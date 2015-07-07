@@ -1,0 +1,29 @@
+﻿@charset "UTF-8";
+
+#menuList li a:hover {
+	background-color: #ffa100;
+}
+
+.tableText {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableText thead th {
+	background-color: #F9AE56;
+	font-size: 13px;
+}
+
+.tableText td {
+	text-align: center;
+}
+
+.tableText tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.menu a {
+	width: 180px;
+	text-align: center;
+}

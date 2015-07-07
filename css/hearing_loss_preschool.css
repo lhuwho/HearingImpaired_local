@@ -1,0 +1,54 @@
+﻿@charset "UTF-8";
+
+#mainContent > div {
+	line-height: 20px;
+}
+
+.tableText tr:nth-child(even), .tableText2 th, .tableText3 th, .tableContact tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact td, .tableContact th {
+	border: 1px solid #F9AE56;
+	text-align: center;
+}
+
+.tableContact tbody tr:nth-child(even) {
+	border: 1px solid #F9AE56;
+}
+
+.tableContact tbody tr:nth-child(even) td {
+	border: none;
+}
+
+.tableContact thead tr th, #item2Content thead tr th {
+    background-color: #F9AE56;
+    border: 1px solid #FFFFFF;
+}
+.tableContact tbody tr  {
+    height: 30px;
+}
+
+.cP {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 50px;
+	height: 40px;
+}
+
+#item3Content td, #item4Content td {
+	text-align: center;
+}
+
+#item3Content select, #item4Content select {
+	width: 40px;
+}
+#item3Content .checkdate, #item4Content .checkdate {
+	width: 28px;
+}

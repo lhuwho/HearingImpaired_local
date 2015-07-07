@@ -1,0 +1,13 @@
+﻿@charset "UTF-8";
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableList td {
+	line-height: 20px;
+}
+
+.tableList td input[type="text"] {
+	text-align: center;
+}

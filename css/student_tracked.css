@@ -1,0 +1,36 @@
+﻿@charset "UTF-8";
+
+input[name="Address"], input[name="email"] {
+	width: 545px;
+}
+
+input[name="zip"] {
+	width: 50px;
+}
+
+input[name="school"] {
+	width: 510px;
+}
+
+textarea {
+	width: 480px;
+	height: 50px;
+	margin: 5px 0;
+}
+
+.tableText tr:nth-child(even), .tableText2 tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableText2 td {
+	text-align: center;
+}
+
+.cP {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 50px;
+	height: 40px;
+}
+
+

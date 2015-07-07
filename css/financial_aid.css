@@ -1,0 +1,9 @@
+﻿@charset "UTF-8";
+
+input[name="zip"] {
+	width: 50px;
+}
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}

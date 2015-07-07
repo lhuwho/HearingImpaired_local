@@ -1,0 +1,89 @@
+﻿@charset "UTF-8";
+
+.menuTabs {
+	padding: 5px 3px;
+}
+
+#studentPhoto {
+	width: auto;
+	height: auto;
+	max-width: 150px;
+	max-height: 150px;
+}
+
+#studentManualImg {
+	width: auto;
+	height: auto;
+	max-width: 500px;
+	max-height: 300px;
+}
+
+input[type="file"] {
+	width: 150px;
+	text-align: center;
+}
+
+#endReason, #noReason {
+	width: 600px;
+	height: 50px;
+}
+
+input[name="Address"], input[name="email"] {
+	width: 545px;
+}
+
+input[name="zip"] {
+	width: 50px;
+}
+
+.tableContact, .table2Contact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact th, .table2Contact th {
+	background-color: #dddddd;
+}
+
+.tableContact td, .tableContact th, .table2Contact td, .table2Contact th {
+	border: 1px solid #F9AE56;
+}
+
+.tableContact td {
+	text-align: center;
+}
+
+#item1Content form > table tr:nth-child(even), #item2Content > table tbody tr:nth-child(even), #item3Content > table tbody tr:nth-child(even), #item4Content > table  tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+#item2Content > table thead th, #item3Content > table thead th {
+	background-color: #F9AE56;
+	color: #ffffff;
+	font-weight: normal;
+}
+#item3Content > table tbody td {
+	text-align: center;
+}
+#otherResources {
+	width: 550px;
+	height: 100px;
+}
+
+.item4Textarea {
+	width: 730px;
+	height: 100px;
+	margin-left: 2em;
+}
+
+.item7Textarea {
+	width: 670px;
+	height: 50px;
+	margin-left: 2em;
+}
+
+#item6Content ul li, #item7Content ul li {
+	margin-left: 2em;
+	text-indent: -2em;
+}

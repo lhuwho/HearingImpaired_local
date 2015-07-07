@@ -1,0 +1,10 @@
+﻿@charset "UTF-8";
+
+.tableList th {
+	line-height: 20px;
+}
+
+button {
+	margin: 3px 0;
+}
+

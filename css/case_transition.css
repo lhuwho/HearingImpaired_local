@@ -1,0 +1,20 @@
+﻿@charset "UTF-8";
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableContact {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact th, .tableContact td {
+	border: 1px solid #F9AE56;
+	text-align: center;
+}
+
+input[type='file'] {
+	width: 150px;
+}

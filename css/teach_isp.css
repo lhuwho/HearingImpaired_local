@@ -1,0 +1,175 @@
+﻿@charset "UTF-8";
+
+#item2Content textarea {
+	width: 30px;
+	height: 80px;
+}
+
+#item2Content select {
+	width: 50px;
+}
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+.tableContact, .tableContact2 {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableContact3 {
+	border-collapse: collapse;
+	margin: 0 3px;
+	text-align: center;
+}
+
+.tableContact td, .tableContact2 td {
+	border: 1px solid #F9AE56;
+}
+
+.tableContact td {
+	text-align: center;
+}
+
+.tableContact thead tr th, .tableContact2 thead tr th {
+    background-color: #F9AE56;
+    border: 1px solid #FFFFFF;
+}
+.tableContact tbody tr {
+    height: 30px;
+}
+
+.cP {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 50px;
+	/*height: 40px;*/
+}
+.cP span{
+	font-size: 14px;
+}
+.cP1 {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 50px;
+	height: 35px;
+}
+
+.long {
+	width: 765px;
+}
+
+.short {
+	width: 290px;
+}
+
+.tableContact3 select {
+	height: 22px;
+	width: 60px;
+}
+
+
+
+
+
+
+
+
+#jMonthCalendar {
+	position: relative;
+}
+
+#jMonthCalendar > table {
+	line-height: 12px;
+}
+
+.MonthlyCalendar .MonthNavigation { border-bottom:solid 1px #ddd; clear:both; height:20px; padding:5px 10px 0 10px; }
+.MonthlyCalendar .MonthNavPrev, .MonthlyCalendar .MonthNavNext, .MonthlyCalendar .TodayLink {
+	width:10%;
+	float:left;
+	font-size: 12px;
+}
+.MonthlyCalendar .YearNavNext, .MonthlyCalendar .YearNavPrev { width:10%; float:right; }
+.MonthlyCalendar .MonthName {
+	width:40%;
+	text-align:center;
+	font-weight:bold;
+	float:left;
+}
+
+
+.MonthlyCalendar { height:100%; width:100%; border:solid 1px #ddd; border-collapse:collapse; }
+.MonthlyCalendar #CalendarHead { width:100%; background:#F7F7F7 none repeat scroll 0 0; }
+.MonthlyCalendar #CalendarHead .DateHeader {
+	width:14%;
+	text-align:center;
+	font-size: 15px;
+	font-weight: inherit;
+}
+
+.MonthlyCalendar #CalendarBody { }
+.DateBox { vertical-align:top; border:solid 1px #ddd; }
+.DateLabel {
+	height:16px;
+	width:100%;
+	background-color:#F7F7F7;
+	text-align:right;
+	font-size: 15px;
+}
+.DateLabel a {
+	cursor:pointer;
+	padding:0 5px 2px;
+	text-decoration:none;
+	line-height:16px;
+	color:#000000;
+}
+
+#CalendarBody .Inactive, #CalendarBody .Weekend { background:#fafafa none repeat scroll 0 0; }
+.Today { background:#A9DFFF none repeat scroll 0 0; }
+
+#jMonthCalendar .Event {
+	font-size:12px;
+	padding:4px 2px;
+	margin-bottom:1px;
+	-moz-border-radius:0 8px 8px 8px;
+	cursor:pointer;
+	display:block;
+}
+.Event a {
+	text-decoration:none;
+	color:#ffffff;
+}
+.Event a:hover { text-decoration:underline; }
+
+#event_edit_container { display: none; }
+
+#jMonthCalendar .course1 {
+	background-color: #338833;
+}
+#jMonthCalendar .course2 {
+	background-color: #DD3333;
+}
+
+#inline ul li {
+	line-height: 30px;
+}
+
+
+
+.Perceive {
+    float: left;
+    height: 300px;
+    position: relative;
+    width: 260px;
+}
+.Perceive .tableContact th {
+    height: 30px;
+}
+
+.Perceive .tableContact,.Perceive .tableContact td,.Perceive .tableContact th {
+    border: 1px solid #F9AE56;
+    border-collapse: collapse;
+    margin: 10px 0;
+}

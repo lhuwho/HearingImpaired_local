@@ -1,0 +1,25 @@
+﻿@charset "UTF-8";
+
+#viewContent {
+	width: 770px;
+	height: 350px;
+}
+
+.tableText {
+	border-collapse: collapse;
+	border: 1px solid #F9AE56;
+	margin: 10px 0;
+}
+
+.tableText th {
+	background-color: #F9AE56;
+	font-size: 13px;
+}
+
+.tableText td {
+	text-align: center;
+}
+
+.tableText tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}

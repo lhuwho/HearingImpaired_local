@@ -1,0 +1,10 @@
+﻿@charset "UTF-8";
+
+.UD button, .SC button {
+	margin: 2.5px 0;
+}
+
+.mainSearchList .tableList input[type='text'], .insertDataDiv .tableList input[type='text'] {
+	text-align: center;
+}
+

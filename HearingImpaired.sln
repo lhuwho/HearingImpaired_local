@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HearingImpaired", ".", "{DC3EEF95-CBFF-4402-8816-D0BCBFCF8241}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/HearingImpaired"
+		Debug.AspNetCompiler.PhysicalPath = "..\HearingImpaired\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\HearingImpaired\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/HearingImpaired"
+		Release.AspNetCompiler.PhysicalPath = "..\HearingImpaired\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\HearingImpaired\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "51325"
+		DefaultWebSiteLanguage = "Visual C#"
+		StartServerOnDebug = "true"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC3EEF95-CBFF-4402-8816-D0BCBFCF8241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3EEF95-CBFF-4402-8816-D0BCBFCF8241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

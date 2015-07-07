@@ -1,0 +1,22 @@
+﻿@charset "UTF-8";
+
+input[name="zip"] {
+	width: 50px;
+}
+
+.tableText tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+textarea {
+	width: 550px;
+	height: 70px;
+}
+
+.cP {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 15px 0 0;
+}
+

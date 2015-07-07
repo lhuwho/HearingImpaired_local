@@ -1,0 +1,17 @@
+﻿@charset "UTF-8";
+
+.tableList {
+	line-height: normal;
+}
+
+.mainSearchList .tableList input[type='text'], .insertDataDiv .tableList input[type='text'], #mainIndexList td {
+	text-align: center;
+}
+
+#mainIndexList table thead th {
+	border: 1px solid #FFFFFF;
+}
+
+#mainIndexList table tbody td {
+	border: 1px solid #F9AE56;
+}

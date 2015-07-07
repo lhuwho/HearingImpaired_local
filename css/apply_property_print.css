@@ -1,0 +1,132 @@
+﻿@charset "UTF-8";
+body {
+	font-family: "標楷體";
+	font-size: 24px;
+}
+#container {
+    width: 1024px;
+    height: auto;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+}
+#content {
+	width: 1024px;
+	min-height: 200px;
+	height: auto;
+}
+#header {
+    width: 1024px;
+    height: 110px;
+    margin-top: 10px;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+}
+#logo {
+	border-right: 2px solid #000000;
+    float: left;
+    width: 160px;
+    height: 110px;
+}
+#logo img {
+	max-height: 105px;
+	max-width: 100px;
+	margin: 2px 30px 0 30px
+}
+#Info {
+	float: left;
+	width: 600px;
+	font-size: 30px;
+	padding-top: 20px;
+    padding-left: 30px;
+}
+#applyTypeMenu {
+      font-size: 26px;
+}
+#applyTypeMenu label {
+	float: left;
+    width: 100px;
+}
+#applyTypeMenu img {
+	float: left;
+	margin-top:5px;
+}
+input[name="applyType"], input[name="Unit"], input[name="applyPay"] {
+      display: none;
+}
+#UnitInfo {
+	float: left;
+	width: 110px;
+	font-size: 20px;
+}
+#UnitInfo img {
+	margin-top:2px;
+	float: left;
+}
+#applyDate {
+	margin-left: 190px;
+}
+#applyDate span:nth-child(2) {
+	float: right;
+}
+#applyDate span:nth-child(2) label{
+	float: right;
+    width: 80px;
+}
+#applyDate span:nth-child(2) img{
+	float: left;
+	margin-top:5px;
+}
+.tableContact,.tableContact2 {
+	border: 1px solid #000000;
+	border-collapse: collapse;
+}
+.tableContact th,.tableContact td,.tableContact2 th,.tableContact2 td{
+	border: 1px solid #000000;
+}
+.tableContact thead td,.tableContact2 thead td{
+	text-align: center;
+}
+.tableContact tfoot span{
+	border: 1px solid #000000;
+	margin-left: 2px;
+	font-size: 30px;
+	/*font-style:italic;*/
+	font-weight: bold;
+}
+.tableContact2 tfoot td{
+	border: none;
+}
+.tableContact2 tfoot tr:nth-child(1) span{
+	border: 3px double #000000;
+	font-weight: bold;
+}
+.tableContact2 tfoot tr:nth-child(3) span{
+	float: right;
+	font-weight: bold;
+	margin-right: 20px; 
+}
+#applypople span {
+	top: 5px;
+	margin-right: 70px;
+}
+#applyDate2 {
+	font-size: 20px;
+}
+#applyNo{
+	float:right;
+}
+#applyDate3{
+	font-size: 20px;
+	float:right;
+	/*font-style: italic;*/
+}
+.digit {
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border: none;
+}
+.context {
+font-size: 12px;
+line-height: 14px;
+}
