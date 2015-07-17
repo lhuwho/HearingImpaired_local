@@ -3169,11 +3169,52 @@ public struct CaseStudy
 }
 
 public struct CaseISPRecord
+{ 
+     public string ID;
+ public string StudentID;
+ public string WriteName;
+ public string TeacherID;
+ public string ConventionName;
+ public string ConventionDate;
+ public string ConventionFrameTime;
+ public string ConventionOverTime;
+ public string ConventionPlace;
+ public string PlanExecutionFrameDate;
+ public string PlanExecutionOverDate;
+ public string Record;
+ public string ParticipantParent;
+ public string ParticipantTeache;
+ public string ParticipantSocialWorker;
+ public string ParticipantAudiologist;
+ public string ParticipantHead;
+ public string ParticipantProfessionals;
+ public string Remark;
+ public string CreateFileBy;
+ public string CreateFileDate;
+ public string UpFileBy;
+ public string UpFileDate;
+ public string isDeleted;
+
+
+}
+
+public struct SearchCaseISPRecord
 {
+    public string txtstudentName;
+    public string txtteacherName;
+    public string txtConventionDatestart;
+    public string txtConventionDateend;
+}
+
+public struct ShowCaseISPRecord
+{
+    public string RowNum;
     public string ID;
     public string StudentID;
+    public string StudentName;
     public string WriteName;
     public string TeacherID;
+    public string TeacherName;
     public string ConventionName;
     public string ConventionDate;
     public string ConventionFrameTime;
@@ -3187,6 +3228,10 @@ public struct CaseISPRecord
     public string ParticipantSocialWorker;
     public string ParticipantAudiologist;
     public string ParticipantHead;
+    public string ParticipantTeacheName;
+    public string ParticipantSocialWorkerName;
+    public string ParticipantAudiologistName;
+    public string ParticipantHeadName;
     public string ParticipantProfessionals;
     public string Remark;
     public string CreateFileBy;
@@ -3194,7 +3239,13 @@ public struct CaseISPRecord
     public string UpFileBy;
     public string UpFileDate;
     public string isDeleted;
+    //增加錯誤訊息
+    public string checkNo;
+    public string errorMsg;
+
+
 }
+
 
 
 /*****教學管理 結束 *******/

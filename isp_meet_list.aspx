@@ -47,14 +47,14 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table width="780" border="0">
+			        <table id="searchTable" width="780" border="0">
 			            <tr>
-			                <td width="260">學生姓名 <input type="text" value="" /></td>
-			                <td width="260">會議日期 <input class="date" type="text" value="" size="10" />～<input class="date" type="text" value="" size="10" /></td>
-			                <td width="260">教師姓名 <input type="text" value="" /></td>
+			                <td width="260">學生姓名 <input type="text" value="" id="gosrhstudentName"></td>
+			                <td width="260">會議日期 <input class="date" id="gosrhConventionDatestart" type="text" value="" size="10">～<input class="date" id="gosrhConventionDateend" type="text" value="" size="10"></td>
+			                <td width="260">教師姓名 <input  id="gosrhteacherName" type="text" ></td>
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button">查 詢</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
 			            </tr>
 			        </table>
 			    </div>
@@ -187,18 +187,23 @@
                             </th>
                             <td align="center">
                                 <input id="ParticipantParent" type="text" value="" size="10" />
+                                
                             </td>
                             <td align="center">
-                                <input id="ParticipantTeache" type="text" value="" size="10" />
+                                <input id="ParticipantTeacheName" type="text" value="" size="10" />
+                                <span id="ParticipantTeache" class="hideClassSpan"></span>
                             </td>
                             <td align="center">
-                                <input id="ParticipantSocialWorker" type="text" value="" size="10" />
+                                <input id="ParticipantSocialWorkerName" type="text" value="" size="10" />
+                                <span id="ParticipantSocialWorker" class="hideClassSpan"></span>
                             </td>
                              <td align="center">
-                                <input id="ParticipantAudiologist" type="text" value="" size="10" />
+                                <input id="ParticipantAudiologistName" type="text" value="" size="10" />
+                                <span id="ParticipantAudiologist" class="hideClassSpan"></span>
                             </td>
                             <td align="center">
-                                <input id="ParticipantHead" type="text" value="" size="10" />
+                                <input id="ParticipantHeadName" type="text" value="" size="10" />
+                                <span id="ParticipantHead" class="hideClassSpan"></span>
                             </td>
                              <td align="center">
                                 <input id="ParticipantProfessionals" type="text" value="" size="10" />
@@ -209,14 +214,14 @@
                                 備註
                             </th>
                             <td colspan="6">
-                                <textarea id="Remark" cols="80" rows="2"></textarea>
+                                <textarea id="Remark" cols="80"  rows="2"></textarea>
                             </td>
                         </tr>
                     </table>
 			    <p class="btnP">
 		            <button class="btnSave" onclick="Save()" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" onclick="Update()" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 			</div>

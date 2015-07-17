@@ -935,8 +935,86 @@ public class AspAjax : System.Web.Services.WebService {
     }
 
 
+    [WebMethod]
+    public List<CaseISPRecord> CreatCaseISPRecord(CaseISPRecord sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.CreatCaseISPRecord(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+
+    [WebMethod]
+    public string[] SearchCaseISPRecordCount(SearchCaseISPRecord SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+
+        {
+            return aDB.SearchCaseISPRecordCount(SearchStructure, 1);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+    [WebMethod]
+    public List<ShowCaseISPRecord> SearchCaseISPRecord(int index, SearchCaseISPRecord SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchCaseISPRecord(index, SearchStructure, 0);
+    }
+
+    [WebMethod]
+    public List<AchievementAssessmentLoad> ShowCaseIspRecord(int id)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.ShowCaseIspRecord(id);
+    }
+
+    [WebMethod]
+    public List<CaseISPRecord> UpdateCaseISPRecord(CaseISPRecord sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.UpdateCaseISPRecord(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+
+
+
 
     /*Staff****************************************************************************************/
+
+    [WebMethod]
+    public string[] SearchStaffDataBaseCountCase(SearchStaff SearchStaffCondition, string getid)//無法使用權限，會使程式部分功能喪失 add by Awho
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseCountCase(SearchStaffCondition, getid);
+    }
+    [WebMethod]
+    public List<StaffDataList> SearchStaffDataBaseCase(int index, SearchStaff SearchStaffCondition, int getid)// add by Awho
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseCase(index, SearchStaffCondition, getid);
+    }
     [WebMethod]
     public string[] SearchStaffDataBaseCount(SearchStaff SearchStaffCondition)//無法使用權限，會使程式部分功能喪失
     {
