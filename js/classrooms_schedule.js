@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function() {
+initPage();
     $("#main").add("#weekTable").fadeIn();
     getThisWeek();
     roomsDiv();

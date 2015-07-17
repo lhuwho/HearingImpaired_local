@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function() {
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
-
+    initPage();
     $(".btnSearch").click(function() {
         $("#mainSearchList input[type=text]").add("#mainSearchList select").attr("disabled", true);
     });

@@ -295,6 +295,7 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.StudentData.studentID != -1) {
                     PushPageValue(result.StudentData);
+                    alert(result.StudentData.studentID);
                     $("#studentCID").html(result.Column);
                     $("#studentID").html(result.StudentData.studentID);
                     $("#LegalrepresentativeName").val(result.StudentData.fPName2);

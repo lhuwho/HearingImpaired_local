@@ -2,6 +2,7 @@
 $(document).ready(function() {
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
     $("#mainContent>div").fadeIn();
+    initPage();
 
     $(".menuTabs").click(function() {
         $(".menuTabs").css("background-image", "url(./images/bg_menutab1.jpg)");

@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function() {
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
-
+    initPage();
     $(".btnUpdate").click(function() {
         $(".btnUpdate").hide();
         $(".btnSaveUdapteData").add(".btnCancel").fadeIn();

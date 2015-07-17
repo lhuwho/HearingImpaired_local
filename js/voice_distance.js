@@ -3,7 +3,7 @@ $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
-
+    initPage();
     $(".btnUpdate").click(function() {
         $(".btnUpdate").hide();
         $(".btnSaveUdapteData").add(".btnCancel").fadeIn();

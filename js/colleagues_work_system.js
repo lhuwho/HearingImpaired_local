@@ -1,5 +1,6 @@
 ﻿var MyBase = new Base();
 $(document).ready(function() {
+initPage();
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
 

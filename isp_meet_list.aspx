@@ -16,8 +16,12 @@
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
     
+	    <script type="text/javascript" src="./js/base.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/isp_meet_list.js"></script>
+	
+			<script src="./js/jquery.pagination.js" type="text/javascript"></script>
+    <link type="text/css" href="./css/pagination.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -91,63 +95,126 @@
 			<div id="mainContent">
 			    <div style="display:block;">
 			    <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
-			    <p align="right">填寫者 <input type="text" size="10" /></p>
-			    
-                <table class="tableContact" width="780" border="0">
-                    <tr>
-		                <th colspan="2">學生名稱</th>
-		                <td colspan="6"><input id="studentName" type="text" value="" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">教師名稱</th>
-		                <td colspan="6"><input id="teacherName" type="text" value="" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">會議名稱</th>
-		                <td colspan="6"><input type="text" value="" size="50" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">會議日期／時間</th>
-		                <td colspan="6"><input class="date" type="text" value="" size="10" />／<input type="text" value="" size="10" />～<input type="text" value="" size="10" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">會議地點</th>
-		                <td colspan="6"><input type="text" value="" size="30" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">ISP執行期限</th>
-		                <td colspan="6"><input class="date" type="text" value="" size="10" />～<input class="date" type="text" value="" size="10" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">會議內容</th>
-		                <td colspan="6"><textarea cols="80" rows="10"></textarea></td>
-		            </tr>
-		            <tr>
-		                <th rowspan="2" width="80">出席人員</th>
-		                <th width="40">職稱</th>
-		                <th width="110">家長</th>
-		                <th width="110">教師</th>
-		                <th width="110">聽力師</th>
-		                <th width="110">社工</th>
-		                <th width="110">中心主管</th>
-		                <th width="110">其他專業人員</th>
-		            </tr>
-		            <tr>
-		                <th>姓名</th>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		                <td align="center"><input type="text" value="" size="10" /></td>
-		            </tr>
-		            <tr>
-		                <th colspan="2">備註</th>
-		                <td colspan="6"><textarea cols="80" rows="2"></textarea></td>
-		            </tr>
-                </table>
+			    <p align="right">填寫者 <input id="WriteName" type="text" size="10" /></p>
+                    <table id="tableContact1" class="tableContact" width="780" border="0">
+                        <tr>
+                            <th colspan="2">
+                                學生名稱
+                            </th>
+                            <td colspan="6">
+                                 <input id="studentName" type="text" value="" size="15" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                教師名稱
+                            </th>
+                            <td colspan="6">
+                                <input id="teacherName" type="text" value="" /><span id="TeacherID" class="hideClassSpan"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                會議名稱
+                            </th>
+                            <td colspan="6">
+                                <input id="ConventionName" type="text" value="" size="50" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                會議日期／時間
+                            </th>
+                            <td colspan="6">
+                                <input id="ConventionDate" class="date" type="text" value="" size="10" />／<input id="ConventionFrameTime" type="text" value=""
+                                    size="10" />～<input id="ConventionOverTime" type="text" value="" size="10" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                會議地點
+                            </th>
+                            <td colspan="6">
+                                <input id="ConventionPlace" type="text" value="" size="30" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                ISP執行期限
+                            </th>
+                            <td colspan="6">
+                                <input id="PlanExecutionFrameDate" class="date" type="text" value="" size="10" />～<input id="PlanExecutionOverDate" class="date" type="text"
+                                    value="" size="10" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                會議內容
+                            </th>
+                            <td colspan="6">
+                                <textarea id="Record" cols="80" rows="10"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" width="80">
+                                出席人員
+                            </th>
+                            <th width="40">
+                                職稱
+                            </th>
+                            <th width="110">
+                                家長
+                            </th>
+                            <th width="110">
+                                教師
+                            </th>
+                            <th width="110">
+                                聽力師
+                            </th>
+                            <th width="110">
+                                社工
+                            </th>
+                            <th width="110">
+                                中心主管
+                            </th>
+                            <th width="110">
+                                其他專業人員
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                姓名
+                            </th>
+                            <td align="center">
+                                <input id="ParticipantParent" type="text" value="" size="10" />
+                            </td>
+                            <td align="center">
+                                <input id="ParticipantTeache" type="text" value="" size="10" />
+                            </td>
+                            <td align="center">
+                                <input id="ParticipantSocialWorker" type="text" value="" size="10" />
+                            </td>
+                             <td align="center">
+                                <input id="ParticipantAudiologist" type="text" value="" size="10" />
+                            </td>
+                            <td align="center">
+                                <input id="ParticipantHead" type="text" value="" size="10" />
+                            </td>
+                             <td align="center">
+                                <input id="ParticipantProfessionals" type="text" value="" size="10" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                備註
+                            </th>
+                            <td colspan="6">
+                                <textarea id="Remark" cols="80" rows="2"></textarea>
+                            </td>
+                        </tr>
+                    </table>
 			    <p class="btnP">
-		            <button class="btnSave" type="button">儲 存</button>
+		            <button class="btnSave" onclick="Save()" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
 		            <button class="btnSaveUdapteData" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>

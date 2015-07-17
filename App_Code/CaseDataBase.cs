@@ -299,6 +299,10 @@ public class CaseDataBase
         {
             ConditionReturn += " AND NomembershipType =(@NomembershipType) ";
         }
+        //if (SearchStructure.txtAcademicYearstart != null && SearchStructure.txtAcademicYearend != null && SearchStructure.txtAcademicYearstart != DateBase && SearchStructure.txtAcademicYearend != DateBase)
+        //{
+        //    ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; // 教學管理使用 不知是否會與其他衝突
+        //}
         StaffDataBase sDB = new StaffDataBase();
         List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
         if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
@@ -348,6 +352,218 @@ public class CaseDataBase
         }
         return returnValue;
     }
+
+    private string SearchAchievementAssessmentCondition(SearchStudent SearchStructure, int type)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStructure.txtstudentName != null)
+        {
+            ConditionReturn += " AND StudentName like (@StudentName) ";
+        }
+        if (SearchStructure.txtstudentSex != null && SearchStructure.txtstudentSex != "0")
+        {
+            ConditionReturn += " AND StudentSex=(@StudentSex) ";
+        }
+        if (SearchStructure.txtbirthdaystart != null && SearchStructure.txtbirthdayend != null && SearchStructure.txtbirthdaystart != DateBase && SearchStructure.txtbirthdayend != DateBase)
+        {
+            ConditionReturn += " AND StudentBirthday BETWEEN (@sBirthdayStart) AND (@sBirthdayEnd) ";
+        }
+        if (SearchStructure.txtAcademicYearstart != null && SearchStructure.txtAcademicYearend != null )
+        {
+            ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; 
+        }
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND CaseStatu2 =" + type + " ";
+        }
+        return ConditionReturn;
+    }
+    public string[] SearchAchievementAssessmentCount(SearchStudent SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchAchievementAssessmentCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM AchievementAssessment a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);  
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@CaseStatu", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtcaseStatu);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearend);
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<SearchAchievementAssessment> SearchAchievementAssessment(int indexpage, SearchStudent SearchStructure, int type)
+    {
+
+        List<SearchAchievementAssessment> returnValue = new List<SearchAchievementAssessment>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchAchievementAssessmentCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                //string sql = " SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY StudentDatabase.StudentID DESC) " +
+                // "AS RowNum, StudentDatabase.* " +
+                // "FROM StudentDatabase WHERE isDeleted=0 " + ConditionReturn + " ) " +
+                // "AS NewTable " +
+                // "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY a.AcademicYear DESC) as RowNum , a.ID , a.AcademicYear , b.StudentName , b.StudentSex, b.StudentBirthday  ";
+                sql += " FROM AchievementAssessment a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearend);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    SearchAchievementAssessment addValue = new SearchAchievementAssessment();
+                    addValue.RowNum = dr["rownum"].ToString();
+                    addValue.txtAcademicYear = dr["AcademicYear"].ToString();
+                    addValue.ID = int.Parse(dr["ID"].ToString());
+                    addValue.txtstudentName = dr["StudentName"].ToString();
+                    addValue.txtstudentSex = int.Parse(dr["StudentSex"].ToString());
+                    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                SearchAchievementAssessment addValue = new SearchAchievementAssessment();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+
+
+    public string[] SearchCaseStudyCount(SearchStudent SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchAchievementAssessmentCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM CaseStudy a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@CaseStatu", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtcaseStatu);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<SearchAchievementAssessment> SearchCaseStudy(int indexpage, SearchStudent SearchStructure, int type)
+    {
+
+        List<SearchAchievementAssessment> returnValue = new List<SearchAchievementAssessment>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchAchievementAssessmentCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.WriteDate,'') DESC) as RowNum , a.ID , b.StudentName ,   b.StudentSex, b.StudentBirthday  ";
+                // string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.WriteDate,'') DESC) as RowNum , a.ID , b.StudentName ,  CASE (b.StudentSex) WHEN '1' THEN '男'  WHEN '2 THEN '女' END as StudentSex , b.StudentBirthday  ";
+                sql += " FROM CaseStudy a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    SearchAchievementAssessment addValue = new SearchAchievementAssessment();
+                    addValue.RowNum = dr["rownum"].ToString();
+
+                    addValue.ID = int.Parse(dr["ID"].ToString());
+                    addValue.txtstudentName = dr["StudentName"].ToString();
+                    addValue.txtstudentSex = int.Parse(dr["StudentSex"].ToString());
+                    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                SearchAchievementAssessment addValue = new SearchAchievementAssessment();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+
+
+
     public string[] SearchStudentCount(SearchStudent SearchStructure,int type)
     {
         string[] returnValue = new string[2];
@@ -774,7 +990,7 @@ public class CaseDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT * FROM StudentDatabase WHERE isDeleted=0 AND StudentID=(@ID)";
+                string sql = "SELECT * FROM StudentDatabase WHERE isDeleted=0 AND ID= @ID";////修正SQL式[  StudentID= (@ID) ] → [ ID = @ID ] by Awho
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentID);
                 SqlDataReader dr = cmd.ExecuteReader();

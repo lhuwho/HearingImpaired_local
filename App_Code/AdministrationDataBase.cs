@@ -18,7 +18,6 @@ public class AdministrationDataBase
 		//
 		// TODO: Add constructor logic here
 		//
-
 	}
     public void libraryFunction()
     {
@@ -1509,18 +1508,6 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@CreateFileDate", SqlDbType.Date).Value = (string.IsNullOrEmpty(temperatureDataSystem.Year) ? Chk.CheckStringFunction(now.Year.ToString()) : Chk.CheckStringFunction(temperatureDataSystem.Year)) + "/" + (string.IsNullOrEmpty(temperatureDataSystem.Month) ? Chk.CheckStringFunction(now.Month.ToString()) : Chk.CheckStringFunction(temperatureDataSystem.Month)) + "/" + (string.IsNullOrEmpty(temperatureDataSystem.Day) ? Chk.CheckStringFunction(now.Day.ToString()) : Chk.CheckStringFunction(temperatureDataSystem.Day));
-                //if (string.IsNullOrEmpty(temperatureDataSystem.Year))
-                //    cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Year.ToString());
-                //else
-                //    cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Year);
-                //if (string.IsNullOrEmpty(temperatureDataSystem.Month))
-                //    cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Month.ToString());
-                //else
-                //    cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Month);
-                //if (string.IsNullOrEmpty(temperatureDataSystem.Day))
-                //    cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Day.ToString());
-                //else
-                //    cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Day);
 
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
@@ -1569,6 +1556,806 @@ public class AdministrationDataBase
         }
         return returnValue;
     }
+    /**  教學管理 - 開始 **/
 
+    public List<CreaHearing_Loss_Tool> GetLossToolQuestion(int Category)
+    {
+        List<CreaHearing_Loss_Tool> returnValue = new List<CreaHearing_Loss_Tool>();
+        CreaHearing_Loss_Tool addValue = new CreaHearing_Loss_Tool();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                Sqlconn.Open();
+                string sql = "select a.SummeryID , b.Description as SummeryDescription, a.ID as QuestionID, a.Description as QuestionDescription  ,b.Category " +
+                    " from Hearing_Loss_Tool_Question a  right join Hearing_Loss_Tool_Summery b on a.SummeryID = b.ID  where a.isOpen = 'true' and b.Category = @Category ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@Category", SqlDbType.Int).Value = Category;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    addValue.QuestionID = dr["QuestionID"].ToString();
+                    addValue.SummeryID = dr["SummeryID"].ToString();
+                    addValue.QuestionDescription = dr["QuestionDescription"].ToString();
+                    addValue.SummeryDescription = dr["SummeryDescription"].ToString();
+                    addValue.Category = dr["Category"].ToString();
+                    returnValue.Add(addValue);
+                }
+
+
+                dr.Close();
+                Sqlconn.Close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        return returnValue;
+    }
+
+    public List<CreaHearing_Loss_Skill> GetLossSkillQuestion()
+    {
+        List<CreaHearing_Loss_Skill> returnValue = new List<CreaHearing_Loss_Skill>();
+        CreaHearing_Loss_Skill addValue = new CreaHearing_Loss_Skill();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                Sqlconn.Open();
+                string sql = "select * from Hearing_Loss_Listen_Skill  ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    addValue.SkillID = dr["ID"].ToString();
+                    addValue.Title = dr["Title"].ToString();
+                    addValue.SkillDescription = dr["Description"].ToString();
+
+                    returnValue.Add(addValue);
+                }
+
+
+                dr.Close();
+                Sqlconn.Close();
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        return returnValue;
+    }
+
+    public string[] UpdateHearLoss(List<UpdateHearLoss> sTemperatureData, int SID)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        deleteHearLoss(SID);
+        foreach (UpdateHearLoss atom in sTemperatureData)
+        {
+            returnValue = createHearLoss(atom,SID);
+        }
+        return returnValue;
+
+    }
+
+    public string[] createHearLoss(UpdateHearLoss temperatureDataSystem, int SID)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DateTime now = DateTime.Now;
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " DECLARE @MasterID int " +
+                " insert into Hearing_Loss_AnsMaster ( StudentID , LossDate , Tool,page) values ( @StudentID ,@LossDate, @Tool,@page) " +
+                "  select @MasterID = (select @@identity) ";
+                for (int i = 0; i < Chk.CheckStringFunction(temperatureDataSystem.anser).Split('|').Length; i++)
+                {
+                    sql += " insert into Hearing_Loss_AnsDetail (MasterID , Anser) values (@MasterID , @Anser"+i.ToString() + ") ";
+                }
+                  
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = SID;
+                string date = temperatureDataSystem.Date;
+                cmd.Parameters.Add("@LossDate", SqlDbType.NVarChar).Value = date;
+                cmd.Parameters.Add("@Tool", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(temperatureDataSystem.tool);
+                cmd.Parameters.Add("@page", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(temperatureDataSystem.page);
+                for (int i = 0; i < Chk.CheckStringFunction(temperatureDataSystem.anser).Split('|').Length ; i++)
+                {
+                    cmd.Parameters.Add("@Anser" + i.ToString() , SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.anser.Split('|').GetValue(i).ToString());
+                }
+
+
+                returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public string[] deleteHearLoss(int SID)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DateTime now = DateTime.Now;
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+               
+                Sqlconn.Open();
+                string sql = "delete Hearing_Loss_AnsDetail where MasterID in ( select ID from Hearing_Loss_AnsMaster where StudentID = @StudentID)";
+                sql += " delete Hearing_Loss_AnsMaster where StudentID = @StudentID ";//SQL重新整理 提高流暢度 **有題目刪減遇上額外問題(待處理)** BY AWho 
+               
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = SID;
+                cmd.ExecuteNonQuery();
+                //SqlDataReader dr = cmd.ExecuteReader();
+                //while (dr.Read())
+                //{
+                //    using (SqlConnection Sqlconn2 = new SqlConnection(Base.GetConnString()))
+                //    {
+                //        Sqlconn2.Open();
+                //        string sql2 = "DELETE FROM Hearing_Loss_AnsDetail where (MasterID=@MasterID)";
+                //        SqlCommand cmd2 = new SqlCommand(sql2, Sqlconn2);
+                //        cmd2.Parameters.Add("@MasterID", SqlDbType.Int).Value = int.Parse(dr["ID"].ToString());
+                //        cmd2.ExecuteNonQuery();
+                //    }
+                //}
+
+                //dr.Close();
+
+                //string sql3 = "DELETE FROM Hearing_Loss_AnsMaster where (StudentID=@StudentID)";
+                //SqlCommand cmd3 = new SqlCommand(sql3, Sqlconn);
+                //cmd3.Parameters.Add("@StudentID", SqlDbType.Int).Value = SID;
+                //cmd3.ExecuteNonQuery();
+
+
+            
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+    public List<UpdateHearLoss> searchHearLossDataBase(int SID, int page)
+    {
+        List<UpdateHearLoss> returnvalue= new List<UpdateHearLoss>();
+        UpdateHearLoss temp = new UpdateHearLoss();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+
+                Sqlconn.Open();
+                string sql = "select * from Hearing_Loss_AnsMaster where StudentID=@StudentID and page = @page ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = SID;
+                cmd.Parameters.Add("@page", SqlDbType.Int).Value = page;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+
+                    temp.Date = dr["LossDate"].ToString();
+                    temp.tool = dr["Tool"].ToString();
+                    temp.page = dr["page"].ToString();
+                    using (SqlConnection Sqlconn2 = new SqlConnection(Base.GetConnString()))
+                    {
+                        Sqlconn2.Open();
+                        string sql2 = "select Anser from Hearing_Loss_AnsDetail where MasterID=@MasterID"; 
+                        SqlCommand cmd2 = new SqlCommand(sql2, Sqlconn2);
+                        cmd2.Parameters.Add("@MasterID", SqlDbType.Int).Value = int.Parse(dr["ID"].ToString());
+                        SqlDataReader dr2 = cmd2.ExecuteReader();
+                        int counter = 0;
+                        temp.anser = "";// 不清空會造成讀取錯誤
+                        while (dr2.Read())
+                        {
+                            if (counter > 0) {
+                               
+                                temp.anser += "|";
+                            }
+                            counter++;
+                            temp.anser += dr2["Anser"].ToString();
+                        }
+                        dr2.Close();
+                        Sqlconn2.Close();
+                    }
+                    returnvalue.Add(temp);
+                    
+                }
+
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        return returnvalue;
+    }
+
+
+
+    public List<SearchStudentResult> ShowStudent(int SID)//顯示學生姓名(有點多餘)
+    {
+        List<SearchStudentResult> returnvalue = new List<SearchStudentResult>();
+        SearchStudentResult temp = new SearchStudentResult();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                Sqlconn.Open();
+                string sql = "select StudentName from StudentDatabase where ID=@StudentID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = SID;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    //temp.txtstudentSex = int.Parse(dr["StudentSex"].ToString());
+                    temp.txtstudentName = dr["StudentName"].ToString();
+                    //temp.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    returnvalue.Add(temp);
+                }
+
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        return returnvalue;
+    }
+
+    public List<AchievementAssessment> CreatAchievementAssessment(AchievementAssessment sTemperatureData)
+    {
+        List<AchievementAssessment> returnValue = new List<AchievementAssessment>();
+        AchievementAssessment temp = new AchievementAssessment();
+        DataBase Base = new DataBase();
+        string strSql = "";
+        string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                   // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                    break;
+                case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    //cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Date).Value = DateTime.Now.ToLongDateString();
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " insert into  AchievementAssessment ( " + strSql + ")values(" + strSqlPara + ") ";
+                sql += " select @@identity as id ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        case "ID":
+                        case "Unit":
+                            // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                            break;
+                        case "CreateFileBy":
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    temp.ID = dr["id"].ToString();
+                }
+
+            }
+            catch (Exception e)
+            {
+                //temp.ID = e.Message.ToString();
+            }
+            Sqlconn.Close();
+        }
+        
+        //temp.ID = strSql;
+        returnValue.Add(temp);
+        return returnValue;
+    }
+
+    public List<AchievementAssessmentLoad> ShowAchievementAssessment(int ID)
+    {
+        string strSql = "";
+        List<AchievementAssessmentLoad> returnvalue = new List<AchievementAssessmentLoad>();
+        AchievementAssessmentLoad temp = new AchievementAssessmentLoad();
+        AchievementAssessment sTemperatureData = new AchievementAssessment();
+
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                    break;
+                case "Intelligence_Date":
+                case "AuditorySkills_Date":
+                case "Vocabulary_Date":
+                case "Vocabulary1_Date":
+                case "Language1_Date":
+                case "Language2_Date":
+                case "Language3_Date":
+
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "convert(varchar, isnull(convert(date, a." + fldInfo.Name + ",1),'1912'), 111) as " + fldInfo.Name;
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "a." + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                Sqlconn.Open();
+                string sql = "select  b.studentname , " + strSql + " from AchievementAssessment a left join studentDatabase b on a.studentid = b.id  where a.ID=@ID and  isnull(a.isDeleted,0) = 0 ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    temp.IDname = "studentName";
+                    temp.ThisValue = dr["studentName"].ToString();
+                    returnvalue.Add(temp);
+
+                    foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                    {
+
+                        switch (fldInfo.Name)
+                        {
+                            case "ID":
+                            case "Unit":
+                                break;
+                            case "Intelligence_Date":
+                            case "AuditorySkills_Date":
+                            case "Vocabulary_Date":
+                            case "Vocabulary1_Date":
+                            case "Language1_Date":
+                            case "Language2_Date":
+                            case "Language3_Date":
+                                temp.IDname = fldInfo.Name;
+                                temp.ThisValue = Convert.ToDateTime(dr[fldInfo.Name].ToString()).AddYears(-1911).ToShortDateString().Remove(0, 1);
+                                returnvalue.Add(temp);
+                                break;
+                            default:
+                                string namee = fldInfo.Name;
+                                string namee2 = dr[fldInfo.Name].ToString();
+                                temp.IDname = fldInfo.Name;
+                                temp.ThisValue = dr[fldInfo.Name].ToString();
+                                returnvalue.Add(temp);
+                                break;
+                        }
+                    }
+                    
+                }
+
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+            }
+        }
+
+        return returnvalue;
+    }
+
+    public List<AchievementAssessment>UpdateAchievementAssessment(AchievementAssessment sTemperatureData)
+    {
+        List<AchievementAssessment> returnValue = new List<AchievementAssessment>();
+        AchievementAssessment temp = new AchievementAssessment();
+        DataBase Base = new DataBase();
+        string strSql = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+
+            switch (fldInfo.Name)
+            {
+                case "CreateFileBy":
+                case "CreateFileDate":
+                case "ID":
+                case "Unit":
+                    // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                    break;
+                //case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + "=getdate()" ;
+                   // strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    //cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Date).Value = DateTime.Now.ToLongDateString();
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + "=@" + fldInfo.Name;
+                    //strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " update   AchievementAssessment set  " + strSql + " where id=@ID ";
+                //sql += " select @@identity as id ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        //case "ID":
+                        case "CreateFileDate":
+                        case "Unit":
+                            // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                            break;
+
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                            }
+                            break;
+                    }
+                }
+                cmd.ExecuteNonQuery();
+                temp.ID = sTemperatureData.ID;
+
+                //SqlDataReader dr = cmd.ExecuteReader();
+                //if (dr.Read())
+                //{
+                //    temp.ID = dr["id"].ToString();
+                //}
+
+            }
+            catch (Exception e)
+            {
+                //temp.ID = e.Message.ToString();
+            }
+            Sqlconn.Close();
+        }
+
+        //temp.ID = strSql;
+        returnValue.Add(temp);
+        return returnValue;
+    }
+
+    public List<CaseStudy> CreatCaseStudy(CaseStudy sTemperatureData)
+    {
+        List<CaseStudy> returnValue = new List<CaseStudy>();
+
+        CaseStudy temp = new CaseStudy();
+        DataBase Base = new DataBase();
+        string strSql = "";
+        string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                    break;
+                case "isDeleted":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "0 " ;
+                    break;
+                case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " insert into  CaseStudy ( " + strSql + ")values(" + strSqlPara + ") ";
+                sql += " select @@identity as id ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        case "ID":
+                        case "Unit":
+                            // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                            break;
+                        case "CreateFileBy":
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    temp.ID = dr["id"].ToString();
+                }
+
+            }
+            catch (Exception e)
+            {
+                string ex = e.Message.ToString();
+            }
+            Sqlconn.Close();
+        }
+        returnValue.Add(temp);
+        return returnValue;
+    }
+
+    public List<AchievementAssessmentLoad> ShowCaseStudy(int ID)
+    {
+        string strSql = "";
+        List<AchievementAssessmentLoad> returnvalue = new List<AchievementAssessmentLoad>();
+        AchievementAssessmentLoad temp = new AchievementAssessmentLoad();
+        CaseStudy sTemperatureData = new CaseStudy();
+
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                    break;
+                case "WriteDate":
+                case "RecordedDateTime":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "convert(varchar, isnull(convert(date, a." + fldInfo.Name + ",1),'1912'), 111) as " + fldInfo.Name;
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "a." + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                Sqlconn.Open();
+                string sql = "select  b.studentname ,convert(varchar, isnull(convert(date, b.studentbirthday ,1),'1912'), 23) as studentbirthday , " + strSql + " from CaseStudy a left join studentDatabase b on a.studentid = b.id  where a.ID=@ID and  isnull(a.isDeleted,0) = 0 ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    temp.IDname = "studentName";
+                    temp.ThisValue = dr["studentName"].ToString();
+                    returnvalue.Add(temp);
+                    temp.IDname = "studentbirthday";
+                    temp.ThisValue = dr["studentbirthday"].ToString();
+                    returnvalue.Add(temp);
+
+                    foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                    {
+
+                        switch (fldInfo.Name)
+                        {
+                            case "ID":
+                            case "Unit":
+                                break;
+                            case "WriteDate":
+                            case "RecordedDateTime":
+                                temp.IDname = fldInfo.Name;
+                                temp.ThisValue = Convert.ToDateTime(dr[fldInfo.Name].ToString()).AddYears(-1911).ToShortDateString().Remove(0, 1);
+                                returnvalue.Add(temp);
+                                break;
+                            default:
+                                string namee = fldInfo.Name;
+                                string namee2 = dr[fldInfo.Name].ToString();
+                                temp.IDname = fldInfo.Name;
+                                temp.ThisValue = dr[fldInfo.Name].ToString();
+                                returnvalue.Add(temp);
+                                break;
+                        }
+                    }
+
+                }
+
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+            }
+        }
+
+        return returnvalue;
+    }
+
+    public List<CaseStudy> UpdateCaseStudy(CaseStudy sTemperatureData)
+    {
+        List<CaseStudy> returnValue = new List<CaseStudy>();
+        CaseStudy temp = new CaseStudy();
+        DataBase Base = new DataBase();
+        string strSql = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+
+            switch (fldInfo.Name)
+            {
+                case "CreateFileBy":
+                case "CreateFileDate":
+                case "ID":
+                case "Unit":
+                    // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                    break;
+                //case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + "=getdate()";
+                    // strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    //cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Date).Value = DateTime.Now.ToLongDateString();
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + "=@" + fldInfo.Name;
+                    //strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " update   CaseStudy set  " + strSql + " where id=@ID ";
+                //sql += " select @@identity as id ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        //case "ID":
+                        case "CreateFileDate":
+                        case "Unit":
+                            // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
+                            break;
+
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                            }
+                            break;
+                    }
+                }
+                cmd.ExecuteNonQuery();
+                temp.ID = sTemperatureData.ID;
+            }
+            catch (Exception e)
+            {
+                string a = e.Message.ToString();
+            }
+            Sqlconn.Close();
+        }
+        returnValue.Add(temp);
+        return returnValue;
+    }
+
+
+    /**  教學管理 - 結束 **/
 
 }

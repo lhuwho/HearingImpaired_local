@@ -50,6 +50,8 @@ public struct SearchStudent
     public string txtjoindayend;
     public string txtjoindaystart;
     public string txtnomembershipType;
+    public string txtAcademicYearstart;//Add by Awho(教學管理搜尋使用)
+    public string txtAcademicYearend;//Add by Awho(教學管理搜尋使用)
 }
 public struct SearchStudentService
 {
@@ -2950,4 +2952,250 @@ public struct StudentDataBasic
     public string checkNo;
     public string errorMsg;
 }
+
+/*****教學管理 開始 *******/
+
+public struct CreaHearing_Loss_Tool
+{
+    public string SummeryID;
+    public string SummeryDescription;
+    public string QuestionID;
+    public string QuestionDescription;
+    public string Category;
+    
+}
+
+public struct CreaHearing_Loss_Skill
+{
+    public string SkillID;
+    public string Title;
+    public string SkillDescription;
+
+}
+
+public struct UpdateHearLoss
+{
+    
+    public string Date;
+    public string tool;
+    public string anser;
+    public string page;
+}
+
+public struct AchievementAssessment //成就評估(個案評估)
+{
+    public string ID;
+    public string Unit;
+    public string StudentID;
+    public string AcademicYear;
+    public string AssessedTheReasons;
+    public string AssessedTheReasonsText;
+    public string LAidsHearing;
+    public string RAidsHearing;
+    public string StudentAge;
+    public string StudentMonth;
+    public string Intelligence_Type;
+    public string Intelligence_Date;
+    public string Intelligence_Rater;
+    public string Intelligence_StudentAge;
+    public string Intelligence_RawScore;
+    public string Intelligence_ScorePer;
+    public string Intelligence_Grade;
+    public string Intelligence_Result;
+    public string AuditorySkills_Date;
+    public string AuditorySkills_Rater;
+    public string AuditorySkills_Text1;
+    public string AuditorySkills_Text2;
+    public string AuditorySkills_Summary;
+    public string Vocabulary_Type;
+    public string Vocabulary_Date;
+    public string Vocabulary_Rater;
+    public string Vocabulary_StudentAge;
+    public string Vocabulary_RawScore;
+    public string Vocabulary_ScorePer;
+    public string Vocabulary_Result;
+    public string Vocabulary1_Date;
+    public string Vocabulary1_Rater;
+    public string Vocabulary1_StudentAge;
+    public string Vocabulary1_RawScore1;
+    public string Vocabulary1_Score1;
+    public string Vocabulary1_ScorePer1;
+    public string Vocabulary1_Grade;
+    public string Vocabulary1_RawScore2;
+    public string Vocabulary1_Score2;
+    public string Vocabulary1_ScorePer2;
+    public string Vocabulary1_Grade2;
+    public string Vocabulary1_RawScore3;
+    public string Vocabulary1_Score3;
+    public string Vocabulary1_ScorePer3;
+    public string Vocabulary1_Grade3;
+    public string Vocabulary1_RawScore4;
+    public string Vocabulary1_Score4;
+    public string Vocabulary1_ScorePer4;
+    public string Vocabulary1_RawScore5;
+    public string Vocabulary1_Score5;
+    public string Vocabulary1_ScorePer5;
+    public string Vocabulary1_RawScore6;
+    public string Vocabulary1_Score6;
+    public string Vocabulary1_ScorePer6;
+    public string Vocabulary1_RawScore7;
+    public string Vocabulary1_Score7;
+    public string Vocabulary1_ScorePer7;
+    public string Vocabulary1_Text;
+    public string Vocabulary1_Summary;
+    public string Language1_Date;
+    public string Language1_Rater;
+    public string Language1_StudentMonth;
+    public string Language1_RawScore;
+    public string Language1_ScorePer;
+    public string Language1_Result;
+    public string Language1_Summary;
+    public string Language2_Date;
+    public string Language2_Rater;
+    public string Language2_StudentAge;
+    public string Language2_RawScore1;
+    public string Language2_ScorePer1;
+    public string Language2_Grade1;
+    public string Language2_RawScore2;
+    public string Language2_ScorePer2;
+    public string Language2_Grade2;
+    public string Language2_RawScore3;
+    public string Language2_ScorePer3;
+    public string Language2_Grade3;
+    public string Language2_Summary;
+    public string Language3_Date;
+    public string Language3_Rater;
+    public string Language3_StudentAge1;
+    public string Language3_RawScore1;
+    public string Language3_ScorePer1;
+    public string Language3_Degree1;
+    public string Language3_Grade1;
+    public string Language3_RawScore2;
+    public string Language3_ScorePer2;
+    public string Language3_Degree2;
+    public string Language3_Grade2;
+    public string Language3_RawScore3;
+    public string Language3_ScorePer3;
+    public string Language3_Degree3;
+    public string Language3_Grade3;
+    public string Language3_Summary1;
+    public string Language3_Text;
+    public string Summary;
+    public string CreateFileBy;
+    public DateTime CreateFileDate;
+    public string UpFileBy;
+    public string UpFileDate;
+    public string isDeleted;
+
+
+
+}
+
+public struct SearchAchievementAssessment
+{
+    public string RowNum;
+    public string txtAcademicYear;
+    public Int64 ID;
+    public string txtstudentID;
+    public string txtstudentName;
+    public int txtstudentSex;
+    public DateTime txtstudentbirthday;
+    public string checkNo;
+    public string errorMsg;
+}
+
+
+public struct AchievementAssessmentLoad //成就評估(個案評估)--讀取使用 by AWho 
+{
+    public string IDname;
+    public string ThisValue;
+}
+
+public struct CaseStudy
+{
+    public string ID;
+    public string Unit;
+    public string StudentID;
+    public string WriteName;
+    public string WriteDate;
+    public string TeacherScore1;
+    public string ParentScore1;
+    public string TeacherScore2;
+    public string ParentScore2;
+    public string TeacherScore3;
+    public string ParentScore3;
+    public string TeacherScore4;
+    public string ParentScore4;
+    public string TeacherScore5;
+    public string ParentScore5;
+    public string TeacherScore6;
+    public string ParentScore6;
+    public string TeacherScore7;
+    public string ParentScore7;
+    public string TeacherScore8;
+    public string ParentScore8;
+    public string TeacherScore9;
+    public string ParentScore9;
+    public string TeacherScore10;
+    public string ParentScore10;
+    public string TeacherScore11;
+    public string ParentScore11;
+    public string TeacheRemark;
+    public string ParentRemark;
+    public string OtherRemark;
+    public string WriteName1;
+    public string RecordedBy;
+    public string RecordedDateTime;
+    public string Recorded;
+    public string Title1;
+    public string Participants1;
+    public string Title2;
+    public string Participants2;
+    public string Title3;
+    public string Participants3;
+    public string Title4;
+    public string Participants4;
+    public string Title5;
+    public string Participants5;
+    public string Title6;
+    public string Participants6;
+    public string CreateFileBy;
+    public string CreateFileDate;
+    public string UpFileBy;
+    public string UpFileDate;
+    public string isDeleted;
+
+
+}
+
+public struct CaseISPRecord
+{
+    public string ID;
+    public string StudentID;
+    public string WriteName;
+    public string TeacherID;
+    public string ConventionName;
+    public string ConventionDate;
+    public string ConventionFrameTime;
+    public string ConventionOverTime;
+    public string ConventionPlace;
+    public string PlanExecutionFrameDate;
+    public string PlanExecutionOverDate;
+    public string Record;
+    public string ParticipantParent;
+    public string ParticipantTeache;
+    public string ParticipantSocialWorker;
+    public string ParticipantAudiologist;
+    public string ParticipantHead;
+    public string ParticipantProfessionals;
+    public string Remark;
+    public string CreateFileBy;
+    public string CreateFileDate;
+    public string UpFileBy;
+    public string UpFileDate;
+    public string isDeleted;
+}
+
+
+/*****教學管理 結束 *******/
 

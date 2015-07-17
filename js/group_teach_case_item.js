@@ -3,7 +3,7 @@ var _avtnumID = 0;
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
-
+    initPage();
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
 
     $(".btnUpdate").click(function() {

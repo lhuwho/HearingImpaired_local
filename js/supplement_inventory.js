@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function() {
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
-
+    initPage();
     set_ddl_date2(1912);
 
     $(".btnUpdate").click(function() {

@@ -18,6 +18,10 @@
     <script type="text/javascript" src="./js/base.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/hearing_loss_preschool.js"></script>
+
+
+    <script src="./js/jquery.pagination.js" type="text/javascript"></script>
+    <link type="text/css" href="./css/pagination.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,7 +43,7 @@
 			
 			<div id="mainMenuList">
 			    <div id="btnSearch" class="menuTabs2">搜尋</div>
-			    <a href="./hearing_loss_preschool.aspx?act=1" target="_blank"><div id="btnInsert" class="menuTabs2">新增</div></a>
+			    <%--<a href="./hearing_loss_preschool.aspx?act=1" target="_blank"><div id="btnInsert" class="menuTabs2">新增</div></a>--%>
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
@@ -73,9 +77,9 @@
 			        <table class="tableList" width="780" border="0">
 			            <thead>
 			                <tr>
-			                    <th width="100">排序</th>
-			                    <th width="100">年度</th>
-			                    <th width="120">授課日期</th>
+			                    <th width="100">服務使用者編號</th>
+			   <%--                 <th width="100">年度</th>
+			                    <th width="120">授課日期</th>--%>
 			                    <th width="120">學生姓名</th>
 			                    <th width="120">出生日期</th>
 			                    <th width="120">年齡</th>
@@ -103,25 +107,18 @@
 			                </tr>
 			            </tbody>
 			        </table>
+			         <div id="mainPagination" class="pagination"></div>
 			    </div>
+			    
 			</div>
 		    <div id="mainContentIndex" style="display:none;"></div>
 			<div id="main">
-			<div id="mainMenuList2">
-			    <div id="item1" class="menuTabs">助聽輔具管理</div>
-			    <div id="item2" class="menuTabs">聽覺技巧</div>
-			    <div id="item3" class="menuTabs">認知</div>
-			    <div id="item4" class="menuTabs">表達性語言</div>
-			</div>
-			<div id="mainContent">
-			    <div id="item1Content">
-			    <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
-			    <table class="tableText" width="780" border="0">
+			<table class="tableText" width="780" border="0">
 			        <tr>
 			            <th width="150">學生姓名</th>
 			            <td><input id="studentName" type="text" name="name" /></td>
 			        </tr>
-			         <tr>
+<%--			         <tr>
 			            <th>性　　別</th>
 			            <td><label><input type="radio" name="sex" value="male" /> 男</label>　　
 			                <label><input type="radio" name="sex" value="female" /> 女</label>
@@ -133,9 +130,20 @@
                             <select id="month_ddl1"><option value="-1">月</option></select>
                             <select id="day_ddl1"><option value="-1">日</option></select>
 		                </td>
-		            </tr>
+		            </tr>--%>
+		            <div id="first1" style="display:none;" ></div>
 			    </table>
-			    <table class="tableContact" width="780" border="0">
+			<div id="mainMenuList2">
+			    <div id="item1"  onclick="goNext(0)" class="menuTabs">助聽輔具管理</div>
+			    <div id="item2" onclick="goNext(1)" class="menuTabs">聽覺技巧</div>
+			    <div id="item3" onclick="goNext(2)" class="menuTabs">認知</div>
+			    <div id="item4" onclick="goNext(3)" class="menuTabs">表達性語言</div>
+			</div>
+			<div id="mainContent">
+			    <div id="item1Content">
+			    <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
+			    
+			    <table id="tableContact1" class="tableContact" width="780" border="0">
 			        <thead><tr>
 			            <th width="20" rowspan="3">綱要</th>
 			            <th rowspan="3" width="220">學習目標</th>
@@ -204,12 +212,12 @@
 			    <p class="btnP">
 		            <button class="btnSave" type="button" onclick="goNext(1)">下一頁</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" type="button" onclick="saveToolAns()">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 		        
 		        <div id="item2Content">
-			        <table class="tableContact" width="780" border="0">
+			        <table id="tableContact2" class="tableContact" width="780" border="0">
 			            <thead><tr>
 			                <th width="150" rowspan="2" colspan="2">測驗項目</th>
 			                <th colspan="8">評量日期 / 結果</th>
@@ -261,12 +269,13 @@
 			        <p class="btnP">
 		                <button class="btnSave" type="button" onclick="goNext(2)">下一頁</button>
 		                <button class="btnUpdate" type="button">更 新</button>
-		                <button class="btnSaveUdapteData" type="button">存 檔</button>
+		                 <button class="btnSaveUdapteData" type="button" onclick="saveToolAns()">存 檔</button>
+		               <%-- <button class="btnSaveUdapteData" type="button" onclick="saveSkillAns()">存 檔</button>--%>
 		                <button class="btnCancel" type="button">取 消</button>
 		            </p>
 		        </div>
 		        <div id="item3Content">
-                    <table class="tableContact" width="780" border="0">
+                    <table id="tableContact3" class="tableContact" width="780" border="0">
                         <thead><tr>
                             <th width="20">綱要</th>
 			                <th width="200">學習目標</th>
@@ -340,12 +349,12 @@
 			        <p class="btnP">
 		                <button class="btnSave" type="button" onclick="goNext(3)">下一頁</button>
 		                <button class="btnUpdate" type="button">更 新</button>
-		                <button class="btnSaveUdapteData" type="button">存 檔</button>
+		                 <button class="btnSaveUdapteData" type="button" onclick="saveToolAns()">存 檔</button>
 		                <button class="btnCancel" type="button">取 消</button>
 		            </p>
 		        </div>
 		        <div id="item4Content">
-		            <table class="tableContact" width="780" border="0">
+		            <table id="tableContact4" class="tableContact" width="780" border="0">
 			            <thead><tr>
 			                <th width="20" >綱要</th>
 			                <th width="200">學習目標</th>
@@ -417,9 +426,9 @@
 			            </tr>
 			         </table> 
 			        <p class="btnP">
-		                <button class="btnSave" type="button" onclick="">儲 存</button>
+		                <button class="btnSave" type="button" onclick="save()">儲 存</button>
 		                <button class="btnUpdate" type="button">更 新</button>
-		                <button class="btnSaveUdapteData" type="button">存 檔</button>
+		                <button class="btnSaveUdapteData" type="button" onclick="saveToolAns()">存 檔</button>
 		                <button class="btnCancel" type="button">取 消</button>
 		            </p>
 		        </div>

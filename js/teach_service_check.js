@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function() {
+initPage();
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
 
     $(".btnUpdate").click(function() {

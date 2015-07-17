@@ -2,6 +2,7 @@
     this.getTextValueBase = function(htmltableName, compareObj) {
         var obj = {};
         if (htmltableName.length == 0) {
+           
             return obj;
         }
         $("#" + htmltableName + " input").add("#" + htmltableName + " textarea").each(function(n) {

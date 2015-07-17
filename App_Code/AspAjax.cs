@@ -710,7 +710,6 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase tDB = new TeachDataBase();
         return tDB.SearchClassDataBase(index, cID, cName, cUnit);
     }
-
     [WebMethod]
     public List<string> SearchCourseDataBaseCount(int cID, string cName, int cUnit)
     {
@@ -743,6 +742,199 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase tDB = new TeachDataBase();
         return tDB.getCoursePlan(CPTID);
     }
+
+    [WebMethod]
+    public List<CreaHearing_Loss_Tool> GetLossToolQuestion(int Category)//學前聽損幼兒教育課程檢核 Q1
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.GetLossToolQuestion(Category);
+        }
+        return null;
+    }
+    [WebMethod]
+    public List<CreaHearing_Loss_Skill> GetLossSkillQuestion()//學前聽損幼兒教育課程檢核 Q2
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.GetLossSkillQuestion();
+        }
+        return null;
+    }
+
+    [WebMethod]
+    public string[] updateHearLossDataBase(List<UpdateHearLoss> sTemperatureData ,int SID)//學前聽損幼兒教育課程檢核 存檔
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.UpdateHearLoss(sTemperatureData,SID);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+
+    [WebMethod]
+    public List<UpdateHearLoss> searchHearLossDataBase(int SID,int page)//學前聽損幼兒教育課程檢核 search by StudentID Aaron
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.searchHearLossDataBase(SID,page);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public List<SearchStudentResult> ShowStudent(int SID)//學前聽損幼兒教育課程檢核 顯示學生資料 AWho
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.ShowStudent(SID);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public List<AchievementAssessment> CreatAchievementAssessment(AchievementAssessment sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.CreatAchievementAssessment(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public string[] SearchAchievementAssessmentCount(SearchStudent SearchStructure)
+    {
+        CaseDataBase SDB = new CaseDataBase();
+        if (int.Parse(SDB._StaffhaveRoles[3]) == 1)
+        {
+            return SDB.SearchAchievementAssessmentCount(SearchStructure, 1);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+    [WebMethod]
+    public List<SearchAchievementAssessment> SearchAchievementAssessment(int index, SearchStudent SearchStructure)
+    {
+        CaseDataBase SDB = new CaseDataBase();
+        return SDB.SearchAchievementAssessment(index, SearchStructure, 0);
+    }
+    [WebMethod]
+    public List<AchievementAssessmentLoad> ShowAchievementAssessment(int ID)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.ShowAchievementAssessment(ID);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public List<AchievementAssessment> UpdateAchievementAssessment(AchievementAssessment sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.UpdateAchievementAssessment(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    [WebMethod]
+    public List<CaseStudy> CreatCaseStudy(CaseStudy sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.CreatCaseStudy(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public string[] SearchCaseStudyCount(SearchStudent SearchStructure)
+    {
+        CaseDataBase SDB = new CaseDataBase();
+        if (int.Parse(SDB._StaffhaveRoles[3]) == 1)
+        {
+            return SDB.SearchCaseStudyCount(SearchStructure, 1);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+    [WebMethod]
+    public List<SearchAchievementAssessment> SearchCaseStudy(int index, SearchStudent SearchStructure)
+    {
+        CaseDataBase SDB = new CaseDataBase();
+        return SDB.SearchCaseStudy(index, SearchStructure, 0);
+    }
+    [WebMethod]
+    public List<AchievementAssessmentLoad> ShowCaseStudy(int ID)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.ShowCaseStudy(ID);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public List<CaseStudy> UpdateCaseStudy(CaseStudy sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.UpdateCaseStudy(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
 
     /*Staff****************************************************************************************/
     [WebMethod]

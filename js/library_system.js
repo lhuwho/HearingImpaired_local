@@ -10,7 +10,7 @@ var _borrowerStatus = new Array("", "員工", "學生");
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
-
+    initPage();
     $("#gosrhpeopleID").add("#bookCode").click(function() {
         $(this).select();
     });

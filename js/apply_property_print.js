@@ -1,5 +1,6 @@
 ﻿var _money = new Array("零", "壹", "貳", "參", "肆", "伍", "陸", "柒", "捌", "玖");
 $(document).ready(function() {
+initPage();
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
     //$("#container").hide();

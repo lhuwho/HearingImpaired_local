@@ -3,7 +3,7 @@ var courseArray = new Array("認知語言溝通", "情境活動", "故事奶奶�
 
 $(document).ready(function() {
     $("#main").fadeIn();
-
+    initPage();
     var options = {
         height: 650,
         width: 780,
