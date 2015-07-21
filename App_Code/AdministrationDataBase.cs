@@ -2675,7 +2675,6 @@ public class AdministrationDataBase
         return returnvalue;
     }
 
-
     public List<CaseISPRecord> UpdateCaseISPRecord(CaseISPRecord sTemperatureData)
     {
         List<CaseISPRecord> returnValue = new List<CaseISPRecord>();
@@ -2755,5 +2754,372 @@ public class AdministrationDataBase
         returnValue.Add(temp);
         return returnValue;
     }
+
+    public string[] CreatVoiceDistanceDatabase(List<VoiceDistance> sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                string sql = "  DECLARE @ID int;  DECLARE @MasterID int; insert into VoiceDistance (studentID,AcademicYear,AcademicTerm) values( @studentID , @AcademicYear,@AcademicTerm) ";
+                sql += "  select @ID = (select @@identity) ";
+                sql += " insert into VoiceDistanceMaster ( VDid,date,remark ,ListOrder,up1,up2 ,up3 ,up4,up5 ) values( @ID,@date,@remark ,@ListOrder,@up1,@up2 ,@up3 ,@up4,@up5) ";
+                sql += "  select @MasterID = (select @@identity) ";
+                for (int i = 0; i < sTemperatureData.Count; i++) {
+                    sql += "insert into VoiceDistanceDetail (VDMid,Question,A1,A2,A3,A4,A5,Rows)values(@MasterID,@Question" + i.ToString() + ",@A1" + i.ToString() + ",@A2" + i.ToString() + ",@A3" + i.ToString() + ",@A4" + i.ToString() + ",@A5" + i.ToString() + ","+(i+1).ToString()+")";
+                }
+                sql += " select @ID as ID ";
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].StudentID.ToString());
+                cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicYear.ToString());
+                cmd.Parameters.Add("@AcademicTerm", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicTerm.ToString());
+                cmd.Parameters.Add("@date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction( sTemperatureData[0].Date.AddYears(1911).ToShortDateString());
+                cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].remark.ToString());
+                cmd.Parameters.Add("@ListOrder", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ListOrder.ToString());
+                for (int i = 0; i < sTemperatureData[0].up.Split('|').Length; i++)
+                {
+                    cmd.Parameters.Add("@up" + (i + 1).ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction( sTemperatureData[0].up.Split('|').GetValue(i).ToString());
+                }
+                for (int i = 0; i < sTemperatureData.Count; i++)
+                {
+                    cmd.Parameters.Add("@Question" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].Question.ToString());
+                    for (int j = 0; j < sTemperatureData[0].Anser.Split('|').Length; j++)
+                    {
+                        cmd.Parameters.Add("@A" + (j + 1).ToString() + i.ToString(), SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[i].Anser.Split('|').GetValue(j).ToString());
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                   returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+
+    private string SearchVoiceDistanceCondition(SearchStudent SearchStructure, int type)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStructure.txtstudentID != null)
+        {
+            ConditionReturn += " AND StudentID=(@StudentID) ";
+        }
+        if (SearchStructure.txtstudentName != null)
+        {
+            ConditionReturn += " AND StudentName like (@StudentName) ";
+        }
+        if (SearchStructure.txtstudentSex != null && SearchStructure.txtstudentSex != "0")
+        {
+            ConditionReturn += " AND StudentSex=(@StudentSex) ";
+        }
+        if (SearchStructure.txtbirthdaystart != null && SearchStructure.txtbirthdayend != null && SearchStructure.txtbirthdaystart != DateBase && SearchStructure.txtbirthdayend != DateBase)
+        {
+            ConditionReturn += " AND StudentBirthday BETWEEN (@sBirthdayStart) AND (@sBirthdayEnd) ";
+        }
+        if (SearchStructure.txtAcademicYearstart != null && SearchStructure.txtAcademicYearend != null && SearchStructure.txtAcademicYearstart != DateBase && SearchStructure.txtAcademicYearend != DateBase)
+        {
+            ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; // 教學管理使用 不知是否會與其他衝突
+        }
+        return ConditionReturn;
+    }
+
+    public string[] SearchVoiceDistanceCount(SearchStudent SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchVoiceDistanceCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM VoiceDistance a left join studentDatabase b on a.studentid = b.id   WHERE 1=1 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+             
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearend);
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<VoiceDistance> SearchVoiceDistance(int indexpage, SearchStudent SearchStructure, int type)
+    {
+
+        List<VoiceDistance> returnValue = new List<VoiceDistance>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchVoiceDistanceCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.AcademicYear,'') DESC) as RowNum ";
+                sql += " ,a.id, a.AcademicYear,a.AcademicTerm , b.StudentName , b.StudentBirthday ";
+                sql += " FROM VoiceDistance a left join studentDatabase b on a.studentid = b.id  ";
+                sql += " WHERE 1=1 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearend);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    VoiceDistance addValue = new VoiceDistance();
+                    addValue.RowNum = dr["rownum"].ToString();
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.StudentName = dr["StudentName"].ToString();
+                    addValue.AcademicYear = dr["AcademicYear"].ToString();
+                    addValue.AcademicTerm = dr["AcademicTerm"].ToString();
+                    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                VoiceDistance addValue = new VoiceDistance();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+    public string[] GetVoiceDistanceCount( int ID)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM VoiceDistanceMaster   WHERE 1=1  and VDid = @ID";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(ID.ToString());
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<VoiceDistance> showVoiceDistance(int ID)
+    {
+        List<VoiceDistance> returnValue = new List<VoiceDistance>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT a.id, a.studentid,a.AcademicYear,a.AcademicTerm,b.date,b.remark,b.listOrder , b.up1,b.up2,b.up3,b.up4,b.up5  ";
+                sql += " ,c.id as HidID, c.question, c.a1 ,c.a2,c.a3,c.a4,c.a5,c.rows as RowNum , d.studentname ,d.studentbirthday ";
+                sql += " from VoiceDistance a  ";
+                sql += " left join VoiceDistanceMaster b on a.id = b.VDid ";
+                sql += " left join VoiceDistanceDetail c on b.id = c.VDMid ";
+                sql += " left join (select Studentname,studentbirthday,ID as did from StudentDatabase) d on a.studentid = d.did ";
+                sql += " WHERE 1=1 and a.id=@ID ";
+                sql += " order by c.id , c.rows ";
+
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(ID.ToString());
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    VoiceDistance addValue = new VoiceDistance();
+                    addValue.RowNum = dr["RowNum"].ToString();
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.StudentName = dr["StudentName"].ToString();
+                    addValue.StudentID = dr["StudentID"].ToString();
+                    addValue.AcademicYear = dr["AcademicYear"].ToString();
+                    addValue.AcademicTerm = dr["AcademicTerm"].ToString();
+                    addValue.ListOrder = dr["listorder"].ToString();
+                    addValue.Date = Convert.ToDateTime(dr["date"].ToString()).AddYears(-1911); ;
+                    addValue.remark = dr["remark"].ToString();
+                    addValue.up = dr["up1"].ToString() + "|" + dr["up2"].ToString() + "|" + dr["up3"].ToString() + "|" + dr["up4"].ToString() + "|" + dr["up5"].ToString();
+                    addValue.HidID = dr["hidID"].ToString();
+                    addValue.Question = dr["question"].ToString();
+                    addValue.Anser = dr["a1"].ToString() + "|" + dr["a2"].ToString() + "|" + dr["a3"].ToString() + "|" + dr["a4"].ToString() + "|" + dr["a5"].ToString();
+                    addValue.txtstudentbirthday = Convert.ToDateTime(dr["studentbirthday"].ToString());
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                VoiceDistance addValue = new VoiceDistance();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+
+        return returnValue;
+    }
+
+    public string[] InsertVoiceDistance(List<VoiceDistance> sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                string sql = " DECLARE @MasterID int; insert into VoiceDistanceMaster ( VDid,date,remark ,ListOrder,up1,up2 ,up3 ,up4,up5 ) values( @VDID,@date,@remark ,@ListOrder,@up1,@up2 ,@up3 ,@up4,@up5) ";
+                sql += "  select @MasterID = (select @@identity) ";
+                for (int i = 0; i < sTemperatureData.Count; i++)
+                {
+                    sql += "insert into VoiceDistanceDetail (VDMid,Question,A1,A2,A3,A4,A5,Rows)values(@MasterID,@Question" + i.ToString() + ",@A1" + i.ToString() + ",@A2" + i.ToString() + ",@A3" + i.ToString() + ",@A4" + i.ToString() + ",@A5" + i.ToString() + "," + (i + 1).ToString() + ")";
+                }
+               // sql += " select @ID as ID ";
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(sTemperatureData[0].Date.AddYears(1911).ToShortDateString());
+                cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].remark.ToString());
+                cmd.Parameters.Add("@ListOrder", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ListOrder.ToString());
+                cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ID.ToString());
+                for (int i = 0; i < sTemperatureData[0].up.Split('|').Length; i++)
+                {
+                    cmd.Parameters.Add("@up" + (i + 1).ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].up.Split('|').GetValue(i).ToString());
+                }
+                for (int i = 0; i < sTemperatureData.Count; i++)
+                {
+                    cmd.Parameters.Add("@Question" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].Question.ToString());
+                    for (int j = 0; j < sTemperatureData[0].Anser.Split('|').Length; j++)
+                    {
+                        cmd.Parameters.Add("@A" + (j + 1).ToString() + i.ToString(), SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[i].Anser.Split('|').GetValue(j).ToString());
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public string[] UpdateVoiceDistance(List<VoiceDistance> sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                string sql = " Update VoiceDistance set AcademicYear = @AcademicYear ,AcademicTerm = @AcademicYear where id = @VDID ";
+                for (int i = 0; i < sTemperatureData.Count; i++)
+                {
+                    sql += " Update VoiceDistanceMaster set date = @" + i.ToString() + "date , remark =@" + i.ToString() + "remark ,up1 = @" + i.ToString() + "up1,up2=@" + i.ToString() + "up2,up3=@" + i.ToString() + "up3 , up4 =@" + i.ToString() + "up4 , up5 =@" + i.ToString() + "up5 where VDid = @VDID and ListOrder =@" + i.ToString() + "ListOrder ";
+                    sql += " Update VoiceDistanceDetail set Question = @" + i.ToString() + "Question , A1 = @" + i.ToString() + "A1,A2=@" + i.ToString() + "A2,A3=@" + i.ToString() + "A3,A4=@" + i.ToString() + "A4,A5 = @" + i.ToString() + "A5 where ID = @" + i.ToString() + "HidID";
+                }
+
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicYear.ToString());
+                cmd.Parameters.Add("@AcademicTerm", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicTerm.ToString());
+                cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ID.ToString());
+                for (int i = 0; i < sTemperatureData.Count; i++)
+                {
+                    cmd.Parameters.Add("@" + i.ToString() + "date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(sTemperatureData[i].Date.AddYears(1911).ToShortDateString());
+                    cmd.Parameters.Add("@" + i.ToString() + "remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].remark.ToString());
+                    cmd.Parameters.Add("@" + i.ToString() + "ListOrder", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[i].ListOrder.ToString());
+                    cmd.Parameters.Add("@" + i.ToString() + "Question", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].Question.ToString());
+                    cmd.Parameters.Add("@" + i.ToString() + "HidID", SqlDbType.Int).Value = Chk.CheckStringtoInt64Function(sTemperatureData[i].HidID.ToString());
+                    for (int up = 0; up < sTemperatureData[i].up.Split('|').Length; up++)
+                    {
+                        cmd.Parameters.Add("@" + i.ToString() + "up" + (up + 1).ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].up.Split('|').GetValue(up).ToString());
+                    }
+                    for (int j = 0; j < sTemperatureData[i].Anser.Split('|').Length; j++)
+                    {
+                        cmd.Parameters.Add("@" + i.ToString() + "A" + (j + 1).ToString(), SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[i].Anser.Split('|').GetValue(j).ToString());
+                    }
+                }
+                int dr = cmd.ExecuteNonQuery();
+                if (dr > 0)
+                {
+                    returnValue[0] = sTemperatureData[0].ID.ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
 
 }

@@ -24,11 +24,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager" runat="server">
+<!--        <asp:ScriptManager ID="ScriptManager" runat="server">
             <Services>
                 <asp:ServiceReference Path="AspAjax.asmx" />
             </Services>
-        </asp:ScriptManager>
+        </asp:ScriptManager>-->
     </form>
     
     <div id="container">
@@ -47,18 +47,19 @@
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
 			        <table width="780" border="0">
-			            <tr>
-			                <td width="260">學生姓名 <input type="text" value="" /></td>
-			                <td width="260">性　　別 <select><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
-                            <td width="260">出生日期 <input class="date" type="text" value="" size="10" />～<input class="date" type="text" value="" size="10" /></td>
+	            <tr>
+			                <td width="260">學生姓名 <input type="text" id="gosrhstudentName" value="" /></td>
+			                <td width="260">性　　別 <select id="gosrhstudentSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
+                            <td width="260">出生日期 <input id="gosrhbirthdaystart" class="date" type="text" value="" size="10" />～<input id="gosrhbirthdayend" class="date" type="text" value="" size="10" /></td>
 			            </tr>
 			            <tr>
-			                <td>年　　度 <input type="text" name="name" size="5" />～<input type="text" name="name" size="5" /></td>
-			                <td>教師姓名 <input type="text" value="" /></td>
+			                <td>年　　度 <input  id="gosrhAcademicYearstart"   type="text" value="" size="5" />～ <input id="gosrhAcademicYearend" type="text" value="" size="5" /></td>
+			               <%-- <td>教師姓名 <input id="gosrhteacherName" type="text" value="" /></td>--%>
 			                <td>&nbsp;</td>
+			                 <td>&nbsp;</td>
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button">查 詢</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
 			            </tr>
 			        </table>
 			    </div>
@@ -102,206 +103,86 @@
 			<div id="mainContent">
 			    <div style="display:block;">
 			    <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
-			    <p align="right"><input type="text" name="name" size="5" /> 年度第 <input type="text" name="name" size="5" /> 學期</p>
+			    <p align="right"><input type="text" id="AcademicYear" name="name" size="5" /> 年度第 <input id="AcademicTerm" type="text" name="name" size="5" /> 學期</p>
 			    <table class="tableText" width="780" border="0">
 			       <tr>
 			           <th width="150">學生姓名</th>
-			           <td><input id="studentName" type="text" name="name" /></td>
+			           <td> <input id="studentName" type="text" value="" size="15" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span></td>
 			       </tr>
 			       <tr>
 			           <th>出生日期</th>
-			           <td><select id="year_ddl1"><option value="-1">民國年</option></select>
-                           <select id="month_ddl1"><option value="-1">月</option></select>
-                           <select id="day_ddl1"><option value="-1">日</option></select>
+			           <td><span id="studentbirthday">
+                        </span>
 		               </td>
 		           </tr>
 			    </table>
-			    <div class="PerceiveDIV">
+			    <div id="PerceiveDIV" class="PerceiveDIV">
 			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
+			            <table id="tableContact1" class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
 			               <tr>
 			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
+			                   <th width="40"><input id="p1_up1" style="width:27px;" class="name" type="text"/></th>
+			                   <th width="40"><input id="p1_up2" style="width:27px;" class="name" type="text"/></th>
+			                   <th width="40"><input id="p1_up3" style="width:27px;" class="name" type="text" /></th>
+			                   <th width="40"><input id="p1_up4" style="width:27px;" class="name" type="text" /></th>
+			                   <th width="40"><input id="p1_up5" style="width:27px;" class="name" type="text" /></th>
 			               </tr>
 			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
+                               <th><input id="p1_Q1" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID1" type="text"  class="hideClassSpan"/></th>
+			                   <td><input type="checkbox"  id="p1_Q1_A1" ></td>
+	                           <td><input type="checkbox"  id="p1_Q1_A2" ></td>
+			                   <td><input type="checkbox"  id="p1_Q1_A3" ></td>
+			                   <td><input type="checkbox"  id="p1_Q1_A4" ></td>
+			                   <td><input type="checkbox"  id="p1_Q1_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
+                               <th><input id="p1_Q2" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID2" type="text"  class="hideClassSpan"/></th>
+			                   <td><input type="checkbox"  id="p1_Q2_A1" ></td>
+	                           <td><input type="checkbox"  id="p1_Q2_A2" ></td>
+			                   <td><input type="checkbox"  id="p1_Q2_A3" ></td>
+			                   <td><input type="checkbox"  id="p1_Q2_A4" ></td>
+			                   <td><input type="checkbox"  id="p1_Q2_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
+                               <th><input id="p1_Q3" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID3" type="text"  class="hideClassSpan"/></th>
+			                   <td><input type="checkbox"  id="p1_Q3_A1" ></td>
+	                           <td><input type="checkbox"  id="p1_Q3_A2" ></td>
+			                   <td><input type="checkbox"  id="p1_Q3_A3" ></td>
+			                   <td><input type="checkbox"  id="p1_Q3_A4" ></td>
+			                   <td><input type="checkbox"  id="p1_Q3_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
+                               <th><input id="p1_Q4" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID4" type="text"  class="hideClassSpan"/></th>
+			                   <td><input type="checkbox"  id="p1_Q4_A1" ></td>
+	                           <td><input type="checkbox"  id="p1_Q4_A2" ></td>
+			                   <td><input type="checkbox"  id="p1_Q4_A3" ></td>
+			                   <td><input type="checkbox"  id="p1_Q4_A4" ></td>
+			                   <td><input type="checkbox"  id="p1_Q4_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
+                               <th><input id="p1_Q5" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID5" type="text"  class="hideClassSpan"/></th>
+			                   <td><input type="checkbox"  id="p1_Q5_A1" ></td>
+	                           <td><input type="checkbox"  id="p1_Q5_A2" ></td>
+			                   <td><input type="checkbox"  id="p1_Q5_A3" ></td>
+			                   <td><input type="checkbox"  id="p1_Q5_A4" ></td>
+			                   <td><input type="checkbox"  id="p1_Q5_A5" ></td>
 			               </tr>
 		                   <tr>
 		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
+			                   <td colspan="5"><input id="p1_date" class="date" type="text" name="name" size="10" /></td>
 		                   </tr>
 		                   <tr>
 		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
+			                   <td colspan="5"><input id="p1_remark" type="text" name="name" /></td>
 		                   </tr>
 			            </table>   
 			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>   
-			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>   
-			        </div>
+	
 			    </div>
 			    <p class="btnP">
-		            <button class="btnSave" type="button">儲 存</button>
+		            <button class="btnSave" onclick="Save()" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" onclick="Update()" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 			</div>

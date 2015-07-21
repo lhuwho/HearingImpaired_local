@@ -2,14 +2,14 @@
     this.getTextValueBase = function(htmltableName, compareObj) {
         var obj = {};
         if (htmltableName.length == 0) {
-           
+
             return obj;
         }
         $("#" + htmltableName + " input").add("#" + htmltableName + " textarea").each(function(n) {
             var fn; //= this.id;
             fn = this.id.replace("gosrh", "txt");
             var val = ""; //Avoid IE8 JSON bug
-            if (this.type == "checkbox" || this.type == "radio") {
+            if (this.type == "radio") {
                 fn = $(this).attr("name");
                 fn = fn.replace("gosrh", "txt");
                 if (this.checked) {
@@ -23,6 +23,16 @@
                     if (this.selected) selected.push(i);
                 });
                 val = selected.join(",") + ""; //L_NOTE: , is split
+            } else if (this.type == "checkbox") { //更新checkbox 存取參數問題
+
+                fn = $(this).attr("id");
+                fn = fn.replace("gosrh", "txt");
+                if (this.checked) {
+                    val = "1";
+                }
+                else {
+                    val = "0";
+                }
             }
             else {
                 var aa = $(this).attr("class");

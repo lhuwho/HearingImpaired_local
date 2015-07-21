@@ -996,10 +996,94 @@ public class AspAjax : System.Web.Services.WebService {
         }
     }
 
+    [WebMethod]
+    public string[] CreatVoiceDistanceDatabase(List<VoiceDistance> sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.CreatVoiceDistanceDatabase(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    [WebMethod]
+    public string[] SearchVoiceDistanceCount(SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.SearchVoiceDistanceCount(SearchStructure, 1);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+    [WebMethod]
+    public List<VoiceDistance> SearchVoiceDistance(int index, SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchVoiceDistance(index, SearchStructure, 0);
+    }
+    [WebMethod]
+    public string[] GetVoiceDistanceCount(int ID)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.GetVoiceDistanceCount(ID);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+
+    [WebMethod]
+    public List<VoiceDistance> showVoiceDistance(int ID)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.showVoiceDistance(ID);
+
+    }
+    [WebMethod]
+    public string[] InsertVoiceDistance(List<VoiceDistance> sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.InsertVoiceDistance(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    [WebMethod]
+    public string[] UpdateVoiceDistance(List<VoiceDistance> sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.caseBTFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.UpdateVoiceDistance(sTemperatureData);
+        }
+        else
+        {
+            return null;
+        }
+    }
 
 
-
-
+    
 
     /*Staff****************************************************************************************/
 

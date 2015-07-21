@@ -3206,6 +3206,7 @@ public struct SearchCaseISPRecord
     public string txtConventionDateend;
 }
 
+
 public struct ShowCaseISPRecord
 {
     public string RowNum;
@@ -3244,6 +3245,27 @@ public struct ShowCaseISPRecord
     public string errorMsg;
 
 
+}
+
+public struct VoiceDistance
+{
+    public string RowNum;
+    public string ID;
+    public string StudentID;
+    public string StudentName;
+    public string AcademicYear;
+    public string AcademicTerm;
+    public string remark;
+    public DateTime Date;
+    public string ListOrder;
+    public string up;
+    public string Question;
+    public string Anser;
+    public string HidID;
+    public DateTime txtstudentbirthday;
+    //增加錯誤訊息
+    public string checkNo;
+    public string errorMsg;
 }
 
 
