@@ -99,12 +99,12 @@
 			<div id="mainContent">
 			    <div style="display:block;">
 			    <p align="right" id="caseUnit" style="background-color:#FFDF71;padding:0 10px;">&nbsp;</p>
-			    <p align="right"><input id="AcademicYear" type="text" size="5" /> 學年度</p>
-			    <p class="cP">一、基本資料</p>
+<%--			    <p align="right"><input id="AcademicYear" type="text" size="5" /> 學年度</p>
+--%>			    <p class="cP">一、基本資料</p>
 			    <table class="tableText" width="780" border="0">
 			        <tr>
 			            <th width="150">學生姓名</th>
-			            <td><input id="studentName" type="text" value="" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span><span class="startMark">*</span></td>
+			            <td><input id="studentName" type="text" value="" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span><span class="startMark">*</span>&nbsp;&nbsp;&nbsp;<input id="AcademicYear" type="text" size="5" /> 學年度<span class="startMark">*</span></td>
 			        </tr>
 			      <%--   <tr>
 			            <th>性　　別</th>
@@ -139,7 +139,7 @@
 			     </table>
 	             <div  id="SaveTable" >
 			     <p class="cP">二、測驗結果摘述</p>
-			     <p>評估時，個案的生理年齡為 <input id="StudentAge" type="text" value="" size="5"  readonly="readonly" /> 歲  <input id="StudentMonth" type="text" value="" size="5"  /> 個月</p>
+			     <p>評估時，個案的生理年齡為 <input id="StudentAge" type="text" value="" size="5"  readonly="readonly" /> 歲  <input id="StudentMonth" type="text" value="" size="5"  readonly="readonly" /> 個月</p>
 	             <p>評估原因<label><input type="radio" name="AssessedTheReasons" value="1" /> 年度評估</label>　　
 			                <label><input type="radio" name="AssessedTheReasons" value="2" /> 新生</label>　　
 			                <label><input type="radio" name="AssessedTheReasons" value="3" /> 其他 <input id="AssessedTheReasonsText" type="text" value=""/></label>

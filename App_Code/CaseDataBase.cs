@@ -377,11 +377,11 @@ public class CaseDataBase
         List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
         if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
         {
-            ConditionReturn += " AND Unit =" + UserFile[2] + " ";
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
         }
         if (type == 0)
         {
-            ConditionReturn += " AND CaseStatu2 =" + type + " ";
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
         }
         return ConditionReturn;
     }
@@ -434,7 +434,7 @@ public class CaseDataBase
                 // "FROM StudentDatabase WHERE isDeleted=0 " + ConditionReturn + " ) " +
                 // "AS NewTable " +
                 // "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
-                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY a.AcademicYear DESC) as RowNum , a.ID , a.AcademicYear , b.StudentName , b.StudentSex, b.StudentBirthday  ";
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY a.AcademicYear DESC) as RowNum , a.ID , a.AcademicYear,a.StudentAge,a.StudentMonth , b.StudentName , b.StudentSex, b.StudentBirthday  ";
                 sql += " FROM AchievementAssessment a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn + ") AS NewTable ";
 
                 sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
@@ -460,6 +460,8 @@ public class CaseDataBase
                     addValue.txtstudentName = dr["StudentName"].ToString();
                     addValue.txtstudentSex = int.Parse(dr["StudentSex"].ToString());
                     addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    addValue.StudentAge = dr["StudentAge"].ToString();
+                    addValue.StudentMonth = dr["StudentMonth"].ToString();
                     returnValue.Add(addValue);
                 }
                 Sqlconn.Close();
@@ -520,7 +522,7 @@ public class CaseDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.WriteDate,'') DESC) as RowNum , a.ID , b.StudentName ,   b.StudentSex, b.StudentBirthday  ";
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.WriteDate,'') DESC) as RowNum , a.ID  ,a.WriteDate , b.StudentName ,   b.StudentSex, b.StudentBirthday  ";
                 // string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.WriteDate,'') DESC) as RowNum , a.ID , b.StudentName ,  CASE (b.StudentSex) WHEN '1' THEN '男'  WHEN '2 THEN '女' END as StudentSex , b.StudentBirthday  ";
                 sql += " FROM CaseStudy a left join studentDatabase b on a.studentid = b.id  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn + ") AS NewTable ";
 
@@ -546,6 +548,7 @@ public class CaseDataBase
                     addValue.txtstudentName = dr["StudentName"].ToString();
                     addValue.txtstudentSex = int.Parse(dr["StudentSex"].ToString());
                     addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    addValue.WriteDate = DateTime.Parse(dr["WriteDate"].ToString());
                     returnValue.Add(addValue);
                 }
                 Sqlconn.Close();

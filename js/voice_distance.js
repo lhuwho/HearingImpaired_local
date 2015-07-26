@@ -1,6 +1,7 @@
 ﻿var MyBase = new Base();
 var checkedus = [false, true];
-
+var upValue = ["","ㄋ", "ㄨ", "ㄦ", "ㄚ", "ㄙ"];
+var leftList = ["","30cm", "1M", "2M", "", ""];
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
@@ -110,6 +111,7 @@ function SucceededCallback(result, userContext, methodName) {
                     var stuAge = BirthdayStringDateFunction(result.StudentData.studentbirthday);
                     $("#StudentAge").val(stuAge[0]);
                     $("#StudentMonth").val(stuAge[1]);
+                    $("#studentbirthday").html(YearChange(result.StudentData.studentbirthday));
                     $("#LegalrepresentativeName").val(result.StudentData.fPName2);
                     $("#LegalrepresentativePhone").val(result.StudentData.fPTel2);
                     $("#LegalrepresentativePhoneHome").val(result.StudentData.fPHPhone2);
@@ -153,14 +155,14 @@ function SucceededCallback(result, userContext, methodName) {
                     var inner = "";
                     var date = new Date();
                     for (var i = 0; i < result.length; i++) {
-                        var stuAge = BirthdayStringDateFunction(result[i].txtstudentbirthday.toLocaleDateString("ja-JP").replace("/", "-"));
+                        //var stuAge = BirthdayStringDateFunction(result[i].txtstudentbirthday.toLocaleDateString("ja-JP").replace("/", "-"));
                         inner += '<tr>' +
                                 '<td>' + result[i].RowNum + '</td>' +
                                 '<td>' + result[i].AcademicYear + '</td>' +
                                 '<td>' + result[i].AcademicTerm + '</td>' +
 			                    '<td>' + result[i].StudentName + '</td>' +
-			                    '<td>' + result[i].txtstudentbirthday.toLocaleDateString("tw") + '</td>' +
-			                    '<td>' + stuAge[0] + '歲' + stuAge[1] + '個月</td>';
+			                    '<td>' + YearChange( result[i].txtstudentbirthday.toLocaleDateString("tw")) + '</td>' +
+			                    '<td>' + result[i].StudentAge + '歲' + result[i].StudentMonth + '個月</td>';
 
                         inner += '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
@@ -182,11 +184,11 @@ function SucceededCallback(result, userContext, methodName) {
                             '<table id="tableContact' + i + '" class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>' +
                             '<tr><th width="50">&nbsp</th>';
                 for (var j = 1; j <= 5; j++) {
-                    addvalue += '<th width="40"><input id="p' + i + '_up' + j + '" style="width:27px;" class="name" type="text"/></th>';
+                    addvalue += '<th width="40"><input id="p' + i + '_up' + j + '" value="' + upValue[j] + '"  style="width:27px;" class="name" type="text"/></th>';
                 }
                 addvalue += '</tr>';
                 for (var list = 1; list <= 5; list++) {
-                    addvalue += '<tr><th><input id="p' + i + '_Q' + list + '" style="width:27px;" class="perceiveRight" type="text" /><input id="p' + i + '_hidID' + list + '" type="text"  class="hideClassSpan"/></th>';
+                    addvalue += '<tr><th><input id="p' + i + '_Q' + list + '" style="width:38px;" value="' + leftList[list] + '" class="perceiveRight" type="text" /><input id="p' + i + '_hidID' + list + '" type="text"  class="hideClassSpan"/></th>';
                     for (var j = 1; j <= 5; j++) {
                         addvalue += '<td><input type="checkbox"  id="p' + i + '_Q' + list + '_A' + j + '" ></td>';
                     }
@@ -210,7 +212,9 @@ function SucceededCallback(result, userContext, methodName) {
                 $("#StudentID").html(result[0].StudentID);
                 $("#AcademicYear").val(result[0].AcademicYear);
                 $("#AcademicTerm").val(result[0].AcademicTerm);
-                $("#studentbirthday").html(result[0].txtstudentbirthday.toLocaleDateString("tw"));
+                $("#StudentAge").val(result[0].StudentAge);
+                $("#StudentMonth").val(result[0].StudentMonth);
+                $("#studentbirthday").html( YearChange(result[0].txtstudentbirthday.toLocaleDateString("tw")));
                 for (var i = 0; i < result.length; i++) {
                     var ups = result[i].up.split('|');
                     var ans = result[i].Anser.split('|');
@@ -300,7 +304,6 @@ function Search() { //主頁面 顯示名單
 
 
 function Update() {
-    alert(1);
     var id = GetQueryString("id");
     var act = GetQueryString("act");
     var Q1Data = new Array();
@@ -339,10 +342,13 @@ function Update() {
                 data.Anser = ans;
                 data.up = up;
                 obj[obj.length] = data;
+                
             }
-            //alert(obj[0].ans);
-            AspAjax.InsertVoiceDistance(obj);
 
+            if (obj[0].date != "") {
+                // alert(obj[0].date);
+                AspAjax.InsertVoiceDistance(obj);
+            }
             obj.length = 0;
             for (var page = 1; page < num; page++) {
                 for (var i = 1; i <= 5; i++) {
@@ -429,6 +435,8 @@ function Save() { //暫時先寫 之後再修正
                 data.StudentID = $("#StudentID").html();
                 data.AcademicYear = $("#AcademicYear").val();
                 data.AcademicTerm = $("#AcademicTerm").val();
+                data.StudentAge = $("#StudentAge").val();
+                data.StudentMonth = $("#StudentMonth").val();
                 data.date = $("#p1_date").val();
                 data.remark = $("#p1_remark").val();
                 data.Question = $("#p1_Q" + i).val();

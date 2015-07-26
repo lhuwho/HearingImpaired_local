@@ -36,6 +36,14 @@ public struct SearchStaff
     public string txtstaffBirthdayStart;
     public string txtstaffYear;//StaffMerit
 }
+public struct SearchClassName
+{
+    public string txtstaffID;
+    public string txtstaffName;
+    public string txtClassID;
+    public string txtClassName;
+}
+
 public struct SearchStudent
 {
     public string txtstudentID;
@@ -3100,6 +3108,11 @@ public struct SearchAchievementAssessment
     public string txtstudentName;
     public int txtstudentSex;
     public DateTime txtstudentbirthday;
+
+    public DateTime WriteDate;
+    public string StudentAge;
+    public string StudentMonth;
+    
     public string checkNo;
     public string errorMsg;
 }
@@ -3117,6 +3130,7 @@ public struct CaseStudy
     public string Unit;
     public string StudentID;
     public string WriteName;
+    public string WriteNameName;
     public string WriteDate;
     public string TeacherScore1;
     public string ParentScore1;
@@ -3144,6 +3158,8 @@ public struct CaseStudy
     public string ParentRemark;
     public string OtherRemark;
     public string WriteName1;
+    public string WriteName1Name;
+    public string RecordedByName;
     public string RecordedBy;
     public string RecordedDateTime;
     public string Recorded;
@@ -3253,6 +3269,8 @@ public struct VoiceDistance
     public string ID;
     public string StudentID;
     public string StudentName;
+    public string StudentAge;
+    public string StudentMonth;
     public string AcademicYear;
     public string AcademicTerm;
     public string remark;
@@ -3267,6 +3285,127 @@ public struct VoiceDistance
     public string checkNo;
     public string errorMsg;
 }
+
+
+public struct TeachServiceSupervisor
+{
+    public string RowNum;
+    public string ID;
+    public string Unit;
+    public string AcademicYear;
+    public string ClassDate;
+    public string TeacherID;
+    public string TeacherName;
+    public string SupervisorName;
+    public string StudentID;
+    public string StudentName;
+    public string StudentAge;
+    public string StudentMonth;
+    public string ChecklistPurpose;
+    public string ChecklistPurposeOther;
+    public string CourseType;
+    public string CourseTypeOther;
+    public string CaseChoose;
+    public string CaseChooseReason;
+    public string CaseChooseOther;
+    public string SupervisorType;
+    public string SupervisorTypeOther;
+    public string Remark;
+    public string Result;
+    public string ResultScore;
+    public string Following;
+    public string Resolution;
+    public string CreateFileBy;
+    public string CreateFileDate;
+    public string UpFileBy;
+    public string UpFileDate;
+    public string isDeleted; 
+
+    public DateTime txtstudentbirthday;
+    //增加錯誤訊息
+    public string checkNo;
+    public string errorMsg;
+}
+
+public struct TeachServiceInspect
+{
+    public string RowNum;
+
+    public string ID;
+    public string Unit;
+    public string ClassType;
+    public string AcademicYear;
+    public string StudentID;
+    public string StudentName;
+
+    public string ClassNameID;
+    public string ClassIDName;
+
+    public string TeacherID;
+    public string TeacherName;
+
+    public string StudentAgeFrom;
+    public string StudentAgeTo;
+    public string InspectDate;
+    public string CourseType;
+    public string CourseOther;
+    public string Score1;
+    public string Score2;
+    public string Score3;
+    public string Score4;
+    public string Score5;
+    public string Score6;
+    public string Score7;
+    public string Score8;
+    public string Score9;
+    public string Score10;
+    public string Score11;
+    public string Score12;
+    public string Score13;
+    public string Score14;
+    public string Score15;
+    public string Score16;
+    public string Score17;
+    public string Score18;
+    public string Score19;
+    public string Score20;
+    public string Score21;
+    public string Score22;
+    public string Score23;
+    public string Score24;
+    public string Score25;
+    public string Score26;
+    public string Score27;
+    public string Score28;
+    public string Score29;
+    public string Score30;
+    public string Score31;
+    public string Score32;
+    public string Score33;
+    public string Score34;
+    public string Score35;
+    public string Score36;
+    public string SumScore;
+    public string SupervisorName;
+    public string CourseDate;
+    public string Director;
+    public string DirectorName; 
+    public string Date;
+    public string CreateFileBy;
+    public string CreateFileDate;
+    public string UpFileBy;
+    public string UpFileDate;
+    public string isDeleted;
+
+    public DateTime txtstudentbirthday;
+    //增加錯誤訊息
+    public string checkNo;
+    public string errorMsg;
+}
+
+
+
+
 
 
 

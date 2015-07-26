@@ -6,12 +6,15 @@
             return obj;
         }
         $("#" + htmltableName + " input").add("#" + htmltableName + " textarea").each(function(n) {
+
             var fn; //= this.id;
-            fn = this.id.replace("gosrh", "txt");
+            fn = this.id.replace("gosrh", "txt").replace("PageList1_", "").replace("PageList2_", "");
             var val = ""; //Avoid IE8 JSON bug
-            if (this.type == "radio") {
+            if (this.type == "radio" || this.type == "checkbox") {
                 fn = $(this).attr("name");
                 fn = fn.replace("gosrh", "txt");
+                fn = fn.replace("PageList1_", "");
+                fn = fn.replace("PageList2_", "");
                 if (this.checked) {
                     val = $(this).val();
                 }
@@ -23,17 +26,18 @@
                     if (this.selected) selected.push(i);
                 });
                 val = selected.join(",") + ""; //L_NOTE: , is split
-            } else if (this.type == "checkbox") { //更新checkbox 存取參數問題
-
-                fn = $(this).attr("id");
-                fn = fn.replace("gosrh", "txt");
-                if (this.checked) {
-                    val = "1";
-                }
-                else {
-                    val = "0";
-                }
             }
+            //            else if (this.type == "checkbox") { //更新checkbox 存取參數問題
+
+            //                fn = $(this).attr("id");
+            //                fn = fn.replace("gosrh", "txt");
+            //                if (this.checked) {
+            //                    val = "1";
+            //                }
+            //                else {
+            //                    val = "0";
+            //                }
+            //            }
             else {
                 var aa = $(this).attr("class");
                 if ($(this).attr("class") != undefined && $(this).attr("class").indexOf("date") != -1) {
@@ -59,7 +63,7 @@
             if (this.type == "select-one") {
                 var fn; //= this.id;
 
-                fn = this.id.replace("gosrh", "txt");
+                fn = this.id.replace("gosrh", "txt").replace("PageList1_", "").replace("PageList2_", "");
                 var val = ""; //Avoid IE8 JSON bug
                 if (this.type == "checkbox" || this.type == "radio")
                     val = this.checked + "";

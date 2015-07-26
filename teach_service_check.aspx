@@ -16,8 +16,12 @@
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
     
+		    <script type="text/javascript" src="./js/base.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/teach_service_check.js"></script>
+	
+		<script src="./js/jquery.pagination.js" type="text/javascript"></script>
+    <link type="text/css" href="./css/pagination.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -43,19 +47,18 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table width="780" border="0">
+                     <table width="780" border="0" id="searchTable">
 			            <tr>
-			                <td width="260">學生姓名 <input type="text" name="name" /></td>
-			                <td width="260">性　　別 <select name="name"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
-                            <td width="260">出生日期 <input class="date" type="text" name="name" size="10" />～<input class="date" type="text" name="name" size="10" /></td>
+			                <td width="260">學生姓名 <input type="text" value="" id="gosrhstudentName" /></td>
+			                <td width="260">性　　別 <select name="name" id="gosrhstudentSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
+                            <td width="260">出生日期 <input class="date" id="gosrhbirthdaystart"  type="text" value="" size="10" />～<input class="date" id="gosrhbirthdayend" type="text" value="" size="10" /></td>
 			            </tr>
 			            <tr>
-			                <td>教師姓名 <input type="text" name="name" /></td>
-			                <td>年　　度 <input type="text" name="name" size="10"/>～ <input type="text" name="name" size="10"/></td>
-			                <td>授課日期 <input class="date" type="text" name="name" size="10" />～<input class="date" type="text" name="name" size="10" /></td>
+			                <td>年　　度 <input  id="gosrhAcademicYearstart"   type="text" value="" size="5" />～ <input id="gosrhAcademicYearend" type="text" value="" size="5" /></td>
+			                <td>教師姓名 <input id="gosrhTeacherName"  type="text" value="" /></td>
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button">查 詢</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
 			            </tr>
 			        </table>
 			    </div>
@@ -99,79 +102,169 @@
 			<div id="mainContent">
 			    <div style="display:block;">
 			    <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
-			    <p align="right"><input type="text" name="name" size="5" /> 學年度</p>
-			    <p>授課日期 <input class="date" type="text" name="name" size="10" />　　　　任課教師 <input type="text" name="name" size="15" />　　　　督導姓名 <input type="text" name="name" size="15" /></p>
-			    <table class="tableText" width="780" border="0">
-			        <tr>
-			            <th width="150">學生姓名</th>
-			            <td><input id="studentName" type="text" name="name" /></td>
-			        </tr>
-			         <tr>
-			            <th>性　　別</th>
-			            <td><label><input type="radio" name="sex" value="male" /> 男</label>　　
-			                <label><input type="radio" name="sex" value="female" /> 女</label>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th>出生日期</th>
-			            <td><select id="year_ddl1"><option value="-1">民國年</option></select>
-                            <select id="month_ddl1"><option value="-1">月</option></select>
-                            <select id="day_ddl1"><option value="-1">日</option></select>
-		                </td>
-		            </tr>
-		            <tr>
-			            <th>聽力相關</th>
-			            <td><label><input type="radio" name="hearingQ" value="1" /> HA</label>　　
-			                <label><input type="radio" name="hearingQ" value="2" /> CI／</label><input type="text" name="name" value="" size="5" />耳</label><br />
-			                聽損程度 <input type="text" name="name" value="" />
-			            </td>
-			        </tr>
-			        <tr>
-			            <th>檢核目的</th>
-			            <td><label><input type="radio" name="checklist" value="1" /> 檢核目的</label>　　
-			                <label><input type="radio" name="checklist" value="2" /> 追蹤</label>　　
-			                <label><input type="radio" name="checklist" value="3" /> 其他</label> <input type="text" name="name" value="" />
-			            </td>
-			        </tr>
-			        <tr>
-			            <th>課　　別</th>
-			            <td><label><input type="radio" name="curriculum" value="1" /> 個別課</label>　　
-			                <label><input type="radio" name="curriculum" value="2" /> 團體課</label>　　
-			                <label><input type="radio" name="curriculum" value="3" /> 聽能課</label>　　
-			                <label><input type="radio" name="curriculum" value="4" /> 聽故事學語文</label>　　
-			                <label><input type="radio" name="curriculum" value="5" /> 其他</label> <input type="text" name="name" value="" />
-			            </td>
-			        </tr>
-			        <tr>
-			            <th>個案選擇方式</th>
-			            <td><label><input type="radio" name="schoose" value="1" /> 督導自選/隨機</label>　
-			                <label><input type="radio" name="schoose" value="2" /> 教師提出，原因</label> <input type="text" name="name" value="" size="15" />　
-			                <label><input type="radio" name="schoose" value="3" /> 其它原因</label> <input type="text" name="name" value="" size="15" /></td>
-			        </tr>
-			        <tr>
-			            <th>課程督導方式</th>
-			            <td><label><input type="radio" name="curriculum_steering" value="1" /> 督導示範教學（不須檢附檢核表）</label><br />
-			                <label><input type="radio" name="curriculum_steering" value="2" /> 督導觀摩課程（須檢附檢核表）</label><br />
-			                <label><input type="radio" name="curriculum_steering" value="3" /> 錄影帶觀摩課程（須檢附檢核表、報告資料等相關資料）</label><br />
-			                <label><input type="radio" name="curriculum_steering" value="4" /> 個案討論、教學研討（依研討方式檢附表單)</label><br />
-			                <label><input type="radio" name="curriculum_steering" value="5" /> 其他</label> <input type="text" name="name" value="" /></td>
-			        </tr>
-			        <tr>
-			            <th>督導建議討論記要（包含：優點、建議、討論記要及時間）</th>
-			            <td>討論時間（日期與時間）<br /><textarea rows="2" cols="80"></textarea></td>
-			        </tr>
-			        <tr>
-			            <th>督導結果</th>
-			            <td><label><input type="checkbox" name="curriculum_steering" value="1" /> 教學檢核表總分</label> <input type="text" name="name" value="" size="10" /> 分<br />
-			                <label><input type="checkbox" name="curriculum_steering" value="2" /> 單項成績百分比為65%(含)以下項目為</label> <input type="text" name="name" value="" /><br />
-			                <label><input type="checkbox" name="curriculum_steering" value="3" /> 督導決議（可參考教學檢核表平均分數相關督導建議）<br />　<textarea rows="2" cols="80"></textarea></label></td>
-			        </tr>
-			     </table>
+			    <p align="right"><input id="AcademicYear" type="text" name="name" size="5" /> 學年度</p>
+			    <p>授課日期 <input id="ClassDate" class="date" type="text" name="name" size="10" />　　　　任課教師   <input id="teacherName" type="text" value="" readonly="readonly" /><span id="TeacherID" class="hideClassSpan"></span>　　　　督導姓名 <input id="SupervisorName" type="text" name="name" size="15" /></p>
+                    <table id="tableContact1" class="tableText" width="780" border="0">
+                        <tr>
+                            <th width="150">
+                                學生姓名
+                            </th>
+                            <td>
+                                <input id="studentName" type="text" value="" size="15" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                出生日期
+                            </th>
+                            <td><input id="StudentAge" type="text" value="" size="5"  readonly="readonly" /> 歲  <input id="StudentMonth" type="text" value="" size="5"  readonly="readonly" /> 個月</td>
+
+                        </tr>
+<%--                        <tr>
+                            <th>
+                                性 別
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="sex" value="male" />
+                                    男</label>
+                                <label>
+                                    <input type="radio" name="sex" value="female" />
+                                    女</label>
+                            </td>
+                        </tr>
+       
+                        <tr>
+                            <th>
+                                聽力相關
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="hearingQ" value="1" />
+                                    HA</label>
+                                <label>
+                                    <input type="radio" name="hearingQ" value="2" />
+                                    CI／</label><input type="text" name="name" value="" size="5" />耳</label><br />
+                                聽損程度
+                                <input type="text" name="name" value="" />
+                            </td>
+                        </tr>--%>
+                        <tr>
+                            <th>
+                                檢核目的
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="ChecklistPurpose" value="1" />
+                                    檢核目的</label>
+                                <label>
+                                    <input type="radio" name="ChecklistPurpose" value="2" />
+                                    追蹤</label>
+                                <label>
+                                    <input type="radio" name="ChecklistPurpose" value="3" />
+                                    其他</label>
+                                <input id="ChecklistPurposeOther" type="text" name="name" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                課 別
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="CourseType" value="1" />
+                                    個別課</label>
+                                <label>
+                                    <input type="radio" name="CourseType" value="2" />
+                                    團體課</label>
+                                <label>
+                                    <input type="radio" name="CourseType" value="3" />
+                                    聽能課</label>
+                                <label>
+                                    <input type="radio" name="CourseType" value="4" />
+                                    聽故事學語文</label>
+                                <label>
+                                    <input type="radio" name="CourseType" value="5" />
+                                    其他</label>
+                                <input id="CourseTypeOther" type="text" name="name" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                個案選擇方式
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="CaseChoose" value="1" />
+                                    督導自選/隨機</label>
+                                <label>
+                                    <input type="radio" name="CaseChoose" value="2" />
+                                    教師提出，原因</label>
+                                <input id="CaseChooseReason" type="text" name="name" value="" size="15" />
+                                <label>
+                                    <input type="radio" name="CaseChoose" value="3" />
+                                    其它原因</label>
+                                <input id="CaseChooseOther" type="text" name="name" value="" size="15" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                課程督導方式
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="SupervisorType" value="1" />
+                                    督導示範教學（不須檢附檢核表）</label><br />
+                                <label>
+                                    <input type="radio" name="SupervisorType" value="2" />
+                                    督導觀摩課程（須檢附檢核表）</label><br />
+                                <label>
+                                    <input type="radio" name="SupervisorType" value="3" />
+                                    錄影帶觀摩課程（須檢附檢核表、報告資料等相關資料）</label><br />
+                                <label>
+                                    <input type="radio" name="SupervisorType" value="4" />
+                                    個案討論、教學研討（依研討方式檢附表單)</label><br />
+                                <label>
+                                    <input type="radio" name="SupervisorType" value="5" />
+                                    其他</label>
+                                <input id="SupervisorTypeOther" type="text" name="name" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                督導建議討論記要（包含：優點、建議、討論記要及時間）
+                            </th>
+                            <td>
+                                討論時間（日期與時間）<br />
+                                <textarea id="Remark" rows="2" cols="80"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                督導結果
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="Result" value="1" />
+                                    教學檢核表總分</label>
+                                <input id="ResultScore" type="text" name="name" value="" size="10" />
+                                分<br />
+                                <label>
+                                    <input type="checkbox" name="Result" value="2" />
+                                    單項成績百分比為65%(含)以下項目為</label>
+                                <input id="Following" type="text" name="name" value="" /><br />
+                                <label>
+                                    <input type="checkbox" name="Result" value="3" />
+                                    督導決議（可參考教學檢核表平均分數相關督導建議）<br />
+                                    <textarea id="Resolution" rows="2" cols="80"></textarea></label>
+                            </td>
+                        </tr>
+                    </table>
 			        
 			    <p class="btnP">
-		            <button class="btnSave" type="button">儲 存</button>
+		            <button class="btnSave" onclick="Save()" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" onclick="Update()" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 			</div>

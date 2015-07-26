@@ -366,7 +366,7 @@ function SucceededCallback(result, userContext, methodName) {
 //			                    '<td>' + _CaseStatu[result[i].txtstudentStatu] + '</td>' +
 //			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
-			                    '<td>' + result[i].txtstudentbirthday.toLocaleDateString("tw")+ '</td>' +
+			                    '<td>' + YearChange(result[i].txtstudentbirthday.toLocaleDateString("tw"))+ '</td>' +
 			                    '<td>' + stuAge[0] +'歲'+ stuAge[1] + '個月</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';

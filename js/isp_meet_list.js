@@ -306,7 +306,7 @@ function getViewData(id, act) {
     } else if (id == null && act == 1) {
     $("#studentName").unbind("click").click(function() { callStudentSearchfunction(); });
     $("#teacherName").unbind("click").click(function() { callTeacherSearchfunction("1"); });
-    
+    $("#ConventionName").val("個別化服務計畫(ISP)會議記錄");
         $(".btnSave").fadeIn();
     }
 }

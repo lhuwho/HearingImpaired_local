@@ -170,13 +170,13 @@ function SucceededCallback(result, userContext, methodName) {
                     var inner = "";
                     var date = new Date();
                     for (var i = 0; i < result.length; i++) {
-                        var stuAge = BirthdayStringDateFunction(result[i].txtstudentbirthday.toLocaleDateString("ja-JP").replace("/", "-"));
+                        //var stuAge = BirthdayStringDateFunction(result[i].txtstudentbirthday.toLocaleDateString("ja-JP").replace("/", "-"));
                         inner += '<tr>' +
                                 '<td>' + result[i].RowNum + '</td>' +
                                 '<td>' + result[i].txtAcademicYear + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
-			                    '<td>' + result[i].txtstudentbirthday.toLocaleDateString("tw") + '</td>' +
-			                    '<td>' + stuAge[0] + '歲' + stuAge[1] + '個月</td>' +
+			                    '<td>' + YearChange(result[i].txtstudentbirthday.toLocaleDateString("tw")) + '</td>' +
+			                    '<td>' + result[i].StudentAge + '歲' + result[i].StudentMonth + '個月</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
                     }
@@ -201,7 +201,7 @@ function SucceededCallback(result, userContext, methodName) {
                     }
                 }
             } else {
-                //alert("查無資料");
+                alert("查無資料");
                 window.close();
             }
             break;

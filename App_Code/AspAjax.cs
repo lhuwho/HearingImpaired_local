@@ -747,22 +747,15 @@ public class AspAjax : System.Web.Services.WebService {
     public List<CreaHearing_Loss_Tool> GetLossToolQuestion(int Category)//學前聽損幼兒教育課程檢核 Q1
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+
             return aDB.GetLossToolQuestion(Category);
-        }
         return null;
     }
     [WebMethod]
     public List<CreaHearing_Loss_Skill> GetLossSkillQuestion()//學前聽損幼兒教育課程檢核 Q2
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
             return aDB.GetLossSkillQuestion();
-        }
         return null;
     }
 
@@ -785,43 +778,43 @@ public class AspAjax : System.Web.Services.WebService {
     public List<UpdateHearLoss> searchHearLossDataBase(int SID,int page)//學前聽損幼兒教育課程檢核 search by StudentID Aaron
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.searchHearLossDataBase(SID,page);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public List<SearchStudentResult> ShowStudent(int SID)//學前聽損幼兒教育課程檢核 顯示學生資料 AWho
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.ShowStudent(SID);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public List<AchievementAssessment> CreatAchievementAssessment(AchievementAssessment sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.CreatAchievementAssessment(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public string[] SearchAchievementAssessmentCount(SearchStudent SearchStructure)
@@ -846,29 +839,29 @@ public class AspAjax : System.Web.Services.WebService {
     public List<AchievementAssessmentLoad> ShowAchievementAssessment(int ID)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.ShowAchievementAssessment(ID);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public List<AchievementAssessment> UpdateAchievementAssessment(AchievementAssessment sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.UpdateAchievementAssessment(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
 
@@ -876,16 +869,29 @@ public class AspAjax : System.Web.Services.WebService {
     public List<CaseStudy> CreatCaseStudy(CaseStudy sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.CreatCaseStudy(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
+    [WebMethod]
+    public string[] GetWriteName()
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        string[] returnValue = new string[2];
+        returnValue[0] = CreateFileName[0];
+        returnValue[1] = CreateFileName[1];
+        return returnValue;
+        //return CreateFileName;
+    }
+    
+
     [WebMethod]
     public string[] SearchCaseStudyCount(SearchStudent SearchStructure)
     {
@@ -909,29 +915,29 @@ public class AspAjax : System.Web.Services.WebService {
     public List<AchievementAssessmentLoad> ShowCaseStudy(int ID)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[0]) == 1)
+        //{
             return aDB.ShowCaseStudy(ID);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public List<CaseStudy> UpdateCaseStudy(CaseStudy sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.UpdateCaseStudy(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
 
@@ -939,15 +945,15 @@ public class AspAjax : System.Web.Services.WebService {
     public List<CaseISPRecord> CreatCaseISPRecord(CaseISPRecord sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.CreatCaseISPRecord(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
 
@@ -956,16 +962,16 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] SearchCaseISPRecordCount(SearchCaseISPRecord SearchStructure)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
 
-        {
+        //{
             return aDB.SearchCaseISPRecordCount(SearchStructure, 1);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public List<ShowCaseISPRecord> SearchCaseISPRecord(int index, SearchCaseISPRecord SearchStructure)
@@ -985,45 +991,45 @@ public class AspAjax : System.Web.Services.WebService {
     public List<CaseISPRecord> UpdateCaseISPRecord(CaseISPRecord sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.UpdateCaseISPRecord(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
     [WebMethod]
     public string[] CreatVoiceDistanceDatabase(List<VoiceDistance> sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.CreatVoiceDistanceDatabase(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
     [WebMethod]
     public string[] SearchVoiceDistanceCount(SearchStudent SearchStructure)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.SearchVoiceDistanceCount(SearchStructure, 1);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public List<VoiceDistance> SearchVoiceDistance(int index, SearchStudent SearchStructure)
@@ -1035,15 +1041,15 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] GetVoiceDistanceCount(int ID)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.GetVoiceDistanceCount(ID);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
 
     [WebMethod]
@@ -1057,32 +1063,166 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] InsertVoiceDistance(List<VoiceDistance> sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.InsertVoiceDistance(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
     [WebMethod]
     public string[] UpdateVoiceDistance(List<VoiceDistance> sTemperatureData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
-        aDB.caseBTFunction();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
             return aDB.UpdateVoiceDistance(sTemperatureData);
-        }
-        else
-        {
-            return null;
-        }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+    }
+
+    [WebMethod]
+    public string[] CreatTeachServiceSupervisor(TeachServiceSupervisor sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+            return aDB.CreatTeachServiceSupervisor(sTemperatureData);
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+    
     }
 
 
+    [WebMethod]
+    public string[] SearchTeachServiceSupervisorCount(SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+        return aDB.SearchTeachServiceSupervisorCount(SearchStructure, 1);
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
+    }
+    [WebMethod]
+    public List<TeachServiceSupervisor> SearchTeachServiceSupervisor(int index, SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchTeachServiceSupervisor(index, SearchStructure, 0);
+    }
+
+
+    [WebMethod]
+    public List<AchievementAssessmentLoad> ShowTeachServiceSupervisor(int id)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.ShowTeachServiceSupervisor(id);
+    }
+
+    [WebMethod]
+    public string[] UpdateTeachServiceSupervisor(TeachServiceSupervisor sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+        return aDB.UpdateTeachServiceSupervisor(sTemperatureData);
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+
+    }
+
+
+    [WebMethod]
+    public string[] CreateTeachServiceInspect(TeachServiceInspect sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+        return aDB.CreateTeachServiceInspect(sTemperatureData);
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+
+    }
+    [WebMethod]
+    public string[] SearchTeachServiceInspectCount(SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+        return aDB.SearchTeachServiceInspectCount(SearchStructure, 1);
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
+    }
+    [WebMethod]
+    public List<TeachServiceInspect> SearchTeachServiceInspect(int index, SearchStudent SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchTeachServiceInspect(index, SearchStructure, 1);
+    }
+
+    [WebMethod]
+    public List<AchievementAssessmentLoad> ShowTeachServiceInspect(int id)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.ShowTeachServiceInspect(id);
+    }
+    [WebMethod]
+    public string[] UpdateTeachServiceInspect(TeachServiceInspect sTemperatureData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        //aDB.caseBTFunction();
+        //if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        //{
+        return aDB.UpdateTeachServiceInspect(sTemperatureData);
+        //}
+        //else
+        //{
+        //    return null;
+        //}
+
+    }
+
+    [WebMethod]
+    public string[] SearchClassNameCountCase(SearchClassName SearchStaffCondition)//無法使用權限，會使程式部分功能喪失 add by Awho
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchClassNameCountCase(SearchStaffCondition);
+    }
+    [WebMethod]
+    public List<SearchClassName> SearchClassNameDataBaseCase(int index, SearchClassName SearchStaffCondition)// add by Awho
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchClassNameDataBaseCase(index, SearchStaffCondition);
+    }
+
+    
     
 
     /*Staff****************************************************************************************/

@@ -49,16 +49,17 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table id="searchTable" width="780" border="0">
-			            <tr>
+			        <table width="780" border="0">
+	                    <tr>
 			                <td width="260">學生姓名 <input type="text" id="gosrhstudentName" value="" /></td>
 			                <td width="260">性　　別 <select id="gosrhstudentSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
                             <td width="260">出生日期 <input id="gosrhbirthdaystart" class="date" type="text" value="" size="10" />～<input id="gosrhbirthdayend" class="date" type="text" value="" size="10" /></td>
 			            </tr>
 			            <tr>
-			                <td>教師姓名 <input id="gosrhteacherName" type="text" value="" /></td>
+			                <td>年　　度 <input  id="gosrhAcademicYearstart"   type="text" value="" size="5" />～ <input id="gosrhAcademicYearend" type="text" value="" size="5" /></td>
+			               <%-- <td>教師姓名 <input id="gosrhteacherName" type="text" value="" /></td>--%>
 			                <td>&nbsp;</td>
-			                <td>&nbsp;</td>
+			                 <td>&nbsp;</td>
 			            </tr>
 			            <tr>
 			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
@@ -71,6 +72,7 @@
 			                <tr>
 			                    <th width="160">服務使用者編號</th>
 			                    <th width="160">學生姓名</th>
+			                    <th width="160">填表日期</th>
 			                    <th width="160">出生日期</th>
 			                    <th width="120">年齡</th>
 			                    <th width="100">性別</th>
@@ -120,7 +122,7 @@
                     </p>
                     <p>
                         填寫人
-                        <input type="text" value="" size="15" />
+                        <input id="WriteNameName" type="text" value="" size="15" /><span id="WriteName" class="hideClassSpan"></span>
                         填表日期
                         <input id="WriteDate" class="date" type="text" value="" size="10" /></p>
 			        <table class="tableContact" width="780" border="0">
@@ -499,7 +501,8 @@
 			    </div>
 			    <div id="item2Content">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
-			        <p align="right">填寫人 <input id="WriteName1" type="text" value="" size="15" /></p>
+			        <p align="right">填寫人  <input id="WriteName1Name" type="text" value="" size="15" /><span id="WriteName1" class="hideClassSpan"></span></p>
+			      
 			        <table  id="tableContact2" class="tableContact" width="780" border="0">
 			            <tr>
 			                <th width="130">評估項目</th>
@@ -561,7 +564,7 @@
 			    <div id="item3Content">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;">台北至德</p>
 			        <div id="tableContact3" >
-			        <p align="right">記錄者 <input id="RecordedBy"  type="text" value="" size="15" />　　記錄日期 <input id="RecordedDateTime" class="date" type="text" value="" size="15" /></p>
+			        <p align="right">記錄者 <input id="RecordedByName"  type="text" value="" size="15" /><span id="RecordedBy" class="hideClassSpan"></span>　　記錄日期 <input id="RecordedDateTime" class="date" type="text" value="" size="15" /></p>
 			        <table   class="tableContact2" width="780" border="0">
 			            <tr>
 			                <td colspan="6">（跨專業服務人員討論決議記錄）<br /><textarea id="Recorded" cols="100" rows="5"></textarea><br /><br /></td>

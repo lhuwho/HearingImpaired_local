@@ -43,6 +43,7 @@ function initDefaultPage(url) {
         window.location.href = './main.aspx';
     }
 }
+
 function setInitData() {
     //1911為開始年份
     set_ddl_date(1912);
@@ -511,6 +512,9 @@ function callculateAge(year_ddl1, month_ddl1, day_ddl1) {
     }
     return [Age, staffMonth];
 }
+
+
+
 function countAgefunction2(CName,AgeName, MonthName) {
     var Birthday = $("#" + CName).val
     if (Birthday.length > 0) {
@@ -547,7 +551,7 @@ function countAgefunction2(CName,AgeName, MonthName) {
 }
 function PushPageValue(DataList) {
     for (var item in DataList) {
-        //alert(item);
+       // alert(item);
         if ($("#" + item).length > 0 && DataList[item] != null && DataList[item] != "null" && DataList[item].length > 0) {
             var thisType = $("#" + item).get(0).tagName;
             var thisCalss = $("#" + item).attr("class");
@@ -560,6 +564,7 @@ function PushPageValue(DataList) {
                 }
             } else if (thisType == "INPUT" || thisType == "TEXTAREA") {
                 $("#" + item).val(DataList[item]);
+                
             }else if (thisType != "IMG") {
                 $("#" + item).html(DataList[item]);
             } 
@@ -943,4 +948,16 @@ function ApplyJobSelectFunction(htmlTableName, SelectIDName) {
             $(htmlName + "#" + SelectIDName).append($("<option></option>").attr("value", item).text(_ApplyJob[item]));
         }
     }
+}
+
+
+function YearChange(olddate) {
+    olddate =  olddate.replace("/", "-").replace("/", "-");
+    //olddate;
+    var item = olddate.split("-");
+    if (item[0] != 1900 && item[0] > 1911) {
+        item[0] = parseInt(item[0]) - parseInt(1911);
+    }
+    var newdate = item[0] + "/" + item[1] + "/" + item[2];
+    return newdate;
 }

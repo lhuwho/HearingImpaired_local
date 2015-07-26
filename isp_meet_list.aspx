@@ -110,7 +110,7 @@
                                 教師名稱
                             </th>
                             <td colspan="6">
-                                <input id="teacherName" type="text" value="" /><span id="TeacherID" class="hideClassSpan"></span>
+                                <input id="teacherName" type="text" value="" readonly="readonly" /><span id="TeacherID" class="hideClassSpan"></span>
                             </td>
                         </tr>
                         <tr>
@@ -123,10 +123,10 @@
                         </tr>
                         <tr>
                             <th colspan="2">
-                                會議日期／時間
+                                會議日期
                             </th>
                             <td colspan="6">
-                                <input id="ConventionDate" class="date" type="text" value="" size="10" />／<input id="ConventionFrameTime" type="text" value=""
+                                <input id="ConventionDate" class="date" type="text" value="" size="10" />&nbsp;時間&nbsp;<input id="ConventionFrameTime" type="text" value=""
                                     size="10" />～<input id="ConventionOverTime" type="text" value="" size="10" />
                             </td>
                         </tr>

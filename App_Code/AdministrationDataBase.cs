@@ -1905,7 +1905,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name,  System.DBNull.Value);
                             }
                             break;
                     }
@@ -1919,7 +1919,7 @@ public class AdministrationDataBase
             }
             catch (Exception e)
             {
-                //temp.ID = e.Message.ToString();
+                temp.ID = e.Message.ToString();
             }
             Sqlconn.Close();
         }
@@ -2083,7 +2083,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
                             }
                             break;
                     }
@@ -2124,6 +2124,9 @@ public class AdministrationDataBase
             {
                 case "ID":
                 case "Unit":
+                case "WriteNameName":
+                case "WriteName1Name":
+                case "RecordedByName":
                     break;
                 case "isDeleted":
                     strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
@@ -2157,11 +2160,15 @@ public class AdministrationDataBase
                     {
                         case "ID":
                         case "Unit":
+                        case "WriteNameName":
+                        case "WriteName1Name":
+                        case "RecordedByName":
                             // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
                             break;
                         case "CreateFileBy":
                         case "UpFileBy":
                             //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+
                             cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                             break;
                         default:
@@ -2171,7 +2178,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
                             }
                             break;
                     }
@@ -2207,6 +2214,9 @@ public class AdministrationDataBase
             {
                 case "ID":
                 case "Unit":
+                case "WriteNameName":
+                case "WriteName1Name":
+                case "RecordedByName":
                     break;
                 case "WriteDate":
                 case "RecordedDateTime":
@@ -2226,7 +2236,11 @@ public class AdministrationDataBase
             {
                 StaffDataBase sDB = new StaffDataBase();
                 Sqlconn.Open();
-                string sql = "select  b.studentname ,convert(varchar, isnull(convert(date, b.studentbirthday ,1),'1912'), 23) as studentbirthday , " + strSql + " from CaseStudy a left join studentDatabase b on a.studentid = b.id  where a.ID=@ID and  isnull(a.isDeleted,0) = 0 ";
+                string sql = "select  b.studentname ,convert(varchar, isnull(convert(date, b.studentbirthday ,1),'1912'), 23) as studentbirthday , c.WriteNameName , d.WriteName1Name,e.RecordedByName , " + strSql + " from CaseStudy a  ";
+                sql += " left join ( select staffid as cid , StaffName as WriteNameName from staffDatabase ) c on a.WriteName = c.cid ";
+                sql += " left join ( select staffid as did , StaffName as WriteName1Name from staffDatabase ) d on a.WriteName1 = d.did ";
+                sql += " left join ( select staffid as eid , StaffName as RecordedByName from staffDatabase ) e on a.RecordedBy = e.eid ";
+                sql += " left join studentDatabase b on a.studentid = b.id  where a.ID=@ID and  isnull(a.isDeleted,0) = 0 ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -2234,6 +2248,15 @@ public class AdministrationDataBase
                 {
                     temp.IDname = "studentName";
                     temp.ThisValue = dr["studentName"].ToString();
+                    returnvalue.Add(temp);
+                    temp.IDname = "WriteNameName";
+                    temp.ThisValue = dr["WriteNameName"].ToString();
+                    returnvalue.Add(temp);
+                    temp.IDname = "WriteName1Name";
+                    temp.ThisValue = dr["WriteName1Name"].ToString();
+                    returnvalue.Add(temp);
+                    temp.IDname = "RecordedByName";
+                    temp.ThisValue = dr["RecordedByName"].ToString();
                     returnvalue.Add(temp);
                     temp.IDname = "studentbirthday";
                     temp.ThisValue = dr["studentbirthday"].ToString();
@@ -2246,6 +2269,9 @@ public class AdministrationDataBase
                         {
                             case "ID":
                             case "Unit":
+                            case "WriteNameName":
+                            case "WriteName1Name":
+                            case "RecordedByName":
                                 break;
                             case "WriteDate":
                             case "RecordedDateTime":
@@ -2292,6 +2318,9 @@ public class AdministrationDataBase
                 case "CreateFileDate":
                 case "ID":
                 case "Unit":
+                case "WriteNameName":
+                case "WriteName1Name":
+                case "RecordedByName":
                     // strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = " + fldInfo.GetValue(sTemperatureData);
                     break;
                 //case "CreateFileDate":
@@ -2339,7 +2368,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
                             }
                             break;
                     }
@@ -2418,7 +2447,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
                             }
                             break;
                     }
@@ -2456,16 +2485,17 @@ public class AdministrationDataBase
         {
             ConditionReturn += " AND ConventionDate BETWEEN (@ConventionDatestart) AND (@ConventionDaterend) ";
         }
-        //StaffDataBase sDB = new StaffDataBase();
-        //List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
-        //if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
-        //{
-        //    ConditionReturn += " AND Unit =" + UserFile[2] + " ";
-        //}
-        //if (type == 0)
-        //{
-        //    ConditionReturn += " AND CaseStatu2 =" + type + " ";
-        //}
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
+        }
         return ConditionReturn;
     }
 
@@ -2737,7 +2767,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
                             }
                             break;
                     }
@@ -2766,7 +2796,7 @@ public class AdministrationDataBase
             try
             {
                 StaffDataBase sDB = new StaffDataBase();
-                string sql = "  DECLARE @ID int;  DECLARE @MasterID int; insert into VoiceDistance (studentID,AcademicYear,AcademicTerm) values( @studentID , @AcademicYear,@AcademicTerm) ";
+                string sql = "  DECLARE @ID int;  DECLARE @MasterID int; insert into VoiceDistance (studentID,AcademicYear,AcademicTerm,studentAge,studentMonth) values( @studentID , @AcademicYear,@AcademicTerm,@StudentAge,@StudentMonth) ";
                 sql += "  select @ID = (select @@identity) ";
                 sql += " insert into VoiceDistanceMaster ( VDid,date,remark ,ListOrder,up1,up2 ,up3 ,up4,up5 ) values( @ID,@date,@remark ,@ListOrder,@up1,@up2 ,@up3 ,@up4,@up5) ";
                 sql += "  select @MasterID = (select @@identity) ";
@@ -2779,7 +2809,9 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].StudentID.ToString());
                 cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicYear.ToString());
                 cmd.Parameters.Add("@AcademicTerm", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].AcademicTerm.ToString());
-                cmd.Parameters.Add("@date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction( sTemperatureData[0].Date.AddYears(1911).ToShortDateString());
+                cmd.Parameters.Add("@StudentAge", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].StudentAge.ToString());
+                cmd.Parameters.Add("@StudentMonth", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].StudentMonth.ToString());
+                cmd.Parameters.Add("@date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction( sTemperatureData[0].Date.AddYears(1911).AddDays(-1).ToShortDateString());
                 cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[0].remark.ToString());
                 cmd.Parameters.Add("@ListOrder", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ListOrder.ToString());
                 for (int i = 0; i < sTemperatureData[0].up.Split('|').Length; i++)
@@ -2835,6 +2867,17 @@ public class AdministrationDataBase
         {
             ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; // 教學管理使用 不知是否會與其他衝突
         }
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
+        }
         return ConditionReturn;
     }
 
@@ -2886,7 +2929,7 @@ public class AdministrationDataBase
             {
                 Sqlconn.Open();
                 string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.AcademicYear,'') DESC) as RowNum ";
-                sql += " ,a.id, a.AcademicYear,a.AcademicTerm , b.StudentName , b.StudentBirthday ";
+                sql += " ,a.id, a.AcademicYear,a.AcademicTerm ,a.StudentAge,a.StudentMonth , b.StudentName , b.StudentBirthday ";
                 sql += " FROM VoiceDistance a left join studentDatabase b on a.studentid = b.id  ";
                 sql += " WHERE 1=1 " + ConditionReturn + ") AS NewTable ";
 
@@ -2914,6 +2957,8 @@ public class AdministrationDataBase
                     addValue.StudentName = dr["StudentName"].ToString();
                     addValue.AcademicYear = dr["AcademicYear"].ToString();
                     addValue.AcademicTerm = dr["AcademicTerm"].ToString();
+                    addValue.StudentAge = dr["StudentAge"].ToString();
+                    addValue.StudentMonth = dr["StudentMonth"].ToString();
                     addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
                     returnValue.Add(addValue);
                 }
@@ -2965,7 +3010,7 @@ public class AdministrationDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = " SELECT a.id, a.studentid,a.AcademicYear,a.AcademicTerm,b.date,b.remark,b.listOrder , b.up1,b.up2,b.up3,b.up4,b.up5  ";
+                string sql = " SELECT a.id, a.studentid,a.AcademicYear,a.AcademicTerm,a.StudentAge,a.StudentMonth ,b.date,b.remark,b.listOrder , b.up1,b.up2,b.up3,b.up4,b.up5  ";
                 sql += " ,c.id as HidID, c.question, c.a1 ,c.a2,c.a3,c.a4,c.a5,c.rows as RowNum , d.studentname ,d.studentbirthday ";
                 sql += " from VoiceDistance a  ";
                 sql += " left join VoiceDistanceMaster b on a.id = b.VDid ";
@@ -2990,6 +3035,8 @@ public class AdministrationDataBase
                     addValue.StudentID = dr["StudentID"].ToString();
                     addValue.AcademicYear = dr["AcademicYear"].ToString();
                     addValue.AcademicTerm = dr["AcademicTerm"].ToString();
+                    addValue.StudentAge = dr["StudentAge"].ToString();
+                    addValue.StudentMonth = dr["StudentMonth"].ToString();
                     addValue.ListOrder = dr["listorder"].ToString();
                     addValue.Date = Convert.ToDateTime(dr["date"].ToString()).AddYears(-1911); ;
                     addValue.remark = dr["remark"].ToString();
@@ -3077,7 +3124,7 @@ public class AdministrationDataBase
             try
             {
                 StaffDataBase sDB = new StaffDataBase();
-                string sql = " Update VoiceDistance set AcademicYear = @AcademicYear ,AcademicTerm = @AcademicYear where id = @VDID ";
+                string sql = " Update VoiceDistance set AcademicYear = @AcademicYear ,AcademicTerm = @AcademicTerm where id = @VDID ";
                 for (int i = 0; i < sTemperatureData.Count; i++)
                 {
                     sql += " Update VoiceDistanceMaster set date = @" + i.ToString() + "date , remark =@" + i.ToString() + "remark ,up1 = @" + i.ToString() + "up1,up2=@" + i.ToString() + "up2,up3=@" + i.ToString() + "up3 , up4 =@" + i.ToString() + "up4 , up5 =@" + i.ToString() + "up5 where VDid = @VDID and ListOrder =@" + i.ToString() + "ListOrder ";
@@ -3091,7 +3138,7 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData[0].ID.ToString());
                 for (int i = 0; i < sTemperatureData.Count; i++)
                 {
-                    cmd.Parameters.Add("@" + i.ToString() + "date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(sTemperatureData[i].Date.AddYears(1911).ToShortDateString());
+                    cmd.Parameters.Add("@" + i.ToString() + "date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(sTemperatureData[i].Date.AddYears(1911).AddDays(-1).ToShortDateString());
                     cmd.Parameters.Add("@" + i.ToString() + "remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].remark.ToString());
                     cmd.Parameters.Add("@" + i.ToString() + "ListOrder", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(sTemperatureData[i].ListOrder.ToString());
                     cmd.Parameters.Add("@" + i.ToString() + "Question", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData[i].Question.ToString());
@@ -3120,6 +3167,1118 @@ public class AdministrationDataBase
         }
         return returnValue;
     }
+
+
+    public string[] CreatTeachServiceSupervisor(TeachServiceSupervisor sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        string strSql = "";
+        string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                    break;
+                case "isDeleted":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "0 ";
+                    break;
+                case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                string sql = " insert into  TeachServiceSupervisor ( " + strSql + " )values( " + strSqlPara + ")  select @@identity as ID ";
+       
+
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                //cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData.AcademicYear.ToString());
+                //cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData.ID.ToString());
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        case "ID":
+                        case "Unit":
+                        case "RowNum":
+                        case "TeacherName":
+                        case "StudentName":
+                        case "txtstudentbirthday":
+                        case "checkNo":
+                        case "errorMsg":
+                            break;
+                        case "CreateFileBy":
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        case "ClassDate":
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, Convert.ToDateTime( fldInfo.GetValue(sTemperatureData).ToString()).AddYears(1911).ToShortDateString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    
+    }
+
+
+
+    private string SearchTeachServiceSupervisorCondition(SearchStudent SearchStructure, int type)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStructure.txtstudentID != null)
+        {
+            ConditionReturn += " AND StudentID=(@StudentID) ";
+        }
+        if (SearchStructure.txtstudentName != null)
+        {
+            ConditionReturn += " AND StudentName like (@StudentName) ";
+        }
+        if (SearchStructure.txtstudentSex != null && SearchStructure.txtstudentSex != "0")
+        {
+            ConditionReturn += " AND StudentSex=(@StudentSex) ";
+        }
+        if (SearchStructure.txtbirthdaystart != null && SearchStructure.txtbirthdayend != null && SearchStructure.txtbirthdaystart != DateBase && SearchStructure.txtbirthdayend != DateBase)
+        {
+            ConditionReturn += " AND StudentBirthday BETWEEN (@sBirthdayStart) AND (@sBirthdayEnd) ";
+        }
+        if (SearchStructure.txtAcademicYearstart != null && SearchStructure.txtAcademicYearend != null && SearchStructure.txtAcademicYearstart != DateBase && SearchStructure.txtAcademicYearend != DateBase)
+        {
+            ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; // 教學管理使用 不知是否會與其他衝突
+        }
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
+        }
+        return ConditionReturn;
+    }
+
+    public string[] SearchTeachServiceSupervisorCount(SearchStudent SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchTeachServiceSupervisorCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM TeachServiceSupervisor a left join studentDatabase b on a.studentid = b.id   WHERE 1=1 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearend);
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<TeachServiceSupervisor> SearchTeachServiceSupervisor(int indexpage, SearchStudent SearchStructure, int type)
+    {
+
+        List<TeachServiceSupervisor> returnValue = new List<TeachServiceSupervisor>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchVoiceDistanceCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.AcademicYear,'') DESC) as RowNum ";
+                sql += " ,a.id, a.AcademicYear,  convert(varchar, isnull(convert(date,  a.ClassDate,1),'1912'), 111) as   ClassDate,a.StudentAge,a.StudentMonth , b.StudentName , b.StudentBirthday ";
+                sql += " FROM TeachServiceSupervisor a left join studentDatabase b on a.studentid = b.id  ";
+                sql += " WHERE 1=1 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtAcademicYearend);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    TeachServiceSupervisor addValue = new TeachServiceSupervisor();
+                    addValue.RowNum = dr["rownum"].ToString();
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.ClassDate = dr["classDate"].ToString();
+                    addValue.StudentName = dr["StudentName"].ToString();
+                    addValue.AcademicYear = dr["AcademicYear"].ToString();
+                    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    addValue.StudentAge = dr["studentAge"].ToString();
+                    addValue.StudentMonth = dr["studentMonth"].ToString();
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                TeachServiceSupervisor addValue = new TeachServiceSupervisor();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+    public List<AchievementAssessmentLoad> ShowTeachServiceSupervisor(int id)
+    {
+        List<AchievementAssessmentLoad> returnValue = new List<AchievementAssessmentLoad>();
+        string strSql = "";
+        TeachServiceSupervisor sTemperatureData = new TeachServiceSupervisor();
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                case "isDeleted":
+                case "CreateFileDate":
+                case "CreateFileBy":
+                case "UpFileBy":
+                case "UpFileDate":
+                    break;
+                case "ClassDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "convert(varchar, isnull(convert(date, a." + fldInfo.Name + ",1),'1912'), 111) as " + fldInfo.Name;
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "a." + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT  " + strSql + " , b.StudentName ,c.TeacherName ";
+                sql += " from TeachServiceSupervisor a ";
+                sql += " left join  (select id, studentName from studentDatabase) b on a.studentid = b.id  ";
+                sql += " left join ( select staffid as cid , StaffName as TeacherName from staffDatabase ) c on a.teacherid = c.cid ";
+                sql += " where 1=1 and a.ID = @ID ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", id);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    AchievementAssessmentLoad addValue = new AchievementAssessmentLoad();
+
+                    addValue.IDname = "studentName";
+                    addValue.ThisValue = dr["studentName"].ToString();
+                    returnValue.Add(addValue);
+                    addValue.IDname = "teacherName";
+                    addValue.ThisValue = dr["TeacherName"].ToString();
+                    returnValue.Add(addValue);
+  
+
+
+                    foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                    {
+
+
+                        switch (fldInfo.Name)
+                        {
+                            case "ID":
+                            case "Unit":
+                            case "RowNum":
+                            case "TeacherName":
+                            case "StudentName":
+                            case "txtstudentbirthday":
+                            case "checkNo":
+                            case "errorMsg":
+                            case "isDeleted":
+                            case "CreateFileDate":
+                            case "CreateFileBy":
+                            case "UpFileBy":
+                            case "UpFileDate":
+                                break;
+                            case "ClassDate":
+                                addValue.IDname = fldInfo.Name;
+                                addValue.ThisValue = Convert.ToDateTime(dr[fldInfo.Name].ToString()).AddYears(-1911).ToShortDateString().Remove(0, 1);
+                                returnValue.Add(addValue);
+                                break;
+                            default:
+                                addValue.IDname = fldInfo.Name;
+                                addValue.ThisValue = dr[fldInfo.Name].ToString();
+                                returnValue.Add(addValue);
+                                break;
+                        }
+                    }
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                //AchievementAssessmentLoad addValue = new AchievementAssessmentLoad();
+                ////addValue.checkNo = "-1";
+                ////addValue.errorMsg = e.Message.ToString();
+                string ee = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+    public string[] UpdateTeachServiceSupervisor(TeachServiceSupervisor sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        string strSql = "";
+        //string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                case "isDeleted":
+                case "CreateFileDate":
+                case "CreateFileBy":
+                case "StudentAge":
+                case "StudentMonth":
+                case "DirectorName":    
+                    break;
+                case "UpFileDate":
+                    //strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = getdate() " ;
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + "=@" + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                string sql = " update  TeachServiceSupervisor set " + strSql  + " where ID = @ID ";
+                sql += " select id from TeachServiceSupervisor where ID = @ID ";
+       
+
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData.ID.ToString());
+                //cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData.ID.ToString());
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        case "ID":
+                        case "Unit":
+                        case "RowNum":
+                        case "TeacherName":
+                        case "StudentName":
+                        case "txtstudentbirthday":
+                        case "checkNo":
+                        case "errorMsg":
+                        case "isDeleted":
+                        case "CreateFileDate":
+                        case "CreateFileBy":
+                        case "StudentAge":
+                        case "StudentMonth":
+                        case "DirectorName":    
+                            break;
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        case "ClassDate":
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, Convert.ToDateTime( fldInfo.GetValue(sTemperatureData).ToString()).AddYears(1911).ToShortDateString());
+                            }
+                            else
+                            {
+                                //cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull..Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+
+                            }
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                //cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull..Value);
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    
+    }
+
+
+    public string[] CreateTeachServiceInspect(TeachServiceInspect sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        string strSql = "";
+        string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                case "ClassIDName":
+                case "DirectorName":
+                    break;
+                case "isDeleted":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "0 ";
+                    break;
+                case "CreateFileDate":
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name;
+                    strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                string sql = " insert into  TeachServiceInspect ( " + strSql + " )values( " + strSqlPara + ")  select @@identity as ID ";
+
+
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                //cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData.AcademicYear.ToString());
+                //cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData.ID.ToString());
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        case "ID":
+                        case "Unit":
+                        case "RowNum":
+                        case "TeacherName":
+                        case "StudentName":
+                        case "txtstudentbirthday":
+                        case "checkNo":
+                        case "errorMsg":
+                        case "ClassIDName":
+                        case "DirectorName":
+                            break;
+                        case "CreateFileBy":
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        case "ClassDate":
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, Convert.ToDateTime(fldInfo.GetValue(sTemperatureData).ToString()).AddYears(1911).ToShortDateString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+
+    }
+
+
+    private string SearchTeachServiceInspectCondition(SearchStudent SearchStructure, int type)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStructure.txtstudentID != null)
+        {
+            ConditionReturn += " AND StudentID=(@StudentID) ";
+        }
+        if (SearchStructure.txtstudentName != null)
+        {
+            ConditionReturn += " AND StudentName like (@StudentName) ";
+        }
+        if (SearchStructure.txtstudentSex != null && SearchStructure.txtstudentSex != "0")
+        {
+            ConditionReturn += " AND StudentSex=(@StudentSex) ";
+        }
+        if (SearchStructure.txtbirthdaystart != null && SearchStructure.txtbirthdayend != null && SearchStructure.txtbirthdaystart != DateBase && SearchStructure.txtbirthdayend != DateBase)
+        {
+            ConditionReturn += " AND StudentBirthday BETWEEN (@sBirthdayStart) AND (@sBirthdayEnd) ";
+        }
+
+        if (SearchStructure.txtendReasonDatestart != null && SearchStructure.txtendReasonDateend != null && SearchStructure.txtendReasonDatestart != DateBase && SearchStructure.txtendReasonDateend != DateBase)
+        {
+            ConditionReturn += " AND InspectDate BETWEEN (@InspectDatestart) AND (@InspectDateend) "; 
+        }
+
+        if (SearchStructure.txtAcademicYearstart != null && SearchStructure.txtAcademicYearend != null )
+        {
+            ConditionReturn += " AND AcademicYear BETWEEN (@AcademicYearstart) AND (@AcademicYearend) "; 
+        }
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
+        }
+        return ConditionReturn;
+    }
+
+    public string[] SearchTeachServiceInspectCount(SearchStudent SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchTeachServiceInspectCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM TeachServiceInspect a left join studentDatabase b on a.studentid = b.id   WHERE 1=1 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@InspectDatestart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtendReasonDatestart);
+                cmd.Parameters.Add("@InspectDateend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtendReasonDateend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearend);
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<TeachServiceInspect> SearchTeachServiceInspect(int indexpage, SearchStudent SearchStructure, int type)
+    {
+
+        List<TeachServiceInspect> returnValue = new List<TeachServiceInspect>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchTeachServiceInspectCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from (select ROW_NUMBER() OVER (ORDER BY isnull( a.AcademicYear,'') DESC) as RowNum ";
+                sql += " ,a.id, a.AcademicYear,  convert(varchar, isnull(convert(date,  a.InspectDate,1),'1912'), 111) as   InspectDate,a.ClassType , b.StudentName , b.StudentBirthday , c.TeacherName ,d.ClassIDName ";
+                sql += " FROM TeachServiceInspect a left join studentDatabase b on a.studentid = b.id  ";
+                sql += " left join (select staffid as cid , staffname as TeacherName from staffdatabase ) c on a.teacherid = c.cid ";
+                sql += " left join (select ClassIDName , ClassID as did from ClassName ) d on a.ClassNameID = d.did "; 
+                sql += " WHERE 1=1 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstudentID);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtstudentSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdaystart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtbirthdayend);
+
+                cmd.Parameters.Add("@InspectDatestart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtendReasonDatestart);
+                cmd.Parameters.Add("@InspectDateend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtendReasonDateend);
+
+                cmd.Parameters.Add("@AcademicYearstart", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearstart);
+                cmd.Parameters.Add("@AcademicYearend", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtAcademicYearend);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    TeachServiceInspect addValue = new TeachServiceInspect();
+                    addValue.RowNum = dr["rownum"].ToString();
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.ClassType = dr["ClassType"].ToString();
+                    addValue.InspectDate = dr["InspectDate"].ToString();
+                    addValue.StudentName = dr["StudentName"].ToString();
+                    addValue.TeacherName = dr["TeacherName"].ToString();
+                    addValue.AcademicYear = dr["AcademicYear"].ToString();
+                    addValue.ClassIDName = dr["ClassIDName"].ToString();
+                    //if (dr["ClassType"].ToString() == 1)
+                    //{
+                    //    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    //}
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                TeachServiceInspect addValue = new TeachServiceInspect();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message.ToString();
+                returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+    public List<AchievementAssessmentLoad> ShowTeachServiceInspect(int id)
+    {
+        List<AchievementAssessmentLoad> returnValue = new List<AchievementAssessmentLoad>();
+        string strSql = "";
+        TeachServiceInspect sTemperatureData = new TeachServiceInspect();
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                case "isDeleted":
+                case "CreateFileDate":
+                case "CreateFileBy":
+                case "UpFileBy":
+                case "UpFileDate":
+                case "ClassIDName":
+                case "DirectorName":    
+                    break;
+                case "ClassDate":
+                case "InspectDate":
+                case "Date":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "convert(varchar, isnull(convert(date, a." + fldInfo.Name + ",1),'1912'), 111) as " + fldInfo.Name;
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + "a." + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT  " + strSql + " , b.StudentName ,c.TeacherName  ,d.ClassIDName ,e.DirectorName ";
+                sql += " from TeachServiceInspect a ";
+                sql += " left join  (select id, studentName from studentDatabase) b on a.studentid = b.id  ";
+                sql += " left join ( select staffid as cid , StaffName as TeacherName from staffDatabase ) c on a.teacherid = c.cid ";
+                sql += " left join (select ClassIDName , ClassID as did from ClassName ) d on a.ClassNameID = d.did ";
+                sql += " left join ( select   staffid as eid , StaffName as DirectorName from staffDatabase ) e on a.Director = e.eid "; //DirectorName
+                sql += " where 1=1 and a.ID = @ID ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", id);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    AchievementAssessmentLoad addValue = new AchievementAssessmentLoad();
+                    addValue.IDname = "ClassType";
+                    addValue.ThisValue = dr["ClassType"].ToString();
+                    returnValue.Add(addValue);
+                    addValue.IDname = "studentName";
+                    addValue.ThisValue = dr["studentName"].ToString();
+                    returnValue.Add(addValue);
+                    addValue.IDname = "teacherName";
+                    addValue.ThisValue = dr["TeacherName"].ToString();
+                    returnValue.Add(addValue);
+                    addValue.IDname = "DirectorName";
+                    addValue.ThisValue = dr["DirectorName"].ToString();
+                    returnValue.Add(addValue);
+                    addValue.IDname = "ClassName";
+                    addValue.ThisValue = dr["ClassIDName"].ToString();
+                    returnValue.Add(addValue);
+
+
+                    foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                    {
+
+
+                        switch (fldInfo.Name)
+                        {
+                            case "ID":
+                            case "Unit":
+                            case "RowNum":
+                            case "TeacherName":
+                            case "StudentName":
+                            case "txtstudentbirthday":
+                            case "checkNo":
+                            case "errorMsg":
+                            case "isDeleted":
+                            case "CreateFileDate":
+                            case "CreateFileBy":
+                            case "UpFileBy":
+                            case "UpFileDate":
+                            case "ClassType":
+                            case "ClassIDName":
+                            case "DirectorName":    
+                                break;
+                            case "InspectDate":
+                            case "Date":
+                            case "ClassDate":
+                                addValue.IDname = fldInfo.Name;
+                                addValue.ThisValue = Convert.ToDateTime(dr[fldInfo.Name].ToString()).AddYears(-1911).AddDays(-1).ToShortDateString().Remove(0, 1);
+                                returnValue.Add(addValue);
+                                break;
+                            default:
+                                addValue.IDname = fldInfo.Name;
+                                addValue.ThisValue = dr[fldInfo.Name].ToString();
+                                returnValue.Add(addValue);
+                                break;
+                        }
+                    }
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                //AchievementAssessmentLoad addValue = new AchievementAssessmentLoad();
+                ////addValue.checkNo = "-1";
+                ////addValue.errorMsg = e.Message.ToString();
+                string ee = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+    public string[] UpdateTeachServiceInspect(TeachServiceInspect sTemperatureData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        string strSql = "";
+       // string strSqlPara = "";
+        foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+        {
+            switch (fldInfo.Name)
+            {
+                case "ID":
+                case "Unit":
+                case "RowNum":
+                case "TeacherName":
+                case "StudentName":
+                case "txtstudentbirthday":
+                case "checkNo":
+                case "errorMsg":
+                case "ClassIDName":
+                case "isDeleted":
+                case "CreateFileDate":
+                case "CreateFileBy":
+                case "DirectorName":    
+                    break;
+                case "UpFileDate":
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " = getdate() "; ;
+                   // strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "" : ",") + "getdate() ";
+                    break;
+                default:
+                    strSql += (string.IsNullOrEmpty(strSql) ? "" : ",") + fldInfo.Name + " =@" + fldInfo.Name;
+                 //   strSqlPara += (string.IsNullOrEmpty(strSqlPara) ? "@" : ",@") + fldInfo.Name;
+                    break;
+            }
+        }
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                string sql = " update TeachServiceInspect set  " + strSql + "  where ID = @ID ";
+                sql += " select id from TeachServiceInspect where id = @ID ";
+
+
+                Sqlconn.Open();
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                //cmd.Parameters.Add("@AcademicYear", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(sTemperatureData.AcademicYear.ToString());
+                //cmd.Parameters.Add("@VDID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sTemperatureData.ID.ToString());
+                foreach (System.Reflection.FieldInfo fldInfo in sTemperatureData.GetType().GetFields())
+                {
+
+                    switch (fldInfo.Name)
+                    {
+                        //case "ID":
+                        case "Unit":
+                        case "RowNum":
+                        case "TeacherName":
+                        case "StudentName":
+                        case "txtstudentbirthday":
+                        case "checkNo":
+                        case "errorMsg":
+                        case "ClassIDName":
+                        case "isDeleted":
+                        case "CreateFileDate":
+                        case "CreateFileBy":
+                        case "DirectorName":    
+                            break;
+                        case "UpFileBy":
+                            //cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData));
+                            cmd.Parameters.Add("@" + fldInfo.Name, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                            break;
+                        case "ClassDate":
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, Convert.ToDateTime(fldInfo.GetValue(sTemperatureData).ToString()).AddYears(1911).ToShortDateString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                        default:
+                            if (fldInfo.GetValue(sTemperatureData) != null)
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, fldInfo.GetValue(sTemperatureData).ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                            }
+                            break;
+                    }
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = dr["ID"].ToString();
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+
+    }
+
+
+
+
+    private string SearchClassNameCondition(SearchClassName SearchStructure)
+    {
+        string ConditionReturn = "";
+        if (SearchStructure.txtstaffID != null)
+        {
+            ConditionReturn += " AND TeacherID=(@txtstaffID) ";
+        }
+        if (SearchStructure.txtstaffName != null)
+        {
+            ConditionReturn += " AND TeacherName like (@txtstaffName) ";
+        }
+        if (SearchStructure.txtClassID != null)
+        {
+            ConditionReturn += " AND ClassID=(@txtClassID) ";
+        }
+        if (SearchStructure.txtClassName != null)
+        {
+            ConditionReturn += " AND ClassName like (@txtClassName) ";
+        }
+
+
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND a.Unit =" + UserFile[2] + " ";
+        }
+        return ConditionReturn;
+    }
+
+    public string[] SearchClassNameCountCase(SearchClassName SearchStructure)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchClassNameCondition(SearchStructure);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM ClassName a left join (select staffid as bid , StaffName as TeacherName from staffDatabase )  b on a.Teacherid = b.bid   WHERE 1=1 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@txtstaffID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstaffID);
+                cmd.Parameters.Add("@txtstaffName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstaffName) + "%";
+
+                cmd.Parameters.Add("@txtClassID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtClassID);
+                cmd.Parameters.Add("@txtClassName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtClassName) + "%";
+         
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<SearchClassName> SearchClassNameDataBaseCase(int indexpage, SearchClassName SearchStructure)
+    {
+
+        List<SearchClassName> returnValue = new List<SearchClassName>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchClassNameCondition(SearchStructure);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from   (select ROW_NUMBER() OVER (ORDER BY isnull( a.ClassID,'') DESC) as RowNum , * ";
+                sql += " FROM classname a  ";
+                sql += " left join (select staffid as bid , StaffName as TeacherName from staffDatabase )  b on a.Teacherid = b.bid ";
+                sql += " WHERE 1=1 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@txtstaffID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtstaffID);
+                cmd.Parameters.Add("@txtstaffName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstaffName) + "%";
+
+                cmd.Parameters.Add("@txtClassID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.txtClassID);
+                cmd.Parameters.Add("@txtClassName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtClassName) + "%";
+         
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    SearchClassName addValue = new SearchClassName();
+                    addValue.txtClassID = dr["ClassID"].ToString();
+                    addValue.txtClassName = dr["ClassIDName"].ToString();
+                    addValue.txtstaffID = dr["Teacherid"].ToString();
+                    addValue.txtstaffName = dr["teachername"].ToString();
+                    //addValue.RowNum = dr["rownum"].ToString();
+                    //addValue.ID = dr["ID"].ToString();
+                    //addValue.ClassType = dr["ClassType"].ToString();
+                    //addValue.InspectDate = dr["InspectDate"].ToString();
+                    //addValue.StudentName = dr["StudentName"].ToString();
+                    //addValue.TeacherName = dr["TeacherName"].ToString();
+                    //addValue.AcademicYear = dr["AcademicYear"].ToString();
+                    //addValue.ClassIDName = dr["ClassIDName"].ToString();
+                    //if (dr["ClassType"].ToString() == 1)
+                    //{
+                    //    addValue.txtstudentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString());
+                    //}
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string a = e.Message.ToString();
+                //SearchClassName addValue = new SearchClassName();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+
+
+
 
 
 }

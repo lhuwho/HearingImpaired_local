@@ -108,7 +108,9 @@
 			       <tr>
 			           <th width="150">學生姓名</th>
 			           <td> <input id="studentName" type="text" value="" size="15" readonly="readonly" /><span id="StudentID" class="hideClassSpan"></span></td>
+			           
 			       </tr>
+			       <tr><th width="150">學生年紀</th><td><input id="StudentAge" type="text" value="" size="5"  readonly="readonly" /> 歲  <input id="StudentMonth" type="text" value="" size="5"  readonly="readonly" /> 個月</td></tr>
 			       <tr>
 			           <th>出生日期</th>
 			           <td><span id="studentbirthday">
@@ -121,14 +123,14 @@
 			            <table id="tableContact1" class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
 			               <tr>
 			                   <th width="50">&nbsp</th>
-			                   <th width="40"><input id="p1_up1" style="width:27px;" class="name" type="text"/></th>
-			                   <th width="40"><input id="p1_up2" style="width:27px;" class="name" type="text"/></th>
-			                   <th width="40"><input id="p1_up3" style="width:27px;" class="name" type="text" /></th>
-			                   <th width="40"><input id="p1_up4" style="width:27px;" class="name" type="text" /></th>
-			                   <th width="40"><input id="p1_up5" style="width:27px;" class="name" type="text" /></th>
+			                   <th width="40"><input id="p1_up1" style="width:27px;" value="ㄋ" class="name" type="text"/></th>
+			                   <th width="40"><input id="p1_up2" style="width:27px;" value="ㄨ" class="name" type="text"/></th>
+			                   <th width="40"><input id="p1_up3" style="width:27px;" value="ㄦ" class="name" type="text" /></th>
+			                   <th width="40"><input id="p1_up4" style="width:27px;" value="ㄚ" class="name" type="text" /></th>
+			                   <th width="40"><input id="p1_up5" style="width:27px;" value="ㄙ" class="name" type="text" /></th>
 			               </tr>
 			               <tr>
-                               <th><input id="p1_Q1" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID1" type="text"  class="hideClassSpan"/></th>
+                               <th><input id="p1_Q1" style="width:38px;" class="perceiveRight" value="30cm" type="text" /><input id="p1_hidID1" type="text"  class="hideClassSpan"/></th>
 			                   <td><input type="checkbox"  id="p1_Q1_A1" ></td>
 	                           <td><input type="checkbox"  id="p1_Q1_A2" ></td>
 			                   <td><input type="checkbox"  id="p1_Q1_A3" ></td>
@@ -136,7 +138,7 @@
 			                   <td><input type="checkbox"  id="p1_Q1_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><input id="p1_Q2" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID2" type="text"  class="hideClassSpan"/></th>
+                               <th><input id="p1_Q2" style="width:38px;" class="perceiveRight" value="1M" type="text" /><input id="p1_hidID2" type="text"  class="hideClassSpan"/></th>
 			                   <td><input type="checkbox"  id="p1_Q2_A1" ></td>
 	                           <td><input type="checkbox"  id="p1_Q2_A2" ></td>
 			                   <td><input type="checkbox"  id="p1_Q2_A3" ></td>
@@ -144,7 +146,7 @@
 			                   <td><input type="checkbox"  id="p1_Q2_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><input id="p1_Q3" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID3" type="text"  class="hideClassSpan"/></th>
+                               <th><input id="p1_Q3" style="width:38px;" class="perceiveRight" value="2M" type="text" /><input id="p1_hidID3" type="text"  class="hideClassSpan"/></th>
 			                   <td><input type="checkbox"  id="p1_Q3_A1" ></td>
 	                           <td><input type="checkbox"  id="p1_Q3_A2" ></td>
 			                   <td><input type="checkbox"  id="p1_Q3_A3" ></td>
@@ -152,7 +154,7 @@
 			                   <td><input type="checkbox"  id="p1_Q3_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><input id="p1_Q4" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID4" type="text"  class="hideClassSpan"/></th>
+                               <th><input id="p1_Q4" style="width:38px;" class="perceiveRight" type="text" /><input id="p1_hidID4" type="text"  class="hideClassSpan"/></th>
 			                   <td><input type="checkbox"  id="p1_Q4_A1" ></td>
 	                           <td><input type="checkbox"  id="p1_Q4_A2" ></td>
 			                   <td><input type="checkbox"  id="p1_Q4_A3" ></td>
@@ -160,7 +162,7 @@
 			                   <td><input type="checkbox"  id="p1_Q4_A5" ></td>
 			               </tr>
 			               <tr>
-                               <th><input id="p1_Q5" style="width:27px;" class="perceiveRight" type="text" /><input id="p1_hidID5" type="text"  class="hideClassSpan"/></th>
+                               <th><input id="p1_Q5" style="width:38px;" class="perceiveRight" type="text" /><input id="p1_hidID5" type="text"  class="hideClassSpan"/></th>
 			                   <td><input type="checkbox"  id="p1_Q5_A1" ></td>
 	                           <td><input type="checkbox"  id="p1_Q5_A2" ></td>
 			                   <td><input type="checkbox"  id="p1_Q5_A3" ></td>
