@@ -558,7 +558,7 @@ public class Audiometry
                 Sqlconn.Open();
                 string sql = "SELECT HearingAssessment.*, StudentDatabase.StudentName, StudentDatabase.StudentBirthday " +
                             "FROM HearingAssessment INNER JOIN StudentDatabase ON HearingAssessment.StudentID=StudentDatabase.StudentID " +
-                            "WHERE HearingAssessment.isDeleted=0 AND HearingAssessment.ID=@ID";
+                            "WHERE HearingAssessment.isDeleted=0 and StudentDatabase.isDeleted=0 AND HearingAssessment.ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sID);
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -814,7 +814,7 @@ public class Audiometry
                 string sql = "SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY HearingAssessment.ID DESC) " +
                             "AS RowNum, HearingAssessment.*, StudentDatabase.StudentName, StudentDatabase.StudentBirthday " +
                             "FROM HearingAssessment INNER JOIN StudentDatabase ON HearingAssessment.StudentID=StudentDatabase.StudentID " +
-                            "WHERE HearingAssessment.isDeleted=0 " + ConditionReturn + " ) AS NewTable " +
+                            "WHERE HearingAssessment.isDeleted=0 and StudentDatabase.isDeleted=0 " + ConditionReturn + " ) AS NewTable " +
                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
@@ -962,7 +962,7 @@ public class Audiometry
                 Sqlconn.Open();
                 string sql = "SELECT StudentDatabase.StudentName,StudentDatabase.StudentBirthday, HearingCaseAidsUseRecord.* " +
                              "FROM HearingCaseAidsUseRecord INNER JOIN StudentDatabase ON HearingCaseAidsUseRecord.StudentID=StudentDatabase.StudentID " +
-                             "WHERE HearingCaseAidsUseRecord.isDeleted=0 AND HearingCaseAidsUseRecord.ID=@ID";
+                             "WHERE HearingCaseAidsUseRecord.isDeleted=0 and StudentDatabase.isDeleted=0 AND HearingCaseAidsUseRecord.ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(ID);
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -1196,7 +1196,7 @@ public class Audiometry
                 string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY HearingCaseAidsUseRecord.ID DESC) " +
                  "AS RowNum, HearingCaseAidsUseRecord.*,StudentDatabase.StudentName FROM HearingCaseAidsUseRecord " +
                  "LEFT JOIN StudentDatabase ON HearingCaseAidsUseRecord.StudentID=StudentDatabase.StudentID " +
-                 "WHERE HearingCaseAidsUseRecord.isDeleted=0 " + ConditionReturn + " ) " +
+                 "WHERE HearingCaseAidsUseRecord.isDeleted=0 and  StudentDatabase.isDeleted=0 " + ConditionReturn + " ) " +
                  "AS NewTable " +
                  "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
 

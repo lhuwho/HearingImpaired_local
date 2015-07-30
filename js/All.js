@@ -79,6 +79,19 @@ function zoneCityFunction() {
             text(_zoneCity[i]));
     }
 }
+function getCity(Idx) {
+    return _zoneCity[Idx];
+}
+function assistmanage(Idx) {
+    var name = "";
+    if (Idx == 1) {
+        name = "助聽器";
+    }
+    else if (Idx == 2) {
+        name = "電子耳";
+    }
+    return name;
+}
 function SucceededCallbackAll(result, userContext, methodName) {
     // alert(methodName);
     switch (methodName) {
@@ -550,8 +563,10 @@ function countAgefunction2(CName,AgeName, MonthName) {
     }
 }
 function PushPageValue(DataList) {
+    var i = 1;
     for (var item in DataList) {
-       // alert(item);
+     //   alert(item + "---------------------" + i);
+        i++;
         if ($("#" + item).length > 0 && DataList[item] != null && DataList[item] != "null" && DataList[item].length > 0) {
             var thisType = $("#" + item).get(0).tagName;
             var thisCalss = $("#" + item).attr("class");
@@ -582,6 +597,7 @@ function PushPageValue(DataList) {
             }
         }
     }
+   // alert(i);
 }
 function getHideSpanValue(htmltableName, HideTextClassName) {
     var obj = new Object();

@@ -32,5 +32,11 @@ textarea {
 	line-height: 50px;
 	height: 40px;
 }
+.tableContact th, .table2Contact th {
+	background-color: #dddddd;
+}
 
+.tableContact td, .tableContact th, .table2Contact td, .table2Contact th {
+	border: 1px solid #F9AE56;
+}
 

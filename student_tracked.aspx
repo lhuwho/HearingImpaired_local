@@ -34,7 +34,9 @@
     
     <div id="container">
 		<div id="header">
-			<div id="logo"><a href="default.aspx"><img src="./images/empty.gif" alt="財團法人中華民國婦聯聽障文教基金會" title="財團法人中華民國婦聯聽障文教基金會" border="0" width="460" height="70" /></a></div>
+			<div id="logo"><a href="default.aspx">
+			<img src="./images/empty.gif" alt="財團法人中華民國婦聯聽障文教基金會" title="財團法人中華民國婦聯聽障文教基金會" border="0" width="460" height="70" />
+			</a></div>
 			<div id="loginInfo"></div>
 			<div id="menu"></div>
 		</div>
@@ -50,11 +52,15 @@
 			        <table width="780" border="0" id="searchTable">
 			            <tr>
 			                <td width="260">學生姓名 <input type="text" id="gosrhstudentName" value="" /></td>
-			                <td width="260">性　　別 <select id="gosrhstudentSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
-                            <td width="260">出生日期 <input id="gosrhbirthdaystart" class="date" type="text" value="" size="10" />～<input id="gosrhbirthdayend" class="date" type="text" value="" size="10" /></td>
+			                <td width="260">性　　別 <select id="gosrhstudentSex">
+			                <option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td>
+                            <td width="260">出生日期 
+                            <input id="gosrhbirthdaystart" class="date" type="text" value="" size="10" />～
+                            <input id="gosrhbirthdayend" class="date" type="text" value="" size="10" /></td>
 			            </tr>
 			            <tr>
-			                <td>結案日期 <input id="gosrhendReasonDatestart" class="date" type="text" value="" size="10" />～<input id="gosrhendReasonDateend" class="date" type="text" value="" size="10" /></td>
+			                <td>結案日期 <input id="gosrhendReasonDatestart" class="date" type="text" value="" size="10" />～
+			                <input id="gosrhendReasonDateend" class="date" type="text" value="" size="10" /></td>
 			                <td>&nbsp;</td>
 			                <td>&nbsp;</td>
 			            </tr>
@@ -91,7 +97,8 @@
 			    <table id="item1Content" class="tableText" width="780" border="0">
 			        <tr>
 			            <th width="150">學生姓名</th>
-			            <td><input id="studentName" type="text" value="" readonly="readonly"/><span id="studentID" class="hideClassSpan"></span><span class="startMark">*</span></td>
+			            <td><input id="studentName" type="text" value="" readonly="readonly"/>
+			            <span id="studentID" class="hideClassSpan"></span><span class="startMark">*</span></td>
 			        </tr>
 			        <tr>
 			            <th>出生日期</th>
@@ -102,39 +109,123 @@
 			            <td id="studentSex">&nbsp;</td>
 			        </tr>
 			        <tr>
+			            <th>首次上課日期</th>
+			            <td id="firstClassDate">&nbsp;</td>
+			        </tr>
+			        <tr>
 			            <th>結案日期</th>
 			            <td id="endReasonDate">&nbsp;</td>
 			        </tr>
+			        <tr>
+			            <th>戶籍地址</th>
+			            <td colspan="3">
+			            <span id="censusAddressZip"></span> 
+			            <span id="censusAddressCity"></span> 
+			            <span id="censusAddress"></span> 
+			            </td>
+			        </tr>
 		            <tr>
 			            <th>通訊地址</th>
-			            <td colspan="3"><input id="addressZip" type="text" maxlength="5" value=""  size="5"/> <select id="addressCity" class="zoneCity"></select> <input id="address" type="text" value="" size="50"/></td>
-			        </tr>
-			        <tr>
-			            <th>連絡電話</th>
-			            <td><input id="Tel" type="text" value="" /></td>
-			        </tr>
-			        <tr>
-			            <th>E-mail</th>
-			            <td><input id="email" type="text" value="" /></td>
-			        </tr>
-			        <tr>
-			            <th>障礙類型</th>
-			            <td>身心障礙類別 <input type="text" id="manualCategory1" value="" size="15" /> 等級 <input type="text" id="manualGrade1" value="" size="15" /><br />
-			                身心障礙類別 <input type="text" id="manualCategory2" value="" size="15" /> 等級 <input type="text" id="manualGrade2" value="" size="15" /><br />
-			                身心障礙類別 <input type="text" id="manualCategory3" value="" size="15" /> 等級 <input type="text" id="manualGrade3" value="" size="15" />
+			            <td colspan="3">
+			            <span id="addressZip"></span> 
+			            <span id="addressCity"></span> 
+			            <span id="address"></span> 
 			            </td>
 			        </tr>
 			        <tr>
-			            <th>輔具型式與序號</th>
+			                <th>聯 絡 人</th>
+			                <td colspan="3">
+			                    <table class="tableContact" width="600" border="0">
+			                        <tr>
+			                            <th>姓名</th>
+			                            <th>聯絡方式</th>
+			                        </tr>
+			                        <tr id="PrimaryContact1">
+			                            <td>主要聯絡人<br />
+			                            <span>關係</span> <span id="fPRelation1"></span><div id="fPName1"></div></td>
+			                            <td>
+			                                <span>(公)</span> <span id="fPTel1"></span>　
+			                                <span>(手機)</span> <span id="fPPhone1"></span><br />
+			                                <span>(家)</span> <span id="fPHPhone1"></span>　
+			                                <span>(傳真)</span> <span id="fPFax1"></span>
+			                            </td>
+			                        </tr>
+			                        <tr id="PrimaryContact2">
+			                            <td>主要聯絡人<br />
+			                            <span>關係</span> <span id="fPRelation2"></span><div id="fPName2"></div></td>
+			                            <td>
+			                                <span>(公)</span> <span id="fPTel2"></span>　
+			                                <span>(手機)</span> <span id="fPPhone2"></span><br />
+			                                <span>(家)</span> <span id="fPHPhone2"></span>　
+			                                <span>(傳真)</span> <span id="fPFax2"></span>
+			                            </td>
+			                        </tr>
+			                        <tr id="PrimaryContact3">
+			                            <td>主要聯絡人<br />
+			                            <span>關係</span> <span id="fPRelation3"></span><span id="fPName3"></span></td>
+			                            <td>
+			                                <span>(公)</span> <span id="fPTel3"></span>　
+			                                <span>(手機)</span> <span id="fPPhone3"></span><br />
+			                                <span>(家)</span> <span id="fPHPhone3"></span>　
+			                                <span>(傳真)</span> <span id="fPFax3"></span>
+			                            </td>
+			                        </tr>
+			                        <tr id="PrimaryContact4">
+			                            <td>主要聯絡人<br />
+			                            <span>關係</span> <span id="fPRelation4"></span><span id="fPName4"></span></td>
+			                            <td>
+			                                <span>(公)</span> <span id="fPTel4"></span>　
+			                                <span>(手機)</span> <span id="fPPhone4"></span><br />
+			                                <span>(家)</span> <span id="fPHPhone4"></span>　
+			                                <span>(傳真)</span> <span id="fPFax4"></span>
+			                            </td>
+			                        </tr>
+			                    </table>
+			                </td>
+			            </tr>
+			        <tr>
+			            <th>E-mail</th>
+			            <td id="email"></td>
+			        </tr>
+			        <tr>
+			            <th>障礙類型</th>
+			            <td>身心障礙類別 <input type="text" id="manualCategory1" value="" size="15" /> 等級 
+			            <input type="text" id="manualGrade1" value="" size="15" /><br />
+			                身心障礙類別 <input type="text" id="manualCategory2" value="" size="15" /> 等級 
+			                <input type="text" id="manualGrade2" value="" size="15" /><br />
+			                身心障礙類別 <input type="text" id="manualCategory3" value="" size="15" /> 等級 
+			                <input type="text" id="manualGrade3" value="" size="15" />
+			            </td>
+			        </tr>
+			        <tr>
+			            <th>聽覺輔具管理</th>
 			            <td>
-			                右耳：<label><input type="radio" name="assistmanageR" value="1" /> 助聽器</label>　<label><input type="radio" name="assistmanageR" value="2" /> 電子耳</label>　
-			                廠牌 <select id="brandR" ><option value="0">請選擇輔具類型</option></select>　型號<input type="text" id="modelR" value="" /><br />　　　
-			                選配/植入時間 <input type="text" class="date" id="buyingtimeR" value="" /> 選配/植入地點 <input type="text"  id="buyingPlaceR" value="" /><br />　　　
-			                植入醫院醫生 <input type="text"  id="insertHospitalR" size="15" value="" /> 開頻日 <input class="date" type="text" id="openHzDateR" value="" size="10" /><br />
-			                左耳：<label><input type="radio" name="assistmanageL" value="1" /> 助聽器</label>　<label><input type="radio" name="assistmanageL" value="2" /> 電子耳</label>　
-			                廠牌<select id="brandL"><option value="0">請選擇輔具類型</option></select>　型號<input type="text" id="modelL" value="" /><br />　　　
-			                選配/植入時間 <input type="text" class="date" id="buyingtimeL" value="" /> 選配/植入地點 <input type="text" id="buyingPlaceL" value="" /><br />　　　
-			                植入醫院醫生 <input type="text" id="insertHospitalL" value="" size="15" /> 開頻日 <input class="date" type="text" id="openHzDateL" value="" size="10" /><br />
+	
+			                右耳：
+			                <div>
+			                    <label id="assistmanageR"></label>　
+			                    廠牌 <label id="brandR"></label>
+			                    型號<span id="modelR"></span>
+			                </div>
+			                <div><label>選配/植入時間</label> <span id="buyingtimeR"></span></div>
+			                <div><label>選配/植入地點</label> <span id="buyingPlaceR"></span></div>
+			                <div><label>植入醫院醫生</label> <span id="insertHospitalR"></span></div>
+			                <div><label>開頻日</label> <span id="openHzDateR"></span></div>
+			                
+			                
+			                左耳：
+			                <div>
+			                    <label id="assistmanageL"></label>　
+			                    廠牌 <label id="brandL"></label>
+			                    型號<span id="modelL"></span>
+			                </div>
+			                <div><label>選配/植入時間</label> <span id="buyingtimeL"></span></div>
+			                <div><label>選配/植入地點</label> <span id="buyingPlaceL"></span></div>
+			                <div><label>植入醫院醫生</label> <span id="insertHospitalL"></span></div>
+			                <div><label>開頻日</label> <span id="openHzDateL"></span></div>
+			              
+			                
+			           
 			           </td>
 			        </tr>
 			    </table>
@@ -143,37 +234,69 @@
 			        <tr style="background-color:#F9AE56;">
 			            <th width="170">就學階段/就業</th>
 			            <th width="80">就學狀況</th>
-			            <th width="530">就讀學校/職稱</th>
+			            <th width="200">就讀學校/職稱</th>
+			            <th width="310"></th>
 			        </tr>
+
 			        <tr>
 			            <th>小　　學</th>
-			            <td><select id="esType"><option value="0">請選擇</option><option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
+			            <td><select id="esType">
+			            <option value="0">請選擇</option><option value="1">就學中</option>
+			            <option value="2">畢業</option><option value="3">肄業</option></select></td>
 		                <td><input type="text" id="esName" value="" /></td>
+		                <td>自<input type="text" id="ElementarySY" value="" class="short" />年<input type="text" id="ElementarySM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="ElementaryEY" value="" class="short"/>年<input type="text" id="ElementaryEM" value="" class="short"/>月</td>
+		                
 		            </tr>
+      
 			        <tr>
 			            <th>國　　中</th>
-			            <td><select id="jsType"><option value="0">請選擇</option><option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
+			            <td><select id="jsType">
+			            <option value="0">請選擇</option><option value="1">就學中</option>
+			            <option value="2">畢業</option><option value="3">肄業</option></select></td>
 			            <td><input type="text" id="jsName" value="" /></td>
+			            <td>自<input type="text" id="JuniorHighSY" value="" class="short" />年<input type="text" id="JuniorHighSM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="JuniorHighEY" value="" class="short"/>年<input type="text" id="JuniorHighEM" value="" class="short"/>月</td>
 			        </tr>
 			        <tr>
 			            <th>高　　中</th>
-			            <td><select id="hsType"><option value="0">請選擇</option><option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
+			            <td><select id="hsType">
+			            <option value="0">請選擇</option><option value="1">就學中</option>
+			            <option value="2">畢業</option><option value="3">肄業</option></select></td>
 			            <td><input type="text" id="hsName" value="" /></td>
+			            <td>自<input type="text" id="HighSY" value="" class="short" />年<input type="text" id="HighSM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="HighEY" value="" class="short"/>年<input type="text" id="HighEM" value="" class="short"/>月</td>
 			        </tr>
 			        <tr>
 			            <th>大　　學</th>
-			            <td><select id="uType"><option value="0">請選擇</option><option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
+			            <td><select id="uType">
+			            <option value="0">請選擇</option><option value="1">就學中</option>
+			            <option value="2">畢業</option><option value="3">肄業</option></select></td>
 			            <td><input type="text" id="uName" value="" /></td>
+			            <td>自<input type="text" id="UniversitySY" value="" class="short" />年<input type="text" id="UniversitySM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="UniversityEY" value="" class="short"/>年<input type="text" id="UniversityEM" value="" class="short"/>月</td>
 			        </tr>
 			        <tr>
 			            <th>就業單位</th>
 			            <td>&nbsp;</td>
 			            <td><input type="text" id="jobUnit" value="" /></td>
+			            <td>自<input type="text" id="JobSY" value="" class="short" />年<input type="text" id="JobSM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="JobEY" value="" class="short"/>年<input type="text" id="JobEM" value="" class="short"/>月</td>
 			        </tr>
 			        <tr>
 			            <th>其　　他</th>
-			            <td><select id="otherType"><option value="0">請選擇</option><option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
+			            <td><select id="otherType">
+			            <option value="0">請選擇</option>
+			            <option value="1">就學中</option><option value="2">畢業</option><option value="3">肄業</option></select></td>
 			            <td><input type="text" id="otherName" value="" /></td>
+			            <td>自<input type="text" id="OtherSY" value="" class="short" />年<input type="text" id="OtherSM" value="" class="short"/>月
+		                &nbsp;&nbsp;至<input type="text" id="OtherEY" value="" class="short"/>年<input type="text" id="OtherEM" value="" class="short"/>月</td>
+			        </tr>
+			        <tr>
+			            <th>備　　註</th>
+			            <td colspan="3">
+			                <textarea id="remark"></textarea>
+			            </td>
 			        </tr>
 			    </table>
 			    <p class="cP">三、追蹤紀錄</p>
@@ -203,9 +326,11 @@
 		                <tbody>
 		                    <tr >
 		                        <td><input id="tDate" class="date" type="text" value="" size="10" /></td>
-		                        <td><input id="tStaffName" type="text" value="" size="10" readonly="readonly" ><span id="tStaff" class="hideClassSpan"></span></td>
+		                        <td><input id="tStaffName" type="text" value="" size="10" readonly="readonly" >
+		                        <span id="tStaff" class="hideClassSpan"></span></td>
 		                        <td><textarea id="tContent" ></textarea></td>
-		                        <td><button class="btnView" type="button" onclick="InsertTrackData();">儲 存</button> <button class="btnView" type="button" onclick="cancelInsert()">取 消</button></td>
+		                        <td><button class="btnView" type="button" onclick="InsertTrackData();">儲 存</button> 
+		                        <button class="btnView" type="button" onclick="cancelInsert()">取 消</button></td>
 		                    </tr>
 		                 </tbody>
 		            </table>

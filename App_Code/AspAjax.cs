@@ -2706,7 +2706,7 @@ public class AspAjax : System.Web.Services.WebService {
         return SDB.setTeachISPPage1(StudentISP);
     }
     [WebMethod]
-    public int setTeachISPDate2(setTeachISP2 StudentISP) //ISP(分頁)->家庭服務計畫
+    public int setTeachISPDate2(List<setTeachISP2> StudentISP) //ISP(分頁)->家庭服務計畫
     {
         TeachDataBase SDB = new TeachDataBase();
         return SDB.setTeachISPPage2(StudentISP);
@@ -2729,6 +2729,15 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase SDB = new TeachDataBase();
         return SDB.getTeachISP(StudentISP);
     }
+
+     [WebMethod]
+    public List<setTeachISP2> GetHomeService(Int64 StudentISP) //ISP(分頁)->家庭服務計畫
+    {
+        TeachDataBase SDB = new TeachDataBase();
+        return SDB.GetHomeService(StudentISP);
+    }
+
+    
     [WebMethod]
     public int SearchTeachISPDateCount(SearchStudentISP searchData)
     {

@@ -90,7 +90,7 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
                     PushPageValue(result);
-                    AspAjax.getUnitAutoNumber("Volunteer_", "");
+                    //AspAjax.getUnitAutoNumber("Volunteer_", "");
                     $("#sUnit").html(_UnitList[result.sUnit]);
                 } else {
                 alert("發生錯誤，錯誤訊息如下：" + result.errorMsg);

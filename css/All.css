@@ -15,7 +15,10 @@
 	height: 150px;
 	position: relative;
 }
-
+.short
+{
+	width:35px;
+}
 #loginInfo {
 	width: auto;
 	height: auto;

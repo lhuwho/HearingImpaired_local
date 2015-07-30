@@ -94,7 +94,7 @@
 			    <div id="item3" class="menuTabs">聽力學管理</div>
 			    <div id="item4" class="menuTabs">教學計畫</div>
 			</div>
-			<div id="mainContent" style="width:980px;" >
+			<div id="mainContent">
 			    <div id="item1Content">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;" id="caseUnit">台北至德</p>
 			        <p class="cP">一、基本資料</p>
@@ -251,617 +251,213 @@
 			    </div>
 			    <div id="item2Content">
 			        <p style="background-color:#FFDF71;padding:0 10px;text-align:right;">台北至德</p>
-			        <table id="Page2tableContact1" class="tableContact" width="980" border="0">
-		                <tr>
-			                <td>計畫撰寫者 <input id="PlanWriterName" type="text" value="" readonly="readonly" /><span id="PlanWriter" class="hideClassSpan"></span></td>
-			                <td>擬定日期 <input id="FrameDate" class="date" type="text" value="" size="10" readonly="readonly" /></td>
-			                <td>執行者 <input id="PlanExecutor" type="text" value="" /></td>
+			        <table class="tableContact" width="780" border="0">
+			            <tr>
+			                <td>計畫撰寫者 <input id="planWriter" type="text" value="" readonly="readonly" /></td>
+			                <td>擬定日期 <input id="PlanDate" class="date" type="text" value="" size="10" readonly="readonly" /></td>
+			                <td>執行者 <input id="Excuter1" type="text" value="" /></td>
 			            </tr>
 			            <tr>
-			                <td>計畫修訂者 <input id="PlanReviseName" type="text" value="" /><span id="PlanRevise" class="hideClassSpan"></span></td>
-			                <td>修訂日期 <input id="ReviseDate" class="date" type="text" value="" size="10" /></td>
-			                <td>執行者 <input id="ReviseExecutor" type="text" value="" /></td>
+			                <td>計畫修訂者 <input id="planEditor" type="text" value="" /></td>
+			                <td>修訂日期 <input id="EditDate" class="date" type="text" value="" size="10" /></td>
+			                <td>執行者 <input id="Excuter2" type="text" value="" /></td>
 			            </tr>
 			        </table>
 			        
-			        <table id="Page2tableContact2" class="tableContact2" width="980" border="0">
+			        <table class="tableContact2" width="780" border="0">
 			            <thead><tr>
 			                <th rowspan="2" width="10">家<br />庭<br />需<br />求</th>
-			                <th rowspan="2" width="150">服務目標</th>
-			                <th colspan="3" width="500" >執行內容</th>
-			                <th colspan="3" width="300" >追蹤紀錄</th>
+			                <th rowspan="2" width="170">服務目標</th>
+			                <th colspan="3">執行內容</th>
+			                <th colspan="3">追蹤紀錄</th>
 			            </tr><tr>
-			                <th width="155" >資源與方式</th>
-			                <th width="180" >執行期間</th>
-			                <th width="85" >執行者</th>
-			                <th  width="85" >追蹤日期</th>
-			                <th  width="85" >執行成效</th>
-			                <th  width="210" >服務執行情形</th>
+			                <th>資源與方式</th>
+			                <th>執行期間</th>
+			                <th>執行者</th>
+			                <th>追蹤日期</th>
+			                <th>執行成效</th>
+			                <th>服務執行情形</th>
 			            </tr></thead>
-			            <tbody>
-                            <tr>
-                                <td align="center" width="10" rowspan="5">
-                                    一<br />
-                                    、<br />
-                                    經<br />
-                                    濟<br />
-                                    需<br />
-                                    求
-                                </td>
-                                <td align="right">
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    資源:<input id="EconomicNeedResource" type="text" value="" size="15" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td rowspan="5">
-                                    <label>
-                                        <input name="EconomicNeedSituation" type="checkbox" value="1" />提供台北市療育申請表單。<br />
-                                        (因台北市療育費申請不需核章，故個案無須協助核章)</label><br />
-                                    <label>
-                                        <input name="EconomicNeedSituation" type="checkbox" value="2" />已提供案母生活補助申請資格及所需文件。</label><br />
-                                    <label>
-                                        <input name="EconomicNeedSituation" type="checkbox" value="3" />案母提出申請且符合資格。</label><br />
-                                    <label>
-                                        <input name="EconomicNeedSituation" type="checkbox" value="4" />案母提出申請未符合資格。</label>
-                                </td>
-                            </tr><!-- 1.經濟需求 -->
-                            
-                            <tr>
-                                <td>
-                                    <input id="1_1_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="1_1_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="1_1_StartDate" class="date" type="text" value="" size="9" />～<input id="1_1_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="1_1_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="1_1_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="1_1_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="1_2_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="1_2_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="1_2_StartDate" class="date" type="text" value="" size="9" />～<input id="1_2_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="1_2_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="1_2_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="1_2_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="1_3_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="1_3_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="1_3_StartDate" class="date" type="text" value="" size="9" />～<input id="1_3_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="1_3_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="1_3_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="1_3_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="1_4_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="1_4_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="1_4_StartDate" class="date" type="text" value="" size="9" />～<input id="1_4_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="1_4_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td align="center">
-                                    <input id="1_4_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td align="center">
-                                    <select id="1_4_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td align="center" width="10" rowspan="5">
-                                    二<br />
-                                    、<br />
-                                    支<br />
-                                    持<br />
-                                    性<br />
-                                    服<br />
-                                    務
-                                </td>
-                                <td align="right">
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    資源:<input id="ServicesResource" type="text" value="" size="15" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td rowspan="5">
-                                    <label>
-                                        <input name="ServicesSituation" type="checkbox" value="0" />案家能順利使用或取得相關的社福資源。</label><br />
-                                    <label>
-                                        <input name="ServicesSituation" type="checkbox" value="1" />因個案學習成效不彰，以致案母對於個案狀況(可能須植入CI)感到相當不安，故將多介入關懷，降低案母心理壓力。</label><br />
-                                    <input name="ServicesSituation" type="checkbox" value="2" />
-                                    <input id="ServicesYear" type="text" value="" size="5" />年提供
-                                    <input id="ServicesActivity" type="text" value="" size="5" />場活動訊息予案家，案家的參與狀況：
-                                    <input id="ServicesStatus" type="text" value="" />
-                                </td>
-                            </tr><!-- 2.支持性服務 -->
-                            
-                            <tr>
-                                <td>
-                                    <input id="2_1_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="2_1_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="2_1_StartDate" class="date" type="text" value="" size="9" />～<input id="2_1_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="2_1_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="2_1_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="2_1_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="2_2_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="2_2_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="2_2_StartDate" class="date" type="text" value="" size="9" />～<input id="2_2_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="2_2_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="2_2_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="2_2_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="2_3_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="2_3_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="2_3_StartDate" class="date" type="text" value="" size="9" />～<input id="2_3_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="2_3_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="2_3_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="2_3_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="2_4_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="2_4_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="2_4_StartDate" class="date" type="text" value="" size="9" />～<input id="2_4_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="2_4_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td align="center">
-                                    <input id="2_4_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td align="center">
-                                    <select id="2_4_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td align="center" width="10" rowspan="5">
-                                    三<br />
-                                    、<br />
-                                    復<br />
-                                    健<br />
-                                    與<br />
-                                    醫<br />
-                                    療
-                                </td>
-                                <td align="right">
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    資源:<input id="MedicalResource" type="text" value="" size="15" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td rowspan="5">
-                                    <label>
-                                        <input name="MedicalSituation" type="checkbox" value="0" />個案聽力檢查皆有符合至少半年追蹤一次。</label><br />
-                                    <label>
-                                        <input name="MedicalSituation" type="checkbox" value="1" />個案聽力檢查未符合至少半年追蹤一次，原因：</label><input
-                                            id="MedicalReason" type="text" value="" /><br />
-                                    <label>
-                                        <input name="MedicalSituation" type="checkbox" value="2" />個案的學習狀況穩定，經教學組年度評估仍有訓練需求，需持續學習。</label><br />
-                                    <label>
-                                        <input name="MedicalSituation" type="checkbox" value="2" />個案的學習狀況穩定，經教學組年度評估已符合常童水準，可辦理結案。</label><br />
-                                    <label>
-                                        <input name="MedicalSituation" type="checkbox" value="3" />其他：</label><input id="MedicalOther"
-                                            size="15" type="text" value="" />
-                                </td>
-                            </tr><!-- 3.復健與醫療 -->
-                            
-                            <tr>
-                                <td>
-                                    <input id="2_1_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="2_1_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="2_1_StartDate" class="date" type="text" value="" size="9" />～<input id="2_1_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="2_1_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="2_1_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="2_1_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="3_2_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="3_2_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="3_2_StartDate" class="date" type="text" value="" size="9" />～<input id="3_2_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="3_2_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="3_2_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="3_2_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="3_3_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="3_3_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="3_3_StartDate" class="date" type="text" value="" size="9" />～<input id="3_3_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="3_3_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="3_3_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="3_3_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="3_4_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="3_4_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="3_4_StartDate" class="date" type="text" value="" size="9" />～<input id="3_4_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="3_4_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td align="center">
-                                    <input id="3_4_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td align="center">
-                                    <select id="3_4_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td rowspan="5">
-                                    四<br />、<br />教<br />育<br />資<br />源<br />連<br />結
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    資源:<input id="EducationResource" type="text" value="" size="15" />
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td rowspan="5">
-                                    <label>
-                                        <input name="EducationSituation" type="checkbox" value="1" />已提供台北啟聰幼兒園入園資訊予案家，並鼓勵案家參與啟聰學校辦理之親師體驗營。</label><br />
-                                    <label>
-                                        <input name="EducationSituation" type="checkbox" value="2" />個案學習狀況穩定(包含學業、人際互動等)暫無需其他資源介入。</label><br />
-                                    <label>
-                                        <input name="EducationSituation" type="checkbox" value="3" />個案仍需要其他資源介入：</label><input
-                                            id="EducationOther" type="text" value="" />
-                                </td>
-                            </tr><!-- 4.教育資源連結 -->
-                            
-                            <tr>
-                                <td>
-                                    <input id="4_1_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="4_1_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="4_1_StartDate" class="date" type="text" value="" size="9" />～<input id="4_1_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="4_1_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="4_1_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="4_1_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="4_2_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="4_2_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="4_2_StartDate" class="date" type="text" value="" size="9" />～<input id="4_2_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="4_2_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="4_2_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="4_2_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="4_3_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="4_3_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="4_3_StartDate" class="date" type="text" value="" size="9" />～<input id="4_3_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="4_3_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td>
-                                    <input id="4_3_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td>
-                                    <select id="4_3_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="4_4_Target" type="text" />
-                                </td>
-                                <td>
-                                    <input id="4_4_Manner" type="text" value="" />
-                                </td>
-                                <td>
-                                    <input id="4_4_StartDate" class="date" type="text" value="" size="9" />～<input id="4_4_EndDate"
-                                        class="date" type="text" value="" size="9" />
-                                </td>
-                                <td>
-                                    <input id="4_4_Excuter" type="text" value="" size="10" />
-                                </td>
-                                <td align="center">
-                                    <input id="4_4_TrackDate" type="text" size="9" class="date" />
-                                </td>
-                                <td align="center">
-                                    <select id="4_4_Results">
-                                        <option value="0">請選擇</option>
-                                        <option value="1">完全未執行</option>
-                                        <option value="2">進行中</option>
-                                        <option value="3">已達成</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
+			            <tbody><tr>
+			                <td align="center">一、經濟需求</td>
+			                <td>
+			                    <input name="EconomicDemand" type="checkbox" value="1" /> <input id="EconomicDemandContent1" class = "EconomicDemandContent" type="text" value="協助申請早療補助" /><br />
+			                    <input name="EconomicDemand" type="checkbox" value="2" /> <input id="EconomicDemandContent2" class = "EconomicDemandContent" type="text" value="協助申請生活補助" /><br />
+			                    <input name="EconomicDemand" type="checkbox" value="3" /> <input id="EconomicDemandContent3" class = "EconomicDemandContent" type="text" value="" /><br />
+			                    <input name="EconomicDemand" type="checkbox" value="4" /> <input id="EconomicDemandContent4" class = "EconomicDemandContent" type="text" value="" />
+			                </td>
+			                <td>
+			                    資源:<br /><input id="ED_Resource" type="text" value="" size="15" /><br /><br />
+			                    方式:
+			                    <input id="ED_ResourceWay1"  class = "ED_ResourceWay" type="text" value="協助案家申請早療補助" /><br />
+			                    <input id="ED_ResourceWay2" class = "ED_ResourceWay"  type="text" value="協助案家申請中低收入生活補助" /><br />
+			                    <input id="ED_ResourceWay3" class = "ED_ResourceWay"  type="text" value="" /><br />
+			                    <input id="ED_ResourceWay4" class = "ED_ResourceWay"  type="text" value="" />
+			                </td>
+			                <td align="center">
+			                    <input id="ED_ExcuteDateStart1" class="date" type="text" value="" size="10" /><br />～<br /><input id="ED_ExcuteDateEnd1" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="ED_ExcuteDateStart2" class="date" type="text" value="" size="10" /><br />～<br /><input id="ED_ExcuteDateEnd2" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="ED_ExcuteDateStart3" class="date" type="text" value="" size="10" /><br />～<br /><input id="ED_ExcuteDateEnd3" class="date" type="text" value="" size="10" />
+			                </td>
+			                <td>
+			                    <input id="ED_Excuter1" class = "ED_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="ED_Excuter2" class = "ED_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="ED_Excuter3" class = "ED_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="ED_Excuter4" class = "ED_Excuter" type="text" value="" size="10" />
+			                </td>
+			                <td align="center">
+			                    <textarea id="ED_Follow_date1"  class="date"></textarea><br /><br />
+			                    <textarea id="ED_Follow_date2" class="date"></textarea><br /><br />
+			                    <textarea id="ED_Follow_date3" class="date"></textarea><br /><br />
+			                    <textarea id="ED_Follow_date4" class="date"></textarea>
+			                </td>
+			                <td>
+			                    <select id ="ED_Excute_Performance1"  class = "ED_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="ED_Excute_Performance2" class = "ED_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="ED_Excute_Performance3" class = "ED_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="ED_Excute_Performance4" class = "ED_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select>
+			                </td>
+			                <td>
+			                    <label><input class = "ED_ServiceExcuteSituation" type="checkbox" value="1" />提供台北市療育申請表單。<br />(因台北市療育費申請不需核章，故個案無須協助核章)</label><br />
+                                <label><input class = "ED_ServiceExcuteSituation" type="checkbox" value="2" />已提供案母生活補助申請資格及所需文件。</label><br />
+                                <label><input class = "ED_ServiceExcuteSituation" type="checkbox" value="3" />案母提出申請且符合資格。</label><br />
+                                <label><input class = "ED_ServiceExcuteSituation" type="checkbox" value="4" />案母提出申請未符合資格。</label>
+			                </td>
+			            </tr><tr>
+			                <td align="center">二、支持性服務</td>
+			                <td>
+			                    <input id="SupportService1" class = "SupportService" type="checkbox" value="0" /> <input id="SupportServiceContent1" class = "SupportServicContent" type="text" value="提供相關資訊及關懷案家情況" /><br />
+			                    <input id="SupportService2" class = "SupportService" type="checkbox" value="1" /> <input id="SupportServiceContent2" class = "SupportServicContent" type="text" value="提供親職教育活動訊息" /><br />
+			                    <input id="SupportService3" class = "SupportService" type="checkbox" value="2" /> <input id="SupportServiceContent3" class = "SupportServicContent" type="text" value="" /><br />
+			                    <input id="SupportService4" class = "SupportService" type="checkbox" value="3" /> <input id="SupportServiceContent4" class = "SupportServicContent" type="text" value="" />
+			                </td>
+			                <td>
+			                    資源<br /><input id="SS_Resource" type="text" value="" size="15" /><br /><br />
+			                    <input id="SS_ResourceWay1"  class = "SS_ResourceWay" type="text" value="主動提供案家適切的社會福利資訊" /><br />
+			                    <input id="SS_ResourceWay2"  class = "SS_ResourceWay" type="text" value="關心案母身心狀況" /><br />
+			                    <input id="SS_ResourceWay3"  class = "SS_ResourceWay" type="text" value="主動提供案家適切的相關活動訊息，並邀請案家參與本中心活動" /><br />
+			                    <input id="SS_ResourceWay4"  class = "SS_ResourceWay" type="text" value="" />
+			                </td>
+			                <td align="center">
+			                    <input id="SS_ExcuteDateStart1" class="date" type="text" value="" size="10" /><br />～<br /><input id="SS_ExcuteDateEnd1" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_ExcuteDateStart2" class="date" type="text" value="" size="10" /><br />～<br /><input id="SS_ExcuteDateEnd2" class="date"  type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_ExcuteDateStart3" class="date" type="text" value="" size="10" /><br />～<br /><input id="SS_ExcuteDateEnd3" class="date"  type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_ExcuteDateStart4" class="date" type="text" value="" size="10" /><br />～<br /><input id="SS_ExcuteDateEnd4" class="date"  type="text" value="" size="10" />
+			                </td>
+			                <td>
+			                    <input id="SS_Excuter1" class = "SS_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_Excuter2" class = "SS_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_Excuter3" class = "SS_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="SS_Excuter4" class = "SS_Excuter" type="text" value="" size="10" />
+			                </td>
+			                <td align="center">
+			                    <textarea id="SS_Follow_date1" class="date"></textarea><br /><br />
+			                    <textarea id="SS_Follow_date2" class="date"></textarea><br /><br />
+			                    <textarea id="SS_Follow_date3" class="date"></textarea><br /><br />
+			                    <textarea id="SS_Follow_date4" class="date"></textarea>
+			                </td>
+			                <td>
+			                    <select id ="SS_Excute_Performance1"  class = "SS_Excute_Performance" ><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="SS_Excute_Performance2"  class = "SS_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="SS_Excute_Performance3"  class = "SS_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="SS_Excute_Performance4"  class = "SS_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select>
+			                </td>
+			                <td>
+			                    <label><input class = "SS_ServiceExcuteSituation" type="checkbox" value="0" />案家能順利使用或取得相關的社福資源。</label><br />
+                                <label><input class = "SS_ServiceExcuteSituation" type="checkbox" value="1" />因個案學習成效不彰，以致案母對於個案狀況(可能須植入CI)感到相當不安，故將多介入關懷，降低案母心理壓力。</label><br />
+                                       <input class = "SS_ServiceExcuteSituation" type="checkbox" value="2" />
+                                       <input id="SS_ServiceExcuteSituation1" type="text" value="" size="5" />年提供
+                                       <input id="SS_ServiceExcuteSituation2" type="text" value="" size="5" />場活動訊息予案家，案家的參與狀況：
+                                       <input id="SS_ServiceExcuteSituation3" type="text" value="" />
+			                </td>
+			            </tr><tr>
+			                <td align="center">三、復健與醫療</td>
+			                <td>
+			                    <input id="RecoverandMedical1" class = "RecoverandMedical" type="checkbox" value="0" /> <input id="RecoverandMedicalContent1" class = "RecoverandMedicalContent" type="text" value="追蹤個案聽力檢查情況符合至少半年追蹤一次" /><br />
+			                    <input id="RecoverandMedical2" class = "RecoverandMedical" type="checkbox" value="1" /> <input id="RecoverandMedicalContent2" class = "RecoverandMedicalContent" type="text" value="追蹤個案聽覺技巧訓練課程之需求性" /><br />
+			                    <input id="RecoverandMedical3" class = "RecoverandMedical" type="checkbox" value="2" /> <input id="RecoverandMedicalContent3" class = "RecoverandMedicalContent" type="text" value="" /><br />
+			                    <input id="RecoverandMedical4" class = "RecoverandMedical" type="checkbox" value="3" /> <input id="RecoverandMedicalContent4" class = "RecoverandMedicalContent" type="text" value="" />
+			                </td>
+			                <td>
+			                    資源<br /><input id="RM_Resource" type="text" value="" size="15" /><br /><br />
+			                    <input id="RM_ResourceWay1"  class = "RM_ResourceWay" type="text" value="於計劃執行完畢時確認聽檢紀錄" /><br />
+			                    <input id="RM_ResourceWay2"  class = "RM_ResourceWay" type="text" value="於計劃執行完畢前一個月追蹤個案的學習情況" /><br />
+			                    <input id="RM_ResourceWay3"  class = "RM_ResourceWay" type="text" value="" /><br />
+			                    <input id="RM_ResourceWay4"  class = "RM_ResourceWay" type="text" value="" />
+			                </td>
+			                <td align="center">
+			                    <input id="RM_ExcuteDateStart1" class="date" type="text" value="" size="10" /><br />～<br /><input id="RM_ExcuteDateEnd1" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_ExcuteDateStart2" class="date" type="text" value="" size="10" /><br />～<br /><input id="RM_ExcuteDateEnd2" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_ExcuteDateStart3" class="date" type="text" value="" size="10" /><br />～<br /><input id="RM_ExcuteDateEnd3" class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_ExcuteDateStart4" class="date" type="text" value="" size="10" /><br />～<br /><input id="RM_ExcuteDateEnd4" class="date" type="text" value="" size="10" />
+			                </td>
+			                <td>
+			                    <input id="RM_Excuter1" class = "RM_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_Excuter2" class = "RM_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_Excuter3" class = "RM_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="RM_Excuter4" class = "RM_Excuter" type="text" value="" size="10" />
+			                </td>
+			                <td align="center">
+			                    <textarea id="RM_Follow_date1" class="date"></textarea><br /><br />
+			                    <textarea id="RM_Follow_date2" class="date"></textarea><br /><br />
+			                    <textarea id="RM_Follow_date3" class="date"></textarea><br /><br />
+			                    <textarea id="RM_Follow_date4" class="date"></textarea>
+			                </td>
+			                <td>
+			                    <select id ="RM_Excute_Performance1"  class = "RM_Excute_Performance" ><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="RM_Excute_Performance2"  class = "RM_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="RM_Excute_Performance3"  class = "RM_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="RM_Excute_Performance4"  class = "RM_Excute_Performance"><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select>
+			                </td>
+			                <td>
+			                    <label><input class = "RM_ServiceExcuteSituation" type="checkbox" value="0" />個案聽力檢查皆有符合至少半年追蹤一次。</label><br />
+                                <label><input  class = "RM_ServiceExcuteSituation" type="checkbox" value="1" />個案聽力檢查未符合至少半年追蹤一次，原因：</label><input type="text" value="" /><br />
+                                <label><input class = "RM_ServiceExcuteSituation" type="checkbox" value="2" />個案的學習狀況穩定，經教學組年度評估仍有訓練需求，需持續學習。</label><br />
+                                <label><input  class = "RM_ServiceExcuteSituation" type="checkbox" value="2" />個案的學習狀況穩定，經教學組年度評估已符合常童水準，可辦理結案。</label><br />
+                                <label><input class = "RM_ServiceExcuteSituation" type="checkbox" value="3" />其他：</label><input id="RM_ServiceExcuteSituation1" type="text" value="" />
+			                </td>
+			            </tr><tr>
+			                <td align="center">四、教育資源連結</td>
+			                <td>
+			                    <input  name="EducatereSource" type="checkbox" value="0" /> <input id="EducatereSourceContent1" class = "EducatereSourceContent" type="text" value="協助案母暸解幼兒園所相關資訊" /><br />
+			                    <input  name="EducatereSource" type="checkbox" value="1" /> <input id="EducatereSourceContent2" class = "EducatereSourceContent" type="text" value="" /><br />
+			                    <input  name="EducatereSource" type="checkbox" value="2" /> <input id="EducatereSourceContent3" class = "EducatereSourceContent" type="text" value="" /><br />
+			                    <input  name="EducatereSource" type="checkbox" value="3" /> <input id="EducatereSourceContent4" class = "EducatereSourceContent" type="text" value="" />
+			                </td>
+			                <td>
+			                    資源<br /><input id="ES_Resource" type="text" value="" size="15" /><br /><br />
+			                    <input id="ES_ResourceWay1"  class = "ES_ResourceWay" type="text" value="協助提供入學資訊並追蹤個案回歸幼兒園所的學習狀況" /><br />
+			                    <input id="ES_ResourceWay2"  class = "ES_ResourceWay" type="text" value="" /><br />
+			                    <input id="ES_ResourceWay3"  class = "ES_ResourceWay" type="text" value="" /><br />
+			                    <input id="ES_ResourceWay4"  class = "ES_ResourceWay" type="text" value="" />
+			                </td>
+			                <td align="center">
+			                    <input id="ES_ExcuteDateStart1" class="date" type="text" value="" size="10" /><br />～<br /><input id="ES_ExcuteDateEnd1"  class="date" type="text" value="" size="10" /><br /><br />
+			                    <input id="ES_ExcuteDateStart2" class="date" type="text" value="" size="10" /><br />～<br /><input id="ES_ExcuteDateEnd2" class="date" type="text" value="" size="10" />
+			                </td>
+			                <td>
+			                    <input id="ES_Excuter1" class = "ES_Excuter" type="text" value="" size="10" /><br /><br />
+			                    <input id="ES_Excuter2" class = "ES_Excuter" type="text" value="" size="10" />
+			                </td>
+			                <td align="center">
+			                    <textarea id="ES_Follow_date1" class="date"></textarea><br /><br />
+			                    <textarea id="ES_Follow_date2" class="date"></textarea>
+			                </td>
+			                <td>
+			                    <select id ="ES_Excute_Performance1" ><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select><br /><br />
+			                    <select id ="ES_Excute_Performance2" ><option value="0">請選擇</option><option value="1">完全未執行</option><option value="2">進行中</option><option value="3">已達成</option></select>
+			                </td>
+			                <td>
+			                    <label><input class= "ES_ServiceExcuteSituation"  type="checkbox" value="1" />已提供台北啟聰幼兒園入園資訊予案家，並鼓勵案家參與啟聰學校辦理之親師體驗營。</label><br />
+                                <label><input class= "ES_ServiceExcuteSituation" type="checkbox" value="2" />個案學習狀況穩定(包含學業、人際互動等)暫無需其他資源介入。</label><br />
+                                <label><input class= "ES_ServiceExcuteSituation" type="checkbox" value="3" />個案仍需要其他資源介入：</label><input id="ES_ServiceExcuteSituation1" type="text" value="" />
+			                </td>
+			            </tr></tbody>
 			        </table>
 			        <p class="btnP">
 			            <button class="btnSave" type="button">儲 存</button>
 			            <button class="btnUpdate" type="button">更 新</button>
-			            <button class="btnSaveUdapteData" onclick="SaveCaseISP(2)" type="button">存 檔</button>
+			            <button class="btnSaveUdapteData" type="button">存 檔</button>
 			            <button class="btnCancel" type="button">取 消</button>
 			            <button class="btnRevise" type="button">修 訂</button>
 			        </p>
@@ -1527,19 +1123,19 @@
 			    </div>
 			    <div id="item4Content">
 			        <p style="background-color:#FFDF71;padding:0 10px;text-align:right;">台北至德</p>
-			        <table class="tableContact" width="980" border="0">
+			        <table class="tableContact" width="780" border="0">
 			            <tr>
-			                <td>計畫撰寫者 <input id="PlanWriter3Name" type="text" value="" readonly="readonly" /><span id="PlanWriter3" class="hideClassSpan"></span></td>
-			                <td>擬定日期 <input id="PlanWriteFrameDate3" class="date" type="text" value="" size="10" readonly="readonly" /></td>
-			                <td>執行者 <input id="PlanWriteExecutor3" type="text" value="" /></td>
+			                <td width="300">計畫撰寫者 <input id="EP_Writer" type="text" readonly="readonly" value=""/></td>
+			                <td>擬定日期 <input id="EP_Plan_Date" class="date" type="text" size="10" readonly="readonly"/></td>
+			                <td>執行者 <input id="EP_Excuter1" type="text" /></td>
 			            </tr>
-			            <tr>
-			                <td>計畫修訂者 <input id="PlanRevise3Name" type="text" value="" /><span id="PlanRevise3" class="hideClassSpan"></span></td>
-			                <td>修訂日期 <input id="PlanReviseDate3" class="date" type="text" value="" size="10" /></td>
-			                <td>執行者 <input id="PlanReviseExecutor3" type="text" value="" /></td>
-			            </tr>  
+			             <tr>
+			                <td>計畫修訂者 <input id="EP_Editor" type="text" /></td>
+			                <td>修訂日期 <input id="EP_Edit_Date" class="date" type="text" size="10" /></td>
+			                <td>執行者 <input id="EP_Excuter2" type="text" /></td>
+			            </tr>
 			        </table>
-<%--			         <div class="Perceive">
+			         <div class="Perceive">
 			            <table class="tableContact" width="250" border="0"><caption>語音距離察覺圖</caption>
 			               <tr>
 			                   <th width="50">&nbsp;</th>
@@ -1873,9 +1469,9 @@
                     </table>
                     <p><br /></p>
 			        <div id="jMonthCalendar"></div>
-			        <p><br /></p>--%>
+			        <p><br /></p>
 			        <p class="cP">一、個案評量記錄</p>
-			        <table class="tableContact2" width="980" border="0">
+			        <table class="tableContact2" width="780" border="0">
 			            <thead><tr>
 			                <th width="100">項目</th>
 			                <th>評量結果摘要</th>
@@ -1885,93 +1481,93 @@
 			            </tr></thead>
 			            <tr>
 			                <td align="center">聽覺技巧</td>
-			                <td><textarea id="HearingAssessment" rows="5" cols="85"></textarea></td>
-			                <td><input id="HearingAssessmentByT" type="text" name="" value="" size="15" /></td>
-			                <td><input id="HearingAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
-			                <td><input id="HearingAssessmentTool" type="text" name="" value="" size="10" /></td>
+			                <td><textarea id="ResultSumary1" rows="2" cols="40"></textarea></td>
+			                <td><input id="inspector1" type="text" name="" value="" size="15" /></td>
+			                <td><input id="CaseDate1" class="date" type="text" name="" value="" size="10"/></td>
+			                <td><input id="inspectorTool1" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">詞　　彙</td>
-			                <td><textarea id="VocabularyAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="VocabularyAssessmentBy" type="text" name="" value="" size="15" /></td>
-			                <td><input id="VocabularyAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
-			                <td><input id="VocabularyAssessmentTool" type="text" name="" value="" size="10" /></td>
+			                <td><textarea id="ResultSumary2"  rows="2" cols="40"></textarea></td>
+			                <td><input id="inspector2" type="text" name="" value="" size="15" /></td>
+			                <td><input id="CaseDate2" class="date" type="text" name="" value="" size="10"/></td>
+			                <td><input id="inspectorTool2" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">語言能力</td>
-			                <td><textarea id="LanguageAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="LanguageAssessmentBy" type="text" name="" value="" size="15" /></td>
-			                <td><input id="LanguageAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
-			                <td><input id="LanguageAssessmentTool" type="text" name="" value="" size="10" /></td>
+			                <td><textarea id="ResultSumary3"  rows="2" cols="40"></textarea></td>
+			                <td><input id="inspector3" type="text" name="" value="" size="15" /></td>
+			                <td><input id="CaseDate3" class="date" type="text" name="" value="" size="10"/></td>
+			                <td><input id="inspectorTool3" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">智　　力</td>
-			                <td><textarea id="intelligenceAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="intelligenceAssessmentBy" type="text" name="" value="" size="15" /></td>
-			                <td><input id="intelligenceAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
-			                <td><input id="intelligenceAssessmentTool" type="text" name="" value="" size="10" /></td>
+			                <td><textarea id="ResultSumary4"  rows="2" cols="40"></textarea></td>
+			                <td><input id="inspector4" type="text" name="" value="" size="15" /></td>
+			                <td><input id="CaseDate4" class="date" type="text" name="" value="" size="10"/></td>
+			                <td><input id="inspectorTool4" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">其　　它</td>
-			                <td><textarea id="OtherAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="OtherAssessmentBy" type="text" name="" value="" size="15" /></td>
-			                <td><input id="OtherAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
-			                <td><input id="OtherAssessmentTool" type="text" name="" value="" size="10" /></td>
+			                <td><textarea id="ResultSumary5"  rows="2" cols="40"></textarea></td>
+			                <td><input id="inspector5" type="text" name="" value="" size="15" /></td>
+			                <td><input id="CaseDate5" class="date" type="text" name="" value="" size="10"/></td>
+			                <td><input id="inspectorTool5" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			        </table>
 			        <p class="cP">二、個案能力現況（依標準化測驗以及檢核手冊之觀察評量）</p>
-			        <table class="tableContact2" width="980" border="0">
+			        <table class="tableContact2" width="780" border="0">
 			            <thead><tr>
 			                <th width="150" align="center">領域</th>
 			                <th>能力現況描述</th>
 			            </tr></thead>
 			            <tr>
 			                <td   align="center">聽覺能力</td>
-			                <td><input id="Hearing" type="text" name="" value=""  size="90"/></td>
+			                <td><input id="CaseStatus_Ability1" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">認知能力</td>
-			                <td><input id="CognitiveAbility" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability2" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td align="center">溝通能力</td>
-			                <td><input id="ConnectAbility" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability3" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">行動能力</td>
-			                <td><input id="ActAbility" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability4" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">人際關係</td>
-			                <td><input id="Relationship" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability5" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td   align="center">情緒管理</td>
-			                <td><input id="EmotionalManagement" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability6" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">感官功能</td>
-			                <td><input id="SensoryFunction" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability7" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td align="center">健康狀況</td>
-			                <td><input id="HealthState" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability8" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td align="center">生活自理</td>
-			                <td><input id="DailyLiving" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability9" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td align="center">學習特質</td>
-			                <td><input id="LearningAchievement" type="text" name="" value="" size="90"/></td>
+			                <td><input id="CaseStatus_Ability10" type="text" name="" value="" size="90"/></td>
 			            </tr>
 			            <tr>
 			                <td align="center">綜合摘要</td>
 			                <td>綜合上述可分析個案的優弱勢能力如下：<br />
 			                優勢能力<br />
-			                <textarea id="Advantage" cols="50" rows="5"></textarea><br />
+			                <textarea id="CaseStatus_Ability11" cols="50" rows="5"></textarea><br />
 			                弱勢能力<br />
-			                <textarea id="WeakCapacity" cols="50" rows="5"></textarea>
+			                <textarea id="CaseStatus_Ability12" cols="50" rows="5"></textarea>
 			                </td>
 			            </tr>
 			        </table>
@@ -1994,140 +1590,136 @@
 			        </tr>
 			        </thead>
 			        <tbody>
-			        <tr id="1_1dataTR">
+			        <tr id="dataTR1">
 			            <td colspan="7">
 			                <table class="tableContact3" width="774" border="0">
 			                    <tr>
-			                        <td colspan="7"><textarea id="1_1TargetLong" class="long" cols="50" rows="2"></textarea></td>
+			                        <td colspan="7"><textarea id="" class="long" cols="50" rows="2"></textarea></td>
 			                    </tr>
 			                    <tr>
 			                        <td width="300">
-			                            <textarea id ="1_1_1Target" class="short" cols="50" rows="2"></textarea>
+			                            <textarea id ="Target1" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="1_1_1DateStart" class="date" type="text" value="" size="10" />
+			                            <input id="TargetStart1_Date_Start1" class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_1DateEnd" class="date" type="text" value="" size="10" />
+			                            <input id="TargetStart1_Date_End1" class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_1EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input id="TargetDate" class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="1_1_1EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_1EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way1" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="1_1_1Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select id="TargetStart1_Conclusion"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select id="TargetStart1_Decision"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_2Target" class="short" cols="50" rows="2"></textarea>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="1_1_2DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_2DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_2EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="1_1_2EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_2EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way112" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="1_1_2Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_3Target" class="short" cols="50" rows="2"></textarea>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="1_1_3DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_3DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_3EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="1_1_3EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_3EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way113" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="1_1_3Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
-			                        </td>
-			                    </tr>
-			                   <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_4Target" class="short" cols="50" rows="2"></textarea>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
 			                        </td>
 			                        <td>
-			                            <input id="1_1_4DateStart" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td>
-			                            <input id="1_1_4DateEnd" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td>
-			                            <input id="1_1_4EffectiveDate" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td >
-			                            <select id="1_1_4EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_4EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_4Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_5Target" class="short" cols="50" rows="2"></textarea>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="1_1_5DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_5DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="1_1_5EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="1_1_5EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="1_1_5EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way114" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="1_1_5Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
-			                    
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way115" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
 		                    </table>
 		                </td>
 		            </tr>
 		            </tbody>
                     </table>
                     
-                    
-			        
-			        <p class="cP1">領域(二) 認知語言及溝通技巧</p>
-			        <table id="table2" class="tableContact2" width="780" border="0">
+                    <table id="table2" class="tableContact2" width="780" border="0">
 			        <thead><tr>
-		                <td width="305" rowspan="2" align="center"><button type="button" class="btnAdd" onclick="getAdd(2)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(2)">－</button></td>
+		                <td width="305" rowspan="2" align="center"><span class="cP1">聽覺技巧</span>　<button type="button" class="btnAdd" onclick="getAdd(2)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(2)">－</button></td>
 		                <th colspan="2">起迄日期</th>
 		                <th colspan="3">成效評量</th>
 		                <th width="70" rowspan="2">教學<br />決定</th>
@@ -2141,125 +1733,125 @@
 			        </tr>
 			        </thead>
 			        <tbody>
-			        <tr id="2_1dataTR">
+			        <tr id="dataTR2">
 			            <td colspan="7">
 			                <table class="tableContact3" width="774" border="0">
 			                    <tr>
-			                        <td colspan="7"><textarea id="2_1TargetLong" class="long" cols="50" rows="2"></textarea></td>
+			                        <td colspan="7"><textarea class="long" cols="50" rows="2"></textarea></td>
 			                    </tr>
-			                     <tr>
+			                    <tr>
 			                        <td width="300">
-			                            <textarea id ="2_1_1Target" class="short" cols="50" rows="2"></textarea>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="2_1_1DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_1DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_1EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="2_1_1EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_1EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way211" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="2_1_1Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
-			                        </td>
-			                    </tr>
-			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_2Target" class="short" cols="50" rows="2"></textarea>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
 			                        </td>
 			                        <td>
-			                            <input id="2_1_2DateStart" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td>
-			                            <input id="2_1_2DateEnd" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td>
-			                            <input id="2_1_2EffectiveDate" class="date" type="text" value="" size="10" />
-			                        </td>
-			                        <td >
-			                            <select id="2_1_2EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_2EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_2Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
-			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_3Target" class="short" cols="50" rows="2"></textarea>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="2_1_3DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_3DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_3EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="2_1_3EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_3EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way212" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="2_1_3Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
-			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_4Target" class="short" cols="50" rows="2"></textarea>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="2_1_4DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_4DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_4EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="2_1_4EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_4EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way213" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="2_1_4Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
-                                 <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_5Target" class="short" cols="50" rows="2"></textarea>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
-			                            <input id="2_1_5DateStart" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_5DateEnd" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
 			                        <td>
-			                            <input id="2_1_5EffectiveDate" class="date" type="text" value="" size="10" />
+			                            <input class="date" type="text" value="" size="10" />
 			                        </td>
-			                        <td >
-			                            <select id="2_1_5EffectiveMode" ><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
-			                        </td>
-			                        <td>
-			                            <select id="2_1_5EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        <td class="wayTD">
+			                            <select id="way214" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
 			                        </td>
 			                        <td>
-			                            <select id="2_1_5Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way215" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
 		                    </table>
@@ -2268,7 +1860,151 @@
 		            </tbody>
                     </table>
 			        
-<%--			        <p class="cP1">領域（三）其它特殊需求（針對baby、多障、情障等特殊個案特殊需求）</p>
+			        <p class="cP1">領域(二) 認知語言及溝通技巧</p>
+			        <table id="table3" class="tableContact2" width="780" border="0">
+			        <thead><tr>
+		                <td width="305" rowspan="2" align="center"><button type="button" class="btnAdd" onclick="getAdd(3)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(3)">－</button></td>
+		                <th colspan="2">起迄日期</th>
+		                <th colspan="3">成效評量</th>
+		                <th width="70" rowspan="2">教學<br />決定</th>
+			        </tr>
+			        <tr>
+			            <th width="90">始</th>
+			            <th width="90">末</th>
+			            <th width="90">日期</th>
+			            <th width="65">方式</th>
+			            <th width="70">結果</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr id="dataTR3">
+			            <td colspan="7">
+			                <table class="tableContact3" width="774" border="0">
+			                    <tr>
+			                        <td colspan="7"><textarea class="long" cols="50" rows="2"></textarea></td>
+			                    </tr>
+			                    <tr>
+			                        <td width="300">
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way311" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way312" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way313" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way314" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td>
+			                            <textarea class="short" cols="50" rows="2"></textarea>
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td>
+			                            <input class="date" type="text" value="" size="10" />
+			                        </td>
+			                        <td class="wayTD">
+			                            <select id="way315" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select>
+			                        </td>
+			                        <td>
+			                            <select><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
+			                        </td>
+			                    </tr>
+		                    </table>
+		                </td>
+		            </tr>
+		            </tbody>
+                    </table>
+			        
+			        <p class="cP1">領域（三）其它特殊需求（針對baby、多障、情障等特殊個案特殊需求）</p>
 			        <table id="table4" class="tableContact2" width="780" border="0">
 			        <thead><tr>
 		                <td width="305" rowspan="2" align="center"><button type="button" class="btnAdd" onclick="getAdd(4)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(4)">－</button></td>
@@ -2410,12 +2146,12 @@
 		                </td>
 		            </tr>
 		            </tbody>
-                    </table>--%>
+                    </table>
 			        
 			        <p class="btnP">
 			            <button class="btnSave" type="button">儲 存</button>
 			            <button class="btnUpdate" type="button">更 新</button>
-			            <button class="btnSaveUdapteData" type="button" onclick="SaveCaseISP(4);" >存 檔</button>
+			            <button class="btnSaveUdapteData" type="button">存 檔</button>
 			            <button class="btnCancel" type="button">取 消</button>
 			            <button class="btnRevise" type="button">修 訂</button>
 			        </p>

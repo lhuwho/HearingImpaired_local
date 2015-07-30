@@ -1470,6 +1470,7 @@ public struct CreateStudentTracked
     public string studentSex;
     public string guaranteeDate;
     public string endReasonDate;
+    public string firstClassDate; 
     public string studentNameNew;/*改名用*/
     public string email;
     public string censusAddressZip;
@@ -1558,6 +1559,7 @@ public struct CreateStudentTracked
     public string mUntil1;
     public string mUntil2;
     public string mType;
+    
 
 
 
@@ -1573,6 +1575,33 @@ public struct CreateStudentTracked
     public string masterType;
     public string masterName;
     public string masterDepartment;
+
+
+    public string ElementarySY;
+    public string ElementarySM;
+    public string ElementaryEY;
+    public string ElementaryEM;
+    public string JuniorHighSY;
+    public string JuniorHighSM;
+    public string JuniorHighEY;
+    public string JuniorHighEM;
+    public string HighSY;
+    public string HighSM;
+    public string HighEY;
+    public string HighEM;
+    public string UniversitySY;
+    public string UniversitySM;
+    public string UniversityEY;
+    public string UniversityEM;
+    public string JobSY;
+    public string JobSM;
+    public string JobEY;
+    public string JobEM;
+    public string OtherSY;
+    public string OtherSM;
+    public string OtherEY;
+    public string OtherEM;
+    
 }
 public struct createStudentActivity
 {
@@ -2864,14 +2893,116 @@ public struct setTeachISP1
 
 }
 public struct setTeachISP2 {
-    public Int64 Column;
-    public string studentID;
+
+    public string ID;
+    public string ISPID;
+    public string PlanWriter;
+    public string PlanWriterName;
+
+    public string FrameDate;
+    public string PlanExecutor;
+
+    public string PlanRevise;
+    public string PlanReviseName;
+
+    public string ReviseDate;
+    public string ReviseExecutor;
+    public string EconomicNeedResource;
+    public string EconomicNeedSituation;
+    public string ServicesResource;
+    public string ServicesSituation;
+    public string ServicesActiivity;
+    public string ServicesStatus;
+    public string MedicalResource;
+    public string MedicalSituation;
+    public string MedicalReason;
+    public string MedicalOther;
+    public string EducationResource;
+    public string EducationSituation;
+    public string EducationOther;
+    public string HSMID;
+    public string MasterOrder;
+    public string Target;
+    public string DetailOrder;
+    public string Manner;
+    public string StartDate;
+    public string EndDate;
+    public string Executor;
+    public string TrackDate;
+    public string Results;
 }
 public struct setTeachISP3
 {
-    public Int64 Column;
-    public string studentID;
-    public List<ISPLong> HISP;
+   
+    public string ISPID;
+
+    public string PlanWriter3;
+    public string PlanWriteFrameDate3;
+    public string PlanWriteExecutor3;
+    public string PlanRevise3;
+    public string PlanReviseDate3;
+    public string PlanReviseExecutor3;
+    public string HearingAssessment;
+    public string HearingAssessmentBy;
+    public string HearingAssessmentDate;
+    public string HearingAssessmentTool;
+    public string VocabularyAssessment;
+    public string VocabularyAssessmentBy;
+    public string VocabularyAssessmentDate;
+    public string VocabularyAssessmentTool;
+    public string LanguageAssessment;
+    public string LanguageAssessmentBy;
+    public string LanguageAssessmentDate;
+    public string LanguageAssessmentTool;
+    public string intelligenceAssessment;
+    public string intelligenceAssessmentBy;
+    public string intelligenceAssessmentDate;
+    public string intelligenceAssessmentTool;
+    public string OtherAssessment;
+    public string OtherAssessmentBy;
+    public string OtherAssessmentDate;
+    public string OtherAssessmentTool;
+    public string Hearing;
+    public string CognitiveAbility;
+    public string ConnectAbility;
+    public string ActAbility;
+    public string Relationship;
+    public string EmotionalManagement;
+    public string SensoryFunction;
+    public string HealthState;
+    public string DailyLiving;
+    public string LearningAchievement;
+    public string Advantage;
+    public string WeakCapacity;
+    public List<TeachingPlan> TeachingPlan;
+   
+
+
+
+}
+public struct TeachingPlan
+{ 
+    //教學主檔
+    public string ID;
+    public string TeachOrder;
+    public string MasterOrder;
+    public string TargetLong;
+    public List<TeachingPlanDetail> TeachingPlanDetail;
+}
+
+public struct TeachingPlanDetail
+{
+    //教學明細
+    public string ID;
+    public string TPMID;
+    public string DetailOrder;
+    public string TargetShort;
+    public string DateStart;
+    public string DateEnd;
+    public string EffectiveDate;
+    public string EffectiveMode;
+    public string EffectiveResult;
+    public string Decide;
 }
 public struct ISPLong
 {
@@ -2889,11 +3020,48 @@ public struct ISPShort
 }
 public struct setTeachISP4
 {
-    public Int64 Column;
-    public string studentID;
-    public List<ISPLong> TISP;
+    public string ISPID;
 
-    public int test1; //非正式名稱，測試用
+    public string PlanWriter3;
+    public string PlanWriteFrameDate3;
+    public string PlanWriteExecutor3;
+    public string PlanRevise3;
+    public string PlanReviseDate3;
+    public string PlanReviseExecutor3;
+    public string HearingAssessment;
+    public string HearingAssessmentBy;
+    public string HearingAssessmentDate;
+    public string HearingAssessmentTool;
+    public string VocabularyAssessment;
+    public string VocabularyAssessmentBy;
+    public string VocabularyAssessmentDate;
+    public string VocabularyAssessmentTool;
+    public string LanguageAssessment;
+    public string LanguageAssessmentBy;
+    public string LanguageAssessmentDate;
+    public string LanguageAssessmentTool;
+    public string intelligenceAssessment;
+    public string intelligenceAssessmentBy;
+    public string intelligenceAssessmentDate;
+    public string intelligenceAssessmentTool;
+    public string OtherAssessment;
+    public string OtherAssessmentBy;
+    public string OtherAssessmentDate;
+    public string OtherAssessmentTool;
+    public string Hearing;
+    public string CognitiveAbility;
+    public string ConnectAbility;
+    public string ActAbility;
+    public string Relationship;
+    public string EmotionalManagement;
+    public string SensoryFunction;
+    public string HealthState;
+    public string DailyLiving;
+    public string LearningAchievement;
+    public string Advantage;
+    public string WeakCapacity;
+    public List<TeachingPlan> TeachingPlan;
+   
 }
 public struct setTeachISPAllData {
     public setTeachISP1 ISP1Data;

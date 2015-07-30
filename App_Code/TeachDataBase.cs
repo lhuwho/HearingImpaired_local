@@ -1051,88 +1051,176 @@ public class TeachDataBase
         return returnValue;
     }
 
-    public int setTeachISPPage2(setTeachISP2 StudentISP)
+    public List<setTeachISP2> GetHomeService(Int64 StudentISP)
     {
-        int returnValue = 0;
+        List<setTeachISP2> returnValue = new List<setTeachISP2>();
+
         DataBase Base = new DataBase();
-        SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
-        using (Sqlconn)
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
-                string sql = "UPDATE CaseISPstate SET PlanWriter1=@PlanWriter1, PlanWriteFrameDate1=@PlanWriteFrameDate1, PlanWriteExecutor1=@PlanWriteExecutor1, "+
-                    "PlanRevise1=@PlanRevise1, PlanReviseDate1=@PlanReviseDate1, PlanReviseExecutor1=@PlanReviseExecutor1, EconomicNeed=@EconomicNeed, " +
-                    "EconomicNeedText=@EconomicNeedText, EconomicNeedResource=@EconomicNeedResource, EconomicNeedMode=@EconomicNeedMode, " +
-                    "EconomicNeedExecutionTime=@EconomicNeedExecutionTime, EconomicNeedExecutor=@EconomicNeedExecutor, EconomicNeedTrackDate=@EconomicNeedTrackDate, " +
-                    "EconomicNeedResults=@EconomicNeedResults, EconomicNeedSituation=@EconomicNeedSituation, Services=@Services, ServicesText=@ServicesText, " +
-                    "ServicesResource=@ServicesResource, ServicesMode=@ServicesMode, ServicesExecutionTime=@ServicesExecutionTime, ServicesExecutor=@ServicesExecutor, " +
-                    "ServicesTrackDate=@ServicesTrackDate, ServicesResults=@ServicesResults, ServicesSituation=@ServicesSituation, ServicesSituationText=@ServicesSituationText, " +
-                    "Medical=@Medical, MedicalText=@MedicalText, MedicalResource=@MedicalResource, MedicalMode=@MedicalMode, MedicalExecutionTime=@MedicalExecutionTime, " +
-                    "MedicalExecutor=@MedicalExecutor, MedicalTrackDate=@MedicalTrackDate, MedicalResults=@MedicalResults, MedicalSituation=@MedicalSituation, " +
-                    "MedicalSituationText=@MedicalSituationText, Education=@Education, EducationText=@EducationText, EducationResource=@EducationResource, EducationMode=@EducationMode, " +
-                    "EducationExecutionTime=@EducationExecutionTime, EducationExecutor=@EducationExecutor, EducationTrackDate=@EducationTrackDate, EducationResults=@EducationResults, " +
-                    "EducationSituation=@EducationSituation, EducationSituationText=@EducationSituationText " +
-                    "WHERE ID=@ID AND StudentID=@StudentID";
+                string sql = " SELECT PlanWriter,CONVERT(varchar(100), FrameDate, 23) as FrameDate,PlanExecutor,PlanRevise, CONVERT(varchar(100), ReviseDate, 23) as ReviseDate,ReviseExecutor,EconomicNeedResource " +
+                            " ,EconomicNeedSituation,ServicesResource,ServicesSituation,ServicesActiivity,ServicesStatus,MedicalResource " +
+                            " ,MedicalSituation,MedicalReason,MedicalOther,EducationResource,EducationSituation,EducationOther" +
+                            " ,MasterOrder,Target,DetailOrder,Manner,StartDate,EndDate,Executor,TrackDate,Results ,PlanReviseName ,PlanWriterName " +
+                            "  FROM HomeService a " +
+                            "  left join HomeServiceDetail b on a.id = b.hsmid " +
+                            " left join ( select staffid as cid , StaffName as PlanWriterName from staffDatabase ) c on a.PlanWriter = c.cid " +
+                            " left join ( select staffid as did , StaffName as PlanReviseName from staffDatabase ) d on a.PlanRevise = d.did " +
+                            " where ispid = @ISPID ";
+
+
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = "";
-                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = StudentISP.studentID;
-                cmd.Parameters.Add("@PlanWriter1", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@PlanWriteFrameDate1", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@PlanWriteExecutor1", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@PlanRevise1", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@PlanReviseDate1", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@PlanReviseExecutor1", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@EconomicNeed", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedResource", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedMode", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedExecutionTime", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedExecutor", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedTrackDate", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedResults", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EconomicNeedSituation", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Services", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesResource", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesMode", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesExecutionTime", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesExecutor", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesTrackDate", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesResults", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesSituation", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ServicesSituationText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Medical", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalResource", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalMode", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalExecutionTime", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalExecutor", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalTrackDate", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalResults", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalSituation", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@MedicalSituationText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Education", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationText", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationResource", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationMode", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationExecutionTime", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationExecutor", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationTrackDate", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationResults", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationSituation", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EducationSituationText", SqlDbType.NVarChar).Value = "";
-                returnValue = cmd.ExecuteNonQuery();
+                cmd.Parameters.Add("@ISPID", SqlDbType.BigInt).Value = StudentISP;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    setTeachISP2 addValue = new setTeachISP2();
+                    addValue.PlanWriter = dr["PlanWriter"].ToString();
+                    addValue.FrameDate = dr["FrameDate"].ToString();
+                    addValue.PlanExecutor = dr["PlanExecutor"].ToString();
+                    addValue.PlanRevise = dr["PlanRevise"].ToString();
+                    addValue.ReviseDate = dr["ReviseDate"].ToString();
+
+                    addValue.PlanReviseName = dr["PlanReviseName"].ToString();
+                    addValue.PlanWriterName = dr["PlanWriterName"].ToString();
+
+                    addValue.ReviseExecutor  = dr["ReviseExecutor"].ToString();
+                    addValue.EconomicNeedResource = dr["EconomicNeedResource"].ToString();
+                    addValue.EconomicNeedSituation = dr["EconomicNeedSituation"].ToString();
+                    addValue.ServicesResource = dr["ServicesResource"].ToString();
+                    addValue.ServicesSituation = dr["ServicesSituation"].ToString();
+                    addValue.ServicesActiivity = dr["ServicesActiivity"].ToString();
+                    addValue.ServicesStatus = dr["ServicesStatus"].ToString();
+                    addValue.MedicalResource = dr["MedicalResource"].ToString();
+                    addValue.MedicalSituation = dr["MedicalSituation"].ToString();
+                    addValue.MedicalReason = dr["MedicalReason"].ToString();
+                    addValue.MedicalOther = dr["MedicalOther"].ToString();
+                    addValue.EducationResource = dr["EducationResource"].ToString();
+                    addValue.EducationSituation = dr["EducationSituation"].ToString();
+                    addValue.EducationOther = dr["EducationOther"].ToString();
+
+                    addValue.MasterOrder = dr["MasterOrder"].ToString();
+                    addValue.Target = dr["Target"].ToString();
+                    addValue.DetailOrder = dr["DetailOrder"].ToString();
+                    addValue.Manner = dr["Manner"].ToString();
+                    addValue.StartDate = dr["StartDate"].ToString();
+                    addValue.EndDate = dr["EndDate"].ToString();
+                    addValue.Executor = dr["Executor"].ToString();
+                    addValue.TrackDate = dr["TrackDate"].ToString();
+                    addValue.Results = dr["Results"].ToString();
+
+
+                    returnValue.Add(addValue);
+
+                }
+                dr.Close();
                 Sqlconn.Close();
             }
             catch (Exception e)
             {
-                string error = e.Message;
-                returnValue = -1;
+                string ex = e.Message.ToString();
+                //returnValue.ISP1Data = new setTeachISP1();
+                //returnValue.ISP1Data.studentID = "-1";
+                //returnValue.ISP1Data.studentName = e.Message.ToString();
             }
         }
         return returnValue;
     }
+    public int setTeachISPPage2(List<setTeachISP2> StudentISP)
+    {
+        int returnValue = 0;
+        DateTime now = DateTime.Now;
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " delete HomeServiceDetail where HSMID in ( select id from HomeService where ISPID = @ISPID )   delete HomeService where ISPID = @ISPID ";
+                int i = 1;
+                ////foreach (setTeachISP2 atom in StudentISP)
+                ////{
+                ////    returnValue = createHearLoss(atom);
+                ////}
+                //修改寫法
+                sql += " DECLARE @MasterID int; ";
+                sql += " insert into HomeService (";
+                sql += " ISPID,PlanWriter,   FrameDate,PlanExecutor,PlanRevise,  ReviseDate,ReviseExecutor,EconomicNeedResource,EconomicNeedSituation,ServicesResource,ServicesSituation,ServicesActiivity ";
+                sql += " ,ServicesStatus,MedicalResource,MedicalSituation,MedicalReason,MedicalOther,EducationResource,EducationSituation,EducationOther ";
+                sql += " )values( ";
+                sql += " @ISPID,@PlanWriter,@FrameDate,@PlanExecutor,@PlanRevise,@ReviseDate,@ReviseExecutor,@EconomicNeedResource,@EconomicNeedSituation,@ServicesResource,@ServicesSituation,@ServicesActiivity ";
+                sql += " ,@ServicesStatus,@MedicalResource,@MedicalSituation,@MedicalReason,@MedicalOther,@EducationResource,@EducationSituation,@EducationOther ) ";
+                sql += "  select @MasterID = (select @@identity) ";
+                foreach (setTeachISP2 atom in StudentISP)
+                {
+                    sql += " insert into HomeServiceDetail ( HSMID,MasterOrder,DetailOrder,Target,Manner,StartDate,EndDate,Executor,TrackDate,Results ";
+                    sql += " )values( @MasterID,@MasterOrder" + i.ToString() + ",@DetailOrder" + i.ToString() + ",@Target" + i.ToString() + ",@Manner" + i.ToString() + ",@StartDate" + i.ToString() + ",@EndDate" + i.ToString() + ",@Executor" + i.ToString() + ",@TrackDate" + i.ToString() + ",@Results" + i.ToString() + " )";
+                    i++;
+                }
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                i = 1;
+                foreach (setTeachISP2 atom in StudentISP)
+                {
+                    if (i == 1)
+                    {
+                        cmd.Parameters.Add("@ISPID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.ISPID);
+                        cmd.Parameters.Add("@PlanWriter", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.PlanWriter);
+                        cmd.Parameters.Add("@FrameDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.FrameDate);
+                        cmd.Parameters.Add("@PlanExecutor", SqlDbType.NVarChar).Value = Chk.CheckStringtoIntFunction(atom.PlanExecutor);
+                        cmd.Parameters.Add("@PlanRevise", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.PlanRevise);
+                        cmd.Parameters.Add("@ReviseDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.ReviseDate);
+                        cmd.Parameters.Add("@ReviseExecutor", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.ReviseExecutor);
+                        cmd.Parameters.Add("@EconomicNeedResource", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EconomicNeedResource);
+                        cmd.Parameters.Add("@EconomicNeedSituation", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EconomicNeedSituation.Replace(",","@@"));
+                        cmd.Parameters.Add("@ServicesResource", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.ServicesResource);
+
+                        cmd.Parameters.Add("@ServicesSituation", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.ServicesSituation.Replace(",", "@@"));
+                        cmd.Parameters.Add("@ServicesActiivity", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.ServicesActiivity);
+                        cmd.Parameters.Add("@ServicesStatus", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.ServicesStatus);
+                        cmd.Parameters.Add("@MedicalResource", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.MedicalResource);
+                        cmd.Parameters.Add("@MedicalSituation", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.MedicalSituation.Replace(",", "@@"));
+                        cmd.Parameters.Add("@MedicalReason", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.MedicalReason);
+                        cmd.Parameters.Add("@MedicalOther", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.MedicalOther);
+                        cmd.Parameters.Add("@EducationResource", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EducationResource);
+                        cmd.Parameters.Add("@EducationSituation", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EducationSituation.Replace(",", "@@"));
+                        cmd.Parameters.Add("@EducationOther", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EducationOther);
+                    }
+                    cmd.Parameters.Add("@MasterOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.MasterOrder);
+                    cmd.Parameters.Add("@DetailOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.DetailOrder);
+                    cmd.Parameters.Add("@Target" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Target);
+                    cmd.Parameters.Add("@Manner" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Manner);
+                    cmd.Parameters.Add("@StartDate" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.StartDate);
+                    cmd.Parameters.Add("@EndDate" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.EndDate);
+                    cmd.Parameters.Add("@Executor" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Executor);
+                    cmd.Parameters.Add("@TrackDate" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.TrackDate);
+                    cmd.Parameters.Add("@Results" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Results);
+                    i++;
+                }
+                returnValue = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                returnValue = -1;
+                string ex = e.Message.ToString();
+            }
+        }
+        return returnValue;
+
+    }
+
+
+    public int setTeachISPPage3(setTeachISP3 StudentISP)
+    {
+        int returnValue = 0;
+
+        return returnValue;
+    }
+/*
     public int setTeachISPPage3(setTeachISP3 StudentISP)
     {
         int returnValue = 0;
@@ -1374,207 +1462,203 @@ public class TeachDataBase
         }
         return returnValue;
     }
+
+    */
     public int setTeachISPPage4(setTeachISP4 StudentISP)
     {
         int returnValue = 0;
+
+        DateTime now = DateTime.Now;
         DataBase Base = new DataBase();
-        SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
-        using (Sqlconn)
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
-                string sql = "UPDATE CaseISPstate SET PlanWriter3=@PlanWriter3, PlanWriteFrameDate3=@PlanWriteFrameDate3, PlanWriteExecutor3=@PlanWriteExecutor3, " +
-                    "PlanRevise3=@PlanRevise3, PlanReviseDate3=@PlanReviseDate3, PlanReviseExecutor3=@PlanReviseExecutor3, HearingAssessment=@HearingAssessment, " +
-                    "HearingAssessmentBy=@HearingAssessmentBy, HearingAssessmentDate=@HearingAssessmentDate, HearingAssessmentTool=@HearingAssessmentTool, " +
-                    "VocabularyAssessment=@VocabularyAssessment, VocabularyAssessmentBy=@VocabularyAssessmentBy, VocabularyAssessmentDate=@VocabularyAssessmentDate, " +
-                    "VocabularyAssessmentTool=@VocabularyAssessmentTool, LanguageAssessment=@LanguageAssessment, LanguageAssessmentBy=@LanguageAssessmentBy, " +
-                    "LanguageAssessmentDate=@LanguageAssessmentDate, LanguageAssessmentTool=@LanguageAssessmentTool, intelligenceAssessment=@intelligenceAssessment, " +
-                    "intelligenceAssessmentBy=@intelligenceAssessmentBy, intelligenceAssessmentDate=@intelligenceAssessmentDate, " +
-                    "intelligenceAssessmentTool=@intelligenceAssessmentTool, OtherAssessment=@OtherAssessment, OtherAssessmentBy=@OtherAssessmentBy, " +
-                    "OtherAssessmentDate=@OtherAssessmentDate, OtherAssessmentTool=@OtherAssessmentTool, Hearing=@Hearing, CognitiveAbility=@CognitiveAbility, " +
-                    "ConnectAbility=@ConnectAbility, ActAbility=@ActAbility, Relationship=@Relationship, EmotionalManagement=@EmotionalManagement, " +
-                    "SensoryFunction=@SensoryFunction, HealthState=@HealthState, DailyLiving=@DailyLiving, LearningAchievement=@LearningAchievement, " +
-                    "Advantage=@Advantage, WeakCapacity=@WeakCapacity " +
-                     "WHERE ID=@ID AND StudentID=@StudentID";
-                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = "";
-                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@PlanWriter3", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@PlanWriteFrameDate3", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@PlanWriteExecutor3", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@PlanRevise3", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@PlanReviseDate3", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@PlanReviseExecutor3", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@HearingAssessment", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@HearingAssessmentBy", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@HearingAssessmentDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@HearingAssessmentTool", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@VocabularyAssessment", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@VocabularyAssessmentBy", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@VocabularyAssessmentDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@VocabularyAssessmentTool", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@LanguageAssessment", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@LanguageAssessmentBy", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@LanguageAssessmentDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@LanguageAssessmentTool", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@IntelligenceAssessment", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@IntelligenceAssessmentBy", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@IntelligenceAssessmentDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@IntelligenceAssessmentTool", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@OtherAssessment", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@OtherAssessmentBy", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@OtherAssessmentDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@OtherAssessmentTool", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Hearing", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@CognitiveAbility", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ConnectAbility", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@ActAbility", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Relationship", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@EmotionalManagement", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@SensoryFunction", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@HealthState", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@DailyLiving", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@LearningAchievement", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@Advantage", SqlDbType.NVarChar).Value = "";
-                cmd.Parameters.Add("@WeakCapacity", SqlDbType.NVarChar).Value = "";
-                returnValue = cmd.ExecuteNonQuery();
+                string sql = " delete TeachingPlanDetail where TPMID in ( select id from TeachingPlan where ISPID = @ISPID )   delete TeachingPlan where ISPID = @ISPID ";
+                int i = 1;
+                int j = 1;
+                sql += " update CaseISPstate set "+
+                " PlanWriter3=@PlanWriter3,PlanWriteFrameDate3=@PlanWriteFrameDate3,PlanWriteExecutor3=@PlanWriteExecutor3,PlanRevise3=@PlanRevise3,PlanReviseDate3=@PlanReviseDate3,PlanReviseExecutor3=@PlanReviseExecutor3"+
+                " ,HearingAssessment=@HearingAssessment,HearingAssessmentByT=@HearingAssessmentByT,HearingAssessmentDateT=@HearingAssessmentDateT,HearingAssessmentTool=@HearingAssessmentTool"+
+                " ,VocabularyAssessment=@VocabularyAssessment,VocabularyAssessmentBy=@VocabularyAssessmentBy,VocabularyAssessmentDate=@VocabularyAssessmentDate,VocabularyAssessmentTool=@VocabularyAssessmentTool"+
+                " ,LanguageAssessment=@LanguageAssessment,LanguageAssessmentBy=@LanguageAssessmentBy,LanguageAssessmentDate=@LanguageAssessmentDate,LanguageAssessmentTool=@LanguageAssessmentTool"+
+                " ,intelligenceAssessment=@intelligenceAssessment,intelligenceAssessmentBy=@intelligenceAssessmentBy,intelligenceAssessmentDate=@intelligenceAssessmentDate,intelligenceAssessmentTool=@intelligenceAssessmentTool " +
+                " ,OtherAssessment=@OtherAssessment,OtherAssessmentBy=@OtherAssessmentBy,OtherAssessmentDate=@OtherAssessmentDate,OtherAssessmentTool=@OtherAssessmentTool"+
+                " ,Hearing=@Hearing,CognitiveAbility=@CognitiveAbility,ConnectAbility=@ConnectAbility,ActAbility=@ActAbility,Relationship=@Relationship"+
+                " ,EmotionalManagement=@EmotionalManagement,SensoryFunction=@SensoryFunction,HealthState=@HealthState,DailyLiving=@DailyLiving"+
+                " ,LearningAchievement=@LearningAchievement,Advantage=@Advantage,WeakCapacity=@WeakCapacity "+
+                " where ID = @ISPID ";
+                
+                //PlanWriter3,PlanWriteFrameDate3,PlanWriteExecutor3,PlanRevise3,PlanReviseDate3,PlanReviseExecutor3,HearingAssessment,HearingAssessmentByT,HearingAssessmentDateT,HearingAssessmentTool,VocabularyAssessment,VocabularyAssessmentBy,VocabularyAssessmentDate,VocabularyAssessmentTool,LanguageAssessment,LanguageAssessmentBy,LanguageAssessmentDate,LanguageAssessmentTool,intelligenceAssessment,intelligenceAssessmentBy,intelligenceAssessmentDate,intelligenceAssessmentTool,OtherAssessment,OtherAssessmentBy,OtherAssessmentDate,OtherAssessmentTool,Hearing,CognitiveAbility,ConnectAbility,ActAbility,Relationship,EmotionalManagement,SensoryFunction,HealthState,DailyLiving,LearningAchievement,Advantage,WeakCapacity
+                //PlanWriter3=@PlanWriter3,PlanWriteFrameDate3=@PlanWriteFrameDate3,PlanWriteExecutor3=@PlanWriteExecutor3,PlanRevise3=@PlanRevise3,PlanReviseDate3=@PlanReviseDate3,PlanReviseExecutor3=@PlanReviseExecutor3,HearingAssessment=@HearingAssessment,HearingAssessmentByT=@HearingAssessmentByT,HearingAssessmentDateT=@HearingAssessmentDateT,HearingAssessmentTool=@HearingAssessmentTool,VocabularyAssessment=@VocabularyAssessment,VocabularyAssessmentBy=@VocabularyAssessmentBy,VocabularyAssessmentDate=@VocabularyAssessmentDate,VocabularyAssessmentTool=@VocabularyAssessmentTool,LanguageAssessment=@LanguageAssessment,LanguageAssessmentBy=@LanguageAssessmentBy,LanguageAssessmentDate=@LanguageAssessmentDate,LanguageAssessmentTool=@LanguageAssessmentTool,intelligenceAssessment=@intelligenceAssessment,intelligenceAssessmentBy=@intelligenceAssessmentBy,intelligenceAssessmentDate=@intelligenceAssessmentDate,intelligenceAssessmentTool=@intelligenceAssessmentTool,OtherAssessment=@OtherAssessment,OtherAssessmentBy=@OtherAssessmentBy,OtherAssessmentDate=@OtherAssessmentDate,OtherAssessmentTool=@OtherAssessmentTool,Hearing=@Hearing,CognitiveAbility=@CognitiveAbility,ConnectAbility=@ConnectAbility,ActAbility=@ActAbility,Relationship=@Relationship,EmotionalManagement=@EmotionalManagement,SensoryFunction=@SensoryFunction,HealthState=@HealthState,DailyLiving=@DailyLiving,LearningAchievement=@LearningAchievement,Advantage=@Advantage,WeakCapacity=@WeakCapacity,
 
-                int LCount = Chk.CheckIntFunction(StudentISP.TISP.Count);
-                for (int i = 0; i < LCount; i++)
+                foreach (TeachingPlan TPM in StudentISP.TeachingPlan) 
                 {
-                    Int64 LColumn = 0;
-                    Int64 SColumn = 0;
-                    //長目標有資料，Update
-                    if (StudentISP.TISP[i].LongColumn != null && StudentISP.TISP[i].LongColumn != 0)
+                    sql += " DECLARE @MasterID"+ i +" int; ";
+                    sql += " insert into TeachingPlan ( ISPID,TeachOrder,MasterOrder,TargetLong  ) values ( @ISPID  ,@TeachOrder" + i + ",@MasterOrder" + i + ",@TargetLong" + i + " ) ";
+                    sql += " select @MasterID" + i + " = (select @@identity) ";
+                    j = 1;
+                    foreach (TeachingPlanDetail TPD in TPM.TeachingPlanDetail )
                     {
-                        LColumn = StudentISP.TISP[i].LongColumn;
-                        sql = "UPDATE TeacherISPLong SET TargetContentLong=@TargetContentLong WHERE CaseISPID=@CaseISPID  AND TISPLID=@TISPLID";
-                        cmd = new SqlCommand(sql, Sqlconn);
-                        cmd.Parameters.Add("@TISPLID", SqlDbType.BigInt).Value = LColumn;
-                        cmd.Parameters.Add("@CaseISPID", SqlDbType.BigInt).Value = "";
-                        cmd.Parameters.Add("@TargetContentLong", SqlDbType.NVarChar).Value = "";
-                        returnValue = cmd.ExecuteNonQuery();
-
-                        int SCount = Chk.CheckIntFunction(StudentISP.TISP[i].ShortTarget.Count);
-                        for (int j = 0; j < SCount; j++)
-                        {
-                            //短目標有資料，Update
-                            if (StudentISP.TISP[i].ShortTarget[j].ShortColumn != null && StudentISP.TISP[i].ShortTarget[j].ShortColumn != 0)
-                            {
-                                SColumn = StudentISP.TISP[i].ShortTarget[j].ShortColumn;
-                                sql = "UPDATE TeacherISPShort SET HISPLID=@HISPLID, TargetContentShort=@TargetContentShort, DateStart=@DateStart, DateEnd=@DateEnd, " +
-                                    "EffectiveDate=@EffectiveDate, EffectiveMode=@EffectiveMode, EffectiveResult=@EffectiveResult, Decide=@Decide " +
-                                    "WHERE TISPLID=@TISPLID AND TISPSID=@TISPSID ";
-                                cmd = new SqlCommand(sql, Sqlconn);
-                                cmd.Parameters.Add("@TISPLID", SqlDbType.BigInt).Value = LColumn;
-                                cmd.Parameters.Add("@TISPSID", SqlDbType.BigInt).Value = SColumn;
-                                cmd.Parameters.Add("@TargetContentShort", SqlDbType.Date).Value = "";
-                                cmd.Parameters.Add("@DateStart", SqlDbType.Date).Value = "";
-                                cmd.Parameters.Add("@DateEnd", SqlDbType.Date).Value = "";
-                                cmd.Parameters.Add("@EffectiveDate", SqlDbType.Date).Value = "";
-                                cmd.Parameters.Add("@EffectiveMode", SqlDbType.Int).Value = "";
-                                cmd.Parameters.Add("@EffectiveResult", SqlDbType.Int).Value = "";
-                                cmd.Parameters.Add("@Decide", SqlDbType.Int).Value = "";
-                                returnValue = cmd.ExecuteNonQuery();
-                            }
-                            //短目標無資料，create
-                            else
-                            {
-                                returnValue = this.createTISPShort(LColumn);
-                            }
-                        }
+                        sql += " insert into TeachingPlanDetail ( TPMID,DetailOrder,TargetShort,DateStart,DateEnd,EffectiveDate,EffectiveMode,EffectiveResult,Decide ";
+                        sql += " )values( ";
+                        sql += " @MasterID" + i + ", @DetailOrder" + i + "_" + j + ",@TargetShort" + i + "_" + j + ",@DateStart" + i + "_" + j + ",@DateEnd" + i + "_" + j + ",@EffectiveDate" + i + "_" + j + ",@EffectiveMode" + i + "_" + j + ",@EffectiveResult" + i + "_" + j + ",@Decide" + i + "_" + j + ")";
+                        j++;
                     }
-                    else
-                    {  //長目標無資料，create
-                        LColumn = this.createTISPLong(StudentISP.Column);
-                        returnValue = this.createTISPShort(LColumn);
-                    }
+                    i++;
                 }
-                  Sqlconn.Close();
-            }
-            catch (Exception e)
-            {
-                string error = e.Message;
-                returnValue = -1;
-            }
-        }
-        return returnValue;
-    }
-
-
-    private Int64 createTISPLong(Int64 CaseISPID)
-    {
-        Int64 returnValue = 0;
-        DataBase Base = new DataBase();
-        SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
-        using (Sqlconn)
-        {
-            try
-            {
-                Sqlconn.Open();
-                string sql = "INSERT INTO TeacherISPLong(Domain, CaseISPID, TargetContentLong) VALUES (@Domain, @CaseISPID, @TargetContentLong)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@Domain", SqlDbType.TinyInt).Value = "";
-                cmd.Parameters.Add("@CaseISPID", SqlDbType.BigInt).Value = "";
-                cmd.Parameters.Add("@TargetContentLong", SqlDbType.NVarChar).Value = "";
-                returnValue = cmd.ExecuteNonQuery();
-
-                if (returnValue != 0)
+                cmd.Parameters.Add("@ISPID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.ISPID);
+                cmd.Parameters.Add("@PlanWriter3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriter3);
+                cmd.Parameters.Add("@PlanWriteFrameDate3", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanWriteFrameDate3);
+                cmd.Parameters.Add("@PlanWriteExecutor3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriteExecutor3);
+                cmd.Parameters.Add("@PlanRevise3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanRevise3);
+                cmd.Parameters.Add("@PlanReviseDate3", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanReviseDate3);
+                cmd.Parameters.Add("@PlanReviseExecutor3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanReviseExecutor3);
+                cmd.Parameters.Add("@HearingAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessment);
+                cmd.Parameters.Add("@HearingAssessmentByT", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessmentBy);
+                cmd.Parameters.Add("@HearingAssessmentDateT", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.HearingAssessmentDate);
+                cmd.Parameters.Add("@HearingAssessmentTool", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessmentTool);
+                cmd.Parameters.Add("@VocabularyAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.VocabularyAssessment);
+                cmd.Parameters.Add("@VocabularyAssessmentBy", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.VocabularyAssessmentBy);
+                cmd.Parameters.Add("@VocabularyAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.VocabularyAssessmentDate);
+                cmd.Parameters.Add("@VocabularyAssessmentTool", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.VocabularyAssessmentTool);
+                cmd.Parameters.Add("@LanguageAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.LanguageAssessment);
+                cmd.Parameters.Add("@LanguageAssessmentBy", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.LanguageAssessmentBy);
+                cmd.Parameters.Add("@LanguageAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.LanguageAssessmentDate);
+                cmd.Parameters.Add("@LanguageAssessmentTool", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.LanguageAssessmentTool);
+                cmd.Parameters.Add("@intelligenceAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.intelligenceAssessment);
+                cmd.Parameters.Add("@intelligenceAssessmentBy", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.intelligenceAssessmentBy);
+                cmd.Parameters.Add("@intelligenceAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.intelligenceAssessmentDate);
+                cmd.Parameters.Add("@intelligenceAssessmentTool", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.intelligenceAssessmentTool);
+                cmd.Parameters.Add("@OtherAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.OtherAssessment);
+                cmd.Parameters.Add("@OtherAssessmentBy", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.OtherAssessmentBy);
+                cmd.Parameters.Add("@OtherAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.OtherAssessmentDate);
+                cmd.Parameters.Add("@OtherAssessmentTool", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.OtherAssessmentTool);
+                cmd.Parameters.Add("@Hearing", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.Hearing);
+                cmd.Parameters.Add("@CognitiveAbility", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.CognitiveAbility);
+                cmd.Parameters.Add("@ConnectAbility", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.ConnectAbility);
+                cmd.Parameters.Add("@ActAbility", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.ActAbility);
+                cmd.Parameters.Add("@Relationship", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.Relationship);
+                cmd.Parameters.Add("@EmotionalManagement", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.EmotionalManagement);
+                cmd.Parameters.Add("@SensoryFunction", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.SensoryFunction);
+                cmd.Parameters.Add("@HealthState", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HealthState);
+                cmd.Parameters.Add("@DailyLiving", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.DailyLiving);
+                cmd.Parameters.Add("@LearningAchievement", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.LearningAchievement);
+                cmd.Parameters.Add("@Advantage", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.Advantage);
+                cmd.Parameters.Add("@WeakCapacity", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.WeakCapacity);
+                i = 1;
+                foreach (TeachingPlan TPM in StudentISP.TeachingPlan)
                 {
-                    sql = "select IDENT_CURRENT('TeacherISPLong') AS ISPLong";
-                    cmd = new SqlCommand(sql, Sqlconn);
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    while (dr.Read())
+                    cmd.Parameters.Add("@TeachOrder" + i, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPM.TeachOrder);
+                    cmd.Parameters.Add("@MasterOrder" + i, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPM.MasterOrder);
+                    cmd.Parameters.Add("@TargetLong" + i, SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPM.TargetLong);
+                    j = 1;
+                    foreach (TeachingPlanDetail TPD in TPM.TeachingPlanDetail)
                     {
-                        returnValue = Int64.Parse(dr["ISPLong"].ToString());
+                        cmd.Parameters.Add("@DetailOrder" +i+"_" + j, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPD.DetailOrder);
+                        cmd.Parameters.Add("@TargetShort" + i + "_" + j, SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPD.TargetShort);
+                        cmd.Parameters.Add("@DateStart" + i + "_" + j, SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPD.DateStart);
+                        cmd.Parameters.Add("@DateEnd" + i + "_" + j, SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPD.DateEnd);
+                        cmd.Parameters.Add("@EffectiveDate" + i + "_" + j, SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPD.EffectiveDate);
+                        cmd.Parameters.Add("@EffectiveMode" + i + "_" + j, SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPD.EffectiveMode);
+                        cmd.Parameters.Add("@EffectiveResult" + i + "_" + j, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPD.EffectiveResult);
+                        cmd.Parameters.Add("@Decide" + i + "_" + j, SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPD.Decide);
+                        j++;
                     }
-                    dr.Close();
+                    i++;
                 }
 
-                Sqlconn.Close();
+                returnValue = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                string error = e.Message;
                 returnValue = -1;
+                string ex = e.Message.ToString();
             }
         }
+
+
         return returnValue;
     }
 
-    private int createTISPShort(Int64 LID)
-    {
-        int returnValue = 0;
-        DataBase Base = new DataBase();
-        SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
-        using (Sqlconn)
-        {
-            try
-            {
-                Sqlconn.Open();
-                string sql = "INSERT INTO TeacherISPShort(TISPLID, TargetContentShort, DateStart, DateEnd, EffectiveDate, EffectiveMode, EffectiveResult, Decide) " +
-                    "VALUES (@TISPLID,@TargetContentShort,@DateStart,@DateEnd,@EffectiveDate,@EffectiveMode,@EffectiveResult,@Decide)";
-                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@TISPLID", SqlDbType.BigInt).Value = LID;
-                cmd.Parameters.Add("@TargetContentShort", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@DateStart", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@DateEnd", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@EffectiveDate", SqlDbType.Date).Value = "";
-                cmd.Parameters.Add("@EffectiveMode", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@EffectiveResult", SqlDbType.Int).Value = "";
-                cmd.Parameters.Add("@Decide", SqlDbType.Int).Value = "";
-                returnValue = cmd.ExecuteNonQuery();
-                Sqlconn.Close();
-            }
-            catch (Exception e)
-            {
-                string error = e.Message;
-                returnValue = -1;
-            }
-        }
-        return returnValue;
-    }
+
+    //private Int64 createTISPLong(Int64 CaseISPID)
+    //{
+    //    Int64 returnValue = 0;
+    //    DataBase Base = new DataBase();
+    //    SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
+    //    using (Sqlconn)
+    //    {
+    //        try
+    //        {
+    //            Sqlconn.Open();
+    //            string sql = "INSERT INTO TeacherISPLong(Domain, CaseISPID, TargetContentLong) VALUES (@Domain, @CaseISPID, @TargetContentLong)";
+    //            SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+    //            cmd.Parameters.Add("@Domain", SqlDbType.TinyInt).Value = "";
+    //            cmd.Parameters.Add("@CaseISPID", SqlDbType.BigInt).Value = "";
+    //            cmd.Parameters.Add("@TargetContentLong", SqlDbType.NVarChar).Value = "";
+    //            returnValue = cmd.ExecuteNonQuery();
+
+    //            if (returnValue != 0)
+    //            {
+    //                sql = "select IDENT_CURRENT('TeacherISPLong') AS ISPLong";
+    //                cmd = new SqlCommand(sql, Sqlconn);
+    //                SqlDataReader dr = cmd.ExecuteReader();
+    //                while (dr.Read())
+    //                {
+    //                    returnValue = Int64.Parse(dr["ISPLong"].ToString());
+    //                }
+    //                dr.Close();
+    //            }
+
+    //            Sqlconn.Close();
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            string error = e.Message;
+    //            returnValue = -1;
+    //        }
+    //    }
+    //    return returnValue;
+    //}
+
+    //private int createTISPShort(Int64 LID)
+    //{
+    //    int returnValue = 0;
+    //    DataBase Base = new DataBase();
+    //    SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
+    //    using (Sqlconn)
+    //    {
+    //        try
+    //        {
+    //            Sqlconn.Open();
+    //            string sql = "INSERT INTO TeacherISPShort(TISPLID, TargetContentShort, DateStart, DateEnd, EffectiveDate, EffectiveMode, EffectiveResult, Decide) " +
+    //                "VALUES (@TISPLID,@TargetContentShort,@DateStart,@DateEnd,@EffectiveDate,@EffectiveMode,@EffectiveResult,@Decide)";
+    //            SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+    //            cmd.Parameters.Add("@TISPLID", SqlDbType.BigInt).Value = LID;
+    //            cmd.Parameters.Add("@TargetContentShort", SqlDbType.Date).Value = "";
+    //            cmd.Parameters.Add("@DateStart", SqlDbType.Date).Value = "";
+    //            cmd.Parameters.Add("@DateEnd", SqlDbType.Date).Value = "";
+    //            cmd.Parameters.Add("@EffectiveDate", SqlDbType.Date).Value = "";
+    //            cmd.Parameters.Add("@EffectiveMode", SqlDbType.Int).Value = "";
+    //            cmd.Parameters.Add("@EffectiveResult", SqlDbType.Int).Value = "";
+    //            cmd.Parameters.Add("@Decide", SqlDbType.Int).Value = "";
+    //            returnValue = cmd.ExecuteNonQuery();
+    //            Sqlconn.Close();
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            string error = e.Message;
+    //            returnValue = -1;
+    //        }
+    //    }
+    //    return returnValue;
+    //}
+
     public int SearchTeachISPCount(SearchStudentISP searchISPData) {
         int returnValue = 0;
         string DateBase = "1900-01-01";
@@ -1720,3 +1804,4 @@ public class TeachDataBase
         return returnValue;
     }
 }
+

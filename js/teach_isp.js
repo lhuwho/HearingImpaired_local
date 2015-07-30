@@ -52,6 +52,9 @@ $(document).ready(function() {
         }
     }
 
+    $("#PlanWriterName").unbind("click").click(function() { callTeacherSearchfunction("1"); });
+    $("#PlanReviseName").unbind("click").click(function() { callTeacherSearchfunction("2"); });
+    
     var options = {
         height: 650,
         width: 780,
@@ -169,6 +172,11 @@ $(document).ready(function() {
     ];
     $.jMonthCalendar.Initialize(options, events);
     $.jMonthCalendar.ChangeMonth(new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+    
+    
+//    var list = '<tr><td>1</td></tr>';
+//    $("#Page2tableContact tbody tr:eq(4)").after(list);
+//    增行 by who
 
     function resetForm($dialogContent) {
         $dialogContent.find("input").val("");
@@ -327,6 +335,8 @@ function SucceededCallback(result, userContext, methodName) {
                 if (parseInt(result.ISP1Data.studentID) > 0) {
                     PushPageValue(result.ISP1Data);
                     $("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass();
+                   
+                    
                 } else {
                     if (result.ISP1Data.studentID == null) {
                         alert("查無資料");
@@ -339,6 +349,23 @@ function SucceededCallback(result, userContext, methodName) {
                 alert("查無資料");
             }
             break;
+        case "GetHomeService":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                PushPageValue(result[0]);
+                for (var i = 0; i < result.length; i++) {
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_Target").val(result[i].Target)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_StartDate").val(result[i].StartDate)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_EndDate").val(result[i].EndDate)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_Executor").val(result[i].Executor)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_TrackDate").val(result[i].TrackDate)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_Manner").val(result[i].Manner)
+                    $("#" + result[i].MasterOrder + "_" + result[i].DetailOrder + "_Results").val(result[i].Results)
+                    // alert(result[i].MasterOrder + "--" + result[i].DetailOrder);
+                }
+
+                //$("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass()
+            }
+            break;
         case "setTeachISPDate1":
             if (result <= 0) {
                 alert("發生錯誤，請重新整理頁面");
@@ -346,6 +373,80 @@ function SucceededCallback(result, userContext, methodName) {
                 alert("更新成功");
                 window.location.reload();
             }
+            break;
+        case "SearchStaffDataBaseCountCase":
+            var pageCount = parseInt(result[0]);
+            if (pageCount > 0) {
+                //分頁，PageCount是總條目數，這是必選參數，其它參數都是可選
+                $("#smainPagination2").pagination(pageCount, {
+                    prev_text: '<', //上一頁按鈕裡text
+                    next_text: '>', //下一頁按鈕裡text
+                    items_per_page: _LimitPage, //顯示條數
+                    num_display_entries: 4, //連續分頁主體部分分頁條目數
+                    num_edge_entries: 2, //兩側首尾分頁條目數
+                    //ellipse_text: "/",
+                    //link_to: ,
+                    callback: function(index, jq) {
+                        var obj = MyBase.getTextValueBase("searchTeacherline");
+                        AspAjax.SearchStaffDataBaseCase(parseInt((index + 1) * _LimitPage, 10), obj, parseInt(result[2]));
+                        return false;
+                    }
+                });
+            } else if (pageCount == 0) {
+                $("#searchTeacherline .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            } else {
+                $("#searchTeacherline .tableList").children("tbody").html("<tr><td colspan='7'>發生錯誤，錯誤訊息如下：" + result[1] + "</td></tr>");
+            }
+            break;
+        case "SearchStaffDataBaseCase":
+
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                if (parseInt(result[0].sID) != -1) {
+                    var inner = "";
+                    for (var i = 0; i < result.length; i++) {
+                        inner += '<tr class="ImgJs" >' +
+                                '<td>' + result[i].sID + '<span class="staffID" style="display:none;">' + result[i].sID + '</span></td>' +
+			                    '<td>' + _UnitList[result[i].sUnit] + '</td>' +
+			                    '<td>' + result[i].sName + '<span class="staffName" style="display:none;">' + result[i].sName + '</span></td>' +
+			                    '<td>' + _JobItemList[result[i].sJob] + '<span class="staffjob" style="display:none;">' + result[i].pw + '</span></td>' +
+                        //			                    '<td>' + TransformADFromStringFunction(result[i].officeDate) + '</td>' +
+                        //			                    '<td>' + TransformADFromStringFunction(result[i].resignDate) + '</td>' +
+			                '</tr>';
+                    }
+                    //
+                    $("#StuinlineReturn2 tbody").html(inner);
+
+                    $("#StuinlineReturn2 .ImgJs").unbind('click').click(function() {
+                        var id = $(this).find(".staffID").html();
+                        var name = $(this).find(".staffName").html();
+                        switch ($(this).find(".staffjob").html()) {
+                            case "1":
+                                $("#PlanWriter").html(id);
+                                $("#PlanWriterName").val(name);
+                                break;
+                            case "2":
+                                $("#PlanRevise").html(id);
+                                $("#PlanReviseName").val(name);
+                                break;
+
+                        }
+                        $.fancybox.close();
+                    });
+                } else {
+                    alert("發生錯誤，錯誤訊息如下：" + result[0].sName);
+                }
+            } else {
+                $("#StuinlineReturn2 .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            }
+            break;
+        case "GetWriteName":
+            $("#PlanReviseName").val(result[1]);
+            $("#PlanWriterName").val(result[1]);
+            $("#PlanWriter").html(result[0]);
+            $("#PlanRevise").html(result[0]);
+
+
+            // alert(result[1]);
             break;
     }
 }
@@ -364,7 +465,9 @@ function getViewData(id, act) {
     _ColumnID = id;
         $(".btnUpdate").fadeIn();
         $("input").add("select").add("textarea").attr("disabled", true);
+        AspAjax.GetWriteName();
         AspAjax.getTeachISPDate(id);
+        AspAjax.GetHomeService(id);
     } else if (id == null && act == 1) {
         $(".btnSave").fadeIn();
         $("input").add("select").add("textarea").attr("disabled", false);
@@ -454,24 +557,42 @@ Date.prototype.Format = function(fmt) { //author: meizz
 }
 
 function getAdd(tid) {
-    $("#table" + tid + ">tbody>tr:last-child").after($("#dataTR" + tid).clone().attr("id", "dataTR" + tid + ($("#table" + tid + ">tbody>tr").length + 1)));
+   
+    var List = '';
+    List += ' <tr id="' +tid+'_' + ($("#table" + tid + ">tbody>tr").length + 1 ) + 'dataTR"><td colspan="7"><table class="tableContact3" width="774" border="0"><tbody><tr><td colspan="7">' +
+            '<textarea id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + 'TargetLong" class="long" cols="50" rows="2" ></textarea></td></tr>  ';
+    for (var i = 1; i < 6; i++) {
+        List += '<tr><td width="300"><textarea id ="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'Target" class="short" cols="50" rows="2"></textarea></td>' +
+               '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'DateStart" class="date" type="text" value="" size="10" /></td>' +
+              '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'DateEnd" class="date" type="text" value="" size="10" /></td>' +
+              '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'EffectiveDate" class="date" type="text" value="" size="10" /></td>' +
+              '<td> <select id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'EffectiveMode"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option</select></td>' +
+              '<td> <select id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'EffectiveResult"><option value="0"></option><option value="3">完全達成</option><option value="2">部分達成</option><option value="1">未達成</option></select></td>' +
+              '<td> <select id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select></select></td>' +
+               '</tr>';
+    }
+    List += '</tbody></table></td></tr>';
+    $("#table" + tid + ">tbody>tr:last-child").after(List);
+
+
+    //$("#table" + tid + ">tbody>tr:last-child").after($("#dataTR" + tid).clone().attr("id", "dataTR" + tid + ($("#table" + tid + ">tbody>tr").length + 1)));   
     //$("#dataTR" + tid + ($("#table" + tid + ">tbody>tr").length + 1)).val("");
     //var inner = '<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 1 + '" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>';
 
     //$("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length).find(".wayTD").html(inner);
-    var inner = '';
-    inner = '" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>';
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(2)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 1 + inner);
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(3)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 2 + inner);
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(4)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 3 + inner);
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(5)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 4 + inner);
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(6)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 5 + inner);
-    
-    
-    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length).find(".way").dropdownchecklist({ width: 60 });
-    $(".ui-dropdownchecklist").css({ "margin": "4px 0", "height": "auto" });
-    $(".ui-dropdownchecklist-dropcontainer").css({ "height": "auto" });
-    $(".ui-dropdownchecklist-text").css({ "font-size": "13px", "line-height": "20px" });
+//    var inner = '';
+//    inner = '" class="way" multiple="multiple"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select>';
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(2)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 1 + inner);
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(3)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 2 + inner);
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(4)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 3 + inner);
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(5)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 4 + inner);
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length + " tr:nth-child(6)").find(".wayTD").html('<select id="way' + tid + $("#table" + tid + ">tbody>tr").length + 5 + inner);
+//    
+//    
+//    $("#dataTR" + tid + $("#table" + tid + ">tbody>tr").length).find(".way").dropdownchecklist({ width: 60 });
+//    $(".ui-dropdownchecklist").css({ "margin": "4px 0", "height": "auto" });
+//    $(".ui-dropdownchecklist-dropcontainer").css({ "height": "auto" });
+//    $(".ui-dropdownchecklist-text").css({ "font-size": "13px", "line-height": "20px" });
 }
 
 function getSubtract(tid) {
@@ -528,11 +649,65 @@ function SearchstudentISP() {
 }
 
 
+function callTeacherSearchfunction(getid) {//老師姓名點取跳出
+
+    var inner = '<div id="inline2"><br /><table id="searchTeacherline" border="0" width="400">' +
+			            '<tr><td width="80">教師姓名 <input type="text" id="gosrhstaffName" value="" /></td></tr>' +
+			            '<tr><td >性　　別 <select id="gosrhstaffSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td></tr>' +
+                        '<tr><td >出生日期 <input class="date" type="text" id="gosrhstaffBirthdayStart" size="10" />～<input class="date" type="text" id="gosrhstaffBirthdayEnd" size="10" /></td></tr>' +
+			            '<tr><td>教師編號 <input type="text" id="gosrhstaffID" value=""/>';
+    // if (getid == 1 || getid == 2) { inner += '<select id="gosrhstaffJob" style="display:none;" ><option value="14">教師</option></select>'; }
+    inner += '</td></tr><tr><td height="40" align="center" colspan="2"><button class="btnSearch" type="button">查 詢</button></td></tr>' +
+                    '</table><br />' +
+                    '<table id="StuinlineReturn2" class="tableList" border="0"  width="400">' +
+                    '<thead>' +
+			                '<tr>' +
+			                    '<th width="100">員工編號</th>' +
+			                    '<th width="130">派任單位</th>' +
+			                    '<th width="70">員工姓名</th>' +
+			                    '<th width="100">職稱</th>' +
+			                '</tr>' +
+			            '</thead>' +
+			            '<tbody>' +
+			            '</tbody>' +
+                    '</table>' +
+                    '<div id="smainPagination2" class="pagination"></div>' +
+                    '</div>';
+    $.fancybox({
+        'content': inner,
+        'autoDimensions': true,
+        'centerOnScroll': true,
+        'onComplete': function() {
+            $('button').css({ "background-color": "#F9AE56" });
+            $("#inline2 .btnSearch").unbind("click").click(function() {
+                var obj = MyBase.getTextValueBase("searchTeacherline");
+
+                AspAjax.SearchStaffDataBaseCountCase(obj, getid);
+            });
+        }
+    });
+
+}
+
+
+
+
 function SaveCaseISP(Type) {
+
     var obj = MyBase.getTextValueBase("item1Content");
     var obj1 = getHideSpanValue("item1Content", "hideClassSpan");
     MergerObject(obj, obj1);
 
+//    for (var i = 2; i <= 2; i++) {
+//        var obj2 = MyBase.getTextValueBase("item" + i + "Content");    
+//        var obj3 = getHideSpanValue("item" + i + "Content", "hideClassSpan");
+////        alert(1);
+//        MergerObject(obj, obj2);
+//        MergerObject(obj, obj3);
+//    }
+
+
+    
     switch (Type) {
         case 0:
             var stuCID = parseInt($("#studentCID").html());
@@ -546,6 +721,113 @@ function SaveCaseISP(Type) {
         case 1:
             obj.Column = _ColumnID;
             AspAjax.setTeachISPDate1(obj);
+           // AspAjax.setTeachISPDate2(obj);
+//            AspAjax.setTeachISPDate3(obj);
+//            AspAjax.setTeachISPDate4(obj);
             break;
+        case 2:
+            var cbxVehicle = new Array();
+            var Q1myData = new Array();
+//            $('input:checkbox:checked[name="EconmicNeedSituation"]').each(function(i) { cbxVehicle[i] = this.value; });
+//            // var chks = $("input:checkbox:checked[name='EconmicNeedSituation']").vals();
+            //alert($("input[name='EconmicNeedSituation']:checked").val());
+            for (var i = 1; i <= 4; i++) {// 四個大項
+                for (var j = 1; j <= 4; j++) //四個明細(要調整數量由此調整)
+                {
+                    var data = {};
+                    data.ISPID = _ColumnID;
+                    data.PlanWriter = $("#PlanWriter").html();
+                    data.FrameDate = TransformRepublicReturnValue($("#FrameDate").val());
+                    data.PlanExecutor = $("#PlanExecutor").val();
+                    data.PlanRevise = $("#PlanRevise").html();
+                    data.ReviseDate = TransformRepublicReturnValue($("#ReviseDate").val());
+                    data.ReviseExecutor = $("#ReviseExecutor").val();
+                    data.EconomicNeedResource = $("#EconomicNeedResource").val();
+                    $('input:checkbox:checked[name="EconomicNeedSituation"]').each(function(i) { cbxVehicle[i] = this.value; });
+                    data.EconomicNeedSituation = cbxVehicle.toString();
+                    cbxVehicle.length = 0;
+                    data.ServicesResource = $("#ServicesResource").val();
+                    $('input:checkbox:checked[name="ServicesSituation"]').each(function(i) { cbxVehicle[i] = this.value; });
+                    data.ServicesSituation = cbxVehicle.toString();
+                    data.ServicesActiivity = $("#ServicesActiivity").val();
+                    data.ServicesStatus = $("#ServicesStatus").val();
+                    data.MedicalResource = $("#MedicalResource").val();
+                    cbxVehicle.length = 0;
+                    $("input:checkbox:checked[name='MedicalSituation']").each(function(i) { cbxVehicle[i] = this.value; });
+                    data.MedicalSituation = cbxVehicle.toString();
+                    data.MedicalReason = $("#MedicalReason").val();
+                    data.MedicalOther = $("#MedicalOther").val();
+                    data.EducationResource = $("#EducationResource").val();
+                    cbxVehicle.length = 0;
+                    $("input:checkbox:checked[name='EducationSituation']").each(function(i) { cbxVehicle[i] = this.value; });
+                    data.EducationSituation = cbxVehicle.toString();
+                    data.EducationOther = $("#EducationOther").val();
+
+                    data.MasterOrder = i.toString();
+                    data.DetailOrder = j.toString();
+                    data.Target = $("#" + i + "_" + j + "_Target").val();
+                    data.StartDate = $("#" + i + "_" + j + "_StartDate").val();
+                    data.EndDate = $("#" + i + "_" + j + "_EndDate").val();
+                    data.Executor = $("#" + i + "_" + j + "_Executor").val();
+                    data.TrackDate = $("#" + i + "_" + j + "_TrackDate").val();
+                    data.Manner = $("#" + i + "_" + j + "_Manner").val();
+                    data.Results = $("#" + i + "_" + j + "_Results").val();
+                    Q1myData[Q1myData.length] = data;
+
+
+                }
+
+            }
+            AspAjax.setTeachISPDate2(Q1myData);
+            break;
+        case 4:
+           
+            var obj = MyBase.getTextValueBase("item4Content");
+            var TeachingPlanarry = new Array();
+            for (var i = 1; i <= 2; i++) {// 兩個領域
+                for (var j = 1; j <= $("#table" + i + ">tbody>tr").length; j++) //主檔增加
+                {
+                    var TeachingPlanDetailArry = new Array();
+                    var data = {};
+                    data.TeachOrder = i;
+                    data.MasterOrder = j;
+                    data.TargetLong = $("#" + i + "_" + j + "TargetLong").val();
+
+                    //    public List<TeachingPlanDetail> TeachingPlanDetail;
+                    for (var k = 1; k <= 5; k++)//明細增加
+                    {
+                        var Detail = {};
+                        Detail.DetailOrder = k;
+                        Detail.TargetShort = $("#" + i + "_" + j + "_" + k + "Target").val();
+                        Detail.DateStart = $("#" + i + "_" + j + "_" + k + "DateStart").val();
+                        Detail.DateEnd = $("#" + i + "_" + j + "_" + k + "DateEnd").val();
+                        Detail.EffectiveDate = $("#" + i + "_" + j + "_" + k + "EffectiveDate").val();
+                        Detail.EffectiveMode = $("#" + i + "_" + j + "_" + k + "EffectiveMode").val();
+                        Detail.EffectiveResult = $("#" + i + "_" + j + "_" + k + "EffectiveResult").val();
+                        Detail.Decide = $("#" + i + "_" + j + "_" + k + "Decide").val();
+                        TeachingPlanDetailArry[TeachingPlanDetailArry.length] = Detail;
+
+                    }
+                    data.TeachingPlanDetail = TeachingPlanDetailArry;
+                    //TeachingPlanDetail.length = 0;
+                    TeachingPlanarry[TeachingPlanarry.length] = data
+                }
+
+            }
+            obj.TeachingPlan = TeachingPlanarry;
+            obj.ISPID = _ColumnID;
+            // alert(TeachingPlanarry[0].TeachOrder);
+//            for (var i = 0; i <= 1; i++) {// 兩個領域
+//                for (var j = 0; j < $("#table" + (i+1) + ">tbody>tr").length; j++) //主檔增加
+//                {
+//                    for (var k = 0; k < 5; k++)//明細增加
+//                    {
+//                        alert(obj.TeachingPlan[i + j].TeachOrder + "****" + obj.TeachingPlan[i + j].MasterOrder + "****" + obj.TeachingPlan[i + j].TeachingPlanDetail[k].TargetShort);
+//                    }
+//                }
+//            }
+            AspAjax.setTeachISPDate4(obj);
+            break;
+
     }
 }

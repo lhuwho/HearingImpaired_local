@@ -202,7 +202,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 $("#WriteName1").html(id);
                                 $("#WriteName1Name").val(name);
                                 break;
-                            case "2":
+                            case "3":
                                 $("#RecordedBy").html(id);
                                 $("#RecordedByName").val(name);
                                 break;
@@ -409,7 +409,7 @@ function callTeacherSearchfunction(getid) {//老師姓名點取跳出
 			            '<tr><td >性　　別 <select id="gosrhstaffSex"><option value="0">請選擇</option><option value="1">男</option><option value="2">女</option></select></td></tr>' +
                         '<tr><td >出生日期 <input class="date" type="text" id="gosrhstaffBirthdayStart" size="10" />～<input class="date" type="text" id="gosrhstaffBirthdayEnd" size="10" /></td></tr>' +
 			            '<tr><td>教師編號 <input type="text" id="gosrhstaffID" value=""/>';
-    if (getid == 1 || getid == 2) { inner += '<select id="gosrhstaffJob" style="display:none;" ><option value="14">教師</option></select>'; }
+   // if (getid == 1 || getid == 2) { inner += '<select id="gosrhstaffJob" style="display:none;" ><option value="14">教師</option></select>'; }
     inner += '</td></tr><tr><td height="40" align="center" colspan="2"><button class="btnSearch" type="button">查 詢</button></td></tr>' +
                     '</table><br />' +
                     '<table id="StuinlineReturn2" class="tableList" border="0"  width="400">' +

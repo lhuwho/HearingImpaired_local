@@ -230,16 +230,15 @@ function CountTime(mainID) {
     EndTimeAarray = EndTime.split(":");
 
     var Servicehour = parseInt(EndTimeAarray[0]) - parseInt(StartTimeAarray[0]);
-
+    var EndTime = parseInt(EndTimeAarray[0]) + parseInt(EndTimeAarray[1]) / 60;
+    var StartTime = parseInt(StartTimeAarray[0]) + parseInt(StartTimeAarray[1]) / 60;
+    
+    var minus = 0;
+    if (StartTime < 12 && EndTime > 13) {
+        minus = 1;
+    }
     if (Servicehour >= 0) {
-        var ServiceTiem = parseInt(EndTimeAarray[1]) - parseInt(StartTimeAarray[1]);
-        if (ServiceTiem == 0) {
-            Servicehour = parseInt(Servicehour);
-        } else if (ServiceTiem >= 30) {
-            Servicehour = parseInt(Servicehour) + 0.5;
-        } else {
-            Servicehour = parseInt(Servicehour) - 0.5;
-        }
+        Servicehour = EndTime - StartTime - minus;
     } else {
         Servicehour = 0;
         alert("時間格式不正確");

@@ -415,10 +415,12 @@ function showView(viewID) {
     switch (viewID) {
         case 1:
             var obj = MyBase.getTextValueBase("searchTable");
+            AspAjax.getAllStaffDataList([0]);
             AspAjax.SearchStaffCreditDataBaseCount(obj);
             break;
         case 2:
             var obj = MyBase.getTextValueBase("searchTable2");
+            //AspAjax.getAllStaffDataList([0]);
             AspAjax.SearchStaffBehaveDataBaseCount(obj);
             break;
     }

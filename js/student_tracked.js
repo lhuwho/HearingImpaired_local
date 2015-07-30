@@ -158,6 +158,8 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
                     PushPageValue(result);
+                    $("#censusAddressCity").html(getCity(result.censusAddressCity));
+                    $("#addressCity").html(getCity(result.addressCity));
                     $("input[name=assistmanageR]").change();
                     $("input[name=assistmanageL]").change();
                     $("#brandR").children("option[value=" + result.brandR + "]").attr("selected", true);
@@ -166,6 +168,16 @@ function SucceededCallback(result, userContext, methodName) {
                     $("#studentSex").html(_SexList[result.studentSex]);
                     $("#studentbirthday").html(TransformADFromStringFunction(result.studentbirthday));
                     $("#endReasonDate").html(TransformADFromStringFunction(result.endReasonDate));
+                    $("#firstClassDate").html(TransformADFromStringFunction(result.firstClassDate));
+
+                    $("#buyingtimeR").html(TransformADFromStringFunction(result.buyingtimeR));
+                    $("#openHzDateR").html(TransformADFromStringFunction(result.openHzDateR));
+                    $("#buyingtimeL").html(TransformADFromStringFunction(result.buyingtimeL));
+                    $("#openHzDateL").html(TransformADFromStringFunction(result.openHzDateL));
+                    //TransformADFromStringFunction
+                    $("#assistmanageR").html(assistmanage(result.assistmanageR));
+                    $("#assistmanageL").html(assistmanage(result.assistmanageL));
+                    
                     $("#caseUnit").html(_UnitList[result.sUnit]);
                     var inner = "";
                     _ReturnValue = result.Teack;

@@ -3713,13 +3713,16 @@ public class CaseDataBase
                     "AddressOther2, Phone, DisabilityCategory1, DisabilityGrade1, DisabilityCategory2, DisabilityGrade2, DisabilityCategory3, DisabilityGrade3, " +
                     "HearingAids_R, AidsBrand_R, AidsModel_R, AidsOptionalTime_R, AidsOptionalLocation_R, EEarHospital_R, EEarOpen_R, HearingAids_L, AidsBrand_L, "+
                     "AidsModel_L, AidsOptionalTime_L, AidsOptionalLocation_L, EEarHospital_L, EEarOpen_L, ElementarySchool, ElementarySchoolName, JuniorHighSchool, " +
-                    "JuniorHighSchoolName, HighSchool, HighSchoolName, University, UniversityName, JobName, OtherConditions, OtherConditionsName, CreateFileBy, UpFileBy, UpFileDate ) " +
+                    "JuniorHighSchoolName, HighSchool, HighSchoolName, University, UniversityName, JobName, OtherConditions, OtherConditionsName, CreateFileBy,"+
+                    " UpFileBy, UpFileDate,ElementarySY,ElementarySM,ElementaryEY,ElementaryEM ,JuniorHighSY,JuniorHighSM,JuniorHighEY,JuniorHighEM,HighSY "+
+      ",HighSM,HighEY,HighEM ,UniversitySY,UniversitySM,UniversityEY,UniversityEM,JobSY,JobSM,JobEY,JobEM,OtherSY,OtherSM,OtherEY,OtherEM,remark ) " +
                     "VALUES (@Unit, @StudentID, @StudentEmail, @AddressZip2, @AddressCity2, @AddressOther2, @Phone, " +
                     "@DisabilityCategory1, @DisabilityGrade1, @DisabilityCategory2, @DisabilityGrade2, @DisabilityCategory3, @DisabilityGrade3, @HearingAids_R, "+
                     "@AidsBrand_R, @AidsModel_R, @AidsOptionalTime_R, @AidsOptionalLocation_R, @EEarHospital_R, @EEarOpen_R, @HearingAids_L, @AidsBrand_L, "+
                     "@AidsModel_L, @AidsOptionalTime_L, @AidsOptionalLocation_L, @EEarHospital_L, @EEarOpen_L, @ElementarySchool, @ElementarySchoolName, "+
                     "@JuniorHighSchool, @JuniorHighSchoolName, @HighSchool, @HighSchoolName, @University, @UniversityName, @JobName, @OtherConditions, "+
-                    "@OtherConditionsName, @CreateFileBy, @UpFileBy, (getDate()) )";
+                    "@OtherConditionsName, @CreateFileBy, @UpFileBy, (getDate()),@ElementarySY,@ElementarySM,@ElementaryEY,@ElementaryEM ,@JuniorHighSY,@JuniorHighSM,@JuniorHighEY,@JuniorHighEM,@HighSY " +
+      ",@HighSM,@HighEY,@HighEM ,@UniversitySY,@UniversitySM,@UniversityEY,@UniversityEM,@JobSY,@JobSM,@JobEY,@JobEM,@OtherSY,@OtherSM,@OtherEY,@OtherEM,@remark )";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
                 cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.studentID);
@@ -3761,6 +3764,39 @@ public class CaseDataBase
                 cmd.Parameters.Add("@OtherConditionsName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.otherName);
                 cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+
+                cmd.Parameters.Add("@ElementarySY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementarySY);
+                cmd.Parameters.Add("@ElementarySM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementarySM);
+                cmd.Parameters.Add("@ElementaryEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementaryEY);
+                cmd.Parameters.Add("@ElementaryEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementaryEM);
+
+                cmd.Parameters.Add("@JuniorHighSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighSY);
+                cmd.Parameters.Add("@JuniorHighSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighSM);
+                cmd.Parameters.Add("@JuniorHighEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighEY);
+                cmd.Parameters.Add("@JuniorHighEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighEM);
+
+                cmd.Parameters.Add("@HighSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighSY);
+                cmd.Parameters.Add("@HighSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighSM);
+                cmd.Parameters.Add("@HighEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighEY);
+                cmd.Parameters.Add("@HighEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighEM);
+
+                cmd.Parameters.Add("@UniversitySY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversitySY);
+                cmd.Parameters.Add("@UniversitySM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversitySM);
+                cmd.Parameters.Add("@UniversityEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversityEY);
+                cmd.Parameters.Add("@UniversityEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversityEM);
+
+                cmd.Parameters.Add("@JobSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobSY);
+                cmd.Parameters.Add("@JobSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobSM);
+                cmd.Parameters.Add("@JobEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobEY);
+                cmd.Parameters.Add("@JobEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobEM);
+
+                cmd.Parameters.Add("@OtherSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherSY);
+                cmd.Parameters.Add("@OtherSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherSM);
+                cmd.Parameters.Add("@OtherEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherEY);
+                cmd.Parameters.Add("@OtherEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherEM);
+
+
+                cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.remark);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
 
                 if (returnValue[0] != "0")
@@ -3800,24 +3836,25 @@ public class CaseDataBase
                 StaffDataBase sDB = new StaffDataBase();
                 List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
-                string sql = "UPDATE StudentTrackedOffData SET StudentEmail=@StudentEmail, AddressZip2=@AddressZip2, AddressCity2=@AddressCity2, " +
-                    "AddressOther2=@AddressOther2, Phone=@Phone, DisabilityCategory1=@DisabilityCategory1, DisabilityGrade1=@DisabilityGrade1, " +
+                string sql = "UPDATE StudentTrackedOffData SET StudentEmail=@StudentEmail, " +
+                    "Phone=@Phone, DisabilityCategory1=@DisabilityCategory1, DisabilityGrade1=@DisabilityGrade1, " +
                     "DisabilityCategory2=@DisabilityCategory2, DisabilityGrade2=@DisabilityGrade2, DisabilityCategory3=@DisabilityCategory3, " +
-                    "DisabilityGrade3=@DisabilityGrade3, HearingAids_R=@HearingAids_R, AidsBrand_R=@AidsBrand_R, AidsModel_R=@AidsModel_R, AidsOptionalTime_R=@AidsOptionalTime_R, " +
-                    "AidsOptionalLocation_R=@AidsOptionalLocation_R, EEarHospital_R=@EEarHospital_R,EEarOpen_R=@EEarOpen_R, " +
-                    "HearingAids_L=@HearingAids_L, AidsBrand_L=@AidsBrand_L, AidsModel_L=@AidsModel_L, AidsOptionalTime_L=@AidsOptionalTime_L, "+
-                    "AidsOptionalLocation_L=@AidsOptionalLocation_L, " +
-                    "EEarHospital_L=@EEarHospital_L, EEarOpen_L=@EEarOpen_L, ElementarySchool=@ElementarySchool, ElementarySchoolName=@ElementarySchoolName, JuniorHighSchool=@JuniorHighSchool, " +
+                    "DisabilityGrade3=@DisabilityGrade3, ElementarySchool=@ElementarySchool,"+
+                    " ElementarySchoolName=@ElementarySchoolName, JuniorHighSchool=@JuniorHighSchool, " +
                     "JuniorHighSchoolName=@JuniorHighSchoolName, HighSchool=@HighSchool, HighSchoolName=@HighSchoolName, University=@University, " +
                     "UniversityName=@UniversityName, JobName=@JobName, OtherConditions=@OtherConditions, OtherConditionsName=@OtherConditionsName, " +
+                    "ElementarySY=@ElementarySY ,ElementarySM=@ElementarySM ,ElementaryEY=@ElementaryEY ,ElementaryEM=@ElementaryEM , " +
+                "JuniorHighSY=@JuniorHighSY ,JuniorHighSM=@JuniorHighSM ,JuniorHighEY=@JuniorHighEY ,JuniorHighEM=@JuniorHighEM , " +
+                "HighSY=@HighSY ,HighSM=@HighSM ,HighEY=@HighEY ,HighEM=@HighEM , " +
+                "UniversitySY=@UniversitySY ,UniversitySM=@UniversitySM ,UniversityEY=@UniversityEY ,UniversityEM=@UniversityEM , " +
+                "JobSY=@JobSY ,JobSM=@JobSM ,JobEY=@JobEY ,JobEM=@JobEM , " +
+                "OtherSY=@OtherSY ,OtherSM=@OtherSM ,OtherEY=@OtherEY ,OtherEM=@OtherEM , remark=@remark, " +
                     "UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
                     "WHERE ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = Chk.CheckStringtoInt64Function(StudentTracked.ID);
                 cmd.Parameters.Add("@StudentEmail", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.email);
-                cmd.Parameters.Add("@AddressZip2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.addressZip);
-                cmd.Parameters.Add("@AddressCity2", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.addressCity);
-                cmd.Parameters.Add("@AddressOther2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.address);
+                
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.Tel);
                 cmd.Parameters.Add("@DisabilityCategory1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.manualCategory1);
                 cmd.Parameters.Add("@DisabilityGrade1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.manualGrade1);
@@ -3825,20 +3862,7 @@ public class CaseDataBase
                 cmd.Parameters.Add("@DisabilityGrade2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.manualGrade2);
                 cmd.Parameters.Add("@DisabilityCategory3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.manualCategory3);
                 cmd.Parameters.Add("@DisabilityGrade3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.manualGrade3);
-                cmd.Parameters.Add("@HearingAids_R", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.assistmanageR);
-                cmd.Parameters.Add("@AidsBrand_R", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.brandR);
-                cmd.Parameters.Add("@AidsModel_R", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.modelR);
-                cmd.Parameters.Add("@AidsOptionalTime_R", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentTracked.buyingtimeR);
-                cmd.Parameters.Add("@AidsOptionalLocation_R", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.buyingPlaceR);
-                cmd.Parameters.Add("@EEarHospital_R", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.insertHospitalR);
-                cmd.Parameters.Add("@EEarOpen_R", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentTracked.openHzDateR);
-                cmd.Parameters.Add("@HearingAids_L", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.assistmanageL);
-                cmd.Parameters.Add("@AidsBrand_L", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.brandL);
-                cmd.Parameters.Add("@AidsModel_L", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.modelL);
-                cmd.Parameters.Add("@AidsOptionalTime_L", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.buyingtimeL);
-                cmd.Parameters.Add("@AidsOptionalLocation_L", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.buyingPlaceL);
-                cmd.Parameters.Add("@EEarHospital_L", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.insertHospitalL);
-                cmd.Parameters.Add("@EEarOpen_L", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentTracked.openHzDateL);
+                
                 cmd.Parameters.Add("@ElementarySchool", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentTracked.esType);
                 cmd.Parameters.Add("@ElementarySchoolName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.esName);
                 cmd.Parameters.Add("@JuniorHighSchool", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentTracked.jsType);
@@ -3851,6 +3875,39 @@ public class CaseDataBase
                 cmd.Parameters.Add("@OtherConditions", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentTracked.otherType);
                 cmd.Parameters.Add("@OtherConditionsName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.otherName);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                
+                cmd.Parameters.Add("@ElementarySY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementarySY);
+                cmd.Parameters.Add("@ElementarySM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementarySM);
+                cmd.Parameters.Add("@ElementaryEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementaryEY);
+                cmd.Parameters.Add("@ElementaryEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.ElementaryEM);
+                
+                cmd.Parameters.Add("@JuniorHighSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighSY);
+                cmd.Parameters.Add("@JuniorHighSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighSM);
+                cmd.Parameters.Add("@JuniorHighEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighEY);
+                cmd.Parameters.Add("@JuniorHighEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JuniorHighEM);
+                
+                cmd.Parameters.Add("@HighSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighSY);
+                cmd.Parameters.Add("@HighSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighSM);
+                cmd.Parameters.Add("@HighEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighEY);
+                cmd.Parameters.Add("@HighEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.HighEM);
+                
+                cmd.Parameters.Add("@UniversitySY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversitySY);
+                cmd.Parameters.Add("@UniversitySM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversitySM);
+                cmd.Parameters.Add("@UniversityEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversityEY);
+                cmd.Parameters.Add("@UniversityEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.UniversityEM);
+                
+                cmd.Parameters.Add("@JobSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobSY);
+                cmd.Parameters.Add("@JobSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobSM);
+                cmd.Parameters.Add("@JobEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobEY);
+                cmd.Parameters.Add("@JobEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.JobEM);
+                
+                cmd.Parameters.Add("@OtherSY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherSY);
+                cmd.Parameters.Add("@OtherSM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherSM);
+                cmd.Parameters.Add("@OtherEY", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherEY);
+                cmd.Parameters.Add("@OtherEM", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.OtherEM);
+                
+
+                cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.remark);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
 
                 Sqlconn.Close();
@@ -3873,7 +3930,7 @@ public class CaseDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT StudentTrackedOffData.*, StudentDatabase.StudentName, StudentDatabase.StudentBirthday, StudentDatabase.StudentSex ,StudentDatabase.CompletedDate " +
+                string sql = "SELECT StudentTrackedOffData.*, StudentDatabase.* " +
                             "FROM StudentTrackedOffData INNER JOIN StudentDatabase ON StudentTrackedOffData.StudentID=StudentDatabase.StudentID AND StudentDatabase.isDeleted=0 " +
                             "WHERE StudentTrackedOffData.isDeleted=0 AND StudentTrackedOffData.ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
@@ -3888,11 +3945,17 @@ public class CaseDataBase
                     returnValue.studentSex = dr["StudentSex"].ToString();
                     returnValue.studentbirthday = DateTime.Parse(dr["StudentBirthday"].ToString()).ToString("yyyy-MM-dd");
                     returnValue.endReasonDate = DateTime.Parse(dr["CompletedDate"].ToString()).ToString("yyyy-MM-dd");
+                    returnValue.firstClassDate = DateTime.Parse(dr["ClassDate"].ToString()).ToString("yyyy-MM-dd");
                     returnValue.email = dr["StudentEmail"].ToString();
+                    returnValue.censusAddressZip = dr["AddressZip1"].ToString();
+                    returnValue.censusAddressCity = dr["AddressCity1"].ToString();
+                    returnValue.censusAddress = dr["AddressOther1"].ToString();
+
                     returnValue.addressZip = dr["AddressZip2"].ToString();
                     returnValue.addressCity = dr["AddressCity2"].ToString();
                     returnValue.address = dr["AddressOther2"].ToString();
                     returnValue.Tel = dr["Phone"].ToString();
+                    
                     returnValue.manualCategory1 = dr["DisabilityCategory1"].ToString();
                     returnValue.manualGrade1 = dr["DisabilityGrade1"].ToString();
                     returnValue.manualCategory2 = dr["DisabilityCategory2"].ToString();
@@ -3924,12 +3987,73 @@ public class CaseDataBase
                     returnValue.jobUnit = dr["JobName"].ToString();
                     returnValue.otherType = dr["OtherConditions"].ToString();
                     returnValue.otherName = dr["OtherConditionsName"].ToString();
+
+
+                    returnValue.fPRelation1 = dr["ContactRelation1"].ToString();
+                    returnValue.fPName1 = dr["ContactName1"].ToString();
+                    returnValue.fPTel1 = dr["ContactTel_company1"].ToString();
+                    returnValue.fPPhone1 = dr["ContactPhone1"].ToString();
+                    returnValue.fPHPhone1 = dr["ContactTel_home1"].ToString();
+                    returnValue.fPFax1 = dr["ContactFax1"].ToString();
+                    returnValue.fPRelation2 = dr["ContactRelation2"].ToString();
+                    returnValue.fPName2 = dr["ContactName2"].ToString();
+                    returnValue.fPTel2 = dr["ContactTel_company2"].ToString();
+                    returnValue.fPPhone2 = dr["ContactPhone2"].ToString();
+                    returnValue.fPHPhone2 = dr["ContactTel_home2"].ToString();
+                    returnValue.fPFax2 = dr["ContactFax2"].ToString();
+                    returnValue.fPRelation3 = dr["ContactRelation3"].ToString();
+                    returnValue.fPName3 = dr["ContactName3"].ToString();
+                    returnValue.fPTel3 = dr["ContactTel_company3"].ToString();
+                    returnValue.fPPhone3 = dr["ContactPhone3"].ToString();
+                    returnValue.fPHPhone3 = dr["ContactTel_home3"].ToString();
+                    returnValue.fPFax3 = dr["ContactFax3"].ToString();
+                    returnValue.fPRelation4 = dr["ContactRelation4"].ToString();
+                    returnValue.fPName4 = dr["ContactName4"].ToString();
+                    returnValue.fPTel4 = dr["ContactTel_company4"].ToString();
+                    returnValue.fPPhone4 = dr["ContactPhone4"].ToString();
+                    returnValue.fPHPhone4 = dr["ContactTel_home4"].ToString();
+                    returnValue.fPFax4 = dr["ContactFax4"].ToString();
+
+                    returnValue.ElementarySY = dr["ElementarySY"].ToString();
+                    returnValue.ElementarySM = dr["ElementarySM"].ToString();
+                    returnValue.ElementaryEY = dr["ElementaryEY"].ToString();
+                    returnValue.ElementaryEM = dr["ElementaryEM"].ToString();
+
+                    returnValue.JuniorHighSY = dr["JuniorHighSY"].ToString();
+                    returnValue.JuniorHighSM = dr["JuniorHighSM"].ToString();
+                    returnValue.JuniorHighEY = dr["JuniorHighEY"].ToString();
+                    returnValue.JuniorHighEM = dr["JuniorHighEM"].ToString();
+
+                    returnValue.HighSY = dr["HighSY"].ToString();
+                    returnValue.HighSM = dr["HighSM"].ToString();
+                    returnValue.HighEY = dr["HighEY"].ToString();
+                    returnValue.HighEM = dr["HighEM"].ToString();
+
+                    returnValue.UniversitySY = dr["UniversitySY"].ToString();
+                    returnValue.UniversitySM = dr["UniversitySM"].ToString();
+                    returnValue.UniversityEY = dr["UniversityEY"].ToString();
+                    returnValue.UniversityEM = dr["UniversityEM"].ToString();
+
+                    returnValue.JobSY = dr["JobSY"].ToString();
+                    returnValue.JobSM = dr["JobSM"].ToString();
+                    returnValue.JobEY = dr["JobEY"].ToString();
+                    returnValue.JobEM = dr["JobEM"].ToString();
+
+                    returnValue.OtherSY = dr["OtherSY"].ToString();
+                    returnValue.OtherSM = dr["OtherSM"].ToString();
+                    returnValue.OtherEY = dr["OtherEY"].ToString();
+                    returnValue.OtherEM = dr["OtherEM"].ToString();
+                    returnValue.remark = dr["remark"].ToString();
+
                     returnValue.Teack = new List<TeackedData>();
+
+                    
 
                 }
                 dr.Close();
 
-                sql = "SELECT StudentTracked.*,StaffDatabase.StaffName FROM StudentTracked INNER JOIN StaffDatabase ON StudentTracked.Personnel=StaffDatabase.StaffID WHERE StudentTracked.isDeleted=0 AND TrackedID=@TrackedID";
+                sql = "SELECT StudentTracked.*,StaffDatabase.StaffName FROM StudentTracked INNER JOIN StaffDatabase ON StudentTracked.Personnel=StaffDatabase.StaffID "+
+                    "WHERE StudentTracked.isDeleted=0 AND TrackedID=@TrackedID order by StudentTracked.TrackDate desc";
                 cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@TrackedID", SqlDbType.BigInt).Value = returnValue.ID;
                 dr = cmd.ExecuteReader();

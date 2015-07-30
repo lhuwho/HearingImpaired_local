@@ -362,11 +362,11 @@ function SucceededCallback(result, userContext, methodName) {
                         
                         var stuAge = BirthdayStringDateFunction(result[i].txtstudentbirthday.toLocaleDateString("ja-JP").replace("/", "-"));
                         inner += '<tr>' +
-                                '<td>' + result[i].ID + '</td>' +
+                                '<td>' + result[i].txtstudentID + '</td>' +
 //			                    '<td>' + _CaseStatu[result[i].txtstudentStatu] + '</td>' +
 //			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
-			                    '<td>' + YearChange(result[i].txtstudentbirthday.toLocaleDateString("tw"))+ '</td>' +
+			                    '<td>' + TransformADFromStringFunction(result[i].txtstudentbirthday.toLocaleDateString("tw").replace("/", "-").replace("/", "-")) + '</td>' +
 			                    '<td>' + stuAge[0] +'歲'+ stuAge[1] + '個月</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
