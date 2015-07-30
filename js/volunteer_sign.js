@@ -234,7 +234,7 @@ function CountTime(mainID) {
     var StartTime = parseInt(StartTimeAarray[0]) + parseInt(StartTimeAarray[1]) / 60;
     
     var minus = 0;
-    if (StartTime < 12 && EndTime > 13) {
+    if (StartTime <= 12 && EndTime >= 13) {
         minus = 1;
     }
     if (Servicehour >= 0) {
