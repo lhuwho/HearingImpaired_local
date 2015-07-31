@@ -18,7 +18,6 @@
     
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/classrooms_schedule.js"></script>
-	
 </head>
 <body>
     <form id="form1" runat="server">
