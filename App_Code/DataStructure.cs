@@ -3023,9 +3023,13 @@ public struct setTeachISP4
     public string ISPID;
 
     public string PlanWriter3;
+    public string PlanWriter3Name;
+
     public string PlanWriteFrameDate3;
     public string PlanWriteExecutor3;
     public string PlanRevise3;
+    public string PlanRevise3Name;
+
     public string PlanReviseDate3;
     public string PlanReviseExecutor3;
     public string HearingAssessment;
@@ -3060,6 +3064,15 @@ public struct setTeachISP4
     public string LearningAchievement;
     public string Advantage;
     public string WeakCapacity;
+
+    public string HearingAssessmentByName;
+    public string VocabularyAssessmentByName;
+    public string LanguageAssessmentByName;
+    public string intelligenceAssessmentByName;
+    public string OtherAssessmentByName;
+
+
+
     public List<TeachingPlan> TeachingPlan;
    
 }

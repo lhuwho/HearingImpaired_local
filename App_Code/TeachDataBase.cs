@@ -1514,9 +1514,11 @@ public class TeachDataBase
                 cmd.Parameters.Add("@ISPID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.ISPID);
                 cmd.Parameters.Add("@PlanWriter3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriter3);
                 cmd.Parameters.Add("@PlanWriteFrameDate3", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanWriteFrameDate3);
+
                 cmd.Parameters.Add("@PlanWriteExecutor3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriteExecutor3);
                 cmd.Parameters.Add("@PlanRevise3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanRevise3);
                 cmd.Parameters.Add("@PlanReviseDate3", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanReviseDate3);
+
                 cmd.Parameters.Add("@PlanReviseExecutor3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanReviseExecutor3);
                 cmd.Parameters.Add("@HearingAssessment", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessment);
                 cmd.Parameters.Add("@HearingAssessmentByT", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessmentBy);
@@ -1586,6 +1588,175 @@ public class TeachDataBase
     }
 
 
+    public setTeachISP4 GetTeachISPPage4(Int64 StudentISP)
+    {
+        setTeachISP4 returnValue = new setTeachISP4();
+
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " select a.PlanWriter3,a.PlanWriteFrameDate3,a.PlanWriteExecutor3,a.PlanRevise3,a.PlanReviseDate3,a.PlanReviseExecutor3" +
+                             " ,a.HearingAssessment,a.HearingAssessmentByT,a.HearingAssessmentDateT,a.HearingAssessmentTool" +
+                             " ,a.VocabularyAssessment,a.VocabularyAssessmentBy,a.VocabularyAssessmentDate,a.VocabularyAssessmentTool" +
+                             " ,a.LanguageAssessment,a.LanguageAssessmentBy,a.LanguageAssessmentDate,a.LanguageAssessmentTool" +
+                             " ,a.intelligenceAssessment,a.intelligenceAssessmentBy,a.intelligenceAssessmentDate,a.intelligenceAssessmentTool" +
+                             " ,a.OtherAssessment,a.OtherAssessmentBy,a.OtherAssessmentDate,a.OtherAssessmentTool" +
+                             " ,a.Hearing,a.CognitiveAbility,a.ConnectAbility,a.ActAbility,a.Relationship,a.EmotionalManagement" +
+                             " ,a.SensoryFunction,a.HealthState,a.DailyLiving,a.LearningAchievement,a.Advantage,a.WeakCapacity" +
+                             " ,b.TeachOrder,b.MasterOrder,b.TargetLong " +
+                             " ,c.DetailOrder,c.TargetShort,c.DateStart,c.DateEnd,c.EffectiveDate,c.EffectiveMode,c.EffectiveResult,c.Decide "+
+                             " ,PlanRevise3Name,PlanWriter3Name ,HearingAssessmentByName,VocabularyAssessmentByName,LanguageAssessmentByName,intelligenceAssessmentByName,OtherAssessmentByName" +
+                             "  from CaseISPstate a " +
+                             " Left join TeachingPlan b on a.id = b.ISPID  " +
+                             " Left join TeachingPlanDetail c on c.TPMID = b.id " +
+
+                             " left join ( select staffid as did , StaffName as PlanRevise3Name from staffDatabase ) d on a.PlanRevise3 = d.did " +
+                             " left join ( select staffid as eid , StaffName as PlanWriter3Name from staffDatabase ) e on a.PlanWriter3 = e.eid " +
+
+                             " left join ( select staffid as did , StaffName as HearingAssessmentByName from staffDatabase ) f on a.HearingAssessmentByT = f.did " +
+                             " left join ( select staffid as eid , StaffName as VocabularyAssessmentByName from staffDatabase ) g on a.VocabularyAssessmentBy = g.eid " +
+                             " left join ( select staffid as did , StaffName as LanguageAssessmentByName from staffDatabase ) h on a.LanguageAssessmentBy = h.did " +
+                             " left join ( select staffid as eid , StaffName as intelligenceAssessmentByName from staffDatabase ) i on a.intelligenceAssessmentBy = i.eid " +
+                             " left join ( select staffid as did , StaffName as OtherAssessmentByName from staffDatabase ) j on a.OtherAssessmentBy = j.did " +
+
+                             " where a.id =@ISPID ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ISPID", SqlDbType.BigInt).Value = StudentISP;
+                SqlDataReader dr = cmd.ExecuteReader();
+                string TO = ""; string MO = "";
+                TeachingPlan addValue = new TeachingPlan();
+                addValue.TeachingPlanDetail = new List<TeachingPlanDetail>();
+                returnValue.TeachingPlan = new List<TeachingPlan>();
+                while (dr.Read())
+                {
+                    if (returnValue.PlanWriter3 == "" || returnValue.PlanWriter3 == null)
+                    {
+                        returnValue.HearingAssessmentByName = dr["HearingAssessmentByName"].ToString();
+                        returnValue.VocabularyAssessmentByName = dr["VocabularyAssessmentByName"].ToString();
+                        returnValue.LanguageAssessmentByName = dr["LanguageAssessmentByName"].ToString();
+                        returnValue.intelligenceAssessmentByName = dr["intelligenceAssessmentByName"].ToString();
+                        returnValue.OtherAssessmentByName = dr["OtherAssessmentByName"].ToString();
+
+
+                        returnValue.PlanWriter3 = dr["PlanWriter3"].ToString();
+                        returnValue.PlanRevise3Name = dr["PlanRevise3Name"].ToString();
+                        returnValue.PlanWriter3Name = dr["PlanWriter3Name"].ToString();
+                        returnValue.PlanWriteFrameDate3 =  DateTime.Parse(dr["PlanWriteFrameDate3"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.PlanWriteExecutor3 = dr["PlanWriteExecutor3"].ToString();
+                        returnValue.PlanRevise3 = dr["PlanRevise3"].ToString();
+                        returnValue.PlanReviseDate3 = DateTime.Parse(dr["PlanReviseDate3"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.PlanReviseExecutor3 = dr["PlanReviseExecutor3"].ToString();
+                        returnValue.HearingAssessment = dr["HearingAssessment"].ToString();
+                        returnValue.HearingAssessmentBy = dr["HearingAssessmentByT"].ToString();
+                        returnValue.HearingAssessmentDate = DateTime.Parse(dr["HearingAssessmentDateT"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.HearingAssessmentTool = dr["HearingAssessmentTool"].ToString();
+                        returnValue.VocabularyAssessment = dr["VocabularyAssessment"].ToString();
+                        returnValue.VocabularyAssessmentBy = dr["VocabularyAssessmentBy"].ToString();
+                        returnValue.VocabularyAssessmentDate = DateTime.Parse(dr["VocabularyAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.VocabularyAssessmentTool = dr["VocabularyAssessmentTool"].ToString();
+                        returnValue.LanguageAssessment = dr["LanguageAssessment"].ToString();
+                        returnValue.LanguageAssessmentBy = dr["LanguageAssessmentBy"].ToString();
+                        returnValue.LanguageAssessmentDate = DateTime.Parse(dr["LanguageAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.LanguageAssessmentTool = dr["LanguageAssessmentTool"].ToString();
+                        returnValue.intelligenceAssessment = dr["intelligenceAssessment"].ToString();
+                        returnValue.intelligenceAssessmentBy = dr["intelligenceAssessmentBy"].ToString();
+                        returnValue.intelligenceAssessmentDate = DateTime.Parse(dr["intelligenceAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.intelligenceAssessmentTool = dr["intelligenceAssessmentTool"].ToString();
+                        returnValue.OtherAssessment = dr["OtherAssessment"].ToString();
+                        returnValue.OtherAssessmentBy = dr["OtherAssessmentBy"].ToString();
+                        returnValue.OtherAssessmentDate = DateTime.Parse(dr["OtherAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.OtherAssessmentTool = dr["OtherAssessmentTool"].ToString();
+                        returnValue.Hearing = dr["Hearing"].ToString();
+                        returnValue.CognitiveAbility = dr["CognitiveAbility"].ToString();
+                        returnValue.ConnectAbility = dr["ConnectAbility"].ToString();
+                        returnValue.ActAbility = dr["ActAbility"].ToString();
+                        returnValue.Relationship = dr["Relationship"].ToString();
+                        returnValue.EmotionalManagement = dr["EmotionalManagement"].ToString();
+                        returnValue.SensoryFunction = dr["SensoryFunction"].ToString();
+                        returnValue.HealthState = dr["HealthState"].ToString();
+                        returnValue.DailyLiving = dr["DailyLiving"].ToString();
+                        returnValue.LearningAchievement = dr["LearningAchievement"].ToString();
+                        returnValue.Advantage = dr["Advantage"].ToString();
+                        returnValue.WeakCapacity = dr["WeakCapacity"].ToString();
+                    }
+                    TeachingPlanDetail addDetailValue = new TeachingPlanDetail();
+                    if ((TO != dr["TeachOrder"].ToString() || MO != dr["MasterOrder"].ToString()) && !String.IsNullOrEmpty(addValue.MasterOrder))
+                    {
+                        
+                        returnValue.TeachingPlan.Add(addValue);
+                        addValue = new TeachingPlan();
+                        addValue.TeachingPlanDetail = new List<TeachingPlanDetail>();
+                        addDetailValue = new TeachingPlanDetail();
+                        addValue.MasterOrder = dr["MasterOrder"].ToString();
+                        addValue.TeachOrder = dr["TeachOrder"].ToString();
+                        addValue.TargetLong = dr["TargetLong"].ToString();
+
+                        //addDetailValue.DetailOrder = dr["DetailOrder"].ToString();
+
+                        addDetailValue.DetailOrder = dr["DetailOrder"].ToString();
+                        addDetailValue.TargetShort = dr["TargetShort"].ToString();
+                        addDetailValue.DateStart = DateTime.Parse(dr["DateStart"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.DateEnd = DateTime.Parse(dr["DateEnd"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.EffectiveDate = DateTime.Parse(dr["EffectiveDate"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.EffectiveMode = dr["EffectiveMode"].ToString();
+                        addDetailValue.EffectiveResult = dr["EffectiveResult"].ToString();
+                        addDetailValue.Decide = dr["Decide"].ToString();
+
+                        addValue.TeachingPlanDetail.Add(addDetailValue);
+
+                        TO = dr["TeachOrder"].ToString();
+                        MO = dr["MasterOrder"].ToString();
+                    }
+                    else
+                    {
+                        addDetailValue = new TeachingPlanDetail();
+                        if (String.IsNullOrEmpty( addValue.MasterOrder))
+                        {
+                            addValue.MasterOrder = dr["MasterOrder"].ToString();
+                            addValue.TeachOrder = dr["TeachOrder"].ToString();
+                            addValue.TargetLong = dr["TargetLong"].ToString();
+                        }
+                        addDetailValue.DetailOrder = dr["DetailOrder"].ToString();
+                        addDetailValue.TargetShort = dr["TargetShort"].ToString();
+                        addDetailValue.DateStart = DateTime.Parse(dr["DateStart"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.DateEnd = DateTime.Parse(dr["DateEnd"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.EffectiveDate = DateTime.Parse(dr["EffectiveDate"].ToString()).ToString("yyyy-MM-dd");
+                        addDetailValue.EffectiveMode = dr["EffectiveMode"].ToString();
+                        addDetailValue.EffectiveResult = dr["EffectiveResult"].ToString();
+                        addDetailValue.Decide = dr["Decide"].ToString();
+                        addValue.TeachingPlanDetail.Add(addDetailValue);
+                        
+
+
+                        TO = dr["TeachOrder"].ToString();
+                        MO = dr["MasterOrder"].ToString();
+
+
+                    
+                    }
+                }
+                returnValue.TeachingPlan.Add(addValue);
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string ex = e.Message.ToString();
+                //returnValue.ISP1Data = new setTeachISP1();
+                //returnValue.ISP1Data.studentID = "-1";
+                //returnValue.ISP1Data.studentName = e.Message.ToString();
+            }
+        }
+        
+
+
+        return returnValue;
+    }
     //private Int64 createTISPLong(Int64 CaseISPID)
     //{
     //    Int64 returnValue = 0;

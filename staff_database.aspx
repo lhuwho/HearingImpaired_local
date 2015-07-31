@@ -539,7 +539,7 @@
 			    </div>
 			    <div id="item2Content">
 			    <p class="staffNameData"></p>
-			    <p>單位異動記錄</p>
+			  <%--  <p>單位異動記錄</p>
                     <table class="tableContact" width="780" border="0" id="WorkDataDiv1">
 	                    <thead>
 	                        <tr>
@@ -572,7 +572,7 @@
 	                    </table>
 	               </div>
 	               <br />
-	               <p>獎懲記錄</p>
+	               <p>獎懲記錄</p>--%>
                     <table class="tableContact" width="780" border="0" id="WorkDataDiv2">
 	                    <thead>
 	                        <tr>

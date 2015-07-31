@@ -54,6 +54,15 @@ $(document).ready(function() {
 
     $("#PlanWriterName").unbind("click").click(function() { callTeacherSearchfunction("1"); });
     $("#PlanReviseName").unbind("click").click(function() { callTeacherSearchfunction("2"); });
+
+    $("#PlanWriter3Name").unbind("click").click(function() { callTeacherSearchfunction("3"); });
+    $("#PlanRevise3Name").unbind("click").click(function() { callTeacherSearchfunction("4"); });
+    $("#HearingAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("5"); });
+    $("#VocabularyAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("6"); });
+    $("#LanguageAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("7"); });
+    $("#intelligenceAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("8"); });
+    $("#OtherAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("9"); });
+
     
     var options = {
         height: 650,
@@ -366,6 +375,33 @@ function SucceededCallback(result, userContext, methodName) {
                 //$("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass()
             }
             break;
+        case "GetTeachISPPage4":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                PushPageValue(result);
+                for (var i = 0; i < result.TeachingPlan.length; i++) {
+                    $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "TargetLong").val(result.TeachingPlan[i].TargetLong);
+                    for (var j = 0; j < result.TeachingPlan[i].TeachingPlanDetail.length; j++) {
+                        //alert(result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "---" + i + "----"+j);
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "Target").val(result.TeachingPlan[i].TeachingPlanDetail[j].TargetShort);
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "DateStart").val(TransformADFromStringFunction(result.TeachingPlan[i].TeachingPlanDetail[j].DateStart));
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "DateEnd").val(TransformADFromStringFunction(result.TeachingPlan[i].TeachingPlanDetail[j].DateEnd));
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "EffectiveDate").val(TransformADFromStringFunction(result.TeachingPlan[i].TeachingPlanDetail[j].EffectiveDate));
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "EffectiveMode").val(result.TeachingPlan[i].TeachingPlanDetail[j].EffectiveMode);
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "EffectiveResult").val(result.TeachingPlan[i].TeachingPlanDetail[j].EffectiveResult);
+                        $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "Decide").val(result.TeachingPlan[i].TeachingPlanDetail[j].Decide);
+
+
+
+
+                    }
+                    // alert(i);
+                    // alert(result.TeachingPlan[i].TeachingPlanDetail.length + "---" + i);
+
+                }
+
+                //$("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass()
+            }
+            break;
         case "setTeachISPDate1":
             if (result <= 0) {
                 alert("發生錯誤，請重新整理頁面");
@@ -428,7 +464,34 @@ function SucceededCallback(result, userContext, methodName) {
                                 $("#PlanRevise").html(id);
                                 $("#PlanReviseName").val(name);
                                 break;
-
+                            case "3":
+                                $("#PlanWriter3").html(id);
+                                $("#PlanWriter3Name").val(name);
+                                break;
+                            case "4":
+                                $("#PlanRevise3").html(id);
+                                $("#PlanRevise3Name").val(name);
+                                break;
+                            case "5":
+                                $("#HearingAssessmentBy").html(id);
+                                $("#HearingAssessmentByName").val(name);
+                                break;
+                            case "6":
+                                $("#VocabularyAssessmentBy").html(id);
+                                $("#VocabularyAssessmentByName").val(name);
+                                break;
+                            case "7":
+                                $("#LanguageAssessmentBy").html(id);
+                                $("#LanguageAssessmentByName").val(name);
+                                break;
+                            case "8":
+                                $("#intelligenceAssessmentBy").html(id);
+                                $("#intelligenceAssessmentByName").val(name);
+                                break;
+                            case "9":
+                                $("#OtherAssessmentBy").html(id);
+                                $("#OtherAssessmentByName").val(name);
+                                break;
                         }
                         $.fancybox.close();
                     });
@@ -444,7 +507,11 @@ function SucceededCallback(result, userContext, methodName) {
             $("#PlanWriterName").val(result[1]);
             $("#PlanWriter").html(result[0]);
             $("#PlanRevise").html(result[0]);
+            $("#PlanWriter3Name").val(result[1]);
+            $("#PlanWriter3").html(result[0])
 
+            $("#PlanRevise3Name").val(result[1]);
+            $("#PlanRevise3").html(result[0])
 
             // alert(result[1]);
             break;
@@ -468,6 +535,7 @@ function getViewData(id, act) {
         AspAjax.GetWriteName();
         AspAjax.getTeachISPDate(id);
         AspAjax.GetHomeService(id);
+        AspAjax.GetTeachISPPage4(id);
     } else if (id == null && act == 1) {
         $(".btnSave").fadeIn();
         $("input").add("select").add("textarea").attr("disabled", false);
@@ -559,10 +627,10 @@ Date.prototype.Format = function(fmt) { //author: meizz
 function getAdd(tid) {
    
     var List = '';
-    List += ' <tr id="' +tid+'_' + ($("#table" + tid + ">tbody>tr").length + 1 ) + 'dataTR"><td colspan="7"><table class="tableContact3" width="774" border="0"><tbody><tr><td colspan="7">' +
-            '<textarea id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + 'TargetLong" class="long" cols="50" rows="2" ></textarea></td></tr>  ';
+    List += ' <tr id="' +tid+'_' + ($("#table" + tid + ">tbody>tr").length + 1 ) + 'dataTR"><td colspan="7"><table class="tableContact3" width="974" border="0"><tbody><tr><td  colspan="7">' +
+            '長期目標：<textarea id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + 'TargetLong" class="long" cols="100" rows="2" ></textarea></td></tr>  ';
     for (var i = 1; i < 6; i++) {
-        List += '<tr><td width="300"><textarea id ="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'Target" class="short" cols="50" rows="2"></textarea></td>' +
+        List += '<tr><td width="383">短期目標：<textarea id ="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'Target" class="short" cols="100" rows="2"></textarea></td>' +
                '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'DateStart" class="date" type="text" value="" size="10" /></td>' +
               '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'DateEnd" class="date" type="text" value="" size="10" /></td>' +
               '<td> <input id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + '_' + i + 'EffectiveDate" class="date" type="text" value="" size="10" /></td>' +
@@ -781,8 +849,15 @@ function SaveCaseISP(Type) {
             AspAjax.setTeachISPDate2(Q1myData);
             break;
         case 4:
-           
+
             var obj = MyBase.getTextValueBase("item4Content");
+            obj.PlanWriter3 = $("#PlanWriter3").html();
+            obj.PlanRevise3 = $("#PlanRevise3").html();
+            obj.HearingAssessmentBy = $("#HearingAssessmentBy").html();
+            obj.VocabularyAssessmentBy = $("#VocabularyAssessmentBy").html();
+            obj.LanguageAssessmentBy = $("#LanguageAssessmentBy").html();
+            obj.intelligenceAssessmentBy = $("#intelligenceAssessmentBy").html();
+            obj.OtherAssessmentBy = $("#OtherAssessmentBy").html();
             var TeachingPlanarry = new Array();
             for (var i = 1; i <= 2; i++) {// 兩個領域
                 for (var j = 1; j <= $("#table" + i + ">tbody>tr").length; j++) //主檔增加
@@ -799,9 +874,9 @@ function SaveCaseISP(Type) {
                         var Detail = {};
                         Detail.DetailOrder = k;
                         Detail.TargetShort = $("#" + i + "_" + j + "_" + k + "Target").val();
-                        Detail.DateStart = $("#" + i + "_" + j + "_" + k + "DateStart").val();
-                        Detail.DateEnd = $("#" + i + "_" + j + "_" + k + "DateEnd").val();
-                        Detail.EffectiveDate = $("#" + i + "_" + j + "_" + k + "EffectiveDate").val();
+                        Detail.DateStart = TransformRepublicReturnValue($("#" + i + "_" + j + "_" + k + "DateStart").val());
+                        Detail.DateEnd = TransformRepublicReturnValue($("#" + i + "_" + j + "_" + k + "DateEnd").val());
+                        Detail.EffectiveDate = TransformRepublicReturnValue($("#" + i + "_" + j + "_" + k + "EffectiveDate").val());
                         Detail.EffectiveMode = $("#" + i + "_" + j + "_" + k + "EffectiveMode").val();
                         Detail.EffectiveResult = $("#" + i + "_" + j + "_" + k + "EffectiveResult").val();
                         Detail.Decide = $("#" + i + "_" + j + "_" + k + "Decide").val();
@@ -816,16 +891,7 @@ function SaveCaseISP(Type) {
             }
             obj.TeachingPlan = TeachingPlanarry;
             obj.ISPID = _ColumnID;
-            // alert(TeachingPlanarry[0].TeachOrder);
-//            for (var i = 0; i <= 1; i++) {// 兩個領域
-//                for (var j = 0; j < $("#table" + (i+1) + ">tbody>tr").length; j++) //主檔增加
-//                {
-//                    for (var k = 0; k < 5; k++)//明細增加
-//                    {
-//                        alert(obj.TeachingPlan[i + j].TeachOrder + "****" + obj.TeachingPlan[i + j].MasterOrder + "****" + obj.TeachingPlan[i + j].TeachingPlanDetail[k].TargetShort);
-//                    }
-//                }
-//            }
+
             AspAjax.setTeachISPDate4(obj);
             break;
 

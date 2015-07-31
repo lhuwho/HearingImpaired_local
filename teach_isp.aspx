@@ -1531,7 +1531,7 @@
 			            <tr>
 			                <td>計畫撰寫者 <input id="PlanWriter3Name" type="text" value="" readonly="readonly" /><span id="PlanWriter3" class="hideClassSpan"></span></td>
 			                <td>擬定日期 <input id="PlanWriteFrameDate3" class="date" type="text" value="" size="10" readonly="readonly" /></td>
-			                <td>執行者 <input id="PlanWriteExecutor3" type="text" value="" /></td>
+			                <td>執行者 <input id="PlanWriteExecutor3" type="text" value="" readonly="readonly" /></td>
 			            </tr>
 			            <tr>
 			                <td>計畫修訂者 <input id="PlanRevise3Name" type="text" value="" /><span id="PlanRevise3" class="hideClassSpan"></span></td>
@@ -1886,35 +1886,35 @@
 			            <tr>
 			                <td align="center">聽覺技巧</td>
 			                <td><textarea id="HearingAssessment" rows="5" cols="85"></textarea></td>
-			                <td><input id="HearingAssessmentByT" type="text" name="" value="" size="15" /></td>
+			                <td><input id="HearingAssessmentByName" type="text" name="" value="" size="15" /><span id="HearingAssessmentBy" class="hideClassSpan"></span></td>
 			                <td><input id="HearingAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
 			                <td><input id="HearingAssessmentTool" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">詞　　彙</td>
 			                <td><textarea id="VocabularyAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="VocabularyAssessmentBy" type="text" name="" value="" size="15" /></td>
+			                <td><input id="VocabularyAssessmentByName" type="text" name="" value="" size="15" /><span id="VocabularyAssessmentBy" class="hideClassSpan"></span></td>
 			                <td><input id="VocabularyAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
 			                <td><input id="VocabularyAssessmentTool" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">語言能力</td>
 			                <td><textarea id="LanguageAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="LanguageAssessmentBy" type="text" name="" value="" size="15" /></td>
+			                <td><input id="LanguageAssessmentByName" type="text" name="" value="" size="15" /><span id="LanguageAssessmentBy" class="hideClassSpan"></span></td>
 			                <td><input id="LanguageAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
 			                <td><input id="LanguageAssessmentTool" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">智　　力</td>
 			                <td><textarea id="intelligenceAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="intelligenceAssessmentBy" type="text" name="" value="" size="15" /></td>
+			                <td><input id="intelligenceAssessmentByName" type="text" name="" value="" size="15" /><span id="intelligenceAssessmentBy" class="hideClassSpan"></span></td>
 			                <td><input id="intelligenceAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
 			                <td><input id="intelligenceAssessmentTool" type="text" name="" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td align="center">其　　它</td>
 			                <td><textarea id="OtherAssessment"  rows="5" cols="85"></textarea></td>
-			                <td><input id="OtherAssessmentBy" type="text" name="" value="" size="15" /></td>
+			                <td><input id="OtherAssessmentByName" type="text" name="" value="" size="15" /><span id="OtherAssessmentBy" class="hideClassSpan"></span></td>
 			                <td><input id="OtherAssessmentDate" class="date" type="text" name="" value="" size="10"/></td>
 			                <td><input id="OtherAssessmentTool" type="text" name="" value="" size="10" /></td>
 			            </tr>
@@ -1927,58 +1927,58 @@
 			            </tr></thead>
 			            <tr>
 			                <td   align="center">聽覺能力</td>
-			                <td><input id="Hearing" type="text" name="" value=""  size="90"/></td>
+			                <td><textarea id="Hearing"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">認知能力</td>
-			                <td><input id="CognitiveAbility" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="CognitiveAbility"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td align="center">溝通能力</td>
-			                <td><input id="ConnectAbility" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="ConnectAbility"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">行動能力</td>
-			                <td><input id="ActAbility" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="ActAbility"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">人際關係</td>
-			                <td><input id="Relationship" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="Relationship"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td   align="center">情緒管理</td>
-			                <td><input id="EmotionalManagement" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="EmotionalManagement"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td  align="center">感官功能</td>
-			                <td><input id="SensoryFunction" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="SensoryFunction"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td align="center">健康狀況</td>
-			                <td><input id="HealthState" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="HealthState"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td align="center">生活自理</td>
-			                <td><input id="DailyLiving" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="DailyLiving"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td align="center">學習特質</td>
-			                <td><input id="LearningAchievement" type="text" name="" value="" size="90"/></td>
+			                <td><textarea id="LearningAchievement"    rows="5" cols="100"></textarea></td>
 			            </tr>
 			            <tr>
 			                <td align="center">綜合摘要</td>
 			                <td>綜合上述可分析個案的優弱勢能力如下：<br />
 			                優勢能力<br />
-			                <textarea id="Advantage" cols="50" rows="5"></textarea><br />
+			                <textarea id="Advantage" cols="100" rows="5"></textarea><br />
 			                弱勢能力<br />
-			                <textarea id="WeakCapacity" cols="50" rows="5"></textarea>
+			                <textarea id="WeakCapacity" cols="100" rows="5"></textarea>
 			                </td>
 			            </tr>
 			        </table>
 			        
 			        <p class="cP">三、個案教學目標</p>
 			        <p class="cP1">領域(一) 聽覺</p>
-			        <table id="table1" class="tableContact2" width="780" border="0">
+			        <table id="table1" class="tableContact2" width="980" border="0">
 			        <thead><tr>
 		                <td width="305" rowspan="2" align="center"><span class="cP1">聽覺輔具</span>　<button type="button" class="btnAdd" onclick="getAdd(1)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(1)">－</button></td>
 		                <th colspan="2">起迄日期</th>
@@ -1996,13 +1996,13 @@
 			        <tbody>
 			        <tr id="1_1dataTR">
 			            <td colspan="7">
-			                <table class="tableContact3" width="774" border="0">
+			                <table class="tableContact3" width="980" border="0">
 			                    <tr>
-			                        <td colspan="7"><textarea id="1_1TargetLong" class="long" cols="50" rows="2"></textarea></td>
+			                        <td colspan="7">長期目標：<textarea id="1_1TargetLong" class="long" cols="100" rows="2"></textarea></td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_1Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="1_1_1Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="1_1_1DateStart" class="date" type="text" value="" size="10" />
@@ -2024,8 +2024,8 @@
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_2Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="1_1_2Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="1_1_2DateStart" class="date" type="text" value="" size="10" />
@@ -2047,8 +2047,8 @@
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_3Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="1_1_3Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="1_1_3DateStart" class="date" type="text" value="" size="10" />
@@ -2070,8 +2070,8 @@
 			                        </td>
 			                    </tr>
 			                   <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_4Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="1_1_4Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="1_1_4DateStart" class="date" type="text" value="" size="10" />
@@ -2093,8 +2093,8 @@
 			                        </td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
-			                            <textarea id ="1_1_5Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="1_1_5Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="1_1_5DateStart" class="date" type="text" value="" size="10" />
@@ -2115,7 +2115,6 @@
 			                            <select id="1_1_5Decide"><option value="0"></option><option value="3">通過目標</option><option value="2">繼續目標</option><option value="1">修正目標</option></select>
 			                        </td>
 			                    </tr>
-			                    
 		                    </table>
 		                </td>
 		            </tr>
@@ -2125,7 +2124,7 @@
                     
 			        
 			        <p class="cP1">領域(二) 認知語言及溝通技巧</p>
-			        <table id="table2" class="tableContact2" width="780" border="0">
+			        <table id="table2" class="tableContact2" width="980" border="0">
 			        <thead><tr>
 		                <td width="305" rowspan="2" align="center"><button type="button" class="btnAdd" onclick="getAdd(2)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(2)">－</button></td>
 		                <th colspan="2">起迄日期</th>
@@ -2143,13 +2142,13 @@
 			        <tbody>
 			        <tr id="2_1dataTR">
 			            <td colspan="7">
-			                <table class="tableContact3" width="774" border="0">
+			                <table class="tableContact3" width="974" border="0">
 			                    <tr>
-			                        <td colspan="7"><textarea id="2_1TargetLong" class="long" cols="50" rows="2"></textarea></td>
+			                        <td colspan="7" >長期目標：<textarea id="2_1TargetLong" class="long" cols="50" rows="2"></textarea></td>
 			                    </tr>
 			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_1Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="2_1_1Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="2_1_1DateStart" class="date" type="text" value="" size="10" />
@@ -2171,8 +2170,8 @@
 			                        </td>
 			                    </tr>
 			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_2Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="2_1_2Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="2_1_2DateStart" class="date" type="text" value="" size="10" />
@@ -2194,8 +2193,8 @@
 			                        </td>
 			                    </tr>
 			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_3Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="2_1_3Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="2_1_3DateStart" class="date" type="text" value="" size="10" />
@@ -2217,8 +2216,8 @@
 			                        </td>
 			                    </tr>
 			                     <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_4Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="2_1_4Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="2_1_4DateStart" class="date" type="text" value="" size="10" />
@@ -2240,8 +2239,8 @@
 			                        </td>
 			                    </tr>
                                  <tr>
-			                        <td width="300">
-			                            <textarea id ="2_1_5Target" class="short" cols="50" rows="2"></textarea>
+			                        <td width="383">
+			                            短期目標：<textarea id ="2_1_5Target" class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
 			                            <input id="2_1_5DateStart" class="date" type="text" value="" size="10" />
@@ -2292,7 +2291,7 @@
 			                        <td colspan="7"><textarea class="long" cols="50" rows="2"></textarea></td>
 			                    </tr>
 			                    <tr>
-			                        <td width="300">
+			                        <td width="383">
 			                            <textarea class="short" cols="50" rows="2"></textarea>
 			                        </td>
 			                        <td>
