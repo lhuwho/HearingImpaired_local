@@ -2927,7 +2927,7 @@ public class CaseDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT COUNT(*) FROM  VolunteerData WHERE isDeleted =0 " + ConditionReturn;
+                string sql = "SELECT COUNT(*) FROM  VolunteerData WHERE isDeleted =0 " + ConditionReturn  ;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@vID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtvID);
                 cmd.Parameters.Add("@vName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtvName) + "%";
@@ -2955,10 +2955,10 @@ public class CaseDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY ID DESC) " +
+                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY VOLID DESC) " +
                              "AS RowNum, * FROM VolunteerData WHERE isDeleted = 0 " + ConditionReturn + " ) " +
                              "AS NewTable " +
-                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
+                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)   ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
                 cmd.Parameters.Add("@vID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.txtvID);

@@ -48,6 +48,7 @@ function getViewData( vID ,  act) {
         $("#fillInDate").val(TodayADDateFunction());
         $("#sUnit").html(_UnitList[_uUnit]);
         AspAjax.getUnitAutoNumber("Volunteer_", "");
+        
     }
 }
 //搜尋
@@ -167,7 +168,8 @@ function SetVolunteerData(Type) {
     if (checkString.length > 0) {
         alert(checkString);
     } else {
-        if (Type == 0) {
+    if (Type == 0) {
+        obj.volunteerId = $("#volunteerId").html();
             AspAjax.creatVolunteerDataBase(obj);
         } else if (Type == 1) {
             obj.ID = _ColumnID;
