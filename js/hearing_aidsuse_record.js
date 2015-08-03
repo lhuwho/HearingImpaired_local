@@ -71,6 +71,7 @@ function SucceededCallback(result, userContext, methodName) {
 			                    '<td>' + TransformADFromStringFunction(result[i].txtbuyingtimeR) + '</td>' +
 			                     '<td>' + result[i].txtfmAidstypeL + '</td>' +
 			                    '<td>' + result[i].txtfmAidstypeR + '</td>' +
+                                '<td>' + TransformADFromStringFunction(result[i].txtassessDate) + '</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
                     }
@@ -116,7 +117,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td><span style="display:none;">' + i + '</span>' + _SexList[result[i].txtstudentSex] + '</td>' +
-			                   '<td><span style="display:none;" class="sID">' + result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
+			                    '<td>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
 			                '</tr>';
                     }
                     $("#StuinlineReturn tbody").html(inner);
@@ -130,8 +131,8 @@ function SucceededCallback(result, userContext, methodName) {
                         var stuAge = BirthdayFromDateFunction(studentbirthday);
                         $("#studentAge").val(stuAge[0]);
                         $("#studentMonth").val(stuAge[1]);*/
-                 
-                    AspAjax.getStudentAidsDataBaseBasic($(this).find(".sID").html());
+
+                         AspAjax.getStudentAidsDataBaseBasic($(this).children("td:nth-child(1)").html());
                         $.fancybox.close();
                     });
                 } else {

@@ -85,7 +85,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td>' + _SexList[result[i].txtstudentSex] + '</td>' +
-			                    '<td><span style="display:none;">' +result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
+			                    '<td><span style="display:none;" class="sID">' + result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
 			                '</tr>';
                     }
                     $("#StuinlineReturn tbody").html(inner);
@@ -100,7 +100,8 @@ function SucceededCallback(result, userContext, methodName) {
                         var stuAge = BirthdayFromDateFunction(studentbirthday);
                         $("#studentAge").val(stuAge[0]);
                         $("#studentMonth").val(stuAge[1]);*/
-                    AspAjax.getStudentAidsDataBaseBasic($(this).children("td:nth-child(1)").html());
+                    //alert($(this).find(".sID").html());
+                        AspAjax.getStudentAidsDataBaseBasic($(this).find(".sID").html());
 
                         $.fancybox.close();
                     });

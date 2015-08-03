@@ -75,6 +75,7 @@
 			                    <th width="90">右選配/植入日期</th>
 			                    <th width="90">左FM輔具類型</th>
 			                    <th width="90">右FM輔具類型</th>
+			                    <th width="90">使用日期</th>
 			                    <th width="60">功能</th>
 			                </tr>
 			            </thead>
@@ -102,6 +103,12 @@
 			            <th>年　　齡</th>
 			            <td><input id="studentAge" type="text" size="5" readonly="readonly"/> 歲 <input id="studentMonth" type="text" size="5" readonly="readonly"/> 月</td>
 			        </tr>
+			        <tr>
+			            
+			            <th>使用日期</th>
+			            <td><input id="assessDate" class="date" type="text" value="" size="10" /></td>
+			        </tr>
+			         
 			    </table>
 			    
 			    <p><br />一、個人輔具資料</p>

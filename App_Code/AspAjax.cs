@@ -157,7 +157,7 @@ public class AspAjax : System.Web.Services.WebService {
         returnValue.ID = stuData.Column.ToString();
         returnValue.studentID = stuData.StudentData.studentID;
         returnValue.studentName = stuData.StudentData.studentName;
-        returnValue.studentSex = stuData.StudentData.studentSex.ToString();
+        returnValue.studentSex = stuData.StudentData.studentSex;
         returnValue.studentbirthday = stuData.StudentData.studentbirthday;
         returnValue.assistmanageL = stuData.HearingData.assistmanageL;
         returnValue.assistmanageR = stuData.HearingData.assistmanageR;

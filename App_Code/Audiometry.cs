@@ -870,15 +870,16 @@ public class Audiometry
                     "AidsOptionalLocation_L, EEarHospital_L, EEarOpen_L, AidsSource_L, AidsSourceText_L, " +
                     "AcquisitionDate, FMSourceAids, FMTypeAids, FMAidsBrand, FMAidsModel, FMAidsChannel, FMAidsModelR, FMAidsDPAIR, FMAidsProgramR, FMAudioProportionR, " +
                     "FMAidsUIR, FMAidsUITextR, FMAidsReceptorR, FMAidsReceptorVolumeR, FMAidsGainR, FMAidsModelL, FMAidsDPAIL, FMAidsProgramL, FMAudioProportionL, FMAidsUIL, " +
-                    "FMAidsUITextL, FMAidsReceptorL, FMAidsReceptorVolumeL, FMAidsGainL, CreateFileBy, UpFileBy, UpFileDate) " +
+                    "FMAidsUITextL, FMAidsReceptorL, FMAidsReceptorVolumeL, FMAidsGainL, CreateFileBy, UpFileBy, UpFileDate,assessDate) " +
                     "VALUES(@Unit, @StudentID, @StudentAge, @StudentMonth, @HearingAids_R, @AidsBrand_R, @AidsModel_R, @AidsOptionalTime_R, @AidsOptionalLocation_R, " +
                     "@EEarHospital_R, @EEarOpen_R, @AidsSource_R, @AidsSourceText_R, @HearingAids_L, @AidsBrand_L, @AidsModel_L, @AidsOptionalTime_L, " +
                     "@AidsOptionalLocation_L, @EEarHospital_L, @EEarOpen_L, @AidsSource_L, @AidsSourceText_L, " +
                     "@AcquisitionDate, @FMSourceAids, @FMTypeAids, @FMAidsBrand, @FMAidsModel, @FMAidsChannel, @FMAidsModelR, @FMAidsDPAIR, @FMAidsProgramR, " +
                     "@FMAudioProportionR, @FMAidsUIR, @FMAidsUITextR, @FMAidsReceptorR, @FMAidsReceptorVolumeR, @FMAidsGainR, @FMAidsModelL, @FMAidsDPAIL, " +
                     "@FMAidsProgramL, @FMAudioProportionL, @FMAidsUIL, @FMAidsUITextL, @FMAidsReceptorL, @FMAidsReceptorVolumeL, @FMAidsGainL, @CreateFileBy, " +
-                    "@UpFileBy, (getDate()))";
+                    "@UpFileBy, (getDate()),@assessDate)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@AssessDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.assessDate);
                 cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[2].ToString());
                 cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentData.studentID);
                 cmd.Parameters.Add("@StudentAge", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentData.studentAge);
@@ -968,6 +969,7 @@ public class Audiometry
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
+                    returnValue.assessDate = DateTime.Parse(dr["assessDate"].ToString()).ToString("yyyy-MM-dd");  
                     returnValue.ID = dr["ID"].ToString();
                     returnValue.caseUnit = dr["Unit"].ToString();
                     returnValue.studentID = dr["StudentID"].ToString();
@@ -1055,9 +1057,11 @@ public class Audiometry
                     "FMAidsUITextR=@FMAidsUITextR, FMAidsReceptorR=@FMAidsReceptorR, FMAidsReceptorVolumeR=@FMAidsReceptorVolumeR, FMAidsGainR=@FMAidsGainR, " +
                     "FMAidsModelL=@FMAidsModelL, FMAidsDPAIL=@FMAidsDPAIL, FMAidsProgramL=@FMAidsProgramL, FMAudioProportionL=@FMAudioProportionL, FMAidsUIL=@FMAidsUIL, " +
                     "FMAidsUITextL=@FMAidsUITextL, FMAidsReceptorL=@FMAidsReceptorL, FMAidsReceptorVolumeL=@FMAidsReceptorVolumeL, FMAidsGainL=@FMAidsGainL, " +
-                    "UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
+                    "UpFileBy=@UpFileBy, UpFileDate=(getDate()) ,assessDate=@assessDate " +
                     "WHERE ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+
+                cmd.Parameters.Add("@AssessDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.assessDate);
                 cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = Chk.CheckStringtoInt64Function(StudentData.ID);
                 cmd.Parameters.Add("@HearingAids_R", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentData.assistmanageR);
                 cmd.Parameters.Add("@AidsBrand_R", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentData.brandR);
@@ -1221,6 +1225,7 @@ public class Audiometry
                     addValue.txtbuyingtimeR = DateTime.Parse(dr["AidsOptionalTime_R"].ToString()).ToString("yyyy-MM-dd");
                     addValue.txtfmAidstypeL = dr["FMAidsModelL"].ToString();
                     addValue.txtfmAidstypeR = dr["FMAidsModelR"].ToString();
+                    addValue.txtassessDate = DateTime.Parse(dr["assessDate"].ToString()).ToString("yyyy-MM-dd");  
                     returnValue.Add(addValue);
                 }
                 Sqlconn.Close();
@@ -3069,6 +3074,7 @@ public class Audiometry
                 AidsUseData.fmUITextL=DateItem.fmUITextL;
                 AidsUseData.fmReceptorL=DateItem.fmReceptorL;
                 AidsUseData.fmVolumeL=DateItem.fmVolumeL;
+                AidsUseData.assessDate = DateItem.assessDate;
 
                 string[] item = this.createStudentAidsUse(AidsUseData);
             }

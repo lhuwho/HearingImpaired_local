@@ -85,7 +85,9 @@
             <div id="mainContent">
                 <div style="display:block;">
                 <p align="right" id="Unit" style="background-color:#FFDF71;padding:0 10px;">&nbsp;</p>
-                <p align="right">評估人員 <input id="audiologist" type="text" value=""  readonly="readonly"/>　　　　評估日期 <input id="assessDate" class="date" type="text" value="" size="10" /></p>
+                <p align="right">
+                評估人員 <input id="audiologist" type="text" value=""  readonly="readonly"/>
+                　　　　評估日期 <input id="assessDate" class="date" type="text" value="" size="10" /></p>
                 <p class="cP">一、基本資料</p>
                 <table class="tableText" width="780" border="0">
 			        <tr>
@@ -149,7 +151,9 @@
 			            <td align="center"><label><input type="radio" name="fmUIL" value="1" /> 有</label> <input id="fmUITextL" type="text" value="" size="10" />　　
 			                <label><input type="radio" name="fmUIL" value="2" /> 無</label>　　
 			                <label><input type="radio" name="fmUIL" value="3" /> 不適用</label></td>
-			            <td align="center"><label><input type="radio" name="fmUIR" value="1" /> 有</label> <input id="fmUITextR" type="text" value="" size="10" />　　
+			            <td align="center">
+			            <label><input type="radio" name="fmUIR" value="1" /> 有</label> 
+			            <input id="fmUITextR" type="text" value="" size="10" />　　
 			                <label><input type="radio" name="fmUIR" value="2" /> 無</label>　　
 			                <label><input type="radio" name="fmUIR" value="3" /> 不適用</label></td>
 			        </tr>

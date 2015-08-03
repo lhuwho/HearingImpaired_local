@@ -570,6 +570,7 @@ public struct SearchAidsUseResult
     public string txtbuyingtimeR;
     public string txtfmAidstypeL;
     public string txtfmAidstypeR;
+    public string txtassessDate;
     public string checkNo;
     public string errorMsg;
 }
@@ -1747,6 +1748,7 @@ public struct CreateStudentAidsUse
     public string fmGainL;
     public string checkNo;
     public string errorMsg;
+    public string assessDate;
 }
 /*Teach-ISP**/
 public struct CreateTeachISP
