@@ -152,7 +152,7 @@ public class AspAjax : System.Web.Services.WebService {
     public StudentDataBasic getStudentAidsDataBaseBasic(string cID)
     {
         CaseDataBase SDB = new CaseDataBase();
-        StudentResult stuData = SDB.getStudentData(cID);
+        StudentResult stuData = SDB.getStudentDataWho(cID);
         StudentDataBasic returnValue = new StudentDataBasic();
         returnValue.ID = stuData.Column.ToString();
         returnValue.studentID = stuData.StudentData.studentID;
