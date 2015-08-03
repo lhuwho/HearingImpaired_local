@@ -2723,6 +2723,7 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase SDB = new TeachDataBase();
         return SDB.setTeachISPPage4(StudentISP);
     }
+
     [WebMethod]
     public setTeachISPAllData getTeachISPDate(Int64 StudentISP) //ISP(分頁)->個案基本資料
     {
@@ -2736,6 +2737,12 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase SDB = new TeachDataBase();
         return SDB.GetHomeService(StudentISP);
     }
+     [WebMethod]
+     public int[] GetTeachISPPage4Count(Int64 StudentISP) //ISP(分頁)->教學計劃
+     {
+         TeachDataBase SDB = new TeachDataBase();
+         return SDB.GetTeachISPPage4Count(StudentISP);
+     }
      [WebMethod]
      public setTeachISP4 GetTeachISPPage4(Int64 StudentISP) //ISP(分頁)->教學計劃
      {

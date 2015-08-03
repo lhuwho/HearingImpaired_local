@@ -1808,8 +1808,6 @@ public class AdministrationDataBase
         return returnvalue;
     }
 
-
-
     public List<SearchStudentResult> ShowStudent(int SID)//顯示學生姓名(有點多餘)
     {
         List<SearchStudentResult> returnvalue = new List<SearchStudentResult>();
@@ -2100,6 +2098,7 @@ public class AdministrationDataBase
             }
             catch (Exception e)
             {
+                string aa = e.Message.ToString();
                 //temp.ID = e.Message.ToString();
             }
             Sqlconn.Close();

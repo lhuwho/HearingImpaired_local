@@ -1586,7 +1586,38 @@ public class TeachDataBase
 
         return returnValue;
     }
+    public int[] GetTeachISPPage4Count(Int64 StudentISP)
+    {
+        int[] returnValue = { 0, 0 };
+         DataBase Base = new DataBase();
+         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+         {
+             try
+             {
+               Sqlconn.Open();
+               string sql = " select SUM(case isnull(TeachOrder  ,0)when 1 then 1 else 0 END) as T1,SUM(case isnull(TeachOrder ,0)when 2 then 1 else 0 END ) as T2  from TeachingPlan where ISPID = @ISPID ";
+               SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+               cmd.Parameters.Add("@ISPID", SqlDbType.BigInt).Value = StudentISP;
+               SqlDataReader dr = cmd.ExecuteReader();
+               if (dr.Read())
+               {
+                   returnValue[0] = Convert.ToInt16(dr["t1"].ToString());
+                   returnValue[1] = Convert.ToInt16(dr["t2"].ToString());
+               }
+             }
+             catch
+             {
+                 returnValue[0] = -1;
+             
+             }
+             Sqlconn.Close();
+         }
 
+
+
+        return returnValue;
+    
+    }
 
     public setTeachISP4 GetTeachISPPage4(Int64 StudentISP)
     {

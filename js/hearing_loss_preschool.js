@@ -109,10 +109,11 @@ function addanser1(result) {///助聽器輔助管理
             inner += '<tr><th id="P1rowspan' + result[i].SummeryID + '" rowspan="1" >' + result[i].SummeryDescription + '</th>';
             rowspan = 1;
             rowname = result[i].SummeryDescription;
-            inner += '<td id="P1Question' + result[i].QuestionID + '" name="P1Question' + result[i].QuestionID + '" class="P1Question" >' + result[i].QuestionDescription + '</td>';
-            for (var j = 1; j < 9; j++) {
-                inner += '<td><select id="P1Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option><option value="4">/</option></select></td>';
-            }
+            inner += '<td id="P1Question' + result[i].QuestionID + '" name="P1Question' + result[i].QuestionID + '" colspan="10" class="P1Question" >' + result[i].QuestionDescription + '</td>';
+            //inner += '<td colspan="9"></td>';
+//            for (var j = 1; j < 9; j++) {
+//                inner += '<td><select id="P1Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option><option value="4">/</option></select></td>';
+//            }
             inner += '</tr>';
         }
 
@@ -175,10 +176,10 @@ function addanser3(result) {///認知(上)
             inner += '<tr><th id="P3rowspan' + result[i].SummeryID + '" rowspan="1" >' + result[i].SummeryDescription + '</th>';
             rowspan = 1;
             rowname = result[i].SummeryDescription;
-            inner += '<td id="P3Question' + result[i].QuestionID + '" name="P3Question' + result[i].QuestionID + '" class="P3Question" >' + result[i].QuestionDescription + '</td>';
-            for (var j = 1; j < 9; j++) {
-                inner += '<td><select id="P3Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></select></td>';
-            }
+            inner += '<td id="P3Question' + result[i].QuestionID + '" name="P3Question' + result[i].QuestionID + '" colspan="10" class="P3Question" >' + result[i].QuestionDescription + '</td>';
+//            for (var j = 1; j < 9; j++) {
+//                inner += '<td><select id="P3Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></select></td>';
+//            }
             inner += '</tr>';
         }
 
@@ -214,10 +215,10 @@ function addanser4(result) {///認知(下)
             inner += '<tr><th id="P3rowspan' + result[i].SummeryID + '" rowspan="1" >' + result[i].SummeryDescription + '</th>';
             rowspan = 1;
             rowname = result[i].SummeryDescription;
-            inner += '<td id="P3Question' + result[i].QuestionID + '" name="P3Question' + result[i].QuestionID + '" class="P3Question" >' + result[i].QuestionDescription + '</td>';
-            for (var j = 1; j < 9; j++) {
-                inner += '<td><select id="P3Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></select></td>';
-            }
+            inner += '<td id="P3Question' + result[i].QuestionID + '" name="P3Question' + result[i].QuestionID + '" colspan="10" class="P3Question" >' + result[i].QuestionDescription + '</td>';
+//            for (var j = 1; j < 9; j++) {
+//                inner += '<td><select id="P3Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></select></td>';
+//            }
             inner += '</tr>';
         }
 
@@ -262,10 +263,10 @@ function addanser5(result) {///表達性語言
             inner += '<tr><th id="P4rowspan' + result[i].SummeryID + '" rowspan="1" >' + result[i].SummeryDescription + '</th>';
             rowspan = 1;
             rowname = result[i].SummeryDescription;
-            inner += '<td id="P4Question' + result[i].QuestionID + '" name="P4Question' + result[i].QuestionID + '" class="P4Question" >' + result[i].QuestionDescription + '</td>';
-            for (var j = 1; j < 9; j++) {
-                inner += '<td><select id="P4Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></td>';
-            }
+            inner += '<td id="P4Question' + result[i].QuestionID + '" name="P4Question' + result[i].QuestionID + '" colspan="10" class="P4Question" >' + result[i].QuestionDescription + '</td>';
+//            for (var j = 1; j < 9; j++) {
+//                inner += '<td><select id="P4Q' + result[i].QuestionID + '_' + j + '"><option></option><option value="1">v</option><option value="2">Δ</option><option value="3">X</option></td>';
+//            }
             inner += '</tr>';
         }
 

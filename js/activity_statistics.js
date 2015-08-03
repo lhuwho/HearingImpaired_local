@@ -323,11 +323,12 @@ function setData() {
 function addParticipantone(){
     var val=$("#Participant").val();
     var id=val.substring(val.indexOf("(")+1,val.indexOf(")"));
+    if(id != "" && val !=""){
     var inner='<li class="search-choice participant" id="participant_'+id+'">'+
     '<span>'+val+'</span>'+
     '<a class="search-choice-close" onclick="deleteMyself('+id+')"></a>'+
     '</li>';
-    $("#ParticipantsList").append(inner);
+    $("#ParticipantsList").append(inner);}
 }
 function addParticipant(id,name){
     

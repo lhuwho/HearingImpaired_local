@@ -375,6 +375,27 @@ function SucceededCallback(result, userContext, methodName) {
                 //$("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass()
             }
             break;
+        case "GetTeachISPPage4Count":
+            if (result[0] > 0 || result[1] > 0) {
+                while ($("#table1>tbody>tr").length > 1) {
+                    $("#table1>tbody>tr:last-child").detach();
+                }
+                while ($("#table2>tbody>tr").length > 1) {
+                    $("#table2>tbody>tr:last-child").detach();
+                }
+                for (var i = 2; i <= result[0]; i++) {
+                
+                
+                    getAdd(1);
+                }
+                for (var i = 2; i <= result[1]; i++) {
+                    getAdd(2);
+                }
+            }
+            var id = GetQueryString("id");
+            AspAjax.GetTeachISPPage4(id);
+
+            break;
         case "GetTeachISPPage4":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 PushPageValue(result);
@@ -389,17 +410,8 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "EffectiveMode").val(result.TeachingPlan[i].TeachingPlanDetail[j].EffectiveMode);
                         $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "EffectiveResult").val(result.TeachingPlan[i].TeachingPlanDetail[j].EffectiveResult);
                         $("#" + result.TeachingPlan[i].TeachOrder + "_" + result.TeachingPlan[i].MasterOrder + "_" + result.TeachingPlan[i].TeachingPlanDetail[j].DetailOrder + "Decide").val(result.TeachingPlan[i].TeachingPlanDetail[j].Decide);
-
-
-
-
                     }
-                    // alert(i);
-                    // alert(result.TeachingPlan[i].TeachingPlanDetail.length + "---" + i);
-
                 }
-
-                //$("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass()
             }
             break;
         case "setTeachISPDate1":
@@ -535,7 +547,9 @@ function getViewData(id, act) {
         AspAjax.GetWriteName();
         AspAjax.getTeachISPDate(id);
         AspAjax.GetHomeService(id);
-        AspAjax.GetTeachISPPage4(id);
+        AspAjax.GetTeachISPPage4Count(id);
+        //AspAjax.GetTeachISPPage4(id);
+
     } else if (id == null && act == 1) {
         $(".btnSave").fadeIn();
         $("input").add("select").add("textarea").attr("disabled", false);

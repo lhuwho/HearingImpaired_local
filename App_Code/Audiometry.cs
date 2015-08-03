@@ -1394,7 +1394,7 @@ public class Audiometry
                     "@VoiceItem3, @VoiceMaterial3, @VoiceWear3, @VoiceState3, @VoiceVolume3, @VoiceResult3, @VoiceRemark3, @VoiceItem4, "+
                     "@VoiceMaterial4, @VoiceWear4, " +
                     "@VoiceState4, @VoiceVolume4, @VoiceResult4, @VoiceRemark4, @VoicePurpose, @VoicePurposeExplain, @VoiceExplain, "+
-                    "@CreateFileBy, @UpFileBy, (getDate())"+
+                    "@CreateFileBy, @UpFileBy, (getDate()),"+
                     "@WRSVolumeBefore,@WRSREarBefore,@WRSLEarBefore,@WRSEarBefore,@WRSVolumeAfter,@WRSREarAfter,@WRSLEarAfter,@WRSEarAfter," +
                     "@material2,@material3,@project3,@project3VolumeBefore,@project3REarBefore,@project3LEarBefore,@project3EarBefore," +
                     "@project3VolumeAfter,@project3REarAfter,@project3LEarAfter,@project3EarAfter," +
