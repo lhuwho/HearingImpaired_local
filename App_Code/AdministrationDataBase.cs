@@ -2081,7 +2081,7 @@ public class AdministrationDataBase
                             }
                             else
                             {
-                                cmd.Parameters.Add("@" + fldInfo.Name, "");
+                                cmd.Parameters.Add("@" + fldInfo.Name, System.DBNull.Value);
                             }
                             break;
                     }

@@ -108,312 +108,9 @@
 		            </tr>
 			    </table>
 			    
-			    <p class="cP">語音距離察覺圖</p>
-			    <div class="PerceiveDIV">
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0">
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>
-			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0">
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>
-			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0">
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>
-			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0">
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>
-			        </div>
-			        <div class="Perceive">
-			            <table class="tableContact" width="250" border="0">
-			               <tr>
-			                   <th width="50">&nbsp</th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			                   <th width="40"><select class="perceiveUp"><option></option></select></th>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-			               <tr>
-                               <th><select class="perceiveRight"><option></option></select></th>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			                   <td><select class="perceiveContent"><option></option></select></td>
-			               </tr>
-		                   <tr>
-		                       <th>日期</th>
-			                   <td colspan="5"><input class="date" type="text" name="name" size="10" /></td>
-		                   </tr>
-		                   <tr>
-		                       <th>備註</th>
-			                   <td colspan="5"><input type="text" name="name" /></td>
-		                   </tr>
-			            </table>
-			        </div>
-			    </div>
-			    
+			  
 			    <p class="cP">領域(一) 聽覺</p>
-			    
+			  <%--  
                 <table id="table1" class="tableContact" width="780" border="0">
                     <thead>
                         <tr>
@@ -460,24 +157,24 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>--%>
                 
-                <table id="table2" class="tableContact" width="780" border="0">
+                <table id="table1" class="tableContact" width="780" border="0">
                     <thead>
                         <tr>
-                            <td>聽覺技巧　<button type="button" class="btnAdd" onclick="getAdd(2)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(2)">－</button></td>
+                            <td>聽覺技巧　<button type="button" class="btnAdd" onclick="getAdd(1)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(1)">－</button></td>
                             <th width="86">執行日期</th>
                             <th width="82">評量方式</th>
                             <th width="82">學習表現</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="dataTR2">
+                        <tr id="1_1dataTR">
                             <td colspan="4">
                                 <table class="tableContact2" width="774" border="0">
                                     <tr>
                                         <th width="50">目標</th>
-                                        <td width="480"><textarea class="short" cols="50" rows="3"></textarea></td>
+                                        <td width="480"><textarea id="1_1_1Data" class="short" cols="50" rows="3"></textarea></td>
                                         <td rowspan="2" width="84">
                                             <input class="date" type="text" value="" size="10" /><br />
                                             <input class="date" type="text" value="" size="10" /><br />
@@ -512,10 +209,10 @@
                 
                 <p class="cP">領域(二) 認知語言及溝通技巧</p>
                 
-                <table id="table3" class="tableContact" width="780" border="0">
+                <table id="table2" class="tableContact" width="780" border="0">
                     <thead>
                         <tr>
-                            <td><button type="button" class="btnAdd" onclick="getAdd(3)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(3)">－</button></td>
+                            <td><button type="button" class="btnAdd" onclick="getAdd(2)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(2)">－</button></td>
                             <th width="86">執行日期</th>
                             <th width="82">評量方式</th>
                             <th width="82">學習表現</th>
@@ -560,12 +257,12 @@
                     </tbody>
                 </table>
                 
-                <p class="cP">領域（三）其它特殊需求</p>
+<%--                <p class="cP">領域（三）其它特殊需求</p>
                 
-                <table id="table4" class="tableContact" width="780" border="0">
+                <table id="table3" class="tableContact" width="780" border="0">
                     <thead>
                         <tr>
-                            <td><button type="button" class="btnAdd" onclick="getAdd(4)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(4)">－</button></td>
+                            <td><button type="button" class="btnAdd" onclick="getAdd(3)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(3)">－</button></td>
                             <th width="86">執行日期</th>
                             <th width="82">評量方式</th>
                             <th width="82">學習表現</th>
@@ -608,7 +305,7 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>--%>
 
                 <table class="tableText" width="780" border="0">
                     <tr>

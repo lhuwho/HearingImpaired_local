@@ -1,6 +1,7 @@
 ﻿var MyBase = new Base();
 var noEmptyItem = ["studentID", "studentName"];
 var noEmptyShow = ["服務使用者編號抓取錯誤，請重新選擇學生", "學生姓名"];
+var _checkMode = ["行為觀察", "視覺增強", "遊戲制約", "標準測試"];
 var _ColumnID = 0;
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
@@ -60,7 +61,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td>' + _SexList[result[i].txtstudentSex] + '</td>' +
-			                    '<td><span style="display:none;">' + i + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
+			                    '<td><span style="display:none;" class="sID">' + result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
 			                '</tr>';
                     }
                     $("#StuinlineReturn tbody").html(inner);
@@ -70,8 +71,9 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#studentName").val($(this).children("td:nth-child(2)").html());
                         //$("#studentSex").html($(this).children("td:nth-child(3)").html());
                         $("#studentbirthday").html($(this).children("td:nth-child(4)").html());*/
-                        
-                        AspAjax.getStudentAidsDataBaseBasic($(this).children("td:nth-child(1)").html());
+
+                    AspAjax.getStudentAidsDataBaseBasic($(this).find(".sID").html());
+
                         $.fancybox.close();
                     });
                 } else {
@@ -111,6 +113,7 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
                     PushPageValue(result);
+                    //alert(result.modelR);
                     $("#caseUnit").html(_UnitList[result.caseUnit]);
                     $("#studentbirthday").html(TransformADFromStringFunction(result.studentbirthday));
                     var path = "./uploads/student/" + result.studentID + "/print/";
@@ -168,7 +171,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentName + '</td>' +
                                 '<td>' + TransformADFromStringFunction(result[i].txtbirthday) + '</td>' +
                                 '<td>' + TransformADFromStringFunction(result[i].txtcheckDate) + '</td>' +
-			                    '<td>' + result[i].txtcheckMode +'</td>' +
+			                    '<td>' +_checkMode[ result[i].txtcheckMode] +'</td>' +
 			                    '<td>' + result[i].txtaudiologistName + '</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
