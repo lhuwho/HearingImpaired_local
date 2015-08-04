@@ -3077,7 +3077,8 @@ public class Audiometry
                 AidsUseData.fmReceptorL=DateItem.fmReceptorL;
                 AidsUseData.fmVolumeL=DateItem.fmVolumeL;
                 AidsUseData.assessDate = DateItem.assessDate;
-
+                AidsUseData.fmAidssource = DateItem.aSource;
+                AidsUseData.fmModel = DateItem.fmModel;
                 string[] item = this.createStudentAidsUse(AidsUseData);
             }
         }

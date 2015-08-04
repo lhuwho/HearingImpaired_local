@@ -104,7 +104,7 @@
 		            </tr>
 		            <tr>
 		                <th>計畫期程</th>
-		                <td><input class="date" type="text" value="" size="10" />～<input class="date" type="text" value="" size="10" /></td>
+		                <td><input id="PlanDateStart" class="date" type="text" value="" size="10" />～<input id="PlanDateEnd" class="date" type="text" value="" size="10" /></td>
 		            </tr>
 			    </table>
 			    
@@ -174,32 +174,32 @@
                                 <table class="tableContact2" width="774" border="0">
                                     <tr>
                                         <th width="50">目標</th>
-                                        <td width="480"><textarea id="1_1_1Data" class="short" cols="50" rows="3"></textarea></td>
+                                        <td width="480"><textarea id="1_1_1TargetShort" class="short" cols="50" rows="3"></textarea></td>
                                         <td rowspan="2" width="84">
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" />
+                                            <input id="1_1_1PlanExecutionDate1" class="date" type="text" value="" size="10" /><br />
+                                            <input id="1_1_1PlanExecutionDate2" class="date" type="text" value="" size="10" /><br />
+                                            <input id="1_1_1PlanExecutionDate3" class="date" type="text" value="" size="10" /><br />
+                                            <input id="1_1_1PlanExecutionDate4" class="date" type="text" value="" size="10" /><br />
+                                            <input id="1_1_1PlanExecutionDate5" class="date" type="text" value="" size="10" />
                                         </td>
-                                        <td rowspan="2" width="80" class="wayTD">
-                                            <select id="way211" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way212" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way213" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way214" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way215" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
+                                        <td rowspan="2" width="80" >
+                                            <select id="1_1_1Assessment1"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="1_1_1Assessment2"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="1_1_1Assessment3" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="1_1_1Assessment4" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="1_1_1Assessment5" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
                                         </td>
                                         <td rowspan="2" width="80">
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
+                                            <select id="1_1_1Performance1"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="1_1_1Performance2"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="1_1_1Performance3"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="1_1_1Performance4"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="1_1_1Performance5"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>學習<br />進度</th>
-                                        <td><textarea class="short" cols="50" rows="10"></textarea></td>
+                                        <td><textarea id="1_1_1TargetContent" class="short" cols="50" rows="10"></textarea></td>
                                     </tr>
                                 </table>
                             </td>
@@ -219,37 +219,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="dataTR3">
+                        <tr id="2_1dataTR">
                             <td colspan="4">
                                 <table class="tableContact2" width="774" border="0">
                                     <tr>
                                         <th width="50">目標</th>
-                                        <td width="480"><textarea class="short" cols="50" rows="3"></textarea></td>
+                                        <td width="480"><textarea id="2_1_1TargetShort" class="short" cols="50" rows="3"></textarea></td>
                                         <td rowspan="2" width="84">
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" />
+                                            <input id="2_1_1PlanExecutionDate1" class="date" type="text" value="" size="10" /><br />
+                                            <input id="2_1_1PlanExecutionDate2" class="date" type="text" value="" size="10" /><br />
+                                            <input id="2_1_1PlanExecutionDate3" class="date" type="text" value="" size="10" /><br />
+                                            <input id="2_1_1PlanExecutionDate4" class="date" type="text" value="" size="10" /><br />
+                                            <input id="2_1_1PlanExecutionDate5" class="date" type="text" value="" size="10" />
                                         </td>
-                                        <td rowspan="2" width="80" class="wayTD">
-                                            <select id="way311" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way312" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way313" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way314" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way315" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
+                                        <td rowspan="2" width="80" >
+                                            <select id="2_1_1Assessment1"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="2_1_1Assessment2"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="2_1_1Assessment3" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="2_1_1Assessment4" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+                                            <select id="2_1_1Assessment5" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
                                         </td>
                                         <td rowspan="2" width="80">
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
+                                            <select id="2_1_1Performance1"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="2_1_1Performance2"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="2_1_1Performance3"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="2_1_1Performance4"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+                                            <select id="2_1_1Performance5"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>學習<br />進度</th>
-                                        <td><textarea class="short" cols="50" rows="10"></textarea></td>
+                                        <td><textarea id="2_1_1TargetContent" class="short" cols="50" rows="10"></textarea></td>
                                     </tr>
                                 </table>
                             </td>

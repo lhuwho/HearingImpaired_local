@@ -48,6 +48,8 @@ function getViewData(id, act) {
 }
 
 function getAdd(tid) {
+    var inner = '';
+    
 //    $("#table" + tid + ">tbody>tr:last-child").after($("#dataTR" + tid).clone().attr("id", "dataTR" + tid + ($("#table" + tid + ">tbody>tr").length+1)));
 //    var inner = '';
 //    for (var i = 1; i < 6; i++) {
