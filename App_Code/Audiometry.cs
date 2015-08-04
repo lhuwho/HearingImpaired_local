@@ -94,7 +94,7 @@ public class Audiometry
                 AidsUseData.openHzDateL = DateItem.openHzDateL;
 
                 
-                string[] item=this.createStudentAidsUse(AidsUseData);
+               // string[] item=this.createStudentAidsUse(AidsUseData);
                 DateItem.ID = BasicData.ID;
                 returnValue = this.setStudentDataHearingInformation(DateItem);
             }
@@ -1943,6 +1943,7 @@ public class Audiometry
                     this.ComparisonAidsData(DateItem);
 
                     CreateStudentAidsUse AidsUse = new CreateStudentAidsUse();
+                    AidsUse.assessDate = StructData.checkDate;
                     AidsUse.studentID = StructData.studentID;
                     AidsUse.assistmanageR = StructData.assistmanageR;
                     AidsUse.brandR = StructData.brandR;

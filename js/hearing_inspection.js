@@ -171,7 +171,7 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentName + '</td>' +
                                 '<td>' + TransformADFromStringFunction(result[i].txtbirthday) + '</td>' +
                                 '<td>' + TransformADFromStringFunction(result[i].txtcheckDate) + '</td>' +
-			                    '<td>' +_checkMode[ result[i].txtcheckMode] +'</td>' +
+			                    '<td>' + _checkMode[(result[i].txtcheckMode != "" ? result[i].txtcheckMode : 0)] + '</td>' +
 			                    '<td>' + result[i].txtaudiologistName + '</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
