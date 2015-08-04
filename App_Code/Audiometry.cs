@@ -1923,6 +1923,7 @@ public class Audiometry
                 if (returnValue[0] == "1")
                 {
                     StudentDataBasic DateItem = new StudentDataBasic();
+                    //DateItem.ID = StructData.ID;
                     DateItem.studentID = StructData.studentID;
                     DateItem.assistmanageR = StructData.assistmanageR;
                     DateItem.brandR = StructData.brandR;
