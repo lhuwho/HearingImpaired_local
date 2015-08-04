@@ -65,13 +65,14 @@ function SucceededCallback(result, userContext, methodName) {
                         inner += '<tr>' +
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
+			                     '<td>' + TransformADFromStringFunction(result[i].txtassessDate) + '</td>' +
 			                    '<td>' + _Aidstype[result[i].txtaidstypeL] + '</td>' +
 			                    '<td>' + TransformADFromStringFunction(result[i].txtbuyingtimeL) + '</td>' +
 			                    '<td>' + _Aidstype[result[i].txtaidstypeR] + '</td>' +
 			                    '<td>' + TransformADFromStringFunction(result[i].txtbuyingtimeR) + '</td>' +
 			                     '<td>' + result[i].txtfmAidstypeL + '</td>' +
 			                    '<td>' + result[i].txtfmAidstypeR + '</td>' +
-                                '<td>' + TransformADFromStringFunction(result[i].txtassessDate) + '</td>' +
+                               
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
 			                '</tr>';
                     }

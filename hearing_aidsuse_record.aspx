@@ -69,13 +69,14 @@
 			                <tr>
 			                    <th width="90">服務使用者編號</th>
 			                    <th width="70">學生姓名</th>
+			                    <th width="90">更新日期</th>
 			                    <th width="80">左輔具類型</th>
 			                    <th width="90">左選配/植入日期</th>
 			                    <th width="80">右輔具類型</th>		                    
 			                    <th width="90">右選配/植入日期</th>
 			                    <th width="90">左FM輔具類型</th>
 			                    <th width="90">右FM輔具類型</th>
-			                    <th width="90">使用日期</th>
+			                    
 			                    <th width="60">功能</th>
 			                </tr>
 			            </thead>
@@ -105,7 +106,7 @@
 			        </tr>
 			        <tr>
 			            
-			            <th>使用日期</th>
+			            <th>更新日期</th>
 			            <td><input id="assessDate" class="date" type="text" value="" size="10" /></td>
 			        </tr>
 			         
