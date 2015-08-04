@@ -145,8 +145,8 @@
 			            <td>
 			                <label><input type="radio" name="nudetonety" value="0" /> 請選擇</label>　　
 			                <label><input type="radio" name="nudetonety" value="1" /> 純音</label>　　
-			                <label><input type="radio" name="nudetone" value="2" /> 顫音</label>　　
-			                <label><input type="radio" name="nudetone" value="3" /> 窄頻音</label>
+			                <label><input type="radio" name="nudetonety" value="2" /> 顫音</label>　　
+			                <label><input type="radio" name="nudetonety" value="3" /> 窄頻音</label>
 			            </td>
 			        </tr>
 			        <tr>

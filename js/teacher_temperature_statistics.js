@@ -10,13 +10,41 @@ $(document).ready(function() {
     initPage();
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
 
+ 
+    $("#name").autocomplete({
+        source: function (request, response) {
+            var data = {
+                term: request.term
+            };
+            $.ajax({
+                type: "POST",
+                url: "AspAjax.asmx/SearchStaff",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: "{ 'SearchString' : '" + request.term + "'}",
+               
+            }).success(function (data) {
+                response(data.d);
+
+            }).fail(function () {
+              //  alert("failed");
+            });
+        }
+    });
+
+
     $(".btnSearch").click(function() {
-        if ($('#yearDate').val() != -1 && $('#monthDate').val() != -1) {
+    
+         var id=$('#name').val().substring($('#name').val().indexOf("(")+1,$('#name').val().indexOf(")"));
+        if ($('#yearDate').val() != -1 && $('#monthDate').val() != -1 && id !="") {
             //alert($('#name').val());
-            AspAjax.getTeacherTemperatureData($('#name').val(), $('#yearDate').val(), $('#monthDate').val());
+            AspAjax.getTeacherTemperatureData(id, $('#yearDate').val(), $('#monthDate').val());
             // calendar($('#yearDate').val(), $('#monthDate').val());
         } else if ($('#yearDate').val() == -1 || $('#monthDate').val() == -1) {
             alert("請選擇測量年月份");
+        } else if (id =="")
+        {
+            alert("請輸入老師");
         }
     });
 });

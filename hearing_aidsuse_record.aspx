@@ -170,18 +170,18 @@
 			    
 			    <p><br />二、調頻系統資料</p>
 			    <table class="tableText" width="780" border="0">
-			        <tr>
+<%--			        <tr>
 			            <th width="100">取得日期</th>
 			            <td colspan="2"><input id="gainDate" class="date" type="text" value="" /></td>
-			        </tr>
+			        </tr>--%>
 			        <tr>
 			            <th>輔具來源</th>
 			            <td colspan="2"><label><input type="radio" name="fmAidssource" value="1" /> 自購</label>　　
 			                <label><input type="radio" name="fmAidssource" value="2" /> 中心租借</label>　　
-			                <label><input type="radio" name="aidssource3" value="3" /> 其他</label>
+			                <label><input type="radio" name="fmAidssource" value="3" /> 其他</label>
 			            </td>
 			        </tr>
-			        <tr>
+			   <%--     <tr>
 			            <th>輔具類型</th>
 			            <td colspan="2"><label><input type="radio" name="fmAidstype" value="1" /> 發射器</label>　　
 			                <label><input type="radio" name="fmAidstype" value="2" /> 左接收器</label>　　
@@ -191,7 +191,7 @@
 			        <tr>
 			            <th>廠牌</th>
 			            <td colspan="2"><select id="fmBrand"></select></td>
-			        </tr>
+			        </tr>--%>
 			        <tr>
 			            <th>型號</th>
 			            <td colspan="2"><input id="fmModel" type="text" value="" /></td>

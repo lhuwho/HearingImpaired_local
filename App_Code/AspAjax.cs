@@ -1601,6 +1601,15 @@ public class AspAjax : System.Web.Services.WebService {
         // string SearchString = HttpContext.Current.Request["data"];
          return sDB.SearchStudent(SearchString);
      }
+     [WebMethod]
+     public List<string> SearchStaff(string SearchString)
+     {
+
+         StaffDataBase sDB = new StaffDataBase();
+
+         // string SearchString = HttpContext.Current.Request["data"];
+         return sDB.SearchStaff(SearchString);
+     }
      /*[WebMethod]
      public bool staffhaveRoles(string RolesObjectValue)
      { 

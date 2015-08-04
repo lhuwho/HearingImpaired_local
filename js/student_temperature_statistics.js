@@ -10,15 +10,44 @@ $(document).ready(function() {
     initPage();
     
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
+    
+    
+    $("#studentID").autocomplete({
+        source: function (request, response) {
+            var data = {
+                term: request.term
+            };
+            $.ajax({
+                type: "POST",
+                url: "AspAjax.asmx/SearchStudent",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: "{ 'SearchString' : '" + request.term + "'}",
+               
+            }).success(function (data) {
+                response(data.d);
+
+            }).fail(function () {
+              //  alert("failed");
+            });
+        }
+    });
+
+
 
     $(".btnSearch").click(function() {
-
-        if ($('#yearDate').val() != -1 && $('#monthDate').val() != -1) {
-            AspAjax.getStudentTemperatureData($('#studentID').val(), $('#yearDate').val(), $('#monthDate').val());
+        var id=$('#studentID').val().substring($('#studentID').val().indexOf("(")+1,$('#studentID').val().indexOf(")"));
+        if ($('#yearDate').val() != -1 && $('#monthDate').val() != -1 && id !="") {
+        
+            AspAjax.getStudentTemperatureData(id, $('#yearDate').val(), $('#monthDate').val());
             
         } else if ($('#yearDate').val() == -1 ||$('#monthDate').val() == -1) {
             alert("請選擇測量年月份");
+        }   else if (id =="")
+        {
+            alert("請輸入學生");
         }
+        
     });
 });
 function SucceededCallback(result, userContext, methodName) {
@@ -46,6 +75,24 @@ function SucceededCallback(result, userContext, methodName) {
             break;
         case "updateStudentTemperatureDataBase":
             break;
+//        case "getAllStaffDataList":
+//            if (!(result == null || result.length == 0 || result == undefined)) {
+//                if (result[0].checkNo == null && parseInt(result[0].checkNo) != -1) {
+//                    for (var i = 0; i < result.length; i++) {
+//                        $("#eventStaffList").append($('<option></option>').attr("value", result[i].sID).text(result[i].sName + "(" + result[i].sID + ")"));
+//                    }
+//                    $("#eventStaffList").trigger('chosen:updated');
+//                    AspAjax.getStudentActivityData(_MainID);
+//                } else {
+//                    alert("發生錯誤，錯誤訊息如下：" + result[0].errorMsg);
+//                }
+//            } else {
+//                $("#eventStaffList").find("option").empty();
+//            }
+//            break;
+//        case "getAllStudentDataList":
+//            
+//            break;
     }
 }
 function calendar(getYear, getMonth) {

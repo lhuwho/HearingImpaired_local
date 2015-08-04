@@ -1311,7 +1311,7 @@ public class AdministrationDataBase
         returnValue[0] = "0";
         returnValue[1] = "0";
         DateTime now = DateTime.Now;
-        deleteStudentTemperatureData(temperatureDataSystem.txtpeopleID, now.Year.ToString(), now.Month.ToString(), now.Day.ToString());
+        //deleteStudentTemperatureData(temperatureDataSystem.txtpeopleID, now.Year.ToString(), now.Month.ToString(), now.Day.ToString());
         DataBase Base = new DataBase();
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
@@ -1333,17 +1333,17 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@LeaveItem", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(temperatureDataSystem.leaveItem);
                 cmd.Parameters.Add("@LeaveState", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.leaveStatus);
                 if (string.IsNullOrEmpty(temperatureDataSystem.Year))
-                    cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Year.ToString());
+                { cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Year.ToString()); }
                 else
-                    cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Year);
+                { cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Year); }
                 if (string.IsNullOrEmpty(temperatureDataSystem.Month))
-                    cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Month.ToString());
+                { cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Month.ToString()); }
                 else
-                    cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Month);
+                { cmd.Parameters.Add("@Month", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Month); }
                 if (string.IsNullOrEmpty(temperatureDataSystem.Day))
-                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Day.ToString());
+                { cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(now.Day.ToString()); }
                 else
-                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Day);
+                { cmd.Parameters.Add("@Day", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(temperatureDataSystem.Day); }
 
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();

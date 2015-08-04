@@ -1370,7 +1370,7 @@ public class StaffDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT * FROM StaffWorkRecordData WHERE isDeleted=0 AND staffID=@staffID ORDER BY WorkDate";
+                string sql = "SELECT * FROM StaffWorkRecordData WHERE isDeleted=0 AND staffID=@staffID ORDER BY WorkDate DESC";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@staffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffID);
 
@@ -2666,6 +2666,44 @@ public class StaffDataBase
             {
                 returnValue[0] = "-1";
                 returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+
+    public List<string> SearchStaff(string SearchString)
+    {
+        List<string> returnValue = new List<string>();
+        string atom = "";
+
+        DataBase Base = new DataBase();
+
+
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT top 10 staffid,staffName FROM StaffDatabase WHERE isDeleted=0 AND (staffid like  '%' + @StudentID + '%' or " +
+                    "staffName like '%' + @StudentName + '%') and ResignationDate = '1900-01-01' ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = SearchString;
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = SearchString;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    atom = dr["staffName"].ToString() + "(" + dr["staffid"].ToString() + ")";
+
+                    returnValue.Add(atom);
+
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+
             }
         }
         return returnValue;
