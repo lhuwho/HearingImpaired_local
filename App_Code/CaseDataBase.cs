@@ -2491,6 +2491,32 @@ public class CaseDataBase
             StudentTracked.insertHospitalL = oldStudentDataBase5.insertHospitalL;
             StudentTracked.openHzDateL = oldStudentDataBase5.openHzDateL;
             this.createStudentTrackedDataBase(StudentTracked);
+            OtherDataBase oDB = new OtherDataBase();
+            StaffDataBase sDB = new StaffDataBase();
+            List<int> item = new List<int>();
+            item.Add(18);
+            item.Add(17);
+            int[] days = {30,90,180};
+            List<StaffDataList> SDL = sDB.getAllStaffDataList(item);
+            foreach (StaffDataList atom in SDL)
+            {
+                if (atom.sUnit == StudentData.Unit)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        CreateRemind Remind = new CreateRemind();
+                        Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(days[i]).ToShortDateString();
+                        Remind.recipientID = atom.sID;
+                        Remind.executionContent = StudentData.studentName + " 離會後 - 第 " + (i + 1).ToString() + " 次追蹤";
+                        //cmd.Parameters.Add("@Executor", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(RemindSystemData.recipientID);
+                        //cmd.Parameters.Add("@RemindContent", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(RemindSystemData.executionContent);
+                        //cmd.Parameters.Add("@RemindDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.executionDate);
+                        //cmd.Parameters.Add("@CompleteDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.fulfillmentDate);
+                        oDB.CreateRemindSystem(Remind);
+                    }
+                }
+            }
+
         }
         SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
         using (Sqlconn)

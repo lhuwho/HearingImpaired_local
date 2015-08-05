@@ -1771,7 +1771,7 @@ public class StaffDataBase
                     itemStr += " AND Unit =" + UserFile[2] + " ";
                 }
                 List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
-                string sql = "SELECT * FROM StaffDatabase WHERE isDeleted=0 " + itemStr + "order by StaffID ASC";
+                string sql = "SELECT * FROM StaffDatabase WHERE isDeleted=0  and ResignationDate = '1900-01-01' " + itemStr + "order by StaffID ASC";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[2].ToString());
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -1781,6 +1781,7 @@ public class StaffDataBase
                     addValue.sID = dr["StaffID"].ToString();
                     addValue.sName = dr["StaffName"].ToString();
                     addValue.sEmail = dr["Email"].ToString();
+                    addValue.sUnit = dr["Unit"].ToString();
                     returnValue.Add(addValue);
 
                 }
