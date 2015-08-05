@@ -49,7 +49,45 @@ function getViewData(id, act) {
 
 function getAdd(tid) {
     var inner = '';
+    inner += ' <tr id="'+tid+'_'+($("#table" + tid + ">tbody>tr").length+1))+'dataTR">'+
+                ' <td colspan="4">  <table class="tableContact2" width="774" border="0"> <tr><th width="50">目標</th>'+
+                '<td width="480"><textarea id="'+tid+'_'+($("#table" + tid + ">tbody>tr").length+1))+'TargetShort" class="short" cols="50" rows="3"></textarea></td>'
     
+//    <tr id="1_1dataTR">
+//                            <td colspan="4">
+//                                <table class="tableContact2" width="774" border="0">
+//                                    <tr>
+//                                        <th width="50">目標</th>
+//                                        <td width="480"><textarea id="1_1_1TargetShort" class="short" cols="50" rows="3"></textarea></td>
+//                                        <td rowspan="2" width="84">
+//                                            <input id="1_1_1PlanExecutionDate1" class="date" type="text" value="" size="10" /><br />
+//                                            <input id="1_1_1PlanExecutionDate2" class="date" type="text" value="" size="10" /><br />
+//                                            <input id="1_1_1PlanExecutionDate3" class="date" type="text" value="" size="10" /><br />
+//                                            <input id="1_1_1PlanExecutionDate4" class="date" type="text" value="" size="10" /><br />
+//                                            <input id="1_1_1PlanExecutionDate5" class="date" type="text" value="" size="10" />
+//                                        </td>
+//                                        <td rowspan="2" width="80" >
+//                                            <select id="1_1_1Assessment1"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+//                                            <select id="1_1_1Assessment2"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+//                                            <select id="1_1_1Assessment3" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+//                                            <select id="1_1_1Assessment4" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
+//                                            <select id="1_1_1Assessment5" ><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
+//                                        </td>
+//                                        <td rowspan="2" width="80">
+//                                            <select id="1_1_1Performance1"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+//                                            <select id="1_1_1Performance2"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+//                                            <select id="1_1_1Performance3"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+//                                            <select id="1_1_1Performance4"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
+//                                            <select id="1_1_1Performance5"><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
+//                                        </td>
+//                                    </tr>
+//                                    <tr>
+//                                        <th>學習<br />進度</th>
+//                                        <td><textarea id="1_1_1TargetContent" class="short" cols="50" rows="10"></textarea></td>
+//                                    </tr>
+//                                </table>
+//                            </td>
+//                        </tr>
 //    $("#table" + tid + ">tbody>tr:last-child").after($("#dataTR" + tid).clone().attr("id", "dataTR" + tid + ($("#table" + tid + ">tbody>tr").length+1)));
 //    var inner = '';
 //    for (var i = 1; i < 6; i++) {

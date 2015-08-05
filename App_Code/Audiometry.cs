@@ -1568,6 +1568,25 @@ public class Audiometry
                         DateItem.insertHospitalL = StructData.insertHospitalL;
                         DateItem.openHzDateL = StructData.openHzDateL;
                         this.ComparisonAidsData(DateItem);
+                        CreateStudentAidsUse AidsUse = new CreateStudentAidsUse();
+                        AidsUse.assessDate = StructData.checkDate;
+                        AidsUse.studentID = StructData.studentID;
+                        AidsUse.assistmanageR = StructData.assistmanageR;
+                        AidsUse.brandR = StructData.brandR;
+                        AidsUse.modelR = StructData.modelR;
+                        AidsUse.buyingPlaceR = StructData.buyingPlaceR;
+                        AidsUse.buyingtimeR = StructData.buyingtimeR;
+                        AidsUse.insertHospitalR = StructData.insertHospitalR;
+                        AidsUse.openHzDateR = StructData.openHzDateR;
+                        AidsUse.assistmanageL = StructData.assistmanageL;
+                        AidsUse.brandL = StructData.brandL;
+                        AidsUse.modelL = StructData.modelL;
+                        AidsUse.buyingtimeL = StructData.buyingtimeL;
+                        AidsUse.buyingPlaceL = StructData.buyingPlaceL;
+                        AidsUse.insertHospitalL = StructData.insertHospitalL;
+                        AidsUse.openHzDateL = StructData.openHzDateL;
+
+                        createStudentAidsUse(AidsUse);
                 }
                 Sqlconn.Close();
             }
