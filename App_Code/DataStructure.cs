@@ -3587,8 +3587,45 @@ public struct TeachServiceInspect
 }
 
 
+public struct SingleClassShortTerm
+{
+    public string ID;
+    public string Unit;
+    public string StudentID;
+    public string PlanDateStart;
+    public string PlanDateEnd;
+    public string Remark;
+    public List<SingleClassShortTermTarget> SingleClassShortTermTarget;
+}
 
 
+public struct SingleClassShortTermTarget
+{
+    public string ID;
+    public string PlanOrder;
+    public string DetailOrder;
+    public string SCSTID;
+    public string TPDID;
+    public string TargetMain;
+    public string TargetContent;
+    public string PlanExecutionDate1;
+    public string PlanExecutionDate2;
+    public string PlanExecutionDate3;
+    public string PlanExecutionDate4;
+    public string PlanExecutionDate5;
+    public string Assessment1;
+    public string Assessment2;
+    public string Assessment3;
+    public string Assessment4;
+    public string Assessment5;
+    public string Performance1;
+    public string Performance2;
+    public string Performance3;
+    public string Performance4;
+    public string Performance5;
+
+
+}
 
 
 

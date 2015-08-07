@@ -680,6 +680,24 @@ public class AspAjax : System.Web.Services.WebService {
         return aDB.SearchFmAssessmentData(index, StructData);
     }
     /* 教學相關 */
+
+
+    [WebMethod]//教案 取得件數
+    public int[] GetSingleTeachCaseCount(int studentID,string StartDate,string EndDate)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.GetSingleTeachCaseCount(studentID, StartDate, EndDate);
+    }
+    [WebMethod]//教案 取得ISP資料
+    public List<SingleClassShortTermTarget> GetSingleTeachCase(int studentID, string StartDate, string EndDate)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.GetSingleTeachCase(studentID, StartDate, EndDate);
+    }
+
+
+
+
     [WebMethod]
     public int createCoursePlanTemplate(int Unit, int ClassID, int TeacherID, int CourseID, string StartPeriod, string EndPeriod, List<string[]> targetContent)
     {

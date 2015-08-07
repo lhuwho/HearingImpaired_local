@@ -2005,5 +2005,87 @@ public class TeachDataBase
         }
         return returnValue;
     }
+
+    public int[] GetSingleTeachCaseCount(int studentID, string StartDate, string EndDate)
+    {
+        int[] returnValue = { 0, 0 };
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " select SUM(Case (isnull(teachorder,0)) when 1 then 1 else 0 end) as Q1 , SUM(Case (isnull(teachorder,0)) when 2 then 1 else 0 end) as Q2 ";
+                sql += "  from TeachingPlanDetail a  left join TeachingPlan b on a.TPMID = b.ID ";
+                sql += " where 1=1 ";
+                sql += " and b.ispID in  (select ID from CaseISPstate where StudentID = @StudentID) ";
+                sql += " and (( DateStart between @Start and @End   or DateEnd between @Start and @End ) or ( DateStart < @Start  and DateEnd > @End )) ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = studentID;
+                cmd.Parameters.Add("@Start", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StartDate);
+                cmd.Parameters.Add("@End", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(EndDate);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue[0] = Convert.ToInt16(dr["q1"].ToString());
+                    returnValue[1] = Convert.ToInt16(dr["q2"].ToString());
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                //returnValue = -1;
+            }
+        }
+        return returnValue;
+    
+    }
+
+    public List<SingleClassShortTermTarget> GetSingleTeachCase(int studentID, string StartDate, string EndDate)
+    {
+
+        List<SingleClassShortTermTarget> returnValue = new List<SingleClassShortTermTarget>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " select * ";
+                sql += "  from TeachingPlanDetail a  left join TeachingPlan b on a.TPMID = b.ID ";
+                sql += " where 1=1 ";
+                sql += " and b.ispID in  (select ID from CaseISPstate where StudentID = @StudentID) ";
+                sql += " and (( DateStart between @Start and @End   or DateEnd between @Start and @End ) or ( DateStart < @Start  and DateEnd > @End )) ";
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = studentID;
+                cmd.Parameters.Add("@Start", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StartDate);
+                cmd.Parameters.Add("@End", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(EndDate);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    SingleClassShortTermTarget addValue = new SingleClassShortTermTarget();
+                    addValue.ID = dr["id"].ToString();
+                    addValue.PlanOrder = dr["TeachOrder"].ToString();
+                    addValue.TargetMain = dr["TargetShort"].ToString();
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                //returnValue = -1;
+            }
+        }
+        return returnValue;
+
+    }
+
+
+
+
 }
 
