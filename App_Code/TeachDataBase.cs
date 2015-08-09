@@ -2084,6 +2084,152 @@ public class TeachDataBase
 
     }
 
+    public int CreateSingleTeachCase(SingleClassShortTerm StructData)
+    {
+        int returnValue = 0;
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " DECLARE @SCSTID int;  ";
+                sql += " insert into  SingleClassShortTerm (StudentID,PlanDateStart,PlanDateEnd,Remark,CreateFileBy,CreateFileDate,UpFileBy,UpFileDate,isDeleted ";
+                sql += " )values( ";
+                sql += " @StudentID,@PlanDateStart,@PlanDateEnd,@Remark,@CreateFileBy,getdate(),@CreateFileBy,getdate(),0 ) ";
+                sql += " select @SCSTID = (SELECT @@IDENTITY) ";
+                int i = 1;
+                foreach (SingleClassShortTermTarget atom in StructData.SingleClassShortTermTarget)
+                {
+                    sql += " insert into SingleClassShortTermTarget ( ";
+                    sql += " PlanOrder,DetailOrder,SCSTID,TPDID,TargetMain,TargetContent,PlanExecutionDate1,PlanExecutionDate2,PlanExecutionDate3,PlanExecutionDate4,PlanExecutionDate5";
+                    sql += " ,Assessment1,Assessment2,Assessment3,Assessment4,Assessment5,Performance1,Performance2,Performance3,Performance4,Performance5 ";
+                    sql += " )values( ";
+                    sql += " @PlanOrder" + i.ToString() + ",@DetailOrder" + i.ToString() + ",@SCSTID,@TPDID" + i.ToString() + ",@TargetMain" + i.ToString() + ",@TargetContent" + i.ToString() + ",@PlanExecutionDate1" + i.ToString() + ",@PlanExecutionDate2" + i.ToString() + ",@PlanExecutionDate3" + i.ToString() + ",@PlanExecutionDate4" + i.ToString() + ",@PlanExecutionDate5" + i;
+                    sql += ",@Assessment1" + i.ToString() + ",@Assessment2" + i.ToString() + ",@Assessment3" + i.ToString() + ",@Assessment4" + i.ToString() + ",@Assessment5" + i.ToString() + ",@Performance1" + i.ToString() + ",@Performance2" + i.ToString() + ",@Performance3" + i.ToString() + ",@Performance4" + i.ToString() + ",@Performance5" + i.ToString() + ") ";
+                    i++;
+                }
+                sql += " select @SCSTID as SCSTID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( StructData.StudentID);
+                cmd.Parameters.Add("@PlanDateStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StructData.PlanDateStart);
+                cmd.Parameters.Add("@PlanDateEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StructData.PlanDateEnd);
+                cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StructData.Remark);
+                cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                i = 1;
+                foreach (SingleClassShortTermTarget atom in StructData.SingleClassShortTermTarget)
+                {
+                    cmd.Parameters.Add("@PlanOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.PlanOrder);
+                    cmd.Parameters.Add("@DetailOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.DetailOrder);
+                    cmd.Parameters.Add("@TPDID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.TPDID);
+                    cmd.Parameters.Add("@TargetMain" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.TargetMain);
+                    cmd.Parameters.Add("@TargetContent" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.TargetContent);
+                    cmd.Parameters.Add("@PlanExecutionDate1" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.PlanExecutionDate1);
+                    cmd.Parameters.Add("@PlanExecutionDate2" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.PlanExecutionDate2);
+                    cmd.Parameters.Add("@PlanExecutionDate3" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.PlanExecutionDate3);
+                    cmd.Parameters.Add("@PlanExecutionDate4" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.PlanExecutionDate4);
+                    cmd.Parameters.Add("@PlanExecutionDate5" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(atom.PlanExecutionDate5);
+                    cmd.Parameters.Add("@Assessment1" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Assessment1);
+                    cmd.Parameters.Add("@Assessment2" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Assessment2);
+                    cmd.Parameters.Add("@Assessment3" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Assessment3);
+                    cmd.Parameters.Add("@Assessment4" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Assessment4);
+                    cmd.Parameters.Add("@Assessment5" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(atom.Assessment5);
+                    cmd.Parameters.Add("@Performance1" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Performance1);
+                    cmd.Parameters.Add("@Performance2" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Performance2);
+                    cmd.Parameters.Add("@Performance3" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Performance3);
+                    cmd.Parameters.Add("@Performance4" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Performance4);
+                    cmd.Parameters.Add("@Performance5" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.Performance5);
+                    i++;
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue = Convert.ToInt16( dr["SCSTID"].ToString());
+                    //returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                returnValue = -1;
+            }
+        }
+
+        return returnValue;
+    }
+
+    public SingleClassShortTerm GetSingleTeachShortTerm(int SCSTID)
+    {
+
+        SingleClassShortTerm returnValue = new SingleClassShortTerm();
+        returnValue.SingleClassShortTermTarget = new List<SingleClassShortTermTarget>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " select a.*,b.* ";
+                sql += "  from SingleClassShortTerm a  left join SingleClassShortTermTarget b on a.ID = b.SCSTID ";
+                sql += " left join (select studentName , studentID as cid from studentdatabase) c on a.studentID = c.cid ";
+                sql += " where 1=1 ";
+                sql += " and a.ID = @SCSTID ";
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@SCSTID", SqlDbType.Int).Value = SCSTID;
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (returnValue.StudentID == null)
+                    {
+                        returnValue.StudentID = dr["studentID"].ToString();
+                        returnValue.Remark = dr["remark"].ToString();
+                        returnValue.PlanDateStart = DateTime.Parse(dr["PlanDateStart"].ToString()).ToString("yyyy-MM-dd");
+                        returnValue.PlanDateEnd = DateTime.Parse(dr["PlanDateEnd"].ToString()).ToString("yyyy-MM-dd");
+                    }
+                    SingleClassShortTermTarget addValue = new SingleClassShortTermTarget();
+                    addValue.DetailOrder = dr["DetailOrder"].ToString();
+                    addValue.PlanOrder = dr["PlanOrder"].ToString();
+                    addValue.TargetMain = dr["TargetMain"].ToString();
+                    addValue.TargetContent = dr["targetContent"].ToString();
+                    
+                    addValue.Assessment1 = dr["Assessment1"].ToString();
+                    addValue.Assessment2 = dr["Assessment2"].ToString();
+                    addValue.Assessment3 = dr["Assessment3"].ToString();
+                    addValue.Assessment4 = dr["Assessment4"].ToString();
+                    addValue.Assessment5 = dr["Assessment5"].ToString();
+
+                    addValue.PlanExecutionDate1 = DateTime.Parse(dr["PlanExecutionDate1"].ToString()).ToString("yyyy-MM-dd");
+                    addValue.PlanExecutionDate2 = DateTime.Parse(dr["PlanExecutionDate2"].ToString()).ToString("yyyy-MM-dd");
+                    addValue.PlanExecutionDate3 = DateTime.Parse(dr["PlanExecutionDate3"].ToString()).ToString("yyyy-MM-dd");
+                    addValue.PlanExecutionDate4 = DateTime.Parse(dr["PlanExecutionDate4"].ToString()).ToString("yyyy-MM-dd");
+                    addValue.PlanExecutionDate5 = DateTime.Parse(dr["PlanExecutionDate5"].ToString()).ToString("yyyy-MM-dd");
+
+                    addValue.Performance1 = dr["Performance1"].ToString();
+                    addValue.Performance2 = dr["Performance2"].ToString();
+                    addValue.Performance3 = dr["Performance3"].ToString();
+                    addValue.Performance4 = dr["Performance4"].ToString();
+                    addValue.Performance5 = dr["Performance5"].ToString();
+
+                    returnValue.SingleClassShortTermTarget.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                //returnValue = -1;
+            }
+        }
+        return returnValue;
+
+    }
+
 
 
 

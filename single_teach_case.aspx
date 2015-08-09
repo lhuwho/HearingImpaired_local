@@ -115,54 +115,7 @@
 			    
 			  
 			    <p class="cP">領域(一) 聽覺</p>
-			  <%--  
-                <table id="table1" class="tableContact" width="780" border="0">
-                    <thead>
-                        <tr>
-                            <td>聽覺輔具　<button type="button" class="btnAdd" onclick="getAdd(1)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(1)">－</button></td>
-                            <th width="86">執行日期</th>
-                            <th width="82">評量方式</th>
-                            <th width="82">學習表現</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr id="dataTR1">
-                            <td colspan="4">
-                                <table class="tableContact2" width="774" border="0">
-                                    <tr>
-                                        <th width="50">目標</th>
-                                        <td width="480"><textarea class="short" cols="50" rows="3"></textarea></td>
-                                        <td rowspan="2" width="84">
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" />
-                                        </td>
-                                        <td rowspan="2" width="80" class="wayTD">
-                                            <select id="way111" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way112" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way113" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way114" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way115" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
-                                        </td>
-                                        <td rowspan="2" width="80">
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>學習<br />進度</th>
-                                        <td><textarea class="short" cols="50" rows="10"></textarea></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>--%>
+			  
                 
                 <table id="table1" class="tableContact" width="780" border="0">
                     <thead>
@@ -320,7 +273,7 @@
 		                <th>整體學習說明及其它備註說明：</th>
 		            </tr>
 		            <tr>
-		                <td align="center"><textarea cols="100" rows="10"></textarea></td>
+		                <td align="center"><textarea id="Remark" cols="100" rows="10"></textarea></td>
 		            </tr>
 			    </table>
                 
