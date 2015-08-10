@@ -7,19 +7,24 @@
     <title>聽力管理 - 聽檢預約 | 財團法人中華民國婦聯聽障文教基金會管理後臺</title>
 	<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="./css/All.css" />
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+	
 	
 	<link rel="stylesheet" type="text/css" href="./css/chosen/chosen.css" />
-	<script type="text/javascript" src="./js/chosen.jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.8.13.custom.css" />
-    <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
-    <link rel='stylesheet' type='text/css' href='./css/jquery.weekcalendar.css' />
-    <script type='text/javascript' src='./js/jquery.weekcalendar.js'></script>
-    <link rel="stylesheet" type="text/css" href="./css/audiometry_appointment.css" />
     
+    <link rel='stylesheet' type='text/css' href='./css/jquery.weekcalendar.css' />
+    
+    <link rel="stylesheet" type="text/css" href="./css/audiometry_appointment.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
+    
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+    <script type="text/javascript" src="./js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type='text/javascript' src='./js/jquery.weekcalendar.js'></script>
+    
     <script type="text/javascript" src="./js/jquery.fancybox-1.3.4.pack.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
+	
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
     <script type="text/javascript" src="./js/base.js"></script>
@@ -108,9 +113,9 @@
 	            </div>
 			</div>
 			<div id="main">
-			<div id="mainContent">
-			    
-			</div>
+			    <div id="mainContent">
+    			    
+			    </div>
 			</div>
 		</div>
 		<div id="footer"></div>

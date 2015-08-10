@@ -17,7 +17,7 @@ using System.Collections.Generic;
 public class AudiometryAppointment : IHttpHandler {
     protected List<AADataList> returnvalue;
     //protected string connect = @"data source='(local)';Database='a2012tbtw';Trusted_Connection=False;User ID='a2012tbtw';Password='ogdvu524'";
-    protected string connect = @"data source='(local)';Initial Catalog='HearingImpaired';Integrated Security=True;";
+    protected string connect = "";//@"data source='(local)';Initial Catalog='HearingImpaired';Integrated Security=True;";
     
     
     public struct AADataList
@@ -41,6 +41,8 @@ public class AudiometryAppointment : IHttpHandler {
     }
     
     public void ProcessRequest (HttpContext context) {
+        DataBase myBase = new DataBase();
+        connect = myBase.GetConnString();
         //設定輸出格式為json格式
         context.Response.ContentType = "application/json";
         context.Request.ContentEncoding = System.Text.Encoding.UTF8;
