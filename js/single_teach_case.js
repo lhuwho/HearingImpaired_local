@@ -236,7 +236,7 @@ function SucceededCallback(result, userContext, methodName) {
             break;
         case "GetSingleTeachShortTerm":
             if (!(result == null || result.length == 0 || result == undefined)) {
-                PushPageValue(result);
+                
                 var case1 = 1; var case2 = 1; //宣告是第幾個用
                 while ($("#table1>tbody>tr").length > 0) {
                     $("#table1>tbody>tr:last-child").detach();
@@ -252,7 +252,8 @@ function SucceededCallback(result, userContext, methodName) {
                     }
 
                 }
-                setInitData();
+                PushPageValue(result);
+                //setInitData();
                 for (var i = 0; i < result.SingleClassShortTermTarget.length; i++) {
                     if (result.SingleClassShortTermTarget[i].PlanOrder == 1) {
                         $("#1_" + case1 + "TargetShort").val(result.SingleClassShortTermTarget[i].TargetMain);
@@ -279,7 +280,6 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#2_" + case2 + "TargetShort").val(result.SingleClassShortTermTarget[i].TargetMain);
                         $("#2_" + case2 + "TargetContent").val(result.SingleClassShortTermTarget[i].TargetContent);
                         $("#2_" + case2 + "TPDID").html(result.SingleClassShortTermTarget[i].TPDID);
-
                         $("#2_" + case2 + "Assessment1").val(result.SingleClassShortTermTarget[i].Assessment1);
                         $("#2_" + case2 + "Assessment2").val(result.SingleClassShortTermTarget[i].Assessment2);
                         $("#2_" + case2 + "Assessment3").val(result.SingleClassShortTermTarget[i].Assessment3);
@@ -303,7 +303,7 @@ function SucceededCallback(result, userContext, methodName) {
                 }
 
             }
-            setInitData();
+           // setInitData();
             $("input").add("select").add("textarea").attr("disabled", true);
             break;
         case "SearchSingleTeachCount":

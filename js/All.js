@@ -221,7 +221,7 @@ function getMenu(resultRoles) {
                             '<li><a href="./teach_service_inspect.aspx">教學服務檢核</a></li>' +
                             '<li><a href="./teacher_schedule.aspx">教師服務時間表</a></li>' +
                             '<li><a href="./classrooms_schedule.aspx">教室使用時間表</a></li>' +
-                            '<li><a href="./foundation_schedule.aspx">全會課表</a></li>' +
+//                            '<li><a href="./foundation_schedule.aspx">全會課表</a></li>' +
 					    '</ul>';
     }
     if (parseInt(resultRoles.personnel[0], 2) > 0) {
