@@ -3589,9 +3589,13 @@ public struct TeachServiceInspect
 
 public struct SingleClassShortTerm
 {
+    public string RowNum;
     public string ID;
     public string Unit;
-    public string StudentID;
+    public string studentID;
+    public string studentName;
+    public string teacherName;
+    public string teacherID;
     public string PlanDateStart;
     public string PlanDateEnd;
     public string Remark;

@@ -4277,6 +4277,124 @@ public class AdministrationDataBase
 
 
 
+    private string SearchSingleTeachCondition(SearchCaseISPRecord SearchStructure, int type)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStructure.txtstudentName != null)
+        {
+            ConditionReturn += " AND StudentName like (@StudentName) ";
+        }
+        if (SearchStructure.txtteacherName != null)
+        {
+            ConditionReturn += " AND TeacherName like (@TeacherName) ";
+        }
+        if (SearchStructure.txtConventionDatestart != null && SearchStructure.txtConventionDateend != null && SearchStructure.txtConventionDatestart != DateBase && SearchStructure.txtConventionDateend != DateBase)
+        {
+            ConditionReturn += " AND ( PlanDateStart BETWEEN (@ConventionDatestart) AND (@ConventionDaterend) or  PlanDateEnd BETWEEN (@ConventionDatestart) AND (@ConventionDaterend) ) ";
+        }
+        StaffDataBase sDB = new StaffDataBase();
+        List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        caseBTFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND b.Unit =" + UserFile[2] + " ";
+        }
+        if (type == 0)
+        {
+            ConditionReturn += " AND b.CaseStatu2 =" + type + " ";
+        }
+        return ConditionReturn;
+    }
+
+    public string[] SearchSingleTeachCount(SearchCaseISPRecord SearchStructure, int type)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchSingleTeachCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM SingleClassShortTerm a left join studentDatabase b on a.studentid = b.id left join ( select staffid as cid , StaffName as TeacherName from staffDatabase ) c on a.teacherid = c.cid  WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@TeacherName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtteacherName) + "%";
+                cmd.Parameters.Add("@ConventionDatestart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtConventionDatestart);
+                cmd.Parameters.Add("@ConventionDaterend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtConventionDateend);
+
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<SingleClassShortTerm> SearchSingleTeach(int indexpage, SearchCaseISPRecord SearchStructure, int type)
+    {
+
+        List<SingleClassShortTerm> returnValue = new List<SingleClassShortTerm>();
+        DataBase Base = new DataBase();
+        string ConditionReturn = this.SearchCaseISPRecordCondition(SearchStructure, type);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " SELECT * from (SELECT ROW_NUMBER() OVER (ORDER BY isnull( a.id,'') DESC) as RowNum,a.ID , PlanDateStart ,PlanDateEnd  , b.studentName , c.TeacherName  ";
+                sql += "  FROM SingleClassShortTerm a ";
+                sql += " left join studentDatabase b on a.studentid = b.studentid ";
+                sql += " left join ( select staffid as cid , StaffName as TeacherName from staffDatabase ) c on a.teacherid = c.cid";
+                sql += " WHERE isnull(a.isDeleted,0) = 0 " + ConditionReturn + ") AS NewTable ";
+
+                sql += " where  RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+
+
+
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtstudentName) + "%";
+                cmd.Parameters.Add("@TeacherName", SqlDbType.NVarChar).Value = "%" + Chk.CheckStringFunction(SearchStructure.txtteacherName) + "%";
+                cmd.Parameters.Add("@ConventionDatestart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtConventionDatestart);
+                cmd.Parameters.Add("@ConventionDaterend", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.txtConventionDateend);
+
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    SingleClassShortTerm addValue = new SingleClassShortTerm();
+                    addValue.RowNum = dr["rownum"].ToString();
+
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.studentName = dr["studentName"].ToString();
+                    addValue.teacherName = dr["teacherName"].ToString();
+                    addValue.PlanDateStart = DateTime.Parse(dr["PlanDateStart"].ToString()).ToString("yyyy-MM-dd");
+                    addValue.PlanDateEnd = DateTime.Parse(dr["PlanDateEnd"].ToString()).ToString("yyyy-MM-dd");
+
+                    returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                //ShowCaseISPRecord addValue = new ShowCaseISPRecord();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+        }
+        return returnValue;
+    }
+
+
 
 
 

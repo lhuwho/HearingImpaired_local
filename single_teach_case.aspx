@@ -8,13 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="./css/All.css" />
 	<link rel="stylesheet" type="text/css" href="./css/single_teach_case.css" />
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+<%--	<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
 	    
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.8.13.custom.css" />
     <link rel="stylesheet" type="text/css" href="./css/ui.dropdownchecklist.themeroller.css" />
     <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
-    <script type="text/javascript" src="./js/ui.dropdownchecklist-1.4-min.js"></script>
-	
+    <script type="text/javascript" src="./js/ui.dropdownchecklist-1.4-min.js"></script>--%>
+	<script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
     <script type="text/javascript" src="./js/jquery.fancybox-1.3.4.pack.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
@@ -51,14 +51,14 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table width="780" border="0">
+			        <table id="searchTable" width="780" border="0">
 			            <tr>
-			                <td width="260">學生姓名 <input type="text" name="name" /></td>
-			                <td width="260">教師姓名 <input type="text" name="name" /></td>
-			                <td width="260">計畫期程 <input class="date" type="text" name="name" size="10" />～<input class="date" type="text" name="name" size="10" /></td>
+			                <td width="260">學生姓名 <input type="text" value="" id="gosrhstudentName"></td>
+			                <td width="260">計畫期程 <input class="date" id="gosrhConventionDatestart" type="text" value="" size="10">～<input class="date" id="gosrhConventionDateend" type="text" value="" size="10"></td>
+			                <td width="260">教師姓名 <input  id="gosrhteacherName" type="text" ></td>     
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button">查 詢</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
 			            </tr>
 			        </table>
 			    </div>
@@ -280,7 +280,7 @@
 			    <p class="btnP">
 		            <button class="btnSave" onclick="Save(0)" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" onclick="Save(1)" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 			</div>

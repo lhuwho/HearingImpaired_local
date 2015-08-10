@@ -708,6 +708,26 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase tDB = new TeachDataBase();
         return tDB.GetSingleTeachShortTerm(SCSTID);
     }
+    [WebMethod]//教案 
+    public string[] SearchSingleTeachCount(SearchCaseISPRecord SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchSingleTeachCount(SearchStructure, 1);
+    }
+
+    [WebMethod]//教案 
+    public List<SingleClassShortTerm> SearchSingleTeach(int index, SearchCaseISPRecord SearchStructure)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.SearchSingleTeach(index, SearchStructure, 0);
+    }
+    [WebMethod]//教案 更新
+    public int UpdateSingleTeachCase(SingleClassShortTerm StructData)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.UpdateSingleTeachCase(StructData);
+    }
+
 
 
     [WebMethod]
