@@ -8,13 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="./css/All.css" />
 	<link rel="stylesheet" type="text/css" href="./css/single_teach_case.css" />
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+<%--	<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
 	    
     <link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.8.13.custom.css" />
     <link rel="stylesheet" type="text/css" href="./css/ui.dropdownchecklist.themeroller.css" />
     <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
-    <script type="text/javascript" src="./js/ui.dropdownchecklist-1.4-min.js"></script>
-	
+    <script type="text/javascript" src="./js/ui.dropdownchecklist-1.4-min.js"></script>--%>
+	<script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script>
 	<link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
     <script type="text/javascript" src="./js/jquery.fancybox-1.3.4.pack.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
@@ -51,14 +51,14 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table width="780" border="0">
+			        <table id="searchTable" width="780" border="0">
 			            <tr>
-			                <td width="260">學生姓名 <input type="text" name="name" /></td>
-			                <td width="260">教師姓名 <input type="text" name="name" /></td>
-			                <td width="260">計畫期程 <input class="date" type="text" name="name" size="10" />～<input class="date" type="text" name="name" size="10" /></td>
+			                <td width="260">學生姓名 <input type="text" value="" id="gosrhstudentName"></td>
+			                <td width="260">計畫期程 <input class="date" id="gosrhConventionDatestart" type="text" value="" size="10">～<input class="date" id="gosrhConventionDateend" type="text" value="" size="10"></td>
+			                <td width="260">教師姓名 <input  id="gosrhteacherName" type="text" ></td>     
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button">查 詢</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" onclick="Search()" type="button">查 詢</button></td>
 			            </tr>
 			        </table>
 			    </div>
@@ -115,54 +115,7 @@
 			    
 			  
 			    <p class="cP">領域(一) 聽覺</p>
-			  <%--  
-                <table id="table1" class="tableContact" width="780" border="0">
-                    <thead>
-                        <tr>
-                            <td>聽覺輔具　<button type="button" class="btnAdd" onclick="getAdd(1)">＋</button>　<button type="button" class="btnAdd" onclick="getSubtract(1)">－</button></td>
-                            <th width="86">執行日期</th>
-                            <th width="82">評量方式</th>
-                            <th width="82">學習表現</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr id="dataTR1">
-                            <td colspan="4">
-                                <table class="tableContact2" width="774" border="0">
-                                    <tr>
-                                        <th width="50">目標</th>
-                                        <td width="480"><textarea class="short" cols="50" rows="3"></textarea></td>
-                                        <td rowspan="2" width="84">
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" /><br />
-                                            <input class="date" type="text" value="" size="10" />
-                                        </td>
-                                        <td rowspan="2" width="80" class="wayTD">
-                                            <select id="way111" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way112" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way113" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way114" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select><br />
-                                            <select id="way115" class="way" multiple="multiple"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option></select>
-                                        </td>
-                                        <td rowspan="2" width="80">
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select><br />
-                                            <select><option value="0">請選擇</option><option value="1">○</option><option value="2">＋</option><option value="3">＋－</option><option value="4">－</option></select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>學習<br />進度</th>
-                                        <td><textarea class="short" cols="50" rows="10"></textarea></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>--%>
+			  
                 
                 <table id="table1" class="tableContact" width="780" border="0">
                     <thead>
@@ -320,14 +273,14 @@
 		                <th>整體學習說明及其它備註說明：</th>
 		            </tr>
 		            <tr>
-		                <td align="center"><textarea cols="100" rows="10"></textarea></td>
+		                <td align="center"><textarea id="Remark" cols="100" rows="10"></textarea></td>
 		            </tr>
 			    </table>
                 
 			    <p class="btnP">
 		            <button class="btnSave" onclick="Save(0)" type="button">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>
-		            <button class="btnSaveUdapteData" type="button">存 檔</button>
+		            <button class="btnSaveUdapteData" onclick="Save(1)" type="button">存 檔</button>
 		            <button class="btnCancel" type="button">取 消</button>
 		        </p></div>
 			</div>

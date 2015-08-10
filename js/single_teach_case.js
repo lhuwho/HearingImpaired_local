@@ -26,10 +26,10 @@ AspAjax.set_defaultSucceededCallback(SucceededCallback);
         }
     }
 
-    $(".way").dropdownchecklist({ width: 60 });
-    $(".ui-dropdownchecklist").css({ "margin": "4px 0", "height": "auto" });
-    $(".ui-dropdownchecklist-dropcontainer").css({ "height": "auto" });
-    $(".ui-dropdownchecklist-text").css({"font-size": "13px", "line-height": "20px"});
+//  //  $(".way").dropdownchecklist({ width: 60 });
+//    $(".ui-dropdownchecklist").css({ "margin": "4px 0", "height": "auto" });
+//    $(".ui-dropdownchecklist-dropcontainer").css({ "height": "auto" });
+//    $(".ui-dropdownchecklist-text").css({"font-size": "13px", "line-height": "20px"});
 });
 
 
@@ -187,11 +187,13 @@ function SucceededCallback(result, userContext, methodName) {
                     getAdd(2);
                 }
             }
+            setInitData();
             if ($("#PlanDateStart").val() != "" && $("#PlanDateEnd").val() != "" && $("#studentID").html() != "") {
                 // alert(1);
                 AspAjax.GetSingleTeachCase($("#studentID").html(), TransformRepublicReturnValue($("#PlanDateStart").val()), TransformRepublicReturnValue($("#PlanDateEnd").val()));
 
             }
+          //  setInitData();
 //            var id = GetQueryString("id");
 //            AspAjax.GetSingleTeachCase(id);
             break;
@@ -215,6 +217,146 @@ function SucceededCallback(result, userContext, methodName) {
 
             }
             break;
+        case "UpdateSingleTeachCase":
+            if (result > 1) {
+                alert("修改成功");
+                window.location = 'single_teach_case.aspx?id=' + result + '&act=2';
+            } else {
+                alert("發生錯誤");
+            }
+            break;
+            
+        case "CreateSingleTeachCase":
+            if (result > 1) {
+                alert("新增成功");
+                window.location = 'single_teach_case.aspx?id=' + result + '&act=2';
+            } else {
+                alert("發生錯誤");
+            }
+            break;
+        case "GetSingleTeachShortTerm":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                PushPageValue(result);
+                var case1 = 1; var case2 = 1; //宣告是第幾個用
+                while ($("#table1>tbody>tr").length > 0) {
+                    $("#table1>tbody>tr:last-child").detach();
+                }
+                while ($("#table2>tbody>tr").length > 0) {
+                    $("#table2>tbody>tr:last-child").detach();
+                }
+                for (var i = 0; i < result.SingleClassShortTermTarget.length; i++) {
+                    if (result.SingleClassShortTermTarget[i].PlanOrder == 1) {
+                        getAdd(1);
+                    } else if (result.SingleClassShortTermTarget[i].PlanOrder == 2) {
+                        getAdd(2);
+                    }
+
+                }
+                setInitData();
+                for (var i = 0; i < result.SingleClassShortTermTarget.length; i++) {
+                    if (result.SingleClassShortTermTarget[i].PlanOrder == 1) {
+                        $("#1_" + case1 + "TargetShort").val(result.SingleClassShortTermTarget[i].TargetMain);
+                        $("#1_" + case1 + "TargetContent").val(result.SingleClassShortTermTarget[i].TargetContent);
+                        $("#1_" + case1 + "TPDID").html(result.SingleClassShortTermTarget[i].TPDID);
+                        $("#1_" + case1 + "Assessment1").val(result.SingleClassShortTermTarget[i].Assessment1);
+                        $("#1_" + case1 + "Assessment2").val(result.SingleClassShortTermTarget[i].Assessment2);
+                        $("#1_" + case1 + "Assessment3").val(result.SingleClassShortTermTarget[i].Assessment3);
+                        $("#1_" + case1 + "Assessment4").val(result.SingleClassShortTermTarget[i].Assessment4);
+                        $("#1_" + case1 + "Assessment5").val(result.SingleClassShortTermTarget[i].Assessment5);
+                        $("#1_" + case1 + "Performance1").val(result.SingleClassShortTermTarget[i].Performance1);
+                        $("#1_" + case1 + "Performance2").val(result.SingleClassShortTermTarget[i].Performance2);
+                        $("#1_" + case1 + "Performance3").val(result.SingleClassShortTermTarget[i].Performance3);
+                        $("#1_" + case1 + "Performance4").val(result.SingleClassShortTermTarget[i].Performance4);
+                        $("#1_" + case1 + "Performance5").val(result.SingleClassShortTermTarget[i].Performance5);
+                        $("#1_" + case1 + "PlanExecutionDate1").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate1));
+                        $("#1_" + case1 + "PlanExecutionDate2").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate2));
+                        $("#1_" + case1 + "PlanExecutionDate3").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate3));
+                        $("#1_" + case1 + "PlanExecutionDate4").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate4));
+                        $("#1_" + case1 + "PlanExecutionDate5").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate5));
+
+                        case1++;
+                    } else if (result.SingleClassShortTermTarget[i].PlanOrder == 2) {
+                        $("#2_" + case2 + "TargetShort").val(result.SingleClassShortTermTarget[i].TargetMain);
+                        $("#2_" + case2 + "TargetContent").val(result.SingleClassShortTermTarget[i].TargetContent);
+                        $("#2_" + case2 + "TPDID").html(result.SingleClassShortTermTarget[i].TPDID);
+
+                        $("#2_" + case2 + "Assessment1").val(result.SingleClassShortTermTarget[i].Assessment1);
+                        $("#2_" + case2 + "Assessment2").val(result.SingleClassShortTermTarget[i].Assessment2);
+                        $("#2_" + case2 + "Assessment3").val(result.SingleClassShortTermTarget[i].Assessment3);
+                        $("#2_" + case2 + "Assessment4").val(result.SingleClassShortTermTarget[i].Assessment4);
+                        $("#2_" + case2 + "Assessment5").val(result.SingleClassShortTermTarget[i].Assessment5);
+                        $("#2_" + case2 + "Performance1").val(result.SingleClassShortTermTarget[i].Performance1);
+                        $("#2_" + case2 + "Performance2").val(result.SingleClassShortTermTarget[i].Performance2);
+                        $("#2_" + case2 + "Performance3").val(result.SingleClassShortTermTarget[i].Performance3);
+                        $("#2_" + case2 + "Performance4").val(result.SingleClassShortTermTarget[i].Performance4);
+                        $("#2_" + case2 + "Performance5").val(result.SingleClassShortTermTarget[i].Performance5);
+                        $("#2_" + case2 + "PlanExecutionDate1").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate1));
+                        $("#2_" + case2 + "PlanExecutionDate2").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate2));
+                        $("#2_" + case2 + "PlanExecutionDate3").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate3));
+                        $("#2_" + case2 + "PlanExecutionDate4").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate4));
+                        $("#2_" + case2 + "PlanExecutionDate5").val(TransformADFromStringFunction(result.SingleClassShortTermTarget[i].PlanExecutionDate5));
+
+
+                        case2++;
+                    }
+
+                }
+
+            }
+            setInitData();
+            $("input").add("select").add("textarea").attr("disabled", true);
+            break;
+        case "SearchSingleTeachCount":
+            var obj = MyBase.getTextValueBase("searchTable");
+            var pageCount = parseInt(result[0]);
+            if (pageCount > 0) {
+
+                //分頁，PageCount是總條目數，這是必選參數，其它參數都是可選
+                $("#mainPagination").pagination(pageCount, {
+                    prev_text: '<', //上一頁按鈕裡text
+                    next_text: '>', //下一頁按鈕裡text
+                    items_per_page: _LimitPage, //顯示條數
+                    num_display_entries: 4, //連續分頁主體部分分頁條目數
+                    num_edge_entries: 2, //兩側首尾分頁條目數
+                    //ellipse_text: "/",
+                    //link_to: ,
+
+                    callback: function(index, jq) {
+                        AspAjax.SearchSingleTeach(parseInt((index + 1) * _LimitPage, 10), obj);
+                        return false;
+                    }
+                });
+            } else if (pageCount == 0) {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            } else {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>發生錯誤，錯誤訊息如下：" + result[1] + "</td></tr>");
+            }
+            break;
+        case "SearchSingleTeach":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                if (result[0].checkNo == null && parseInt(result[0].checkNo) != -1) {
+                    var inner = "";
+                    var date = new Date();
+                    for (var i = 0; i < result.length; i++) {
+
+                        inner += '<tr>' +
+                                '<td>' + result[i].RowNum + '</td>' +
+			                    '<td>' + result[i].studentName + '</td>' +
+			                    '<td>' + result[i].teacherName + '</td>' +
+			                     '<td>' + TransformADFromStringFunction(result[i].PlanDateStart) + '~' + TransformADFromStringFunction(result[i].PlanDateEnd) + '</td>';
+
+                        inner += '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
+			                '</tr>';
+                    }
+
+                    $("#mainSearchList .tableList").children("tbody").html(inner);
+                } else {
+                    alert("發生錯誤，錯誤訊息如下：" + result[0].errorMsg);
+                }
+            } else {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            }
+            break;
     }
 }
 
@@ -231,7 +373,8 @@ function getViewData(id, act) {
         $(".btnUpdate").fadeIn();
         $("input").add("select").add("textarea").attr("disabled", true);
 //        $("#studentName").val("王小明");
-//        $("#teacherName").val("連淑貞");
+        //        $("#teacherName").val("連淑貞");
+          AspAjax.GetSingleTeachShortTerm(id);
     } else if (id == null && act == 1) {
     $(".btnSave").fadeIn();
     $("#teacherName").unbind("click").click(function() { callTeacherSearchfunction("1"); });
@@ -239,6 +382,16 @@ function getViewData(id, act) {
     $("#studentName").unbind("click").click(function() {callStudentSearchfunction();});
     }
 }
+
+
+function Search() {
+    $("#mainSearchList .tableList").children("tbody").empty();
+    var obj = MyBase.getTextValueBase("searchTable");
+
+    AspAjax.SearchSingleTeachCount(obj);
+
+}
+
 
 
 
@@ -326,6 +479,7 @@ function callTeacherSearchfunction(getid) {//老師姓名點取跳出
 }
 
 function getAdd(tid) {
+    var act = GetQueryString("act");
     var inner = '';
     inner += ' <tr id="'+tid+'_'+($("#table" + tid + ">tbody>tr").length+1)+'dataTR">'+
                 ' <td colspan="4">  <table class="tableContact2" width="774" border="0"> <tr><th width="50">目標<button id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + 'remove" class="btnAdd" onclick="del(this);" >刪除</button><span id="' + tid + '_' + ($("#table" + tid + ">tbody>tr").length + 1) + 'TPDID" class="hideClassSpan"></span></th>' +
@@ -344,8 +498,11 @@ function getAdd(tid) {
     }
     else {
         $("#table" + tid + ">tbody").html(inner);
-     }
-    
+    }
+    if (act != 1) {
+        $("input").add("select").add("textarea").attr("disabled", true);
+    }
+    setInitData();
 
 }
 
@@ -420,15 +577,83 @@ function TakeTPD() {
         }
         getAdd(1); getAdd(2);
      }
-
+     setInitData();
 }
 
 
 function Save(Type) {
     switch (Type) {
         case 0:
-            
-                //AspAjax.createCaseISPData(stuCID, obj);
+            var obj = MyBase.getTextValueBase("mainContent");
+            var obj1 = getHideSpanValue("mainContent", "hideClassSpan");
+            MergerObject(obj, obj1);
+            var TeachingPlanarry = new Array();
+            for (var i = 1; i <= 2; i++) {
+                for (var j = 1; j <= $("#table" + i + ">tbody>tr").length; j++) {
+                    var data = {};
+                    data.PlanOrder = i;
+                    data.DetailOrder = j;
+                    data.TPDID = $("#" + i + "_" + j + "TPDID").html();
+                    data.TargetMain = $("#" + i + "_" + j + "TargetShort").val();
+                    data.TargetContent = $("#" + i + "_" + j + "TargetContent").val();
+                    data.PlanExecutionDate1 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate1").val());
+                    data.PlanExecutionDate2 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate2").val());
+                    data.PlanExecutionDate3 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate3").val());
+                    data.PlanExecutionDate4 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate4").val());
+                    data.PlanExecutionDate5 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate5").val());
+                    data.Assessment1 = $("#" + i + "_" + j + "Assessment1").val();
+                    data.Assessment2 = $("#" + i + "_" + j + "Assessment2").val();
+                    data.Assessment3 = $("#" + i + "_" + j + "Assessment3").val();
+                    data.Assessment4 = $("#" + i + "_" + j + "Assessment4").val();
+                    data.Assessment5 = $("#" + i + "_" + j + "Assessment5").val();
+                    data.Performance1 = $("#" + i + "_" + j + "Performance1").val();
+                    data.Performance2 = $("#" + i + "_" + j + "Performance2").val();
+                    data.Performance3 = $("#" + i + "_" + j + "Performance3").val();
+                    data.Performance4 = $("#" + i + "_" + j + "Performance4").val();
+                    data.Performance5 = $("#" + i + "_" + j + "Performance5").val();
+                    TeachingPlanarry[TeachingPlanarry.length] = data;
+
+                }
+            }
+            obj.SingleClassShortTermTarget = TeachingPlanarry;
+            AspAjax.CreateSingleTeachCase(obj);
+            break;
+        case 1:
+            var obj = MyBase.getTextValueBase("mainContent");
+            var obj1 = getHideSpanValue("mainContent", "hideClassSpan");
+            MergerObject(obj, obj1);
+            var TeachingPlanarry = new Array();
+            for (var i = 1; i <= 2; i++) {
+                for (var j = 1; j <= $("#table" + i + ">tbody>tr").length; j++) {
+                    var data = {};
+                    data.PlanOrder = i;
+                    data.DetailOrder = j;
+                    data.TPDID = $("#" + i + "_" + j + "TPDID").html();
+                    data.TargetMain = $("#" + i + "_" + j + "TargetShort").val();
+                    data.TargetContent = $("#" + i + "_" + j + "TargetContent").val();
+                    data.PlanExecutionDate1 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate1").val());
+                    data.PlanExecutionDate2 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate2").val());
+                    data.PlanExecutionDate3 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate3").val());
+                    data.PlanExecutionDate4 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate4").val());
+                    data.PlanExecutionDate5 = TransformRepublicReturnValue($("#" + i + "_" + j + "PlanExecutionDate5").val());
+                    data.Assessment1 = $("#" + i + "_" + j + "Assessment1").val();
+                    data.Assessment2 = $("#" + i + "_" + j + "Assessment2").val();
+                    data.Assessment3 = $("#" + i + "_" + j + "Assessment3").val();
+                    data.Assessment4 = $("#" + i + "_" + j + "Assessment4").val();
+                    data.Assessment5 = $("#" + i + "_" + j + "Assessment5").val();
+                    data.Performance1 = $("#" + i + "_" + j + "Performance1").val();
+                    data.Performance2 = $("#" + i + "_" + j + "Performance2").val();
+                    data.Performance3 = $("#" + i + "_" + j + "Performance3").val();
+                    data.Performance4 = $("#" + i + "_" + j + "Performance4").val();
+                    data.Performance5 = $("#" + i + "_" + j + "Performance5").val();
+                    TeachingPlanarry[TeachingPlanarry.length] = data;
+
+                }
+            }
+            obj.ID = GetQueryString("id"); ;
+            obj.SingleClassShortTermTarget = TeachingPlanarry;
+           // alert(obj.ID);
+            AspAjax.UpdateSingleTeachCase(obj);
             break;
     }
 
