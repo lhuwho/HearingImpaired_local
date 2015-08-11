@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>教學管理 - 教師服務時間表 | 財團法人中華民國婦聯聽障文教基金會管理後臺</title>
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="./css/All.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
@@ -14,6 +15,9 @@
     <link rel='stylesheet' type='text/css' href='./css/jquery.weekcalendar.css' />
     <link rel="stylesheet" type="text/css" href="./css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="./css/teacher_schedule.css" />
+         	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="./js/chosen.jquery.min.js"></script>
     
     <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
     <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
@@ -21,7 +25,10 @@
     <script type='text/javascript' src='./js/jquery.weekcalendar.js'></script>
     
     
+
+    
     <script type="text/javascript" src="./js/jquery.fancybox-1.3.4.pack.js"></script>
+	
 	
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
@@ -54,7 +61,7 @@
 			<div id="main">
 			    <div id="mainContentSearch">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;margin-bottom:10px;">台北至德</p>
-			        <p>教師姓名 <input id="teacherName" type="text" name="name" value="" /> <input type="button" value="確定" /><br /><br /></p>
+			        <p>教師姓名 <input id="teacherName" type="text" name="name" class="ui-autocomplete-input" autocomplete="off" value="" /> <input type="button" value="確定" onclick="Search()" /><br /><br /></p>
 			        <div id="calendar"></div>
 		        </div>
 			</div>
@@ -78,9 +85,18 @@
 				               
 					            <div class="chosen-container chosen-container-multi" >
 					                <ul id="studentName" class="chosen-choices"></ul></div>
-					             
-					           
 				            </li>
+				            <li>
+				            <select id="ClassNameID" >
+				            <option value="0">請選擇教室</option>
+					             <option value="1">E01</option>
+					             <option value="2">E02</option>
+					             <option value="3">E03</option>
+					             <option value="4">E04</option>
+					             <option value="5">E05</option>
+					             <option value="6">E06</option>
+					             </select>
+					             </li>
 			            </ul>
 			           
 		            </div>

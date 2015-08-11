@@ -5,17 +5,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>教學管理 - 教室使用時間表 | 財團法人中華民國婦聯聽障文教基金會管理後臺</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="./css/All.css" />
-	<script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/classrooms_schedule.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
+	<link rel="stylesheet" type="text/css" href="./css/chosen/chosen.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.8.13.custom.css" />
+    <link rel='stylesheet' type='text/css' href='./css/jquery.weekcalendar.css' />
+    <link rel="stylesheet" type="text/css" href="./css/pagination.css" />
+    <link rel="stylesheet" type="text/css" href="./css/teacher_schedule.css" />
+         	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="./js/chosen.jquery.min.js"></script>
     
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/fancybox/jquery.fancybox-1.3.4.css" />
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+    <script type="text/javascript" src="./js/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="./js/chosen.jquery.min.js"></script>
+    <script type='text/javascript' src='./js/jquery.weekcalendar.js'></script>
+    
+    
+
+    
     <script type="text/javascript" src="./js/jquery.fancybox-1.3.4.pack.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
+	
+	
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
+	<script type="text/javascript" src="./js/jquery.pagination.js"></script>
+   
     
+    <script type="text/javascript" src="./js/base.js"></script>
+
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/classrooms_schedule.js"></script>
 </head>
@@ -36,391 +57,57 @@
 		</div>
 		<div id="content">
 			<div id="mainClass">教學管理&gt; 教室使用時間表</div>
-			<div id="main">
-			    <div id="mainContent">
+						<div id="main">
+			    <div id="mainContentSearch">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;margin-bottom:10px;">台北至德</p>
-			        <p align="center"><input style="float:left;" type="button" value="上一週" onclick="getLastWeek()" /><input type="button" value="本週" onclick="getThisWeek()" /><input style="float:right;" type="button" value="下一週" onclick="getNextWeek()" /><br /><br /></p>
-			        <div id="weekTable">
-			            <table class="tableContact" width="780" border="0">
-			                <tr>
-			                    <th width="80"><span style="float:right;">日期</span><br /><span style="float:left;">教室名稱</span></th>
-			                    <th width="100"><span class="weekDate1"></span><br />星期一</th>
-			                    <th width="100"><span class="weekDate2"></span><br />星期二</th>
-			                    <th width="100"><span class="weekDate3"></span><br />星期三</th>
-			                    <th width="100"><span class="weekDate4"></span><br />星期四</th>
-			                    <th width="100"><span class="weekDate5"></span><br />星期五</th>
-			                    <th width="100"><span class="weekDate6"></span><br />星期六</th>
-			                    <th width="100"><span class="weekDate7"></span><br />星期日</th>
-			                </tr>
-			                <tr>
-			                    <th>E01</th>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div> <!-- 1 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 5 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 2 -->
-			                        <div class="rooms">&nbsp;</div> <!-- 6 -->
-			                        <div class="rooms"><span>張延齡</span></div> <!-- 3 -->
-			                        <div class="rooms">李雲雲</div> <!-- 7 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 4 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 8 -->
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">黃信義</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張延齡</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">陳淑玲</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <th>E02</th>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div> <!-- 1 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 5 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 2 -->
-			                        <div class="rooms">&nbsp;</div> <!-- 6 -->
-			                        <div class="rooms"><span>張延齡</span></div> <!-- 3 -->
-			                        <div class="rooms">李雲雲</div> <!-- 7 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 4 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 8 -->
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">黃信義</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張延齡</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">陳淑玲</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <th>E03</th>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div> <!-- 1 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 5 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 2 -->
-			                        <div class="rooms">&nbsp;</div> <!-- 6 -->
-			                        <div class="rooms"><span>張延齡</span></div> <!-- 3 -->
-			                        <div class="rooms">李雲雲</div> <!-- 7 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 4 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 8 -->
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">黃信義</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張延齡</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">陳淑玲</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <th>E04</th>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div> <!-- 1 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 5 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 2 -->
-			                        <div class="rooms">&nbsp;</div> <!-- 6 -->
-			                        <div class="rooms"><span>張延齡</span></div> <!-- 3 -->
-			                        <div class="rooms">李雲雲</div> <!-- 7 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 4 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 8 -->
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">黃信義</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張延齡</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">陳淑玲</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                </tr>
-			                <tr>
-			                    <th>E05</th>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div> <!-- 1 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 5 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 2 -->
-			                        <div class="rooms">&nbsp;</div> <!-- 6 -->
-			                        <div class="rooms"><span>張延齡</span></div> <!-- 3 -->
-			                        <div class="rooms">李雲雲</div> <!-- 7 -->
-			                        <div class="rooms"><span>黃信義</span></div> <!-- 4 -->
-			                        <div class="rooms">陳淑玲</div> <!-- 8 -->
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">黃信義</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張延齡</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms">李雲雲</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>張延齡</span></div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">陳淑玲</div>
-			                        <div class="rooms">張清清</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>李雲雲</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms"><span>陳淑玲</span></div>
-			                        <div class="rooms"><span>黃信義</span></div>
-			                        <div class="rooms">張延齡</div>
-			                        <div class="rooms">陳淑玲</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                    <td>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                        <div class="rooms">&nbsp;</div>
-			                    </td>
-			                </tr>
-			            </table>
-			        </div>
+			        <p>教室名稱 <select id="ClassName" >
+				            <option value="0">請選擇教室</option>
+					            				             <option value="1">E01</option>
+					             <option value="2">E02</option>
+					             <option value="3">E03</option>
+					             <option value="4">E04</option>
+					             <option value="5">E05</option>
+					             <option value="6">E06</option>
+					             </select> <input type="button" value="確定" onclick="Search()" /><br /><br /></p>
+			        <div id="calendar"></div>
 		        </div>
 			</div>
+			<div id="event_edit_container" style="display:none;">
+		            <div>
+			           
+			            <ul>
+				            <li>
+					            <label>日　　期：</label><span class="date_holder"></span> 
+				            </li>
+				            <li>
+					            <label for="start">開始時間：</label><select disabled="disabled" name="start"><option value="">請選擇開始時間</option></select>
+				            </li>
+				            <li>
+					            <label for="end">結束時間：</label><select disabled="disabled" name="end"><option value="">請選擇結束時間</option></select>
+				            </li>
+				           
+				            <li>
+				            <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" style="background-color: rgb(249, 174, 86);">
+				                <span class="ui-button-text">學生姓名</span></button>
+				               
+					            <div class="chosen-container chosen-container-multi" >
+					                <ul id="studentName" class="chosen-choices"></ul></div>
+				            </li>
+				            <li>
+				            <select id="ClassNameID" disabled="disabled" >
+					             <option value="1">E01</option>
+					             <option value="2">E02</option>
+					             <option value="3">E03</option>
+					             <option value="4">E04</option>
+					             <option value="5">E05</option>
+					             <option value="6">E06</option>
+					             
+					             </select>
+					             </li>
+			            </ul>
+			           
+		            </div>
+	            </div>
 		</div>
 		<div id="footer"></div>
 	</div>

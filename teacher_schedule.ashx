@@ -30,6 +30,7 @@ public class teacher_schedule : IHttpHandler {
         public string EndTime;
         public int TeacherID;
         public string TeacherName;
+        public string ClassID;
         public List<StudentIDAndName> Students;
         public string Content;
         public int Unit;
@@ -53,7 +54,9 @@ public class teacher_schedule : IHttpHandler {
             int sUnit = int.Parse(context.Request.Form["sUnit"]);
             string sDate = context.Request.Form["sDate"].ToString();
             string eDate = context.Request.Form["eDate"].ToString();
-            returnvalue = getTeacherSchudule(sDate, eDate, sUnit);
+            string TeacherID = (context.Request.Form["TeacherID"] + "").ToString();
+            string ClassNameID = (context.Request.Form["ClassNameID"] + "").ToString();
+            returnvalue = getTeacherSchudule(sDate, eDate, sUnit, TeacherID, ClassNameID);
             context.Response.Write(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(returnvalue));
             context.Response.End();
         }
@@ -67,8 +70,9 @@ public class teacher_schedule : IHttpHandler {
         }
     }
 
-    public List<TeachSchedule> getTeacherSchudule(string sDate, string eDate, int sUnit)
+    public List<TeachSchedule> getTeacherSchudule(string sDate, string eDate, int sUnit, string TeacherID,string ClassNameID)
     {
+        CheckDataTypeClass Chk = new CheckDataTypeClass();
         List<TeachSchedule> returnValue = new List<TeachSchedule>();
         DataBase Base = new DataBase();
         string ConditionReturn = "";
@@ -85,9 +89,18 @@ public class teacher_schedule : IHttpHandler {
         {
             Limitsunit = " AND AudiometryAppointment.Unit=(@Unit) ";
         }*/
+        if (TeacherID != "")
+        {
+            ConditionReturn += " and TeacherID = @TeacherID ";
+        }
+        if (ClassNameID != "0" && ClassNameID != "")
+        {
+            ConditionReturn += " and ClassID = @ClassID ";
+        
+        }
 
         string LimitsDate = "";
-        LimitsDate = " AND TeacherSchudule.Date BETWEEN (@StartDate) AND (@EndDate) ";
+        LimitsDate = " AND a.Date BETWEEN (@StartDate) AND (@EndDate) ";
         DateTime aStartDate = DateTime.Parse(sDate);
         DateTime aEndDate = DateTime.Parse(eDate);
 
@@ -96,22 +109,28 @@ public class teacher_schedule : IHttpHandler {
             try
             {
                 Sqlconn.Open();
-                string sql = "select * from TeacherSchudule " +
+                string sql = "select * from TeacherSchudule a " +
+                            " left join (select staffid as bid, staffname as TeacherName from staffDatabase ) b on a.teacherid = b.bid "+
                             "WHERE isDeleted=0 " + ConditionReturn + LimitsDate;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Parse(sDate.ToString());
                 cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = DateTime.Parse(eDate.ToString());
                 cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = sUnit;
+                cmd.Parameters.Add("@TeacherID", SqlDbType.Int).Value =  Chk.CheckStringtoIntFunction( TeacherID);
+                cmd.Parameters.Add("@ClassID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(ClassNameID);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     TeachSchedule addValue = new TeachSchedule();
+                    
                     addValue.ID = int.Parse(dr["ID"].ToString());
                     addValue.Date = DateTime.Parse(dr["Date"].ToString()).ToString("yyyy-MM-dd");
                     addValue.StartTime = dr["StartTime"].ToString();
                     addValue.EndTime = dr["EndTime"].ToString();
                     addValue.TeacherID = int.Parse(dr["TeacherID"].ToString());
+                    addValue.TeacherName = dr["TeacherName"].ToString();
+                    addValue.ClassID = dr["ClassID"].ToString();
 
                     addValue.Students = getTeacherScheduleStudents(addValue.ID);
                     
@@ -141,7 +160,7 @@ public class teacher_schedule : IHttpHandler {
             {
                 Sqlconn.Open();
                 string sql = "select b.StudentID,b.StudentName from TeacherSchuduleStudent a left join StudentDatabase b on a.StudentID = b.StudentID" +
-                            "WHERE TeacherScheduleID=@TeacherScheduleID" ;
+                            " WHERE TeacherScheduleID=@TeacherScheduleID" ;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
 
                 cmd.Parameters.Add("@TeacherScheduleID", SqlDbType.Int).Value = TeacherScheduleID;

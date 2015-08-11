@@ -2314,6 +2314,167 @@ public class TeachDataBase
         return returnValue;
     }
 
+    public int createTeacherSchudule(TeacherSchudule StructData)
+    {
+        int returnValue = 0;
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " DECLARE @TeacherScheduleID int;  ";
+                sql += " insert into TeacherSchudule ( ";
+                sql += " TeacherID,Date,StartTime,EndTime,CreateDateTime,isDeleted,Unit,ClassID ";
+                sql += " )values( ";
+                sql += " @TeacherID,@Date,@StartTime,@EndTime,getdate(),0,@Unit,@ClassID ) ";
+                sql += " select @TeacherScheduleID = (SELECT @@IDENTITY) ";
+                int i = 1;
+                foreach (TeacherSchuduleStudent atom in StructData.TeacherSchuduleStudent)
+                {
+                    sql += " insert into TeacherSchuduleStudent ( TeacherScheduleID ,StudentID) values ( @TeacherScheduleID , @StudentID" + i.ToString() + " ) ";
+                   i++;
+                }
+                sql += " select @TeacherScheduleID as TeacherScheduleID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@TeacherID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.TeacherID);
+                cmd.Parameters.Add("@Date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StructData.Date);
+                cmd.Parameters.Add("@StartTime", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StructData.StartTime);
+                cmd.Parameters.Add("@EndTime", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StructData.EndTime);
+                cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.Unit);
+                cmd.Parameters.Add("@ClassID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.ClassID);
+
+                //cmd.Parameters.Add("@TeacherID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.studentID);
+
+                
+                i = 1;
+                foreach (TeacherSchuduleStudent atom in StructData.TeacherSchuduleStudent)
+                {
+                    cmd.Parameters.Add("@StudentID" + i.ToString() , SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.StudentID);
+                    i++;
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue = Convert.ToInt16(dr["TeacherScheduleID"].ToString());
+                    //returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                returnValue = -1;
+            }
+        }
+
+        return returnValue;
+    
+    }
+
+
+    public int UpdateTeacherSchudule(TeacherSchudule StructData)
+    {
+        int returnValue = 0;
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " update  TeacherSchudule set TeacherID = @TeacherID ,Date = @Date,StartTime =@StartTime,EndTime=@EndTime,ClassID = @ClassID  ";
+                sql += " where ID = @TeacherScheduleID ";
+                ////"DECLARE @TeacherScheduleID int;  ";
+                //sql += " insert into TeacherSchudule ( ";
+                //sql += " TeacherID,Date,StartTime,EndTime,CreateDateTime,isDeleted,Unit,ClassID ";
+                //sql += " )values( ";
+                //sql += " @TeacherID,@Date,@StartTime,@EndTime,getdate(),0,@Unit,@ClassID ) ";
+                //sql += " select @TeacherScheduleID = (SELECT @@IDENTITY) ";
+                sql += " delete TeacherSchuduleStudent where TeacherScheduleID = @TeacherScheduleID ";
+                int i = 1;
+                foreach (TeacherSchuduleStudent atom in StructData.TeacherSchuduleStudent)
+                {
+                    sql += " insert into TeacherSchuduleStudent ( TeacherScheduleID ,StudentID) values ( @TeacherScheduleID , @StudentID" + i.ToString() + " ) ";
+                    i++;
+                }
+                sql += " select @TeacherScheduleID as TeacherScheduleID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@TeacherScheduleID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.ID);
+                cmd.Parameters.Add("@TeacherID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.TeacherID);
+                cmd.Parameters.Add("@Date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StructData.Date);
+                cmd.Parameters.Add("@StartTime", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StructData.StartTime);
+                cmd.Parameters.Add("@EndTime", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StructData.EndTime);
+                cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.Unit);
+                cmd.Parameters.Add("@ClassID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.ClassID);
+
+                //cmd.Parameters.Add("@TeacherID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StructData.studentID);
+
+
+                i = 1;
+                foreach (TeacherSchuduleStudent atom in StructData.TeacherSchuduleStudent)
+                {
+                    cmd.Parameters.Add("@StudentID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(atom.StudentID);
+                    i++;
+                }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    returnValue = Convert.ToInt16(dr["TeacherScheduleID"].ToString());
+                    //returnValue.Add(addValue);
+                }
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                returnValue = -1;
+            }
+        }
+
+        return returnValue;
+
+    }
+
+
+    public int delTeacherSchudule(Int32 StructData)
+    {
+        int returnValue = 0;
+
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " delete  TeacherSchudule ";
+                sql += " where ID = @TeacherScheduleID ";
+
+                sql += " delete TeacherSchuduleStudent where TeacherScheduleID = @TeacherScheduleID ";
+               // sql += " select @TeacherScheduleID as TeacherScheduleID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@TeacherScheduleID", SqlDbType.Int).Value = StructData;
+               // SqlDataReader dr = cmd.ExecuteReader();
+                returnValue = cmd.ExecuteNonQuery();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string item = e.Message.ToString();
+                returnValue = -1;
+            }
+        }
+
+        return returnValue;
+
+    }
 
 
 }

@@ -3632,6 +3632,27 @@ public struct SingleClassShortTermTarget
 }
 
 
+public struct TeacherSchudule
+{
+    public string ID;
+    public string TeacherID;
+    public string Date;
+    public string StartTime;
+    public string EndTime;
+    public string CreateDateTime;
+    public string isDeleted;
+    public string Unit;
+    public string ClassID;
+    public List<TeacherSchuduleStudent> TeacherSchuduleStudent;
+}
+public struct TeacherSchuduleStudent
+{
+    public string ID;
+    public string TeacherScheduleID;
+    public string StudentID;
+
+
+}
 
 /*****教學管理 結束 *******/
 

@@ -4,15 +4,48 @@ var _StudentStatu = new Array("會外人士", "會外人士", "會內生", "會�
 var $endTimeField ;
 var $endTimeOptions;
 var $timestampsOfOptions;
+var _classRoomName = ["","E01","E02"];
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
     $("#main").fadeIn();
     initPage();
-    WeekCalendarSetting();
-    
+     $("#teacherName").autocomplete({
+        source: function (request, response) {
+            var data = {
+                term: request.term
+            };
+            $.ajax({
+                type: "POST",
+                url: "AspAjax.asmx/SearchStaff",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: "{ 'SearchString' : '" + request.term + "'}",
+               
+            }).success(function (data) {
+                response(data.d);
+
+            }).fail(function () {
+              //  alert("failed");
+            });
+        }
+    });
+  //  WeekCalendarSetting();
 });
+
+
+function Search()
+{
+if($('#calendar').html() != ""){
+$('#calendar').weekCalendar('today');}
+else{
+  WeekCalendarSetting();
+}
+}
+
 function WeekCalendarSetting() {
+//    var $calendar;
+//    $('#calendar').html("");
     $calendar = $('#calendar');
     var id = 10;
     $calendar.weekCalendar({
@@ -76,17 +109,58 @@ function WeekCalendarSetting() {
         noEvents: function() {
         },
         data: function(start, end, callback) {
+           // alert(callback);
             getData(start, end, callback);
-            
+
         }
     });
     ReadyInit();
 }
+//function getData(start, end, callback) {
+//    $.ajax({
+//        type: 'POST',
+//        url: './teacher_schedule.ashx',
+//        data: { "sDate": TransformDBStringFunction(start), "eDate": TransformDBStringFunction(end), "sUnit": _uUnit, "type": "getEventData" },
+//        dataType: 'json',
+//        async: false,
+//        contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+//        success: function(txt) {
+//            
+//            if (txt.length > 0) {
+//                var innerArray = new Array();
+//                for (var i = 0; i < txt.length; i++) {
+//                    // alert(txt[i]["aItem"]);
+//                    var item = (txt[i]["aItem"]).replace(/\＠/g, ",");
+//                    var titleStr = txt[i]["aStudentName"];
+//                    var readonly = false;
+//                    if (titleStr == 0) {
+//                        titleStr = "開會";
+//                        readonly = true;
+//                    }
+//                    var sstate = txt[i]["aStudentState"];
+//                    if (sstate == "") {
+//                        sstate = -1;
+//                    }
+//                    innerArray.push({ "id": txt[i]["ID"], "start": txt[i]["StartTime"], "end": txt[i]["EndTime"],
+//                        "author": txt[i]["aPeopleName"], "title": titleStr, "studentid": txt[i]["aStudentID"],
+//                        "sstate": parseInt(sstate, 10), "item": item, "other": txt[i]["aItemExplain"],
+//                        "content": txt[i]["aContent"], "assess": txt[i]["aAssess1"] + "," + txt[i]["aAssess2"],
+//                        "state": parseInt(txt[i]["aState"], 10), readOnly: readonly
+//                    });
+//                }
+//                var innerJson = { events: innerArray };
+//                callback(innerJson);
+//            }
+//        }, error: function(txt) {
+//            alert("發生錯誤，請重新整理頁面");
+//        }
+//    });
+//}
 function getData(start, end, callback) {
     $.ajax({
         type: 'POST',
         url: './teacher_schedule.ashx',
-        data: { "sDate": TransformDBStringFunction(start), "eDate": TransformDBStringFunction(end), "sUnit": _uUnit, "type": "getEventData" },
+        data: { "sDate": TransformDBStringFunction(start), "eDate": TransformDBStringFunction(end), "sUnit": _uUnit, "type": "getEventData","TeacherID": $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")")) },
         dataType: 'json',
         async: false,
         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -94,8 +168,27 @@ function getData(start, end, callback) {
             if (txt.length > 0) {
                 var innerArray = new Array();
                 for (var i = 0; i < txt.length; i++) {
-                    var item = (txt[i]["aItem"]).replace(/\＠/g, ",");
-                    var titleStr = txt[i]["aStudentName"];
+                    // alert(txt[i]["aItem"]);
+                    var item = (txt[i]["aItem"]); //.replace(/\＠/g, ",");
+
+                    var titleStr = txt[i].TeacherName + " - " +  txt[i].Students.length +"人";
+//                    if(txt[i].Students.length ==0 && txt[i].ClassID != 0)
+//                    {
+//                        titleStr +=  " - " + _classRoomName[ txt[i].ClassID] ;
+//                    }
+//                    else
+//                    {
+//                        titleStr +=  " - " +  txt[i].Students.length +"人";
+//                    }
+                    //
+                    var studentList = "";
+                    var studentIDList = "";
+                    for (var j = 0; j < txt[i].Students.length; j++) {
+                        if (j != 0)
+                        { studentList += ","; studentIDList += ",";}
+                        studentList += "(" + txt[i].Students[j].ID +")"+ txt[i].Students[j].Name;
+                        studentIDList += txt[i].Students[j].ID;
+                    }
                     var readonly = false;
                     if (titleStr == 0) {
                         titleStr = "開會";
@@ -105,11 +198,10 @@ function getData(start, end, callback) {
                     if (sstate == "") {
                         sstate = -1;
                     }
-                    innerArray.push({ "id": txt[i]["ID"], "start": txt[i]["StartTime"], "end": txt[i]["EndTime"],
-                    "author": txt[i]["aPeopleName"], "title": titleStr, "studentid": txt[i]["aStudentID"],
-                    "sstate": parseInt(sstate, 10), "item": item, "other": txt[i]["aItemExplain"],
-                    "content": txt[i]["aContent"], "assess": txt[i]["aAssess1"] + "," + txt[i]["aAssess2"], 
-                    "state": parseInt(txt[i]["aState"], 10), readOnly: readonly });
+                    innerArray.push({ "id": txt[i].ID, "start": txt[i].StartTime, "end": txt[i].EndTime,
+                    "author": txt[i]["aPeopleName"], "title": titleStr, readOnly: readonly, "sstate": parseInt(1, 10), "item": txt[i].TeacherName , "TeacherID": txt[i].TeacherID
+                    , "Studentlength": txt[i].Students.length, "studentList": studentList, "studentIDList": studentIDList, "ID": txt[i].ID ,"ClassID":txt[i].ClassID
+                    });
                 }
                 var innerJson = { events: innerArray };
                 callback(innerJson);
@@ -127,6 +219,7 @@ function eventClick(calEvent, $event) {
     $("#studentName").attr("class", calEvent.studentid);
     $dialogContent.find("select[name='state']").find("option[value='" + calEvent.state + "']").attr('selected', true);
     //resetForm($dialogContent);
+    //alert( calEvent.start.getDate());
     var dateField = calEvent.start.getFullYear() + "-" + (calEvent.start.getMonth() + 1) + "-" + calEvent.start.getDate();
     var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
     var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
@@ -142,13 +235,26 @@ function eventClick(calEvent, $event) {
     var contentField = $dialogContent.find("textarea[name='content']").val(calEvent.content);
     var assessField = $dialogContent.find("select[name='assess']").val(calEvent.assess);
     var stateField = $dialogContent.find("select[name='state']");
-
+    var studentList = calEvent.studentList.split(",");
+    var studentIDList = calEvent.studentIDList.split(",");
+    for (var i = 0; i < calEvent.Studentlength; i++) {
+        var inner = '<li class="search-choice participant" id="participant_' + studentIDList[i] + '">' +
+                            '<span>' + studentList[i] + '</span>' +
+                            '<a class="search-choice-close" onclick="deleteMyself(' + studentIDList[i] + ')"></a>' +
+                        '</li>';
+        $("#studentName").append(inner);
+    
+    }
+    $("#ClassNameID").val(calEvent.ClassID);
+   
     $dialogContent.dialog({
         modal: true,
         title: "編輯 - " + calEvent.title,
         close: function() {
             $dialogContent.dialog("destroy");
             $dialogContent.hide();
+            $("#studentName").html("");
+            $("#ClassNameID").val(0);
             $('#calendar').weekCalendar("removeUnsavedEvents");
         },
         buttons: {
@@ -194,28 +300,41 @@ function eventClick(calEvent, $event) {
                     var titleIDField = $("#studentName").attr("class");
 
                     var obj = new Object;
-                    obj.ID = calEvent.id;
+                    obj.ID = calEvent.ID;
+                    obj.TeacherID = calEvent.TeacherID;
+                    //obj.TeacherID = $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")"));
+                    obj.ClassID = $("#ClassNameID").val();
                     obj.appDate = dateField;
+                    obj.Date = dateField;
                     obj.startTime = startField.val();
                     obj.endTime = endField.val();
-                    obj.authorID = _uId;
-                    obj.studentID = titleIDField;
-                    obj.item = ItemStr;
-                    obj.itemExplain = otherField.val();
-                    obj.sContent = contentField.val();
-                    obj.State = stateField.val();
-                    obj.AssessWho1 = AssessArray[0];
-                    obj.AssessWho2 = AssessArray[1];
-                    obj.Unit = _uUnit;
-
-
-                    AspAjax.setAudiometryAppointment(obj);
+                    var Participants = new Array();
+                    $(".participant").each(function() {
+                        var data = {};
+                        data.StudentID = $(this).attr("id").replace("participant_", "");
+                        // var objPeople = ["", $(this).attr("id").replace("participant_", "")];
+                        Participants[Participants.length] = data;
+                    });
+                    obj.TeacherSchuduleStudent = Participants;
+                    //obj.Unit = _uUnit;
+                    //alert(obj.appDate)
+                    // alert(obj.startTime + "---WHO---" + obj.endTime);
+                    //var id = $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")"));
+                    if(calEvent.TeacherID != "")
+                    {
+                    AspAjax.UpdateTeacherSchudule(obj);
+                    $calendar.weekCalendar("removeUnsavedEvents");
                     $calendar.weekCalendar("updateEvent", calEvent);
-                    $dialogContent.dialog("close");
+                    $dialogContent.dialog("close");}
+                   // else{ alert("請先選好老師");}
+
+//                    $calendar.weekCalendar("updateEvent", calEvent);
+//                    $dialogContent.dialog("close");
                 }
             },
             "delete": function() {
-                AspAjax.delAudiometryAppointment(calEvent.id);
+                AspAjax.delTeacherSchudule(calEvent.id);
+               // AspAjax.delAudiometryAppointment(calEvent.id);
                 $calendar.weekCalendar("removeEvent", calEvent.id);
                 $dialogContent.dialog("close");
             },
@@ -274,6 +393,8 @@ function eventClick(calEvent, $event) {
     setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
     $(window).resize().resize(); //fixes a bug in modal overlay size ??
 */
+$dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+    setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 }
 function eventDrop(calEvent, $event) {
     var dateField = calEvent.start.getFullYear() + "-" + (calEvent.start.getMonth() + 1) + "-" + calEvent.start.getDate();
@@ -317,6 +438,8 @@ function eventNew(calEvent, $event) {
         close: function() {
             $dialogContent.dialog("destroy");
             $dialogContent.hide();
+            $("#studentName").html("");
+            $("#ClassNameID").val(0);
             $('#calendar').weekCalendar("removeUnsavedEvents");
         },
         buttons: {
@@ -364,23 +487,33 @@ function eventNew(calEvent, $event) {
                     calEvent.assess = assessField.val();
                     calEvent.state = stateField.val();
                     var obj = new Object;
+                    obj.TeacherID = $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")"));
+                    obj.ClassID = $("#ClassNameID").val();
                     obj.appDate = dateField;
+                    obj.Date = dateField;
                     obj.startTime = startField.val();
                     obj.endTime = endField.val();
-                    obj.authorID = _uId;
-                    obj.studentID = titleIDField;
-                    obj.item = ItemStr;
-                    obj.itemExplain = otherField.val();
-                    obj.sContent = contentField.val();
-                    obj.State = stateField.val();
-                    obj.AssessWho1 = AssessArray[0];
-                    obj.AssessWho2 = AssessArray[1];
-                    obj.Unit = _uUnit;
-
-                    AspAjax.createAudiometryAppointment(obj);
-                    $calendar.weekCalendar("removeUnsavedEvents");
+                    var Participants = new Array();
+                    $(".participant").each(function() {
+                        var data = {};
+                        data.StudentID = $(this).attr("id").replace("participant_", "");
+                        // var objPeople = ["", $(this).attr("id").replace("participant_", "")];
+                        Participants[Participants.length] = data;
+                    });
+                    obj.TeacherSchuduleStudent = Participants;
+                    //obj.Unit = _uUnit;
+                    //alert(obj.appDate)
+                    // alert(obj.startTime + "---WHO---" + obj.endTime);
+                    var id = $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")"));
+                    if(id != "")
+                    {
+                    AspAjax.createTeacherSchudule(obj);
+                     $calendar.weekCalendar("removeUnsavedEvents");
                     $calendar.weekCalendar("updateEvent", calEvent);
-                    $dialogContent.dialog("close");
+                    $dialogContent.dialog("close");}
+                    else{ alert("請先選好老師");
+                }
+                   
                 }
             },
             cancel: function() {
@@ -535,7 +668,11 @@ function setupStartAndEndTimeFields($startTimeField, $endTimeField, calEvent, ti
         var endSelected = "";
         if (endTime.getTime() === calEvent.end.getTime()) {
             endSelected = "selected=\"selected\"";
+
         }
+       // alert(calEvent.end + "---" + endTime);
+//        $startTimeField.append("<option value=\"" + startTime.toTimeString().substring(0, 5) + "\" " + startSelected + ">" + timeslotTimes[i].startFormatted + "</option>");
+//        $endTimeField.append("<option value=\"" + endTime.toTimeString().substring(0, 5) + "\" " + endSelected + ">" + timeslotTimes[i].endFormatted + "</option>");
         $startTimeField.append("<option value=\"" + startTime + "\" " + startSelected + ">" + timeslotTimes[i].startFormatted + "</option>");
         $endTimeField.append("<option value=\"" + endTime + "\" " + endSelected + ">" + timeslotTimes[i].endFormatted + "</option>");
 
@@ -612,6 +749,39 @@ function SucceededCallback(result, userContext, methodName) {
                 $("#StuinlineReturn").children("tbody").html("查無資料");
             }
             break;
+       case "UpdateTeacherSchudule":
+            if (result > 1) {
+                alert("修改成功");
+                $('#calendar').weekCalendar('today');
+
+               // window.location = 'Teacher_schedule.aspx?id=' + result + '&act=2';
+            } else {
+                alert("發生錯誤");
+            }
+            break;
+            
+        case "createTeacherSchudule":
+            if (result > 1) {
+                alert("新增成功");
+                 $('#calendar').weekCalendar('today');
+
+                //window.location = 'Teacher_schedule.aspx?id=' + result + '&act=2';
+            } else {
+                alert("發生錯誤");
+            }
+            break;
+        case "delTeacherSchudule":
+            if (result >= 0) {
+                alert("刪除成功");
+                 $('#calendar').weekCalendar('today');
+
+                //window.location = 'Teacher_schedule.aspx?id=' + result + '&act=2';
+            } else {
+                alert("發生錯誤");
+            }
+            break;
+            
+            
     }
 }
 function addParticipantone() {
@@ -631,7 +801,10 @@ function FailedCallback(error, userContext, methodName) {
     //  alert("功能有問題 請再試一次 或重新整理" + error.get_message() + " " + methodName);
 }
 
-
+function deleteMyself(id) {
+   // if (isEdit == 1)
+        $("#participant_" + id).remove();
+}
 /*
 var courseArray = new Array("認知語言溝通", "情境活動", "故事奶奶語言互動", "復活節彩蛋活動", "畢業典禮");
 

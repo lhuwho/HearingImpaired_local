@@ -727,6 +727,29 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase tDB = new TeachDataBase();
         return tDB.UpdateSingleTeachCase(StructData);
     }
+    [WebMethod]//課表 新增
+    public int createTeacherSchudule(TeacherSchudule StructData)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.createTeacherSchudule(StructData);
+        //return 1;
+    }
+    [WebMethod]//課表 更新
+    public int UpdateTeacherSchudule(TeacherSchudule StructData)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.UpdateTeacherSchudule(StructData);
+        //return 1;
+    }
+    [WebMethod]//課表 更新
+    public int delTeacherSchudule(Int32 StructData)
+    {
+        TeachDataBase tDB = new TeachDataBase();
+        return tDB.delTeacherSchudule(StructData);
+        //return 1;
+    }
+
+    // createTeacherSchudule
 
 
 
