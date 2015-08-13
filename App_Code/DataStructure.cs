@@ -2937,51 +2937,96 @@ public struct setTeachISP3
 {
    
     public string ISPID;
+    public string PlanWriter2;
+    public string PlanWriter2Name;
+    public string PlanWriteFrameDate2;
+    public string PlanWriteExecutor2;
+    public string PlanRevise2;
+    public string PlanRevise2Name;
+    public string PlanReviseDate2;
+    public string PlanReviseExecutor2;
+    public string Naked250L;
+    public string Naked250R;
+    public string Naked250;
+    public string Naked500L;
+    public string Naked500R;
+    public string Naked500;
+    public string Naked1000L;
+    public string Naked1000R;
+    public string Naked1000;
+    public string Naked2000L;
+    public string Naked2000R;
+    public string Naked2000;
+    public string Naked4000L;
+    public string Naked4000R;
+    public string Naked4000;
+    public string Naked8000L;
+    public string Naked8000R;
+    public string Naked8000;
+    public string NakedAverageL;
+    public string NakedAverageR;
+    public string NakedAverage;
+    public string After250L;
+    public string After250R;
+    public string After250;
+    public string After500L;
+    public string After500R;
+    public string After500;
+    public string After1000L;
+    public string After1000R;
+    public string After1000;
+    public string After2000L;
+    public string After2000R;
+    public string After2000;
+    public string After4000L;
+    public string After4000R;
+    public string After4000;
+    public string After8000L;
+    public string After8000R;
+    public string After8000;
+    public string AfterAverageL;
+    public string AfterAverageR;
+    public string AfterAverage;
+    public string AudiometryOther;
+    public string AudiometryAssessmentBy;
+    public string AudiometryAssessmentByName;
+    public string AudiometryAssessmentDate;
+    public string AudiometrygAssessmentScoring;
 
-    public string PlanWriter3;
-    public string PlanWriteFrameDate3;
-    public string PlanWriteExecutor3;
-    public string PlanRevise3;
-    public string PlanReviseDate3;
-    public string PlanReviseExecutor3;
-    public string HearingAssessment;
     public string HearingAssessmentBy;
+    public string HearingAssessmentByName;
     public string HearingAssessmentDate;
-    public string HearingAssessmentTool;
-    public string VocabularyAssessment;
-    public string VocabularyAssessmentBy;
-    public string VocabularyAssessmentDate;
-    public string VocabularyAssessmentTool;
-    public string LanguageAssessment;
-    public string LanguageAssessmentBy;
-    public string LanguageAssessmentDate;
-    public string LanguageAssessmentTool;
-    public string intelligenceAssessment;
-    public string intelligenceAssessmentBy;
-    public string intelligenceAssessmentDate;
-    public string intelligenceAssessmentTool;
-    public string OtherAssessment;
-    public string OtherAssessmentBy;
-    public string OtherAssessmentDate;
-    public string OtherAssessmentTool;
-    public string Hearing;
-    public string CognitiveAbility;
-    public string ConnectAbility;
-    public string ActAbility;
-    public string Relationship;
-    public string EmotionalManagement;
-    public string SensoryFunction;
-    public string HealthState;
-    public string DailyLiving;
-    public string LearningAchievement;
-    public string Advantage;
-    public string WeakCapacity;
-    public List<TeachingPlan> TeachingPlan;
+    public string HearingAssessmentScoring1;
+    public string HearingAssessmentScoring2;
+    public string AidsState1;
+    public string AidsState2;
+    public string AidsState3;
+    public string AidsState4;
+    public string AidsState5;
+    public string AidsAssessmentBy;
+    public string AidsAssessmentByName;
+    public string AidsAssessmentDate;
+    public string AidsAssessmentScoring;
+    public string Summary;
+
+    public List<HearingManagerDetail> HearingManagerDetail;
    
-
-
-
 }
+
+public struct HearingManagerDetail//聽力學下方答案
+{
+    public string ID;
+    public string ISPID;
+    public string PlanOrder;
+    public string DetailOrder;
+    public string HMDateStart;
+    public string HMDateEnd;
+    public string HMADate;
+    public string HMAMode;
+    public string HMAResult;
+    public string HMTeachingDecision;
+}
+
 public struct TeachingPlan
 { 
     //教學主檔

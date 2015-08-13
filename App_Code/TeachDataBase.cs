@@ -1217,9 +1217,286 @@ public class TeachDataBase
     public int setTeachISPPage3(setTeachISP3 StudentISP)
     {
         int returnValue = 0;
+        DateTime now = DateTime.Now;
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                Sqlconn.Open();
+                string sql = " delete hearingManagerDetail  where ISPID = @ISPID ";
+                int i = 1; int j = 1;
+                //ISPID,PlanWriter2,PlanWriteFrameDate2,PlanWriteExecutor2,PlanRevise2,PlanReviseDate2,PlanReviseExecutor2,Naked250L,Naked250R,Naked250,Naked500L,Naked500R,Naked500,Naked1000L,Naked1000R,Naked1000,Naked2000L,Naked2000R,Naked2000,Naked4000L,Naked4000R,Naked4000,Naked8000L,Naked8000R,Naked8000,NakedAverageL,NakedAverageR,NakedAverage,After250L,After250R,After250,After500L,After500R,After500,After1000L,After1000R,After1000,After2000L,After2000R,After2000,After4000L,After4000R,After4000,After8000L,After8000R,After8000,AfterAverageL,AfterAverageR,AfterAverage,AudiometryOther,AudiometryAssessmentBy,AudiometryAssessmentDate,AudiometrygAssessmentScoring,HearingAssessmentBy,HearingAssessmentDate,HearingAssessmentScoring1,HearingAssessmentScoring2,AidsState1,AidsState2,AidsState3,AidsState4,AidsState5,AidsAssessmentBy,AidsAssessmentDate,AidsAssessmentScoring,Summary
+                //ISPID = @ISPID,PlanWriter2 = @PlanWriter2,PlanWriteFrameDate2 = @PlanWriteFrameDate2,PlanWriteExecutor2 = @PlanWriteExecutor2,PlanRevise2 = @PlanRevise2,PlanReviseDate2 = @PlanReviseDate2,PlanReviseExecutor2 = @PlanReviseExecutor2,Naked250L = @Naked250L,Naked250R = @Naked250R,Naked250 = @Naked250,Naked500L = @Naked500L,Naked500R = @Naked500R,Naked500 = @Naked500,Naked1000L = @Naked1000L,Naked1000R = @Naked1000R,Naked1000 = @Naked1000,Naked2000L = @Naked2000L,Naked2000R = @Naked2000R,Naked2000 = @Naked2000,Naked4000L = @Naked4000L,Naked4000R = @Naked4000R,Naked4000 = @Naked4000,Naked8000L = @Naked8000L,Naked8000R = @Naked8000R,Naked8000 = @Naked8000,NakedAverageL = @NakedAverageL,NakedAverageR = @NakedAverageR,NakedAverage = @NakedAverage,After250L = @After250L,After250R = @After250R,After250 = @After250,After500L = @After500L,After500R = @After500R,After500 = @After500,After1000L = @After1000L,After1000R = @After1000R,After1000 = @After1000,After2000L = @After2000L,After2000R = @After2000R,After2000 = @After2000,After4000L = @After4000L,After4000R = @After4000R,After4000 = @After4000,After8000L = @After8000L,After8000R = @After8000R,After8000 = @After8000,AfterAverageL = @AfterAverageL,AfterAverageR = @AfterAverageR,AfterAverage = @AfterAverage,AudiometryOther = @AudiometryOther,AudiometryAssessmentBy = @AudiometryAssessmentBy,AudiometryAssessmentDate = @AudiometryAssessmentDate,AudiometrygAssessmentScoring = @AudiometrygAssessmentScoring,HearingAssessmentBy = @HearingAssessmentBy,HearingAssessmentDate = @HearingAssessmentDate,HearingAssessmentScoring1 = @HearingAssessmentScoring1,HearingAssessmentScoring2 = @HearingAssessmentScoring2,AidsState1 = @AidsState1,AidsState2 = @AidsState2,AidsState3 = @AidsState3,AidsState4 = @AidsState4,AidsState5 = @AidsState5,AidsAssessmentBy = @AidsAssessmentBy,AidsAssessmentDate = @AidsAssessmentDate,AidsAssessmentScoring = @AidsAssessmentScoring,Summary = @Summary
+                sql += " update CaseISPstate set " +
+                " PlanWriter2 = @PlanWriter2,PlanWriteFrameDate2 = @PlanWriteFrameDate2,PlanWriteExecutor2 = @PlanWriteExecutor2,PlanRevise2 = @PlanRevise2,PlanReviseDate2 = @PlanReviseDate2,PlanReviseExecutor2 = @PlanReviseExecutor2"+
+                ",Naked250L = @Naked250L,Naked250R = @Naked250R,Naked250 = @Naked250,Naked500L = @Naked500L,Naked500R = @Naked500R,Naked500 = @Naked500,Naked1000L = @Naked1000L,Naked1000R = @Naked1000R,Naked1000 = @Naked1000"+
+                ",Naked2000L = @Naked2000L,Naked2000R = @Naked2000R,Naked2000 = @Naked2000,Naked4000L = @Naked4000L,Naked4000R = @Naked4000R,Naked4000 = @Naked4000,Naked8000L = @Naked8000L,Naked8000R = @Naked8000R,Naked8000 = @Naked8000"+
+                ",NakedAverageL = @NakedAverageL,NakedAverageR = @NakedAverageR,NakedAverage = @NakedAverage,After250L = @After250L,After250R = @After250R,After250 = @After250,After500L = @After500L"+
+                ",After500R = @After500R,After500 = @After500,After1000L = @After1000L,After1000R = @After1000R,After1000 = @After1000,After2000L = @After2000L,After2000R = @After2000R,After2000 = @After2000"+
+                ",After4000L = @After4000L,After4000R = @After4000R,After4000 = @After4000,After8000L = @After8000L,After8000R = @After8000R,After8000 = @After8000,AfterAverageL = @AfterAverageL"+
+                ",AfterAverageR = @AfterAverageR,AfterAverage = @AfterAverage,AudiometryOther = @AudiometryOther,AudiometryAssessmentBy = @AudiometryAssessmentBy,AudiometryAssessmentDate = @AudiometryAssessmentDate,AudiometrygAssessmentScoring = @AudiometrygAssessmentScoring"+
+                ",HearingAssessmentBy = @HearingAssessmentBy,HearingAssessmentDate = @HearingAssessmentDate,HearingAssessmentScoring1 = @HearingAssessmentScoring1,HearingAssessmentScoring2 = @HearingAssessmentScoring2"+
+                ",AidsState1 = @AidsState1,AidsState2 = @AidsState2,AidsState3 = @AidsState3,AidsState4 = @AidsState4,AidsState5 = @AidsState5,AidsAssessmentBy = @AidsAssessmentBy,AidsAssessmentDate = @AidsAssessmentDate,AidsAssessmentScoring = @AidsAssessmentScoring,Summary = @Summary " +
+                " where ID = @ISPID ";
+                sql += " Delete HearingManagerDetail Where ISPID = @ISPID ";
+
+                foreach (HearingManagerDetail TPM in StudentISP.HearingManagerDetail)
+                {
+                    sql += " insert into HearingManagerDetail ( ISPID,PlanOrder,DetailOrder,HMDateStart,HMDateEnd,HMADate,HMAMode,HMAResult,HMTeachingDecision ) values ( @ISPID  ,@PlanOrder" + i.ToString() + ",@DetailOrder" + i.ToString() +
+                            ",@HMDateStart" + i.ToString() + ",@HMDateEnd" + i.ToString() + ",@HMADate" + i.ToString() + ",@HMAMode" + i.ToString() + ",@HMAResult" + i.ToString() + ",@HMTeachingDecision" + i.ToString() + " ) ";
+                    i++;
+                }
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ISPID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.ISPID);
+
+                cmd.Parameters.Add("@PlanWriter2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriter2);
+                cmd.Parameters.Add("@PlanWriteFrameDate2", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanWriteFrameDate2);
+                cmd.Parameters.Add("@PlanWriteExecutor2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanWriteExecutor2);
+                cmd.Parameters.Add("@PlanRevise2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanRevise2);
+                cmd.Parameters.Add("@PlanReviseDate2", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.PlanReviseDate2);
+                cmd.Parameters.Add("@PlanReviseExecutor2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.PlanReviseExecutor2);
+                cmd.Parameters.Add("@Naked250L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked250L);
+                cmd.Parameters.Add("@Naked250R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked250R);
+                cmd.Parameters.Add("@Naked250", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked250);
+                cmd.Parameters.Add("@Naked500L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked500L);
+                cmd.Parameters.Add("@Naked500R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked500R);
+                cmd.Parameters.Add("@Naked500", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked500);
+                cmd.Parameters.Add("@Naked1000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked1000L);
+                cmd.Parameters.Add("@Naked1000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked1000R);
+                cmd.Parameters.Add("@Naked1000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked1000);
+                cmd.Parameters.Add("@Naked2000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked2000L);
+                cmd.Parameters.Add("@Naked2000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked2000R);
+                cmd.Parameters.Add("@Naked2000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked2000);
+                cmd.Parameters.Add("@Naked4000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked4000L);
+                cmd.Parameters.Add("@Naked4000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked4000R);
+                cmd.Parameters.Add("@Naked4000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked4000);
+                cmd.Parameters.Add("@Naked8000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked8000L);
+                cmd.Parameters.Add("@Naked8000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked8000R);
+                cmd.Parameters.Add("@Naked8000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.Naked8000);
+                cmd.Parameters.Add("@NakedAverageL", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.NakedAverageL);
+                cmd.Parameters.Add("@NakedAverageR", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.NakedAverageR);
+                cmd.Parameters.Add("@NakedAverage", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.NakedAverage);
+                cmd.Parameters.Add("@After250L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After250L);
+                cmd.Parameters.Add("@After250R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After250R);
+                cmd.Parameters.Add("@After250", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After250);
+                cmd.Parameters.Add("@After500L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After500L);
+                cmd.Parameters.Add("@After500R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After500R);
+                cmd.Parameters.Add("@After500", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After500);
+                cmd.Parameters.Add("@After1000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After1000L);
+                cmd.Parameters.Add("@After1000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After1000R);
+                cmd.Parameters.Add("@After1000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After1000);
+                cmd.Parameters.Add("@After2000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After2000L);
+                cmd.Parameters.Add("@After2000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After2000R);
+                cmd.Parameters.Add("@After2000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After2000);
+                cmd.Parameters.Add("@After4000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After4000L);
+                cmd.Parameters.Add("@After4000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After4000R);
+                cmd.Parameters.Add("@After4000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After4000);
+                cmd.Parameters.Add("@After8000L", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After8000L);
+                cmd.Parameters.Add("@After8000R", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After8000R);
+                cmd.Parameters.Add("@After8000", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.After8000);
+                cmd.Parameters.Add("@AfterAverageL", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AfterAverageL);
+                cmd.Parameters.Add("@AfterAverageR", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AfterAverageR);
+                cmd.Parameters.Add("@AfterAverage", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AfterAverage);
+                cmd.Parameters.Add("@AudiometryOther", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.AudiometryOther);
+                cmd.Parameters.Add("@AudiometryAssessmentBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AudiometryAssessmentBy);
+                cmd.Parameters.Add("@AudiometryAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.AudiometryAssessmentDate);
+                cmd.Parameters.Add("@AudiometrygAssessmentScoring", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.AudiometrygAssessmentScoring);
+                cmd.Parameters.Add("@HearingAssessmentBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.HearingAssessmentBy);
+                cmd.Parameters.Add("@HearingAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.HearingAssessmentDate);
+                cmd.Parameters.Add("@HearingAssessmentScoring1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessmentScoring1);
+                cmd.Parameters.Add("@HearingAssessmentScoring2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.HearingAssessmentScoring2);
+                cmd.Parameters.Add("@AidsState1", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsState1);
+                cmd.Parameters.Add("@AidsState2", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsState2);
+                cmd.Parameters.Add("@AidsState3", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsState3);
+                cmd.Parameters.Add("@AidsState4", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsState4);
+                cmd.Parameters.Add("@AidsState5", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsState5);
+                cmd.Parameters.Add("@AidsAssessmentBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentISP.AidsAssessmentBy);
+                cmd.Parameters.Add("@AidsAssessmentDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentISP.AidsAssessmentDate);
+                cmd.Parameters.Add("@AidsAssessmentScoring", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.AidsAssessmentScoring);
+                cmd.Parameters.Add("@Summary", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentISP.Summary);
+
+                i = 1;
+                foreach (HearingManagerDetail TPM in StudentISP.HearingManagerDetail)
+                {
+                    cmd.Parameters.Add("@PlanOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPM.PlanOrder);
+                    cmd.Parameters.Add("@DetailOrder" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(TPM.DetailOrder);
+                    cmd.Parameters.Add("@HMDateStart" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPM.HMDateStart);
+                    cmd.Parameters.Add("@HMDateEnd" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPM.HMDateEnd);
+                    cmd.Parameters.Add("@HMADate" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(TPM.HMADate);
+                    cmd.Parameters.Add("@HMAMode" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPM.HMAMode);
+                    cmd.Parameters.Add("@HMAResult" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPM.HMAResult);
+                    cmd.Parameters.Add("@HMTeachingDecision" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(TPM.HMTeachingDecision);
+
+                    i++;
+                }
+       
+
+                returnValue = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                returnValue = -1;
+                string ex = e.Message.ToString();
+            }
+        }
 
         return returnValue;
     }
+
+
+    public setTeachISP3 GetTeachISPPage3(Int64 StudentISP)
+        {
+            setTeachISP3 returnValue = new setTeachISP3();
+
+
+            DataBase Base = new DataBase();
+            using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+            {
+                try
+                {
+                    Sqlconn.Open();
+                    string sql = " select a.PlanWriter2,a.PlanWriteFrameDate2,a.PlanWriteExecutor2,a.PlanRevise2,a.PlanReviseDate2,a.PlanReviseExecutor2"+
+                                " ,a.Naked250L,a.Naked250R,a.Naked250,a.Naked500L,a.Naked500R,a.Naked500,a.Naked1000L,a.Naked1000R,a.Naked1000,a.Naked2000L,a.Naked2000R,a.Naked2000,a.Naked4000L,a.Naked4000R,a.Naked4000"+
+                                " ,a.Naked8000L,a.Naked8000R,a.Naked8000,a.NakedAverageL,a.NakedAverageR,a.NakedAverage,a.After250L,a.After250R,a.After250,a.After500L,a.After500R,a.After500,a.After1000L,a.After1000R,a.After1000"+
+                                " ,a.After2000L,a.After2000R,a.After2000,a.After4000L,a.After4000R,a.After4000,a.After8000L,a.After8000R,a.After8000"+
+                                " ,a.AfterAverageL,a.AfterAverageR,a.AfterAverage,a.AudiometryOther,a.AudiometryAssessmentBy,a.AudiometryAssessmentDate,a.AudiometrygAssessmentScoring"+
+                                " ,a.HearingAssessmentBy,a.HearingAssessmentDate,a.HearingAssessmentScoring1,a.HearingAssessmentScoring2"+
+                                " ,a.AidsState1,a.AidsState2,a.AidsState3,a.AidsState4,a.AidsState5,a.AidsAssessmentBy,a.AidsAssessmentDate,a.AidsAssessmentScoring,a.Summary" +
+                                " ,b.PlanOrder,b.DetailOrder,b.HMDateStart,b.HMDateEnd,b.HMADate,b.HMAMode,b.HMAResult,b.HMTeachingDecision "+
+                                 //" ,b.TeachOrder,b.MasterOrder,b.TargetLong " +
+                                 //" ,c.DetailOrder,c.TargetShort,c.DateStart,c.DateEnd,c.EffectiveDate,c.EffectiveMode,c.EffectiveResult,c.Decide " +
+                                 //" ,PlanRevise3Name,PlanWriter3Name ,HearingAssessmentByName,VocabularyAssessmentByName,LanguageAssessmentByName,intelligenceAssessmentByName,OtherAssessmentByName" +
+                                 " ,d.PlanWriter2Name , e.PlanRevise2Name , f.AudiometryAssessmentByName,g.HearingAssessmentByName,h.AidsAssessmentByName  " +
+                                 "  from CaseISPstate a " +
+                                 "  Left join HearingManagerDetail b on a.id = b.ISPID  " +
+
+                                 " left join ( select staffid as did , StaffName as PlanWriter2Name from staffDatabase ) d on a.PlanRevise2 = d.did " +
+                                 " left join ( select staffid as eid , StaffName as PlanRevise2Name from staffDatabase ) e on a.PlanWriter2 = e.eid " +
+                                 " left join ( select staffid as did , StaffName as AudiometryAssessmentByName from staffDatabase ) f on a.AudiometryAssessmentBy = f.did " +
+                                 " left join ( select staffid as eid , StaffName as HearingAssessmentByName from staffDatabase ) g on a.HearingAssessmentBy = g.eid " +
+                                 " left join ( select staffid as did , StaffName as AidsAssessmentByName from staffDatabase ) h on a.AidsAssessmentBy = h.did " +
+
+                                 //                                $("#PlanWriter2Name").unbind("click").click(function() { callTeacherSearchfunction("10"); });
+                        //                                $("#PlanRevise2Name").unbind("click").click(function() { callTeacherSearchfunction("11"); });
+                        //                                $("#AudiometryAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("12"); });
+                        //                                $("#HearingAssessmentBy1Name").unbind("click").click(function() { callTeacherSearchfunction("13"); });
+                        //                                $("#AidsAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("14"); });
+
+                                 //" left join ( select staffid as eid , StaffName as intelligenceAssessmentByName from staffDatabase ) i on a.intelligenceAssessmentBy = i.eid " +
+                                 //" left join ( select staffid as did , StaffName as OtherAssessmentByName from staffDatabase ) j on a.OtherAssessmentBy = j.did " +
+
+                                 " where a.id =@ISPID ";
+
+                    SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                    cmd.Parameters.Add("@ISPID", SqlDbType.BigInt).Value = StudentISP;
+                    SqlDataReader dr = cmd.ExecuteReader();
+                   
+                   
+                    returnValue.HearingManagerDetail = new List<HearingManagerDetail>();
+                    while (dr.Read())
+                    {
+                        HearingManagerDetail addValue = new HearingManagerDetail();
+                        if (returnValue.PlanWriter2 == "" || returnValue.PlanWriter2 == null)
+                        {
+                            returnValue.PlanWriter2 = dr["PlanWriter2"].ToString();
+                            returnValue.PlanWriter2Name = dr["PlanWriter2Name"].ToString();
+                            returnValue.PlanWriteFrameDate2 = DateTime.Parse(dr["PlanWriteFrameDate2"].ToString()).ToString("yyyy-MM-dd");
+                            returnValue.PlanWriteExecutor2 = dr["PlanWriteExecutor2"].ToString();
+                            returnValue.PlanRevise2 = dr["PlanRevise2"].ToString();
+                            returnValue.PlanRevise2Name = dr["PlanRevise2Name"].ToString();
+                            returnValue.PlanReviseDate2 = DateTime.Parse(dr["PlanReviseDate2"].ToString()).ToString("yyyy-MM-dd");
+                            returnValue.PlanReviseExecutor2 = dr["PlanReviseExecutor2"].ToString();
+                            returnValue.Naked250L = dr["Naked250L"].ToString();
+                            returnValue.Naked250R = dr["Naked250R"].ToString();
+                            returnValue.Naked250 = dr["Naked250"].ToString();
+                            returnValue.Naked500L = dr["Naked500L"].ToString();
+                            returnValue.Naked500R = dr["Naked500R"].ToString();
+                            returnValue.Naked500 = dr["Naked500"].ToString();
+                            returnValue.Naked1000L = dr["Naked1000L"].ToString();
+                            returnValue.Naked1000R = dr["Naked1000R"].ToString();
+                            returnValue.Naked1000 = dr["Naked1000"].ToString();
+                            returnValue.Naked2000L = dr["Naked2000L"].ToString();
+                            returnValue.Naked2000R = dr["Naked2000R"].ToString();
+                            returnValue.Naked2000 = dr["Naked2000"].ToString();
+                            returnValue.Naked4000L = dr["Naked4000L"].ToString();
+                            returnValue.Naked4000R = dr["Naked4000R"].ToString();
+                            returnValue.Naked4000 = dr["Naked4000"].ToString();
+                            returnValue.Naked8000L = dr["Naked8000L"].ToString();
+                            returnValue.Naked8000R = dr["Naked8000R"].ToString();
+                            returnValue.Naked8000 = dr["Naked8000"].ToString();
+                            returnValue.NakedAverageL = dr["NakedAverageL"].ToString();
+                            returnValue.NakedAverageR = dr["NakedAverageR"].ToString();
+                            returnValue.NakedAverage = dr["NakedAverage"].ToString();
+                            returnValue.After250L = dr["After250L"].ToString();
+                            returnValue.After250R = dr["After250R"].ToString();
+                            returnValue.After250 = dr["After250"].ToString();
+                            returnValue.After500L = dr["After500L"].ToString();
+                            returnValue.After500R = dr["After500R"].ToString();
+                            returnValue.After500 = dr["After500"].ToString();
+                            returnValue.After1000L = dr["After1000L"].ToString();
+                            returnValue.After1000R = dr["After1000R"].ToString();
+                            returnValue.After1000 = dr["After1000"].ToString();
+                            returnValue.After2000L = dr["After2000L"].ToString();
+                            returnValue.After2000R = dr["After2000R"].ToString();
+                            returnValue.After2000 = dr["After2000"].ToString();
+                            returnValue.After4000L = dr["After4000L"].ToString();
+                            returnValue.After4000R = dr["After4000R"].ToString();
+                            returnValue.After4000 = dr["After4000"].ToString();
+                            returnValue.After8000L = dr["After8000L"].ToString();
+                            returnValue.After8000R = dr["After8000R"].ToString();
+                            returnValue.After8000 = dr["After8000"].ToString();
+                            returnValue.AfterAverageL = dr["AfterAverageL"].ToString();
+                            returnValue.AfterAverageR = dr["AfterAverageR"].ToString();
+                            returnValue.AfterAverage = dr["AfterAverage"].ToString();
+                            returnValue.AudiometryOther = dr["AudiometryOther"].ToString();
+                            returnValue.AudiometryAssessmentBy = dr["AudiometryAssessmentBy"].ToString();
+                            returnValue.AudiometryAssessmentByName = dr["AudiometryAssessmentByName"].ToString();
+                            returnValue.AudiometryAssessmentDate = DateTime.Parse(dr["AudiometryAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                            returnValue.AudiometrygAssessmentScoring = dr["AudiometrygAssessmentScoring"].ToString();
+                            returnValue.HearingAssessmentBy = dr["HearingAssessmentBy"].ToString();
+                            returnValue.HearingAssessmentByName = dr["HearingAssessmentByName"].ToString();
+                            returnValue.HearingAssessmentDate = DateTime.Parse(dr["HearingAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                            returnValue.HearingAssessmentScoring1 = dr["HearingAssessmentScoring1"].ToString();
+                            returnValue.HearingAssessmentScoring2 = dr["HearingAssessmentScoring2"].ToString();
+                            returnValue.AidsState1 = dr["AidsState1"].ToString();
+                            returnValue.AidsState2 = dr["AidsState2"].ToString();
+                            returnValue.AidsState3 = dr["AidsState3"].ToString();
+                            returnValue.AidsState4 = dr["AidsState4"].ToString();
+                            returnValue.AidsState5 = dr["AidsState5"].ToString();
+                            returnValue.AidsAssessmentBy = dr["AidsAssessmentBy"].ToString();
+                            returnValue.AidsAssessmentByName = dr["AidsAssessmentByName"].ToString();
+                            returnValue.AidsAssessmentDate = DateTime.Parse(dr["AidsAssessmentDate"].ToString()).ToString("yyyy-MM-dd");
+                            returnValue.AidsAssessmentScoring = dr["AidsAssessmentScoring"].ToString();
+                            returnValue.Summary = dr["Summary"].ToString();
+                        }
+                        addValue.PlanOrder = dr["PlanOrder"].ToString();
+                        addValue.DetailOrder = dr["DetailOrder"].ToString();
+                        addValue.HMDateStart = DateTime.Parse(dr["HMDateStart"].ToString()).ToString("yyyy-MM-dd");
+                        addValue.HMDateEnd = DateTime.Parse(dr["HMDateEnd"].ToString()).ToString("yyyy-MM-dd");
+                        addValue.HMADate = DateTime.Parse(dr["HMADate"].ToString()).ToString("yyyy-MM-dd");
+                        addValue.HMAMode = dr["HMAMode"].ToString();
+                        addValue.HMAResult = dr["HMAResult"].ToString();
+                        addValue.HMTeachingDecision = dr["HMTeachingDecision"].ToString();
+                        returnValue.HearingManagerDetail.Add(addValue);
+                    }
+
+                    dr.Close();
+                    Sqlconn.Close();
+                }
+                catch (Exception e)
+                {
+                    string ex = e.Message.ToString();
+                }
+            }
+
+
+
+            return returnValue;
+        }
+
 /*
     public int setTeachISPPage3(setTeachISP3 StudentISP)
     {

@@ -2820,6 +2820,12 @@ public class AspAjax : System.Web.Services.WebService {
         return SDB.GetHomeService(StudentISP);
     }
      [WebMethod]
+     public setTeachISP3 GetTeachISPPage3(Int64 StudentISP) //ISP(分頁)->聽力學
+     {
+         TeachDataBase SDB = new TeachDataBase();
+         return SDB.GetTeachISPPage3(StudentISP);
+     }
+     [WebMethod]
      public int[] GetTeachISPPage4Count(Int64 StudentISP) //ISP(分頁)->教學計劃
      {
          TeachDataBase SDB = new TeachDataBase();

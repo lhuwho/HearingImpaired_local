@@ -55,6 +55,12 @@ $(document).ready(function() {
     $("#PlanWriterName").unbind("click").click(function() { callTeacherSearchfunction("1"); });
     $("#PlanReviseName").unbind("click").click(function() { callTeacherSearchfunction("2"); });
 
+    $("#PlanWriter2Name").unbind("click").click(function() { callTeacherSearchfunction("10"); });
+    $("#PlanRevise2Name").unbind("click").click(function() { callTeacherSearchfunction("11"); });
+    $("#AudiometryAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("12"); });
+    $("#HearingAssessmentBy1Name").unbind("click").click(function() { callTeacherSearchfunction("13"); });
+    $("#AidsAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("14"); });
+    
     $("#PlanWriter3Name").unbind("click").click(function() { callTeacherSearchfunction("3"); });
     $("#PlanRevise3Name").unbind("click").click(function() { callTeacherSearchfunction("4"); });
     $("#HearingAssessmentByName").unbind("click").click(function() { callTeacherSearchfunction("5"); });
@@ -396,6 +402,22 @@ function SucceededCallback(result, userContext, methodName) {
             AspAjax.GetTeachISPPage4(id);
 
             break;
+        case "GetTeachISPPage3":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                PushPageValue(result);
+                $("#HearingAssessmentBy1").html(result.HearingAssessmentBy);
+                $("#HearingAssessmentBy1Name").val(result.HearingAssessmentByName);
+                for (var i = 0; i < result.HearingManagerDetail.length; i++) {
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMAMode").val(result.HearingManagerDetail[i].HMAMode);
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMAResult").val(result.HearingManagerDetail[i].HMAResult);
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMTeachingDecision").val(result.HearingManagerDetail[i].HMTeachingDecision);
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMDateStart").val(TransformADFromStringFunction(result.HearingManagerDetail[i].HMDateStart));
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMDateEnd").val(TransformADFromStringFunction(result.HearingManagerDetail[i].HMDateEnd));
+                    $("#" + result.HearingManagerDetail[i].PlanOrder + "_" + result.HearingManagerDetail[i].DetailOrder + "HMADate").val(TransformADFromStringFunction(result.HearingManagerDetail[i].HMADate));
+
+                }
+            }
+            break;
         case "GetTeachISPPage4":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 PushPageValue(result);
@@ -504,6 +526,28 @@ function SucceededCallback(result, userContext, methodName) {
                                 $("#OtherAssessmentBy").html(id);
                                 $("#OtherAssessmentByName").val(name);
                                 break;
+                            case "10":
+                                $("#PlanWriter2").html(id);
+                                $("#PlanWriter2Name").val(name);
+                                break;
+                            case "11":
+                                $("#PlanRevise2").html(id);
+                                $("#PlanRevise2Name").val(name);
+                                break;
+                            case "12":
+                                $("#AudiometryAssessmentBy").html(id);
+                                $("#AudiometryAssessmentByName").val(name);
+                                break;
+                            case "13":
+                                $("#HearingAssessmentBy1").html(id);
+                                $("#HearingAssessmentBy1Name").val(name);
+                                break;
+                            case "14":
+                                $("#AidsAssessmentBy").html(id);
+                                $("#AidsAssessmentByName").val(name);
+                                break;
+
+
                         }
                         $.fancybox.close();
                     });
@@ -519,6 +563,13 @@ function SucceededCallback(result, userContext, methodName) {
             $("#PlanWriterName").val(result[1]);
             $("#PlanWriter").html(result[0]);
             $("#PlanRevise").html(result[0]);
+
+            $("#PlanWriter2Name").val(result[1]);
+            $("#PlanWriter2").html(result[0])
+
+            $("#PlanRevise2Name").val(result[1]);
+            $("#PlanRevise2").html(result[0])
+            
             $("#PlanWriter3Name").val(result[1]);
             $("#PlanWriter3").html(result[0])
 
@@ -547,6 +598,7 @@ function getViewData(id, act) {
         AspAjax.GetWriteName();
         AspAjax.getTeachISPDate(id);
         AspAjax.GetHomeService(id);
+        AspAjax.GetTeachISPPage3(id);
         AspAjax.GetTeachISPPage4Count(id);
         //AspAjax.GetTeachISPPage4(id);
 
@@ -862,6 +914,39 @@ function SaveCaseISP(Type) {
             }
             AspAjax.setTeachISPDate2(Q1myData);
             break;
+        case 3:
+            ///待處理
+            var obj = MyBase.getTextValueBase("item3Content");
+            var obj1 = getHideSpanValue("item3Content", "hideClassSpan");
+            MergerObject(obj, obj1);
+            obj.ISPID = _ColumnID;
+            obj.HearingAssessmentBy = $("#HearingAssessmentBy1").html();
+            obj.HearingAssessmentBy1Name = $("#HearingAssessmentBy1Name").val();
+           
+            var HearingManagerDetail = new Array();
+            var i = 1;
+            $(".rowspans").each(function() {
+                for (var j = 1; j <= $(this).attr("rowspan"); j++) {
+                    var data = {};
+                    data.PlanOrder = i;
+                    data.DetailOrder = j;
+                    data.HMDateStart = TransformRepublicReturnValue($("#" + i + "_" + j + "HMDateStart").val());
+                    data.HMDateEnd = TransformRepublicReturnValue($("#" + i + "_" + j + "HMDateEnd").val());
+                    data.HMADate = TransformRepublicReturnValue($("#" + i + "_" + j + "HMADate").val());
+                    data.HMAMode = $("#" + i + "_" + j + "HMAMode").val();
+                    data.HMAResult = $("#" + i + "_" + j + "HMAResult").val();
+                    data.HMTeachingDecision = $("#" + i + "_" + j + "HMTeachingDecision").val();
+                    HearingManagerDetail[HearingManagerDetail.length] = data;
+                }
+                i++;
+            });
+            obj.HearingManagerDetail = HearingManagerDetail;
+
+            AspAjax.setTeachISPDate3(obj);
+
+            break;
+            
+            
         case 4:
 
             var obj = MyBase.getTextValueBase("item4Content");
