@@ -1100,6 +1100,359 @@ public class StaffDataBase
     }
 
 
+
+
+    private string SearchStaffWorkConditionReturn(SearchStaff SearchStaffConditionData)
+    {
+        string ConditionReturn = "";
+        string DateBase = "1900-01-01";
+        if (SearchStaffConditionData.txtstaffID != null)
+        {
+            ConditionReturn += " AND StaffID=(@StaffID) ";
+        }
+        if (SearchStaffConditionData.txtstaffName != null)
+        {
+            ConditionReturn += " AND StaffName like (@StaffName) ";
+        }
+        if (SearchStaffConditionData.txtstaffSex != null)
+        {
+            ConditionReturn += " AND sex=(@sex) ";
+        }
+        //if (SearchStaffConditionData.txtstaffBirthdayStart != null && SearchStaffConditionData.txtstaffBirthdayStart != DateBase)
+        //{
+        //    ConditionReturn += " AND  ";
+        //}
+        //if (SearchStaffConditionData.txtstaffBirthdayStart != null && SearchStaffConditionData.txtstaffBirthdayEnd != null && SearchStaffConditionData.txtstaffBirthdayStart != DateBase && SearchStaffConditionData.txtstaffBirthdayEnd != DateBase)
+        //{
+        //    ConditionReturn += " AND Birthday BETWEEN (@sBirthdayStart) AND (@sBirthdayEnd) ";
+        //}
+        if (SearchStaffConditionData.txtstaffJob != null)
+        {
+            ConditionReturn += " AND WorkItem =(@WorkItem) ";
+        }
+        if (SearchStaffConditionData.txtstaffUnit != null)
+        {
+            ConditionReturn += " AND Unit =(@Unit) ";
+        }
+        List<string> UserFile = this.getStaffDataName(HttpContext.Current.User.Identity.Name);
+        this.personnelFunction();
+        if (int.Parse(_StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+        {
+            ConditionReturn += " AND Unit =" + UserFile[2] + " ";
+        }
+        return ConditionReturn;
+    }
+    public string[] SearchStaffDataBaseWorkCount(SearchStaff SearchStaffConditionData)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        string SearchStaffCondition = this.SearchStaffConditionReturn(SearchStaffConditionData);
+
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition;
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffID);
+                cmd.Parameters.Add("@StaffName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffConditionData.txtstaffName) + "%";
+                cmd.Parameters.Add("@sex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayStart);
+                //cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayEnd);
+                cmd.Parameters.Add("@WorkItem", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffJob);
+                cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffUnit);
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+
+        }
+        return returnValue;
+    }
+    public List<WorkRecordManagePeople> SearchStaffDataBaseWork(int indexpage, SearchStaff SearchStaffConditionData)
+    {
+        List<WorkRecordManagePeople> returnValue = new List<WorkRecordManagePeople>();
+        DataBase Base = new DataBase();
+        string SearchStaffCondition = this.SearchStaffWorkConditionReturn(SearchStaffConditionData);
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY StaffDatabase.ID DESC) " +
+                             "AS RowNum, StaffDatabase.* " +
+                             "FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition + " ) " +
+                             "AS NewTable " +
+                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffID);
+                cmd.Parameters.Add("@StaffName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffConditionData.txtstaffName) + "%";
+                cmd.Parameters.Add("@sex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffSex);
+                cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayStart);
+                cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayEnd);
+                cmd.Parameters.Add("@WorkItem", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffJob);
+                cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffUnit);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    WorkRecordManagePeople addValue = new WorkRecordManagePeople();
+                    addValue.StaffID = dr["StaffID"].ToString();
+                    addValue.StaffName = dr["StaffName"].ToString();
+                    addValue.WorkRecord = SearchStaffWorkRecord(dr["StaffID"].ToString(), SearchStaffConditionData.txtstaffBirthdayStart);
+
+                    returnValue.Add(addValue);
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string Ex = e.Message.ToString();
+               //StaffDataList addValue = new StaffDataList();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+
+        }
+        return returnValue;
+    }
+    public List<WorkRecord> SearchStaffWorkRecord(string StaffID,string ThisDate)
+    {
+        List<WorkRecord> returnValue = new List<WorkRecord>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "select  CAST(CreateFileDate AS smalldatetime ) as CreateFileDate  FROM WorkRecord where staffid = @StaffID and  CAST(CreateFileDate AS date ) = @ThisDate ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffID);
+                cmd.Parameters.Add("@ThisDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(ThisDate);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    WorkRecord addValue = new WorkRecord();
+                    addValue.CreateFileDate = DateTime.Parse(dr["CreateFileDate"].ToString()).ToString("HH:mm");
+          
+                    //addValue.sUnit = dr["Unit"].ToString();
+                    //addValue.sJob = dr["WorkItem"].ToString();
+                    //addValue.FileDate = DateTime.Parse(dr["FileDate"].ToString()).ToString("yyyy-MM-dd");
+                    //addValue.Phone = dr["Phone"].ToString();
+                    //addValue.officeDate = DateTime.Parse(dr["AppointmentDate"].ToString()).ToString("yyyy-MM-dd");
+                    //addValue.resignDate = DateTime.Parse(dr["ResignationDate"].ToString()).ToString("yyyy-MM-dd");
+                    returnValue.Add(addValue);
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string Ex = e.Message.ToString();
+                //StaffDataList addValue = new StaffDataList();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+
+        }
+
+        return returnValue;
+    
+    }
+
+    public string[] SetWorkRecordManage(List<WorkRecordManage> SearchStaffCondition)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " ";
+                if (SearchStaffCondition.Count > 0)
+                { 
+                   sql += " delete WorkRecordManage where date = @Date and StaffID = @StaffID";
+                }
+               
+                for (int i = 0; i < SearchStaffCondition.Count; i++)
+                {
+                    
+                    sql += " insert into WorkRecordManage ( StaffID,Date,StartTime,EndTime,VacationType) values ( ";
+                    sql += " @StaffID" + i.ToString() + ",@Date" + i.ToString() + ",@StartTime" + i.ToString() + ",@EndTime" + i.ToString() + ",@VacationType" + i.ToString() + ") ";
+                }
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                if (SearchStaffCondition.Count > 0)
+                {
+                    cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffCondition[0].StaffID);
+                    cmd.Parameters.Add("@Date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[0].Date);
+                }
+                for (int i = 0; i < SearchStaffCondition.Count; i++)
+                {
+                    cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
+                    cmd.Parameters.Add("@Date" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date);
+                    cmd.Parameters.Add("@StartTime" + i.ToString(), SqlDbType.Float).Value =SearchStaffCondition[i].StartTime;
+                    cmd.Parameters.Add("@EndTime" + i.ToString(), SqlDbType.Float).Value = SearchStaffCondition[i].EndTime;
+                    cmd.Parameters.Add("@VacationType" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType);
+                }
+                returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+
+        }
+        return returnValue;
+    }
+    public List<WorkRecordManage> GetWorkRecordManage(WorkRecordManage SearchStaffCondition)
+    {
+        List<WorkRecordManage> returnValue = new List<WorkRecordManage>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "  select * from  WorkRecordManage where date = @Date and StaffID = @StaffID ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffCondition.StaffID);
+                cmd.Parameters.Add("@Date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition.Date);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    WorkRecordManage addValue = new WorkRecordManage();
+                    addValue.Date = DateTime.Parse(dr["Date"].ToString()).ToString("yyyy-MM-dd"); ;
+                    addValue.StartTime = dr["StartTime"].ToString();
+                    addValue.EndTime = dr["EndTime"].ToString();
+                    addValue.VacationType = dr["VacationType"].ToString();
+                    returnValue.Add(addValue);
+                }
+              //  returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                //returnValue[0] = "-1";
+                string ex = e.Message.ToString();
+   //             returnValue[1] = e.Message.ToString();
+            }
+
+        }
+        return returnValue;
+    }
+
+
+    public string[] SearchStaffDataBaseWorkAllCount(int Year, int Month)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "0";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                returnValue[0] = cmd.ExecuteScalar().ToString();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+
+        }
+        return returnValue;
+    }
+    public List<WorkRecordAll> SearchStaffDataBaseWorkAll(int Year, int Month , int indexpage )
+    {
+        List<WorkRecordAll> returnValue = new List<WorkRecordAll>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql  = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY alltable.ID DESC)AS RowNum, *  FROM  (";
+                 sql += " select a.staffid ,a.staffname,a.id,b.* "+
+                             " from StaffDatabase a left join  (select StaffID  as Teacherid    " +
+                            ", SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1'"+
+                            ", SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2'"+
+                            ", SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3'"+
+                            ", SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4'" +
+                            ", SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5'" +
+                            ", SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6'" +
+                            ", SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7'" +
+                            ", SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8'" +
+                            ", SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9'" +
+                            ", SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10'" +
+                            ", SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11'" +
+
+                            " from WorkRecordManage "+
+                            " where Year([date]) = @Year  and MONTH([date]) = @Month "+
+                            " group by StaffID ) b on a.staffid = b.Teacherid ";
+                 sql += ") as alltable) AS NewTable ";
+                sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@Year", SqlDbType.Int).Value = Year;
+                cmd.Parameters.Add("@Month", SqlDbType.Int).Value = Month;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    WorkRecordAll addValue = new WorkRecordAll();
+                    addValue.StaffID = dr["StaffID"].ToString();
+                    addValue.StaffName = dr["StaffName"].ToString();
+                    addValue.V1 = dr["V1"].ToString();
+                    addValue.V2 = dr["V2"].ToString();
+                    addValue.V3 = dr["V3"].ToString();
+                    addValue.V4 = dr["V4"].ToString();
+                    addValue.V5 = dr["V5"].ToString();
+                    addValue.V6 = dr["V6"].ToString();
+                    addValue.V7 = dr["V7"].ToString();
+                    addValue.V8 = dr["V8"].ToString();
+                    addValue.V9 = dr["V9"].ToString();
+                    addValue.V10 = dr["V10"].ToString();
+                    addValue.V11 = dr["V11"].ToString();
+
+                    returnValue.Add(addValue);
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string Ex = e.Message.ToString();
+                //StaffDataList addValue = new StaffDataList();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+
+        }
+        return returnValue;
+    }
+
+
     public string[] SearchStaffDataBaseCountCase(SearchStaff SearchStaffConditionData, string getid)
     {
         string[] returnValue = new string[3];

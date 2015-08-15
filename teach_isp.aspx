@@ -149,7 +149,28 @@
 			            <tr>
 		                <th>聽覺輔具</th>
 		                <td colspan="3">
-		                    <label><input type="radio" name="assistmanage" value="1" /> 無輔具</label>　　
+		                        <label><input type="radio" name="assistmanage" value="1" /> 無輔具(以下免填)</label>　
+			                <label><input type="radio" name="assistmanage" value="2" /> 耳模製作中(以下免填)</label>　
+			                <label><input type="radio" name="assistmanage" value="3" /> 已選配輔具</label>（初配年齡<input type="text" id="accessory1" value="" size="5" maxlength="3" />歲 <input type="text" id="accessory2" value="" size="5" /> 月）　
+			                <label><input type="radio" name="assistmanage" value="4" /> 已植入人工電子耳</label><br />
+			                右耳：<label><input type="radio" name="assistmanageR" value="1" /> 助聽器</label>　<label><input type="radio" name="assistmanageR" value="2" /> 電子耳</label>　
+			                廠牌 <select id="brandR" ><option value="0">請選擇輔具類型</option></select>　型號<input type="text" id="modelR" value="" /><br />　　　
+			                選配/植入時間 <input type="text" class="date" id="buyingtimeR" value="" /> 選配/植入地點 <input type="text"  id="buyingPlaceR" value="" /><br />　　　
+			                植入醫院醫生 <input type="text"  id="insertHospitalR" size="15" value="" /> 開頻日 <input class="date" type="text" id="openHzDateR" value="" size="10" /><br />
+			                左耳：<label><input type="radio" name="assistmanageL" value="1" /> 助聽器</label>　<label><input type="radio" name="assistmanageL" value="2" /> 電子耳</label>　
+			                廠牌<select id="brandL"><option value="0">請選擇輔具類型</option></select>　型號<input type="text" id="modelL" value="" /><br />　　　
+			                選配/植入時間 <input type="text" class="date" id="buyingtimeL" value="" /> 選配/植入地點 <input type="text" id="buyingPlaceL" value="" /><br />　　　
+			                植入醫院醫生 <input type="text" id="insertHospitalL" value="" size="15" /> 開頻日 <input class="date" type="text" id="openHzDateL" value="" size="10" /><br />
+			                全日配戴輔具：
+                            <label><input type="radio" name="allassis" value="1" /> 是</label>　
+			                <label><input type="radio" name="allassis" value="2" /> 否，原因</label> <input type="text" id="allassisNoText" value="" size="" /><br />
+			                能主動反應輔具聲音有無：
+                            <label><input type="radio" name="assis1" value="1" /> 是</label>　
+			                <label><input type="radio" name="assis1" value="2" /> 否，原因</label> <input type="text" id="assis1NoText" value="" size="" /><br />
+			                輔具每日基礎保養及檢測：
+                            <label><input type="radio" name="assis2" value="1" /> 是</label>　
+			                <label><input type="radio" name="assis2" value="2" /> 否，原因</label> <input type="text" id="assis2NoText" value="" size="" />
+		                  <%--  <label><input type="radio" name="assistmanage" value="1" /> 無輔具</label>　　
 		                    <label><input type="radio" name="assistmanage" value="2" /> 耳模製作中</label>　　
 		                    <label><input type="radio" name="assistmanage" value="3" /> 已選配輔具（初配年齡<input  id="Accessory" type="text" value="" size="5" maxlength="3" />）</label>　　
 		                    <label><input type="radio" name="assistmanage" value="4" /> 已植入人工電子耳</label><br />
@@ -168,7 +189,7 @@
 		                    <br />　　　<label><input type="radio" name="assistmanageL" value="2" /> 電子耳</label>，廠牌/型號
 		                    <select id="BrandL2"><option value="0">廠牌/型號</option></select>
 		                    植入醫院 <input id="InsertHospitalL" type="text" value="" size="15" />，植入日 <input id ="InsertDateL" class="date" type="text" size="10" />
-		                    <br />　　　　　　　　　　　　　　　　　　　　開頻日 <input id="OpenHzDateL" class="date" type="text" value="" size="10" />
+		                    <br />　　　　　　　　　　　　　　　　　　　　開頻日 <input id="OpenHzDateL" class="date" type="text" value="" size="10" />--%>
 		                </td>
 		            </tr>
 			        </table>

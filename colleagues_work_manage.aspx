@@ -15,11 +15,13 @@
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
-    <script type="text/javascript" src="./js/jquery.timePicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/jquery.timePicker.css" />
-    
+
+    <script type="text/javascript" src="./js/base.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/colleagues_work_manage.js"></script>
+	
+		<script src="./js/jquery.pagination.js" type="text/javascript"></script>
+    <link type="text/css" href="./css/pagination.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -45,14 +47,14 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <table width="780" border="0">
+			        <table id="searchTable" width="780" border="0">
 			            <tr>
-			                <td width="260">出勤日期 <input id="" class="date" type="text" value="" size="10" /></td>
-			                <td width="260">員工編號 <input id="" type="text" value="" /></td>
-			                <td width="260">員工姓名 <input id="" type="text" value="" /></td>
+			                <td width="260">出勤日期 <input class="date" type="text" id="gosrhstaffBirthdayStart" size="10" /></td>
+			                <td width="260">員工編號 <input type="text" id="gosrhstaffID" value=""/></td>
+			                <td width="260">員工姓名 <input type="text" id="gosrhstaffName" value="" /></td>
 			            </tr>
 			            <tr>
-			                <td colspan="3" align="center"><button class="btnSearch" type="button" onclick="showView(1)">顯 示</button></td>
+			                <td colspan="3" align="center"><button class="btnSearch" type="button" onclick="Search()">顯 示</button></td>
 			            </tr>
 			        </table>
 			    </div>

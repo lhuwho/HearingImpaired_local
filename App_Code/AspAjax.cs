@@ -1299,6 +1299,45 @@ public class AspAjax : System.Web.Services.WebService {
     
 
     /*Staff****************************************************************************************/
+    [WebMethod]
+    public string[] SearchStaffDataBaseWorkCount(SearchStaff SearchStaffCondition)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseWorkCount(SearchStaffCondition);
+    }
+    [WebMethod]
+    public List<WorkRecordManagePeople> SearchStaffDataBaseWork(int index, SearchStaff SearchStaffCondition)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseWork(index, SearchStaffCondition);
+    }
+    [WebMethod]
+    public string[] SetWorkRecordManage(List<WorkRecordManage> SearchStaffCondition)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SetWorkRecordManage(SearchStaffCondition);
+    }
+    [WebMethod]
+    public List<WorkRecordManage> GetWorkRecordManage(WorkRecordManage SearchStaffCondition)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.GetWorkRecordManage(SearchStaffCondition);
+    }
+    [WebMethod]
+    public string[] SearchStaffDataBaseWorkAllCount(int Year , int Month)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseWorkAllCount(Year, Month);
+    }
+    [WebMethod]
+    public List<WorkRecordAll> SearchStaffDataBaseWorkAll(int Year, int Month, int indexpage)
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.SearchStaffDataBaseWorkAll(Year, Month,indexpage);
+    }
+
+//  
+
 
     [WebMethod]
     public string[] SearchStaffDataBaseCountCase(SearchStaff SearchStaffCondition, string getid)//無法使用權限，會使程式部分功能喪失 add by Awho

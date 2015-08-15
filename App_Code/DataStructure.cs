@@ -3701,3 +3701,51 @@ public struct TeacherSchuduleStudent
 
 /*****教學管理 結束 *******/
 
+
+/****  人事  ****/
+public struct WorkRecordManagePeople
+{
+
+    public string StaffID;
+    public string StaffName;
+    public List<WorkRecord> WorkRecord;
+    public List<WorkRecordManage> WorkRecordManage;
+
+}
+
+public struct WorkRecord
+{
+    public string StaffID;
+    public string CreateFileDate;
+}
+
+public struct WorkRecordManage
+{
+    public string ID;
+    public string StaffID;
+    public string Date;
+    public string StartTime;
+    public string EndTime;
+    public string VacationType;
+}
+
+public struct WorkRecordAll
+{
+    public string StaffID;
+    public string StaffName;
+    public string V1;//'事假'
+    public string V2;//'病假'
+    public string V3;//'遲到'
+    public string V4;//'特休'
+    public string V5;//'公假'
+    public string V6;// '婚假'
+    public string V7;// '產假'
+    public string V8;//'喪假'
+    public string V9;//'公傷'
+    public string V10;// '未打卡'
+    public string V11;//'工作異動'
+
+
+}
+
+

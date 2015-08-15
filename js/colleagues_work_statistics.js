@@ -1,5 +1,7 @@
-﻿
+﻿var MyBase = new Base();
 $(document).ready(function() {
+AspAjax.set_defaultSucceededCallback(SucceededCallback);
+
     setDate(1990);
     initPage();
     $("#btnSearch").css("background-image", "url(./images/bg_menutab2.jpg)");
@@ -22,27 +24,90 @@ $(document).ready(function() {
     });
 });
 
-function showView(viewID) {
-    var DivName = '';
+function SucceededCallback(result, userContext, methodName) {
+    // alert(methodName);
+    SucceededCallbackAll(result, userContext, methodName);
+    switch (methodName) {
+        case "SearchStaffDataBaseWorkAllCount":
+            var pageCount = parseInt(result[0]);
+            if (pageCount > 0) {
+                //分頁，PageCount是總條目數，這是必選參數，其它參數都是可選
+                $("#mainPagination").pagination(pageCount, {
+                    prev_text: '<', //上一頁按鈕裡text
+                    next_text: '>', //下一頁按鈕裡text
+                    items_per_page: _LimitPage, //顯示條數
+                    num_display_entries: 4, //連續分頁主體部分分頁條目數
+                    num_edge_entries: 2, //兩側首尾分頁條目數
+                    //ellipse_text: "/",
+                    //link_to: ,
+                    callback: function(index, jq) {
+                        //var obj = MyBase.getTextValueBase("searchTable");
+                         AspAjax.SearchStaffDataBaseWorkAll(( parseInt(  $("#yearDate2").val()) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10));
+                        return false;
+                    }
+                });
+            } else if (pageCount == 0) {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            } else {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>發生錯誤，錯誤訊息如下：" + result[1] + "</td></tr>");
+            }
+            break;
+        case "SearchStaffDataBaseWorkAll":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+
+                var inner = "";
+                for (var i = 0; i < result.length; i++) {
+                    
+                    inner += '<tr>' +
+                        '<td>' + result[i].StaffID + '</td>' +
+                        '<td>' + result[i].StaffName + '</td>' +
+                        '<td>' + result[i].V1 + '</td>' +
+                        '<td>' + result[i].V2 + '</td>' +
+                        '<td>' + result[i].V3 + '</td>' +
+                        '<td>' + result[i].V4 + '</td>' +
+                        '<td>' + result[i].V5 + '</td>' +
+                        '<td>' + result[i].V6 + '</td>' +
+                        '<td>' + result[i].V7 + '</td>' +
+                        '<td>' + result[i].V8 + '</td>' +
+                        '<td>' + result[i].V9 + '</td>' +
+                        '<td>' + result[i].V10 + '</td>' +
+                         '<td>' + result[i].V11 + '</td>' +
+//                        '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
+			                '</tr>';
+                }
+                $("#mainSearchList .tableList").children("tbody").html(inner);
+
+            } else {
+                $("#mainSearchList .tableList").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            }
+            break;
+    }
+}
+
+
+
+function Search(viewID) {
     switch (viewID) {
         case 1:
-            DivName = "#mainSearchList";
+            if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1) {
+                $("#mainSearchList .tableList").children("tbody").empty();
+                $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月全會每個人出勤表");
+                AspAjax.SearchStaffDataBaseWorkAllCount(($("#yearDate2").val() + 1911), $("#monthDate2").val());
+//                var obj = {};
+//                obj.monthDate = $("#monthDate2").val();
+//                obj.yearDate = $("#yearDate2").val();
+                //alert(obj.monthDate);
+                //   AspAjax.SearchStaffDataBaseWorkCount(obj);
+            }
+            else {
+                $("#mainSearchList .tableList").children("tbody").empty(); alert("請選擇日期");
+            }
             break;
         case 2:
             DivName = "#mainIndexList";
-            break;
-        case 3:
-            DivName = "#mainIndexList2";
-            break;
-        case 4:
-            DivName = "#mainIndexList3";
-            break;
-        case 5:
-            DivName = "#mainIndexList4";
+            $(DivName).fadeIn();
             break;
     }
-    $(DivName).fadeIn();
-    $(DivName + " input[type=text]").add(DivName + " select").attr("disabled", true);
 }
 
 function setDate(year_start) {

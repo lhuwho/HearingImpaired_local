@@ -15,6 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datepick.css" />
 	<script type="text/javascript" src="./js/jquery.datepick.js"></script>
 	<script type="text/javascript" src="./js/jquery.datepick-zh-TW.js"></script>
+		<script type="text/javascript" src="./js/jquery.timePicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/jquery.timePicker.css" />
     <script type="text/javascript" src="./js/base.js"></script>
     <script type="text/javascript" src="./js/jquery.form.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>

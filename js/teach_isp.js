@@ -318,7 +318,7 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.StudentData.studentID != -1) {
                     PushPageValue(result.StudentData);
-                    alert(result.StudentData.studentID);
+                   // alert(result.StudentData.studentID);
                     $("#studentCID").html(result.Column);
                     $("#studentID").html(result.StudentData.studentID);
                     $("#LegalrepresentativeName").val(result.StudentData.fPName2);
@@ -350,8 +350,8 @@ function SucceededCallback(result, userContext, methodName) {
                 if (parseInt(result.ISP1Data.studentID) > 0) {
                     PushPageValue(result.ISP1Data);
                     $("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass();
-                   
-                    
+                    AspAjax.getStudentDataBase(result.ISP1Data.studentID);
+
                 } else {
                     if (result.ISP1Data.studentID == null) {
                         alert("查無資料");
