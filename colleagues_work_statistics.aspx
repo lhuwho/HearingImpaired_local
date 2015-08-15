@@ -43,7 +43,7 @@
 			
 			<div id="mainMenuList">
 			    <div id="btnSearch" class="menuTabs2">每月全會每個人出勤表</div>
-			    <div id="btnIndex" class="menuTabs2">年度教職員個人出勤統計表</div>
+			   <%-- <div id="btnIndex" class="menuTabs2">年度教職員個人出勤統計表</div>--%>
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
@@ -100,7 +100,7 @@
                 </div>
 			</div>
 			
-			<div id="mainContentIndex">
+		<%--	<div id="mainContentIndex">
 			    <div id="mainIndexForm">
 			        <table width="780" border="0">
 			            <tr>
@@ -197,7 +197,7 @@
 			            </tbody>
 			        </table>
 		        </div>
-			</div>
+			</div>--%>
 		</div>
 		<div id="footer"></div>
 	</div>
