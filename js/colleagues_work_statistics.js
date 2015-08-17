@@ -42,7 +42,7 @@ function SucceededCallback(result, userContext, methodName) {
                     //link_to: ,
                     callback: function(index, jq) {
                         //var obj = MyBase.getTextValueBase("searchTable");
-                         AspAjax.SearchStaffDataBaseWorkAll(( parseInt(  $("#yearDate2").val()) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10));
+                         AspAjax.SearchStaffDataBaseWorkAll(( parseInt( parseInt( $("#yearDate2").val())) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10));
                         return false;
                     }
                 });
@@ -92,7 +92,7 @@ function Search(viewID) {
             if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1) {
                 $("#mainSearchList .tableList").children("tbody").empty();
                 $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月全會每個人出勤表");
-                AspAjax.SearchStaffDataBaseWorkAllCount(($("#yearDate2").val() + 1911), $("#monthDate2").val());
+                AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val());
 //                var obj = {};
 //                obj.monthDate = $("#monthDate2").val();
 //                obj.yearDate = $("#yearDate2").val();

@@ -1148,18 +1148,20 @@ public class StaffDataBase
         returnValue[0] = "0";
         returnValue[1] = "0";
         DataBase Base = new DataBase();
-        string SearchStaffCondition = this.SearchStaffConditionReturn(SearchStaffConditionData);
+        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate>@SearchDate ) and AppointmentDate<@SearchDate";
 
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
-            try
+            try 
             {
                 Sqlconn.Open();
-                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition;
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0  " + SearchStaffCondition;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffID);
                 cmd.Parameters.Add("@StaffName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffConditionData.txtstaffName) + "%";
                 cmd.Parameters.Add("@sex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffSex);
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayStart);
+
                 cmd.Parameters.Add("@sBirthdayStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayStart);
                 //cmd.Parameters.Add("@sBirthdayEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayEnd);
                 cmd.Parameters.Add("@WorkItem", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffJob);
@@ -1180,19 +1182,20 @@ public class StaffDataBase
     {
         List<WorkRecordManagePeople> returnValue = new List<WorkRecordManagePeople>();
         DataBase Base = new DataBase();
-        string SearchStaffCondition = this.SearchStaffWorkConditionReturn(SearchStaffConditionData);
+        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate>@SearchDate ) and AppointmentDate<@SearchDate";
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY StaffDatabase.ID DESC) " +
+                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY unit,StaffID asc) " +
                              "AS RowNum, StaffDatabase.* " +
                              "FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition + " ) " +
                              "AS NewTable " +
-                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
+                             "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffConditionData.txtstaffBirthdayStart);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffID);
                 cmd.Parameters.Add("@StaffName", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffConditionData.txtstaffName) + "%";
                 cmd.Parameters.Add("@sex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStaffConditionData.txtstaffSex);
@@ -1364,13 +1367,15 @@ public class StaffDataBase
         returnValue[0] = "0";
         returnValue[1] = "0";
         DataBase Base = new DataBase();
+        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate>@SearchDate ) and AppointmentDate<@SearchDate";
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 ";
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year+"-"+Month+"-01");
                 returnValue[0] = cmd.ExecuteScalar().ToString();
                 Sqlconn.Close();
             }
@@ -1387,32 +1392,44 @@ public class StaffDataBase
     {
         List<WorkRecordAll> returnValue = new List<WorkRecordAll>();
         DataBase Base = new DataBase();
+        string SearchStaffCondition = "and (a.ResignationDate='1900-01-01' or a.ResignationDate>@SearchDate ) and a.AppointmentDate<@SearchDate";
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
-                string sql  = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY alltable.ID DESC)AS RowNum, *  FROM  (";
-                 sql += " select a.staffid ,a.staffname,a.id,b.* "+
-                             " from StaffDatabase a left join  (select StaffID  as Teacherid    " +
-                            ", SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1'"+
-                            ", SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2'"+
-                            ", SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3'"+
-                            ", SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4'" +
-                            ", SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5'" +
-                            ", SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6'" +
-                            ", SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7'" +
-                            ", SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8'" +
-                            ", SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9'" +
-                            ", SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10'" +
-                            ", SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11'" +
 
-                            " from WorkRecordManage "+
-                            " where Year([date]) = @Year  and MONTH([date]) = @Month "+
-                            " group by StaffID ) b on a.staffid = b.Teacherid ";
-                 sql += ") as alltable) AS NewTable ";
-                sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage)";
+                string sql  = "SELECT * FROM "+
+"(	"+
+    "SELECT   ROW_NUMBER() OVER (ORDER BY Unit,staffid  asc)AS RowNum, *  " +
+	"FROM  "+
+	"(	select a.staffid ,a.staffname,a.id,a.Unit, b.*  from StaffDatabase a "+
+	"	left join  "+
+	"	("+
+	"		select StaffID  as Teacherid    , "+
+	"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', "+
+	"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', "+
+	"		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', "+
+	"		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', "+
+	"		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', "+
+	"		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', "+
+	"		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', "+
+	"		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', "+
+	"		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', "+
+	"		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', "+
+	"		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11' "+
+	"		from WorkRecordManage  "+
+    "		where Year([date]) = @Year  and MONTH([date]) = @Month " +
+	"		group by StaffID "+
+	"	) b on a.staffid = b.Teacherid "+
+	"	where a.isDeleted=0 "+SearchStaffCondition+
+
+    ") as alltable " + 
+") "+
+"AS NewTable  ";
+                 sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + Month + "-01");
                 cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
                 cmd.Parameters.Add("@Year", SqlDbType.Int).Value = Year;
                 cmd.Parameters.Add("@Month", SqlDbType.Int).Value = Month;
