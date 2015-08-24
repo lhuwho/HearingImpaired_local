@@ -73,6 +73,7 @@
                                 <th width="40">公傷</th>
 			                    <th width="40">未打卡</th>
 			                    <th width="40">工作<br />異動</th>
+			                    <th width="40">檢視</th>
 			
 			                </tr>
 			            </thead>

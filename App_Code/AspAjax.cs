@@ -1324,6 +1324,12 @@ public class AspAjax : System.Web.Services.WebService {
         return sDB.GetWorkRecordManage(SearchStaffCondition);
     }
     [WebMethod]
+    public List<WorkRecordDetail> SearchStaffDataBaseWorkDetail(string StaffID, int Year, int Month)//人事管理-出勤記錄管理
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return  sDB.SearchStaffDataBaseWorkDetail(StaffID,  Year, Month);
+    }
+    [WebMethod]
     public string[] SearchStaffDataBaseWorkAllCount(int Year , int Month)//人事管理-出勤記錄管理
     {
         StaffDataBase sDB = new StaffDataBase();

@@ -28,6 +28,9 @@ function SucceededCallback(result, userContext, methodName) {
     // alert(methodName);
     SucceededCallbackAll(result, userContext, methodName);
     switch (methodName) {
+        case "SearchStaffDataBaseWorkDetail":
+            alert("");
+            break;
         case "SearchStaffDataBaseWorkAllCount":
             var pageCount = parseInt(result[0]);
             if (pageCount > 0) {
@@ -72,7 +75,7 @@ function SucceededCallback(result, userContext, methodName) {
                         '<td>' + result[i].V9 + '</td>' +
                         '<td>' + result[i].V10 + '</td>' +
                          '<td>' + result[i].V11 + '</td>' +
-//                        '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
+                        '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
 			                '</tr>';
                 }
                 $("#mainSearchList .tableList").children("tbody").html(inner);
@@ -83,7 +86,14 @@ function SucceededCallback(result, userContext, methodName) {
             break;
     }
 }
-
+function viewRecord(StaffID) {
+    var year = (parseInt($("#yearDate2").val()) + 1911);
+    var month = $("#monthDate2").val();
+    
+    alert(AspAjax.SearchStaffDataBaseWorkDetail(StaffID,  year, month));
+    //alert(AspAjax.SearchStaffDataBaseWorkDetail(StaffID, (parseInt(parseInt($("#yearDate2").val())) + 1911), $("#indexpage").val(), $("#monthDate2").val()));
+    //alert(AspAjax.SearchStaffDataBaseWorkAll(( parseInt( parseInt( $("#yearDate2").val())) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10)));
+}
 
 
 function Search(viewID) {

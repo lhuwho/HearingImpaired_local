@@ -3747,5 +3747,15 @@ public struct WorkRecordAll
 
 
 }
+public struct WorkRecordDetail
+{
+    public string StaffID;
+    public string StaffName;
+    public string V1;//'事假'
+    public string V2;//'病假'
+    public string V3;//'遲到'
+}
+
+
 
 

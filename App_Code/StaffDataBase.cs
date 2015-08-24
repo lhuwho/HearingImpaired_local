@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+
+
 using System.Web;
 using System.Data.SqlClient;
 using System.Data;
@@ -1361,6 +1364,87 @@ public class StaffDataBase
     }
 
 
+    public List<WorkRecordDetail> SearchStaffDataBaseWorkDetail(string StaffID,  int Year, int Month)
+    {
+        List<WorkRecordDetail> returnValue = new List<WorkRecordDetail>();
+        DataBase Base = new DataBase();
+        string SearchStaffCondition = "and (a.ResignationDate='1900-01-01' or a.ResignationDate>@SearchDate ) and a.AppointmentDate<@SearchDate";
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+
+                string sql  = "SELECT * FROM "+
+"(	"+
+    "SELECT   ROW_NUMBER() OVER (ORDER BY Unit,staffid  asc)AS RowNum, *  " +
+	"FROM  "+
+	"(	select a.staffid ,a.staffname,a.id,a.Unit, b.*  from StaffDatabase a "+
+	"	left join  "+
+	"	("+
+	"		select StaffID  as Teacherid    , "+
+	"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', "+
+	"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', "+
+	"		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', "+
+	"		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', "+
+	"		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', "+
+	"		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', "+
+	"		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', "+
+	"		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', "+
+	"		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', "+
+	"		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', "+
+	"		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11' "+
+	"		from WorkRecordManage  "+
+    "		where Year([date]) = @Year  and MONTH([date]) = @Month " +
+	"		group by StaffID "+
+	"	) b on a.staffid = b.Teacherid "+
+	"	where a.isDeleted=0 "+SearchStaffCondition+
+
+    ") as alltable " + 
+") "+
+"AS NewTable  ";
+                 sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + Month + "-01");
+                //cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
+                cmd.Parameters.Add("@Year", SqlDbType.Int).Value = Year;
+                cmd.Parameters.Add("@Month", SqlDbType.Int).Value = Month;
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    WorkRecordDetail addValue = new WorkRecordDetail();
+                    addValue.StaffID = dr["StaffID"].ToString();
+                    addValue.StaffName = dr["StaffName"].ToString();
+                    addValue.V1 = dr["V1"].ToString();
+                    addValue.V2 = dr["V2"].ToString();
+                    addValue.V3 = dr["V3"].ToString();
+                    //addValue.V4 = dr["V4"].ToString();
+                    //addValue.V5 = dr["V5"].ToString();
+                    //addValue.V6 = dr["V6"].ToString();
+                    //addValue.V7 = dr["V7"].ToString();
+                    //addValue.V8 = dr["V8"].ToString();
+                    //addValue.V9 = dr["V9"].ToString();
+                    //addValue.V10 = dr["V10"].ToString();
+                    //addValue.V11 = dr["V11"].ToString();
+
+                    returnValue.Add(addValue);
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                string Ex = e.Message.ToString();
+                //StaffDataList addValue = new StaffDataList();
+                //addValue.checkNo = "-1";
+                //addValue.errorMsg = e.Message.ToString();
+                //returnValue.Add(addValue);
+            }
+
+        }
+        return returnValue;
+    }
+    
     public string[] SearchStaffDataBaseWorkAllCount(int Year, int Month)
     {
         string[] returnValue = new string[2];
