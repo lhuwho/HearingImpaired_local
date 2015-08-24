@@ -4,6 +4,7 @@ var MyBase = new Base();
 var noEmptyItem = ["studentID","studentName", "startPlanDate", "endPlanDate"];
 var noEmptyShow = ["學生ID抓取錯誤，請重新選擇學生", "學生姓名", "服務計畫期程-起", "服務計畫期程-迄"];
 var _ColumnID = 0;
+var studentID = "";
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
@@ -348,6 +349,7 @@ function SucceededCallback(result, userContext, methodName) {
         case "getTeachISPDate":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (parseInt(result.ISP1Data.studentID) > 0) {
+                    studentID = result.ISP1Data.studentID;
                     PushPageValue(result.ISP1Data);
                     $("#PlanDate").add("#HE_ProjectDate").add("#EP_Plan_Date").unbind().removeClass();
                     AspAjax.getStudentDataBase(result.ISP1Data.studentID);
@@ -854,10 +856,11 @@ function SaveCaseISP(Type) {
             break;
         case 1:
             obj.Column = _ColumnID;
+            obj.studentID = studentID;
             AspAjax.setTeachISPDate1(obj);
-           // AspAjax.setTeachISPDate2(obj);
-//            AspAjax.setTeachISPDate3(obj);
-//            AspAjax.setTeachISPDate4(obj);
+            // AspAjax.setTeachISPDate2(obj);
+            //            AspAjax.setTeachISPDate3(obj);
+            //            AspAjax.setTeachISPDate4(obj);
             break;
         case 2:
             var cbxVehicle = new Array();

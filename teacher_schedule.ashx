@@ -81,7 +81,7 @@ public class teacher_schedule : IHttpHandler {
         Audiometry AudiometryData = new Audiometry();
         if (int.Parse(AudiometryData._StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
         {
-            ConditionReturn = " AND TeacherSchudule.Unit= " + UserFile[2] + " ";
+            ConditionReturn = " AND a.Unit= " + UserFile[2] + " ";
         }
 
         /*string Limitsunit = "";
