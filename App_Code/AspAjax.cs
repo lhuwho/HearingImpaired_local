@@ -2048,8 +2048,9 @@ public class AspAjax : System.Web.Services.WebService {
     [WebMethod]
     public string[] setStudentDataBase6(StudentHearingInformation StudentHearingData) //學生基本資料(分頁)->聽力
     {
+        Audiometry aDB = new Audiometry();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
         {
             return SDB.setStudentDataBase6(StudentHearingData);
         }
@@ -2061,8 +2062,10 @@ public class AspAjax : System.Web.Services.WebService {
     [WebMethod]
     public string[] setStudentDataBase7(StudentTeachingInformation StudentTeachingData) //學生基本資料(分頁)->教學
     {
+        TeachDataBase aDB = new TeachDataBase();
+        aDB.personnelFunction();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
         {
             return SDB.setStudentDataBase7(StudentTeachingData);
         }

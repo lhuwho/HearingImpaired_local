@@ -54,12 +54,181 @@ public struct CPTDataList
 public class TeachDataBase
 {
     CheckDataTypeClass Chk = new CheckDataTypeClass();
+    public string[] _StaffhaveRoles = new string[5] { "0", "0", "0", "0", "0" };
 	public TeachDataBase()
 	{
 		//
 		// TODO: Add constructor logic here
 		//
 	}
+    public void personnelFunction()
+    {
+        RolesStruct StaffAllRoles = this.getStaffRoles(HttpContext.Current.User.Identity.Name);
+        //_StaffhaveRoles[0] = StaffAllRoles.caseStu[0];//權限
+
+        char[] haveRolesitem = new char[4] { '0', '0', '0', '0' };
+        haveRolesitem = StaffAllRoles.teach[0].ToCharArray();
+        _StaffhaveRoles[0] = haveRolesitem[0].ToString();//刪除
+        _StaffhaveRoles[1] = haveRolesitem[1].ToString();//更新
+        _StaffhaveRoles[2] = haveRolesitem[2].ToString();//新增
+        _StaffhaveRoles[3] = haveRolesitem[3].ToString();//查詢
+        _StaffhaveRoles[4] = StaffAllRoles.personnel[1];//跨區與否
+    }
+    public RolesStruct getStaffRoles(string sID)
+    {
+        RolesStruct returnValue = new RolesStruct();
+        string LimitRoles = "";
+        ManageDataBase msg = new ManageDataBase();
+        string[] MembershipStaffRoles = msg.getMembershipStaffRoles(sID);
+        for (int i = 1; i < MembershipStaffRoles.Length; i++)
+        { //i=0=>Roles DB ID
+            if (MembershipStaffRoles[i] != "0")
+            {
+                if (LimitRoles.Length > 0)
+                {
+                    LimitRoles += " OR ";
+                }
+                LimitRoles += " cR.ID=" + MembershipStaffRoles[i];
+            }
+        }
+        if (LimitRoles.Length > 0)
+        {
+            LimitRoles = " AND " + LimitRoles;
+        }
+        if (sID.Length > 0 && LimitRoles.Length > 0)
+        {
+            DataBase Base = new DataBase();
+            using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+            {
+                try
+                {
+                    Sqlconn.Open();
+                    string sql = "SELECT cR.*,ISNULL(cRUnit.CaseManagement,0) as CaseUnit , ISNULL(cRUnit.ListeningManagement,0) as hearingUnit, " +
+                        "ISNULL(cRUnit.TeachingManagement,0) as teachUnit, ISNULL(cRUnit.Payroll,0) as payrollUnit, ISNULL(cRUnit.Attendance,0) as aUnit, " +
+                        "ISNULL(cRUnit.PersonnelManagement,0) as personnelUnit, ISNULL(cRUnit.PropertyApplyManagement,0) as paUnit, " +
+                        "ISNULL(cRUnit.PropertyManagement,0) as propertyUnit, ISNULL(cRUnit.LibraryManagement,0) as LUnit, " +
+                        "ISNULL(cRUnit.ServiceFees,0) as sUnit, ISNULL(cRUnit.CaseTemperature,0) as cBTUnit, ISNULL(cRUnit.TeachersTemperature,0) as tBTUnit, " +
+                        "ISNULL(cRUnit.StationeryManagement,0) as stationeryUnit, ISNULL(cRUnit.RemindeSystem,0) as remindeUnit " +
+                        "FROM Competence_Roles cR LEFT JOIN Competence_Roles_Unit cRUnit ON cR.ID=cRUnit.cRolesID AND cRUnit.isDeleted=0 " +
+                        "WHERE cR.isDeleted=0 " + LimitRoles;
+
+                    SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                    cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sID);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        string[] RolesCompareReturn = this.RolesCompare(returnValue.caseStu, dr["CaseManagement"].ToString(), dr["CaseUnit"].ToString());
+                        returnValue.caseStu[0] = RolesCompareReturn[0];
+                        returnValue.caseStu[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.hearing, dr["ListeningManagement"].ToString(), dr["hearingUnit"].ToString());
+                        returnValue.hearing[0] = RolesCompareReturn[0];
+                        returnValue.hearing[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.teach, dr["TeachingManagement"].ToString(), dr["teachUnit"].ToString());
+                        returnValue.teach[0] = RolesCompareReturn[0];
+                        returnValue.teach[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.salary, dr["Payroll"].ToString(), dr["payrollUnit"].ToString());
+                        returnValue.salary[0] = RolesCompareReturn[0];
+                        returnValue.salary[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.attendance, dr["Attendance"].ToString(), dr["aUnit"].ToString());
+                        returnValue.attendance[0] = RolesCompareReturn[0];
+                        returnValue.attendance[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.personnel, dr["PersonnelManagement"].ToString(), dr["personnelUnit"].ToString());
+                        returnValue.personnel[0] = RolesCompareReturn[0];
+                        returnValue.personnel[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.apply, dr["PropertyApplyManagement"].ToString(), dr["paUnit"].ToString());
+                        returnValue.apply[0] = RolesCompareReturn[0];
+                        returnValue.apply[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.property, dr["PropertyManagement"].ToString(), dr["propertyUnit"].ToString());
+                        returnValue.property[0] = RolesCompareReturn[0];
+                        returnValue.property[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.library, dr["LibraryManagement"].ToString(), dr["LUnit"].ToString());
+                        returnValue.library[0] = RolesCompareReturn[0];
+                        returnValue.library[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.serviceFees, dr["ServiceFees"].ToString(), dr["sUnit"].ToString());
+                        returnValue.serviceFees[0] = RolesCompareReturn[0];
+                        returnValue.serviceFees[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.caseBT, dr["CaseTemperature"].ToString(), dr["cBTUnit"].ToString());
+                        returnValue.caseBT[0] = RolesCompareReturn[0];
+                        returnValue.caseBT[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.teachBT, dr["TeachersTemperature"].ToString(), dr["tBTUnit"].ToString());
+                        returnValue.teachBT[0] = RolesCompareReturn[0];
+                        returnValue.teachBT[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.stationery, dr["StationeryManagement"].ToString(), dr["stationeryUnit"].ToString());
+                        returnValue.stationery[0] = RolesCompareReturn[0];
+                        returnValue.stationery[1] = RolesCompareReturn[1];
+                        RolesCompareReturn = this.RolesCompare(returnValue.remind, dr["RemindeSystem"].ToString(), dr["remindeUnit"].ToString());
+                        returnValue.remind[0] = RolesCompareReturn[0];
+                        returnValue.remind[1] = RolesCompareReturn[1];
+
+                    }
+                    dr.Close();
+                    Sqlconn.Close();
+                }
+                catch (Exception e)
+                {
+                    returnValue.checkNo = "-1";
+                    returnValue.errorMsg = e.Message;
+                }
+
+            }
+        }
+        return returnValue;
+    }
+    private string[] RolesCompare(string[] baseRoles, string DBRoles, string DBRolesUnit)
+    {
+        string[] returnValue = new string[2] { "0000", "0" };
+        int baseRoles0 = Convert.ToInt32(baseRoles[0], 2);
+        int DBRoles0 = Convert.ToInt32(DBRoles, 2);
+        if (DBRoles0 > baseRoles0)
+        {
+            returnValue[0] = DBRoles;
+        }
+        else
+        {
+            returnValue[0] = baseRoles[0];
+        }
+        int baseRoles1 = Convert.ToInt32(baseRoles[1], 2);
+        int DBRoles1 = Convert.ToInt32(DBRolesUnit, 2);
+        if (DBRoles1 > baseRoles1)
+        {
+            returnValue[1] = DBRolesUnit;
+        }
+        else
+        {
+            returnValue[1] = baseRoles[1];
+        }
+        return returnValue;
+    }
+    public string getUnitName(string UnitID)
+    {
+        string Name = "";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "SELECT Name FROM System_Unit_List where ID=(@ID)";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(UnitID);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Name = dr["Name"].ToString();
+
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+        return Name;
+    }
+
     public int PageMinNumFunction()
     {
         AspAjax aspAjax = new AspAjax();
