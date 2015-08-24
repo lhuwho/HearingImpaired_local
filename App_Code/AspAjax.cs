@@ -183,14 +183,14 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] createAudiometryAppointment(CreateAudiometryAppointment StructData)
     {
         Audiometry aDB = new Audiometry();
-        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
-        {
+       // if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+      //  {
             return aDB.createAudiometryAppointment(StructData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+       // }
+      //  else
+      // // {
+       ///     return new string[2] { _noRole, _errorMsg };
+      //  }
     }
 
     [WebMethod]
