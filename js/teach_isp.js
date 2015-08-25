@@ -6,6 +6,9 @@ var noEmptyShow = ["學生ID抓取錯誤，請重新選擇學生", "學生姓名
 var _ColumnID = 0;
 var studentID = "";
 $(document).ready(function() {
+assistmanagebrandFunction(); //All.js
+$("input[name=assistmanageR]").change();
+$("input[name=assistmanageL]").change();
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
     initPage();

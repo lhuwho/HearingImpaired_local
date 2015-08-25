@@ -26,7 +26,7 @@ function initPage() {
     $("body").hide();
     AspAjax.IsAuthenticated(SucceededCallbackAll);
     
-   // AspAjax.getAidsBrandList(SucceededCallbackAll);
+    AspAjax.getAidsBrandList(SucceededCallbackAll);
     
     //getMenuDEl();
     getFooter();
@@ -699,9 +699,11 @@ function assistmanagebrandFunction() {
             } else if (assistmanageR == "3") {
                 brandList = _FMList;
             }
+            
             $("#brandR").find("option").remove();
             $("#brandR").append($("<option></option>").attr("value", "0").text("請選擇"));
             for (var i = 0; i < brandList.length; i++) {
+                
                 $("#brandR").append($("<option></option>").attr("value", brandList[i].ID).text(brandList[i].brandName));
             }
         }
@@ -767,10 +769,14 @@ function assistmanagebrandFunction2() {
 }
 //FM輔具廠牌
 function assistmanagefmBrandFunction() {
+    
     $("#fmBrand").find("option").remove();
     $("#fmBrand").append($("<option></option>").attr("value", "0").text("請選擇"));
+    $("#assisFMBrand").find("option").remove();
+    $("#assisFMBrand").append($("<option></option>").attr("value", "0").text("請選擇"));
     for (var i = 0; i < _FMList.length; i++) {
         $("#fmBrand").append($("<option></option>").attr("value", _FMList[i].ID).text(_FMList[i].brandName));
+        $("#assisFMBrand").append($("<option></option>").attr("value", _FMList[i].ID).text(_FMList[i].brandName));
     }
 }
 function getMenuDEl() {
