@@ -8,7 +8,7 @@ $(document).ready(function() {
     AspAjax.set_defaultFailedCallback(FailedCallback);
     
     initPage();
-    AspAjax.getAllStaffDataList([18]);
+    AspAjax.getAllStaffDataList([18,17]);
     $(".btnUpdate").click(function() {
         $(".btnUpdate").hide();
         $(".btnSaveUdapteData").add(".btnCancel").fadeIn();

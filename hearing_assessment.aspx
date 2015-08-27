@@ -144,8 +144,8 @@
 			            <th>聽力檢查結果</th>
 			            <td>
 			                中耳功能：右耳 <select id="checkR"><option value="0">請選擇</option><option value="1">在正常範圍內</option><option value="2">耳膜順應力低</option><option value="3">負壓</option>
-			                <option value="4">耳膜破洞</option><option value="5">未測</option></select>，左耳 <select id="checkL"><option value="0">請選擇</option><option value="1">在正常範圍內</option><option value="2">耳膜順應力低</option><option value="3">負壓</option>
-			                <option value="4">耳膜破洞</option><option value="5">未測</option></select><br />
+			                <option value="4">耳膜破洞</option><option value="5">未測</option><option value="6">異常</option></select>，左耳 <select id="checkL"><option value="0">請選擇</option><option value="1">在正常範圍內</option><option value="2">耳膜順應力低</option><option value="3">負壓</option>
+			                <option value="4">耳膜破洞</option><option value="5">未測</option><option value="6">異常</option></select><br />
                             右耳：平均聽損為 <input id="checkRecibelR" type="text" value="" /> 分貝，屬 <select id="checkLossR"><option value="0">請選擇</option><option value="1">輕度</option><option value="2">中度</option><option value="3">重度</option><option value="4">極重度</option></select> 
                             <select id="checkCategoryR"><option value="0">請選擇</option><option value="1">聽力損失</option><option value="2">感覺神經性聽力損失</option><option value="3">傳導性聽力損失</option>
                             <option value="5">混合型聽力損失</option><option value="6">聽覺處理異常</option><option value="7">聽神經病變</option></select><br />

@@ -786,7 +786,7 @@
 	                                    <label><input type="radio" name="caseQ" value="1" /> 無</label>　
 	                                    <label><input type="radio" name="caseQ" value="2" /> 有 </label><input type="text" id="caseQ01t01" value="" />
 	                                </li>
-	                                <li>　◎ 其他：<br /><textarea class="item7Textarea" id="OtherRemark1" ></textarea></li>
+	                                <li>　◎ 其他：<br /><textarea class="item7Textarea" rows="50" id="OtherRemark1" ></textarea></li>
 	                            </ul>
 	                        </td>
 	                    </tr>

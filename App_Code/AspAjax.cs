@@ -197,28 +197,28 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] setAudiometryAppointment(CreateAudiometryAppointment StructData)
     {
         Audiometry aDB = new Audiometry();
-        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
+        //{
             return aDB.setAudiometryAppointment(StructData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
 
     [WebMethod]
     public string[] delAudiometryAppointment(Int64 eventID)
     {
         Audiometry aDB = new Audiometry();
-        if (int.Parse(aDB._StaffhaveRoles[0]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[0]) == 1)
+        //{
             return aDB.delAudiometryAppointment(eventID);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
 
     [WebMethod]

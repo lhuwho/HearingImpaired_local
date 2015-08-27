@@ -7,7 +7,7 @@ $(document).ready(function() {
     AspAjax.set_defaultFailedCallback(FailedCallback);
     AspAjax.getAllStaffDataList([11, 15, 16]);
     initPage();
-    
+
     var $calendar = $('#calendar');
     var id = 10;
 
@@ -129,18 +129,18 @@ $(document).ready(function() {
                             calEvent.assess = assessField.val();
                             calEvent.state = stateField.val();
                             var obj = new Object;
-                            obj.appDate=dateField;
-                            obj.startTime=startField.val();
-                            obj.endTime=endField.val();
-                            obj.authorID=_uId;
+                            obj.appDate = dateField;
+                            obj.startTime = startField.val();
+                            obj.endTime = endField.val();
+                            obj.authorID = _uId;
                             obj.studentID = titleIDField;
-                            obj.item=ItemStr;
-                            obj.itemExplain=otherField.val();
-                            obj.sContent=contentField.val();
-                            obj.State=stateField.val();
-                            obj.AssessWho1=AssessArray[0];
-                            obj.AssessWho2=AssessArray[1];
-                            obj.Unit=_uUnit;
+                            obj.item = ItemStr;
+                            obj.itemExplain = otherField.val();
+                            obj.sContent = contentField.val();
+                            obj.State = stateField.val();
+                            obj.AssessWho1 = AssessArray[0];
+                            obj.AssessWho2 = AssessArray[1];
+                            obj.Unit = _uUnit;
 
                             AspAjax.createAudiometryAppointment(obj);
                             $calendar.weekCalendar("removeUnsavedEvents");
@@ -171,13 +171,13 @@ $(document).ready(function() {
             $(".chosen-results").css("max-height", "100px");
 
             $("select[name='item']").change(function(evt, params) {
-                if ($(this).find("option:selected").length > 0) {
-                    if ($(this).find("option[value='H']").attr("selected") != "selected") {
-                        $(this).children("option[value='H']").attr('disabled', true).trigger("chosen:updated");
-                    }
-                } else {
-                    $(this).children("option[value='H']").attr('disabled', false).trigger("chosen:updated");
-                }
+                //                if ($(this).find("option:selected").length > 0) {
+                //                    if ($(this).find("option[value='H']").attr("selected") != "selected") {
+                //                        $(this).children("option[value='H']").attr('disabled', true).trigger("chosen:updated");
+                //                    }
+                //                } else {
+                //                    $(this).children("option[value='H']").attr('disabled', false).trigger("chosen:updated");
+                //                }
 
                 if ($(this).find("option[value='J']").attr("selected") == "selected") {
                     $("#itemOther").fadeIn();
@@ -186,8 +186,8 @@ $(document).ready(function() {
                 }
                 var maxOptions = 5;
                 if ($(this).find("option[value='H']").attr("selected") == "selected") {
-                    $("#studentName").val("開會");
-                    $("#studentStatu").html("-1").hide();
+                    //$("#studentName").val("開會");
+                    //$("#studentStatu").html("-1").hide();
                     maxOptions = 1;
                 } else {
                     if ($("#studentName").val() == "開會") {
@@ -339,10 +339,10 @@ $(document).ready(function() {
                             var titleIDField = $("#studentName").attr("class");
 
                             var obj = new Object;
-                            obj.ID=calEvent.id;
+                            obj.ID = calEvent.id;
                             obj.appDate = dateField;
                             obj.startTime = startField.val();
-                            obj.endTime =  endField.val();
+                            obj.endTime = endField.val();
                             obj.authorID = _uId;
                             obj.studentID = titleIDField;
                             obj.item = ItemStr;
@@ -442,7 +442,12 @@ $(document).ready(function() {
                             var titleStr = txt[i]["aStudentName"];
                             var readonly = false;
                             if (titleStr == 0) {
-                                titleStr = "開會";
+                                if (txt[i]["aContent"] != "" ) {
+                                    titleStr = txt[i]["aContent"];
+                                } else {
+                                    titleStr = "開會";
+                                }
+                                //titleStr = "開會";
                                 readonly = true;
                             }
                             var sstate = txt[i]["aStudentState"];

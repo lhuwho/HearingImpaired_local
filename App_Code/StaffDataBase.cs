@@ -2214,7 +2214,7 @@ public class StaffDataBase
                         }
                     }
                     if (itemStr.Length > 0) {
-                        itemStr = " AND " + itemStr;
+                        itemStr = " AND ( " + itemStr + " ) ";
                     }
                 }
                 StaffDataBase sDB = new StaffDataBase();
