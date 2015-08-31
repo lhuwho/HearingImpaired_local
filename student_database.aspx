@@ -193,8 +193,13 @@
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
-			                <th>結案日期</th>
+			                <th>上課結束日期</th>
 			                <td><input id="endReasonDate" class="date" type="text" size="10" value="" /></td>
+			                <td>&nbsp;</td>
+			            </tr>
+			            <tr>
+			                <th>課程保留金退還日期</th>
+			                <td><input id="BackGuaranteeDate" class="date" type="text" size="10" value="" /></td>
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>

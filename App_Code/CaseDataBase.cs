@@ -690,6 +690,8 @@ public class CaseDataBase
                 CreateFileName = sDB.getStaffDataName2(HttpContext.Current.User.Identity.Name);*/
                 string sql = "INSERT INTO StudentDatabase(EvaluationDate, ConsultDate, Updated, CaseStatu, WriteName, Unit, StudentID, StudentName, StudentIdentity, " +
                     "AddressZip1, AddressCity1, AddressOther1, AddressZip2, AddressCity2, AddressOther2, StudentBirthday, StudentSex, ClassDate, GuaranteeDate, " +
+                    "  BackGuaranteeDate, " +
+
                     "CompletedDate, CompletedType, CompletedReason, ShortEndDateSince, ShortEndDateUntil, NomembershipType, NomembershipReason, StudentAvatar, " +
                     "CaregiversDaytime, CaregiversDaytimeText, CaregiversNight, CaregiversNightText, ContactRelation1, ContactName1, ContactTel_company1, " +
                     "ContactTel_home1, ContactPhone1, ContactFax1, ContactRelation2, ContactName2, ContactTel_company2, ContactTel_home2, ContactPhone2, ContactFax2, " +
@@ -709,7 +711,9 @@ public class CaseDataBase
                     "FamilyProfileWriteDate, CreateFileBy, UpFileBy, UpFileDate ) " +
                     "VALUES " +
                     "(@EvaluationDate, @ConsultDate, (getdate()), @CaseStatu, @WriteName, @Unit, @StudentID, @StudentName, @StudentIdentity, @AddressZip1, @AddressCity1, " +
-                    "@AddressOther1, @AddressZip2, @AddressCity2, @AddressOther2, @StudentBirthday, @StudentSex, @ClassDate, @GuaranteeDate, @CompletedDate, @CompletedType, " +
+                    "@AddressOther1, @AddressZip2, @AddressCity2, @AddressOther2, @StudentBirthday, @StudentSex, @ClassDate, @GuaranteeDate,  "+
+                    "  @BackGuaranteeDate, " +
+                    "@CompletedDate, @CompletedType, " +
                     "@CompletedReason, @ShortEndDateSince, @ShortEndDateUntil, @NomembershipType, @NomembershipReason, @StudentAvatar, @CaregiversDaytime, " +
                     "@CaregiversDaytimeText, @CaregiversNight, @CaregiversNightText, @ContactRelation1, @ContactName1, @ContactTel_company1, @ContactTel_home1, " +
                     "@ContactPhone1, @ContactFax1, @ContactRelation2, @ContactName2, @ContactTel_company2, @ContactTel_home2, @ContactPhone2, @ContactFax2, " +
@@ -750,6 +754,7 @@ public class CaseDataBase
                 cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.studentSex);
                 cmd.Parameters.Add("@ClassDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.firstClassDate);
                 cmd.Parameters.Add("@GuaranteeDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.guaranteeDate);
+                cmd.Parameters.Add("@BackGuaranteeDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.BackGuaranteeDate);
                 cmd.Parameters.Add("@CompletedDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStructure.endReasonDate);
                 cmd.Parameters.Add("@CompletedType", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(SearchStructure.endReasonType);
                 cmd.Parameters.Add("@CompletedReason", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStructure.endReason);
@@ -1832,6 +1837,7 @@ public class CaseDataBase
                     returnValue.studentSex = dr["StudentSex"].ToString();
                     returnValue.firstClassDate = DateTime.Parse(dr["ClassDate"].ToString()).ToString("yyyy-MM-dd");
                     returnValue.guaranteeDate = DateTime.Parse(dr["GuaranteeDate"].ToString()).ToString("yyyy-MM-dd");
+                    returnValue.BackGuaranteeDate = DateTime.Parse(dr["BackGuaranteeDate"].ToString()).ToString("yyyy-MM-dd");
                     returnValue.endReasonDate = DateTime.Parse(dr["CompletedDate"].ToString()).ToString("yyyy-MM-dd");
                     returnValue.endReasonType = dr["CompletedType"].ToString();
                     returnValue.endReason = dr["CompletedReason"].ToString();
@@ -2459,6 +2465,7 @@ public class CaseDataBase
         }
         StudentData1 oldStudentDataBase1=this.getStudentData1(StudentData.ID);
         StudentHearingInformation oldStudentDataBase5 = this.getStudentHearingInfo(StudentData.ID);
+        #region 離會生&轉通知
         if (oldStudentDataBase1.endReasonDate == "1900-01-01" && oldStudentDataBase1.endReasonDate != Chk.CheckStringFunction(StudentData.endReasonDate) && Chk.CheckStringFunction(StudentData.endReasonDate).Length > 0)
         {
             /*已結案轉入離會生*/
@@ -2494,9 +2501,10 @@ public class CaseDataBase
             OtherDataBase oDB = new OtherDataBase();
             StaffDataBase sDB = new StaffDataBase();
             List<int> item = new List<int>();
-            item.Add(18);
-            item.Add(17);
-            int[] days = {30,90,180};
+            item.Add(11);//主任
+            item.Add(17);//社工管理長
+            item.Add(18);//社工
+            int[] days = { 90, 180, 365 };
             List<StaffDataList> SDL = sDB.getAllStaffDataList(item);
             foreach (StaffDataList atom in SDL)
             {
@@ -2505,7 +2513,7 @@ public class CaseDataBase
                     for (int i = 0; i < 3; i++)
                     {
                         CreateRemind Remind = new CreateRemind();
-                        Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(days[i]-5).ToShortDateString();
+                        Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(days[i] - 5).ToShortDateString();
                         Remind.recipientID = atom.sID;
                         Remind.executionContent = StudentData.studentName + " 離會第 " + days[i].ToString() + " 天追蹤個案近況";
                         //cmd.Parameters.Add("@Executor", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(RemindSystemData.recipientID);
@@ -2516,8 +2524,97 @@ public class CaseDataBase
                     }
                 }
             }
+            item.Clear(); item.Add(3);//行政組長
+            SDL = sDB.getAllStaffDataList(item);
+            foreach (StaffDataList atom in SDL)
+            {
 
+                    CreateRemind Remind = new CreateRemind();
+                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(360).ToShortDateString();
+                    Remind.recipientID = atom.sID;
+                    Remind.executionContent = StudentData.studentName + " 離會第 365 天";
+                    //cmd.Parameters.Add("@Executor", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(RemindSystemData.recipientID);
+                    //cmd.Parameters.Add("@RemindContent", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(RemindSystemData.executionContent);
+                    //cmd.Parameters.Add("@RemindDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.executionDate);
+                    //cmd.Parameters.Add("@CompleteDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.fulfillmentDate);
+                    oDB.CreateRemindSystem(Remind);
+
+            }
+            item.Clear(); item.Add(19);//中心行政
+            SDL = sDB.getAllStaffDataList(item);
+            foreach (StaffDataList atom in SDL)
+            {
+                if (atom.sUnit == StudentData.Unit)
+                {
+                    CreateRemind Remind = new CreateRemind();
+                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(25).ToShortDateString();
+                    Remind.recipientID = atom.sID;
+                    Remind.executionContent = StudentData.studentName + " 結案30天要完成退保證金：" + Chk.CheckStringtoDateFunction(StudentData.endReasonDate).AddDays(30).ToShortDateString() ;
+                    //cmd.Parameters.Add("@Executor", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(RemindSystemData.recipientID);
+                    //cmd.Parameters.Add("@RemindContent", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(RemindSystemData.executionContent);
+                    //cmd.Parameters.Add("@RemindDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.executionDate);
+                    //cmd.Parameters.Add("@CompleteDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(RemindSystemData.fulfillmentDate);
+                    oDB.CreateRemindSystem(Remind);
+                }
+            }
         }
+        #endregion
+     
+
+        #region 轉換成通知系統
+        //轉通知系統記錄)
+
+        //評估日期 assessDate
+        if (oldStudentDataBase1.assessDate == "1900-01-01" && oldStudentDataBase1.assessDate != Chk.CheckStringFunction(StudentData.assessDate) && Chk.CheckStringFunction(StudentData.assessDate).Length > 0)
+        {
+            List<int> item = new List<int>();
+            item.Add(17);//社工管理長
+            item.Add(18);//社工
+            item.Add(19);//中心行政
+            OtherDataBase oDB = new OtherDataBase();
+            StaffDataBase sDB = new StaffDataBase();
+            List<StaffDataList> SDL = sDB.getAllStaffDataList(item);
+            foreach (StaffDataList atom in SDL)
+            {
+                if (atom.sUnit == StudentData.Unit)
+                {
+                    CreateRemind Remind = new CreateRemind();
+                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.assessDate).AddDays(-5).ToShortDateString();
+                    Remind.recipientID = atom.sID;
+                    Remind.executionContent = StudentData.studentName + " 排定評估日期收咨詢費： " + Chk.CheckStringtoDateFunction(StudentData.assessDate).ToShortDateString() + " ";
+                    oDB.CreateRemindSystem(Remind); 
+                }
+            }
+        }
+        //首次上課 firstClassDate
+        if (oldStudentDataBase1.firstClassDate == "1900-01-01" && oldStudentDataBase1.firstClassDate != Chk.CheckStringFunction(StudentData.firstClassDate) && Chk.CheckStringFunction(StudentData.firstClassDate).Length > 0)
+        {
+            List<int> item = new List<int>();
+            item.Add(11);//主任
+            item.Add(15);//聽力師管理長
+            item.Add(16);//聽力師
+            item.Add(17);//社工管理長
+            item.Add(18);//社工
+            OtherDataBase oDB = new OtherDataBase();
+            StaffDataBase sDB = new StaffDataBase();
+            List<StaffDataList> SDL = sDB.getAllStaffDataList(item);
+            foreach (StaffDataList atom in SDL)
+            {
+                if (atom.sUnit == StudentData.Unit)
+                {
+                    CreateRemind Remind = new CreateRemind();
+                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.assessDate).AddDays(25).ToShortDateString();
+                    Remind.recipientID = atom.sID;
+                    Remind.executionContent = StudentData.studentName + " 首次上課30天內要完家訪和 ISP，首次上課日期 ： " + Chk.CheckStringtoDateFunction(StudentData.assessDate).ToShortDateString() + " ";
+                    oDB.CreateRemindSystem(Remind);
+                }
+            }
+        }
+
+        #endregion
+
+       
+
         SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
         using (Sqlconn)
         {
@@ -2529,7 +2626,7 @@ public class CaseDataBase
                 string sql = "UPDATE StudentDatabase SET Unit=@Unit,EvaluationDate=@EvaluationDate, ConsultDate=@ConsultDate, Updated=(getdate()), CaseStatu=@CaseStatu, " +
                  "StudentName=@StudentName, StudentIdentity=@StudentIdentity, AddressZip1=@AddressZip1, " +
                     "AddressCity1=@AddressCity1, AddressOther1=@AddressOther1, AddressZip2=@AddressZip2, AddressCity2=@AddressCity2, AddressOther2=@AddressOther2, " +
-                    "StudentBirthday=@StudentBirthday, StudentSex=@StudentSex, ClassDate=@ClassDate, GuaranteeDate= @GuaranteeDate, CompletedDate=@CompletedDate, " +
+                    "StudentBirthday=@StudentBirthday, StudentSex=@StudentSex, ClassDate=@ClassDate, GuaranteeDate= @GuaranteeDate, BackGuaranteeDate=@BackGuaranteeDate, CompletedDate=@CompletedDate, " +
                     "CompletedType=@CompletedType, CompletedReason=@CompletedReason, ShortEndDateSince=@ShortEndDateSince, ShortEndDateUntil=@ShortEndDateUntil, " +
                     "NomembershipType=@NomembershipType, NomembershipReason=@NomembershipReason, CaregiversDaytime=@CaregiversDaytime, " +
                     "CaregiversDaytimeText=@CaregiversDaytimeText, CaregiversNight=@CaregiversNight, CaregiversNightText=@CaregiversNightText, ContactRelation1=@ContactRelation1, " +
@@ -2566,6 +2663,8 @@ public class CaseDataBase
                 cmd.Parameters.Add("@StudentSex", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentData.studentSex);
                 cmd.Parameters.Add("@ClassDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.firstClassDate);
                 cmd.Parameters.Add("@GuaranteeDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.guaranteeDate);
+                cmd.Parameters.Add("@BackGuaranteeDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.BackGuaranteeDate);
+                
                 cmd.Parameters.Add("@CompletedDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentData.endReasonDate);
                 cmd.Parameters.Add("@CompletedType", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentData.endReasonType);
                 cmd.Parameters.Add("@CompletedReason", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentData.endReason);

@@ -683,6 +683,7 @@ public class CreateStudent
     public string studentSex;
     public string firstClassDate;
     public string guaranteeDate;
+    public string BackGuaranteeDate;
     public string endReasonDate;
     public string endReasonType;
     public string endReason;
@@ -854,6 +855,7 @@ public class StudentData1
     public string studentSex;
     public string firstClassDate;
     public string guaranteeDate;
+    public string BackGuaranteeDate;
     public string endReasonDate;
     public string endReasonType;
     public string endReason;
