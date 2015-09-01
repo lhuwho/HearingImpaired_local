@@ -323,8 +323,9 @@ public class OtherDataBase
                              "AS RowNum,RemindList.*,s1.StaffName AS designee,s2.StaffName AS recipient FROM RemindList " +
                                 "RIGHT JOIN StaffDatabase AS s1 ON RemindList.CreateFileBy=s1.StaffID " +
                                 "RIGHT JOIN StaffDatabase AS s2 ON RemindList.Executor=s2.StaffID AND s2.StaffID=@StaffID " +//AND StaffDatabase.isDeleted=0 
-                                "WHERE RemindList.isDeleted=0 AND CompleteDate = @CompleteDate )"+
+                                "WHERE RemindList.isDeleted=0 AND CompleteDate = @CompleteDate and   RemindDate <= getdate()   )" +
                                 "AS NewTable ";
+                sql += "  order by RemindDate desc  ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(UserStaffName);
                 cmd.Parameters.Add("@CompleteDate", SqlDbType.Date).Value = new DateTime(1900,01,01);

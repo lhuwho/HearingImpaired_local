@@ -189,17 +189,17 @@
 			            </tr>
 			            <tr>
 			                <th>首次上課日期</th>
-			                <td><input id="firstClassDate" class="date" type="text" size="10" value="" /></td>
+			                <td><input id="firstClassDate"   onchange="DateOrderCheck(0);" class="date" type="text" size="10" value="" /></td>
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
 			                <th>上課結束日期</th>
-			                <td><input id="endReasonDate" class="date" type="text" size="10" value="" /></td>
+			                <td><input id="endReasonDate" onchange="DateOrderCheck(1);"  class="date" type="text" size="10" value="" /></td>
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
 			                <th>課程保留金退還日期</th>
-			                <td><input id="BackGuaranteeDate" class="date" type="text" size="10" value="" /></td>
+			                <td><input id="BackGuaranteeDate" onchange="DateOrderCheck(2);"  class="date" type="text" size="10" value="" /></td>
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
@@ -599,7 +599,8 @@
 			                <label><input type="radio" name="hearingcheck" value="2" /> 是，檢查：</label>
 			                <label><input type="checkbox" name="hearingYescheck" value="1" /> AABR</label>　
 			                <label><input type="checkbox" name="hearingYescheck" value="2" /> OAE</label>　
-			                <label><input type="checkbox" name="hearingYescheck" value="3" /> 不知道，地點</label> <input type="text" id="hearingYesPlace" value="" />，<br />結果：左耳 <input type="text" id="hearingYesResultL" value="" size="10" />／右耳 <input type="text" id="hearingYesResultL" value="" size="10" />
+			                <label><input type="checkbox" name="hearingYescheck" value="3" /> 不知道，地點</label> <input type="text" id="hearingYesPlace" value="" />，
+			                <br />結果：左耳 <select id="hearingYesResultL" ><option value="0">通過</option><option value="1">不通過</option></select>／右耳 <select id="hearingYesResultR" ><option value="0">通過</option><option value="1">不通過</option></select>
 			            </li>
 			            <li>四、聽覺電生理檢查：<label><input type="radio" name="sleepcheck" value="1" /> 否</label>　　
 			                <label><input type="radio" name="sleepcheck" value="2" /> 不清楚</label>　　

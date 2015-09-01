@@ -1028,7 +1028,6 @@ public struct StudentWelfareResource {
     public string resourceType;
     public string checkNo;
     public string errorMsg;
-
 }
 public struct CreateStudentView
 {

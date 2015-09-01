@@ -15,10 +15,19 @@ var _FMList = new Array();--All.js*/
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
+    $(".date").datepick({
+        onSelect: function() {
+            $(this).change();
+        }
+    });
     initPage();
     
     setEvents();
     zoneCityFunction();
+
+
+   
+    
     //haveRolesWaitFunction();
 });
 function setEvents() {
@@ -881,6 +890,28 @@ function DelData(TrID) {
         AspAjax.delStudentDataBase8(TrID);
     });
 }
+
+function DateOrderCheck(Level) {
+    var _DateList = ["guaranteeDate", "firstClassDate", "endReasonDate", "BackGuaranteeDate"];
+
+    for (var i = Level; i >= 0; i--) {
+
+        var StartDate = TransformRepublicReturnValue($("#" + _DateList[i]).val());
+        var EndDate = TransformRepublicReturnValue($("#" + _DateList[i + 1]).val());
+
+        if (StartDate > EndDate || StartDate == '' || EndDate == '') {
+            
+             
+            alert("注意日期順序！");        
+            $("#" + _DateList[i + 1]).val('');
+            $("#" + _DateList[i + 1]).focus();
+            
+            break;
+        }
+    }
+
+}
+
 /*
 var loadingUrl = "Image/loading.gif";
 
