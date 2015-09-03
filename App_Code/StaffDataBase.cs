@@ -269,7 +269,7 @@ public class StaffDataBase
             }
         }
         if (LimitRoles.Length > 0) {
-            LimitRoles = " AND " + LimitRoles;
+            LimitRoles = " AND (" + LimitRoles + ")";
         }
         if (sID.Length > 0 && LimitRoles.Length > 0)
         {

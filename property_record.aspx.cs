@@ -38,6 +38,7 @@ public partial class property_record : System.Web.UI.Page
         {
             //inner += "<option value='" + atom[0] + "'>" + atom[1] + "</option>";
             propertyLocation.Items.Add(new ListItem(atom[1], atom[0]));
+            gosrhLocation.Items.Add(new ListItem(atom[1], atom[0]));
         }
 
         List<string[]> CustodyData = myControler.getPropertyCustodyData(Unit);
@@ -46,6 +47,7 @@ public partial class property_record : System.Web.UI.Page
         {
             //inner += "<option value='" + atom[0] + "'>" + atom[1] + "</option>";
             propertyCustody.Items.Add(new ListItem(atom[1], atom[0]));
+            gosrhCustody.Items.Add(new ListItem(atom[1], atom[0]));
         }
         
         //
