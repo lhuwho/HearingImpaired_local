@@ -2470,8 +2470,10 @@ public class CaseDataBase
         {
             /*已結案轉入離會生*/
             CreateStudentTracked StudentTracked = new CreateStudentTracked();
+           
             StudentTracked.sUnit = StudentData.Unit;
             StudentTracked.studentID = StudentData.studentID;
+            StudentTracked.StudentIdentity = StudentData.studentTWID;
             StudentTracked.email = StudentData.email;
             StudentTracked.addressZip = StudentData.addressZip;
             StudentTracked.addressCity = StudentData.addressCity;
@@ -4228,28 +4230,33 @@ public class CaseDataBase
         SqlConnection Sqlconn = new SqlConnection(Base.GetConnString());
         using (Sqlconn)
         {
+
             try
             {
                 StaffDataBase sDB = new StaffDataBase();
                 List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
-                string sql = "INSERT INTO StudentTrackedOffData(Unit, StudentID, StudentEmail, AddressZip2, AddressCity2, " +
-                    "AddressOther2, Phone, DisabilityCategory1, DisabilityGrade1, DisabilityCategory2, DisabilityGrade2, DisabilityCategory3, DisabilityGrade3, " +
-                    "HearingAids_R, AidsBrand_R, AidsModel_R, AidsOptionalTime_R, AidsOptionalLocation_R, EEarHospital_R, EEarOpen_R, HearingAids_L, AidsBrand_L, "+
-                    "AidsModel_L, AidsOptionalTime_L, AidsOptionalLocation_L, EEarHospital_L, EEarOpen_L, ElementarySchool, ElementarySchoolName, JuniorHighSchool, " +
+                string sql = "INSERT INTO StudentTrackedOffData(Unit, StudentID, StudentEmail, StudentIdentity,  " +
+                    " Phone, DisabilityCategory1, DisabilityGrade1, DisabilityCategory2, DisabilityGrade2, DisabilityCategory3, DisabilityGrade3, " +
+                    //"HearingAids_R, AidsBrand_R, AidsModel_R, AidsOptionalTime_R, AidsOptionalLocation_R, EEarHospital_R, EEarOpen_R, HearingAids_L, AidsBrand_L, "+
+                    //"AidsModel_L, AidsOptionalTime_L, AidsOptionalLocation_L, EEarHospital_L, EEarOpen_L, 
+                    "ElementarySchool, ElementarySchoolName, JuniorHighSchool, " +
                     "JuniorHighSchoolName, HighSchool, HighSchoolName, University, UniversityName, JobName, OtherConditions, OtherConditionsName, CreateFileBy,"+
                     " UpFileBy, UpFileDate,ElementarySY,ElementarySM,ElementaryEY,ElementaryEM ,JuniorHighSY,JuniorHighSM,JuniorHighEY,JuniorHighEM,HighSY "+
       ",HighSM,HighEY,HighEM ,UniversitySY,UniversitySM,UniversityEY,UniversityEM,JobSY,JobSM,JobEY,JobEM,OtherSY,OtherSM,OtherEY,OtherEM,remark ) " +
-                    "VALUES (@Unit, @StudentID, @StudentEmail, @AddressZip2, @AddressCity2, @AddressOther2, @Phone, " +
-                    "@DisabilityCategory1, @DisabilityGrade1, @DisabilityCategory2, @DisabilityGrade2, @DisabilityCategory3, @DisabilityGrade3, @HearingAids_R, "+
-                    "@AidsBrand_R, @AidsModel_R, @AidsOptionalTime_R, @AidsOptionalLocation_R, @EEarHospital_R, @EEarOpen_R, @HearingAids_L, @AidsBrand_L, "+
-                    "@AidsModel_L, @AidsOptionalTime_L, @AidsOptionalLocation_L, @EEarHospital_L, @EEarOpen_L, @ElementarySchool, @ElementarySchoolName, "+
+                    "VALUES (@Unit, @StudentID, @StudentEmail ,@StudentIdentity, @Phone, " +
+                    "@DisabilityCategory1, @DisabilityGrade1, @DisabilityCategory2, @DisabilityGrade2, @DisabilityCategory3, @DisabilityGrade3, "+
+                    //"@AidsBrand_R, @AidsModel_R, @AidsOptionalTime_R, @AidsOptionalLocation_R, @EEarHospital_R, @EEarOpen_R, @HearingAids_L, @AidsBrand_L, "+
+                   // "@AidsModel_L, @AidsOptionalTime_L, @AidsOptionalLocation_L, @EEarHospital_L, @EEarOpen_L, 
+                     "@ElementarySchool, @ElementarySchoolName, " +
                     "@JuniorHighSchool, @JuniorHighSchoolName, @HighSchool, @HighSchoolName, @University, @UniversityName, @JobName, @OtherConditions, "+
                     "@OtherConditionsName, @CreateFileBy, @UpFileBy, (getDate()),@ElementarySY,@ElementarySM,@ElementaryEY,@ElementaryEM ,@JuniorHighSY,@JuniorHighSM,@JuniorHighEY,@JuniorHighEM,@HighSY " +
       ",@HighSM,@HighEY,@HighEM ,@UniversitySY,@UniversitySM,@UniversityEY,@UniversityEM,@JobSY,@JobSM,@JobEY,@JobEM,@OtherSY,@OtherSM,@OtherEY,@OtherEM,@remark )";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
                 cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.studentID);
+                cmd.Parameters.Add("@StudentIdentity", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.StudentIdentity);
+                
                 cmd.Parameters.Add("@StudentEmail", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.email);
                 cmd.Parameters.Add("@AddressZip2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.addressZip);
                 cmd.Parameters.Add("@AddressCity2", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.addressCity);
