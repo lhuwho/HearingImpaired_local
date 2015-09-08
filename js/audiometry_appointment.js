@@ -465,6 +465,7 @@ $(document).ready(function() {
             });
         }
     });
+    
     $(".wc-day-column-header").css("line-height", "16px");
     $(".wc-toolbar").css("height", "20px");
     $(".wc-title").css("line-height", "20px");
@@ -536,6 +537,7 @@ $(document).ready(function() {
         }
 
     });
+  
 });
 
 function SucceededCallback(result, userContext, methodName) {
@@ -615,6 +617,7 @@ function SucceededCallback(result, userContext, methodName) {
                     alert("發生錯誤，錯誤訊息如下：" + result[0].errorMsg);
                 }
             }
+            $('#calendar').weekCalendar('today');
             break;
     }
 }

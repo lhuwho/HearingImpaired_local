@@ -4251,7 +4251,7 @@ public class CaseDataBase
                      "@ElementarySchool, @ElementarySchoolName, " +
                     "@JuniorHighSchool, @JuniorHighSchoolName, @HighSchool, @HighSchoolName, @University, @UniversityName, @JobName, @OtherConditions, "+
                     "@OtherConditionsName, @CreateFileBy, @UpFileBy, (getDate()),@ElementarySY,@ElementarySM,@ElementaryEY,@ElementaryEM ,@JuniorHighSY,@JuniorHighSM,@JuniorHighEY,@JuniorHighEM,@HighSY " +
-      ",@HighSM,@HighEY,@HighEM ,@UniversitySY,@UniversitySM,@UniversityEY,@UniversityEM,@JobSY,@JobSM,@JobEY,@JobEM,@OtherSY,@OtherSM,@OtherEY,@OtherEM,@remark )";
+      ",@HighSM,@HighEY,@HighEM ,@UniversitySY,@UniversitySM,@UniversityEY,@UniversityEM,@JobSY,@JobSM,@JobEY,@JobEM,@OtherSY,@OtherSM,@OtherEY,@OtherEM,@remark ) ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
                 cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.studentID);
