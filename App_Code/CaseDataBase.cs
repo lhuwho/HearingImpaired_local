@@ -2503,7 +2503,12 @@ public class CaseDataBase
             OtherDataBase oDB = new OtherDataBase();
             StaffDataBase sDB = new StaffDataBase();
             List<int> item = new List<int>();
+            //</option><option value="20">主任/教師</option><option value="21">主任/聽力師</option><option value="22">主任/社工</option></select>
             item.Add(11);//主任
+            item.Add(20);//主任/教師
+            item.Add(21);//主任/聽力師
+            item.Add(22);//主任/社工
+
             item.Add(17);//社工管理長
             item.Add(18);//社工
             int[] days = { 90, 180, 365 };
@@ -2527,7 +2532,7 @@ public class CaseDataBase
                 }
             }
             item.Clear(); item.Add(3);//行政組長
-            SDL = sDB.getAllStaffDataList(item);
+            SDL = sDB.getAllStaffDataListRemindlist(item);
             foreach (StaffDataList atom in SDL)
             {
 
@@ -2593,6 +2598,10 @@ public class CaseDataBase
         {
             List<int> item = new List<int>();
             item.Add(11);//主任
+            item.Add(20);//主任/教師
+            item.Add(21);//主任/聽力師
+            item.Add(22);//主任/社工
+
             item.Add(15);//聽力師管理長
             item.Add(16);//聽力師
             item.Add(17);//社工管理長

@@ -2253,6 +2253,75 @@ public class StaffDataBase
         }
         return returnValue;
     }
+
+
+
+    public List<StaffDataList> getAllStaffDataListRemindlist(List<int> WorkItem)
+    {
+        List<StaffDataList> returnValue = new List<StaffDataList>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string itemStr = "";
+                if (WorkItem.Count > 0)
+                {
+                    foreach (int item in WorkItem)
+                    {
+                        if (item != 0)
+                        {
+                            if (itemStr.Length > 0)
+                            {
+                                itemStr += " OR ";
+                            }
+                            itemStr += " WorkItem= " + item;
+                        }
+                    }
+                    if (itemStr.Length > 0)
+                    {
+                        itemStr = " AND ( " + itemStr + " ) ";
+                    }
+                }
+                //StaffDataBase sDB = new StaffDataBase();
+                //sDB.personnelFunction();
+                //List<string> UserFile = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                //if (int.Parse(sDB._StaffhaveRoles[4]) == 0 && UserFile[1].Length > 0)
+                //{
+                //    itemStr += " AND Unit =" + UserFile[2] + " ";
+                //}
+                //List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                string sql = "SELECT * FROM StaffDatabase WHERE isDeleted=0  and ResignationDate = '1900-01-01' " + itemStr + "order by StaffID ASC";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+               // cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[2].ToString());
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    StaffDataList addValue = new StaffDataList();
+                    addValue.sID = dr["StaffID"].ToString();
+                    addValue.sName = dr["StaffName"].ToString();
+                    addValue.sEmail = dr["Email"].ToString();
+                    addValue.sUnit = dr["Unit"].ToString();
+                    returnValue.Add(addValue);
+
+                }
+                dr.Close();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+                StaffDataList addValue = new StaffDataList();
+                addValue.checkNo = "-1";
+                addValue.errorMsg = e.Message;
+                returnValue.Add(addValue);
+            }
+
+        }
+        return returnValue;
+    }
+
+
     public string[] createStaffCreditData(CreateStaffUpgrade StaffUpgrade)
     {
         string[] returnValue = new string[2];
