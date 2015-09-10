@@ -991,7 +991,7 @@
 	                        </td>
 	                    </tr>
 	                </table>
-			        <p align="right">諮詢教師 <span><input type="text" id="teacherName" value="" class="searchStaff" readonly="readonly"/><span id="teacherID" class="hideClassSpan"></span></span>　　填表日期 <span><input id="TeacherDate" class="date" type="text" size="10" /></span></p>
+			        <p align="right">諮詢教師 <span><input type="text" id="teacherName" value="" class="searchStaff" readonly="readonly"/><span id="teacherID" class="hideClassSpan"></span></span>　　填表日期 <span><input id="teacherDate" class="date" type="text" size="10" /></span></p>
 			        <p class="btnP">
 			            <button class="btnSave" type="button" onclick="goNext(7)">下一頁</button>
 			            <button class="btnUpdate" type="button">更 新</button>

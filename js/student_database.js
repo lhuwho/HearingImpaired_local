@@ -669,6 +669,9 @@ function saveHearinghistory(Type) {
 }
 function saveTeachhistory(Type) {
     var obj = MyBase.getTextValueBase("item7Content");
+   // obj.teacherDate = $("#TeacherDate").val();
+    obj.teacherID = $("#teacherID").html();
+    obj.Rehabilitation3Text = $("#Rehabilitation3t01").val() + "@@@" + $("#Rehabilitation3t02").val() + "@@@" +$("#Rehabilitation3t03").val() ; //Rehabilitation3t01
     obj.ID = _ColumnID;
     AspAjax.setStudentDataBase7(obj);
 }
@@ -721,6 +724,13 @@ function getOneStudentDataBase(result, methodName) {
             $("#familyEcological").attr("src", path + result.familyEcological);
             $("#familyEcologicalUrl").attr("href", path2 + result.familyEcological);
         }
+    } else if (methodName == "getStudentDataBase7") {
+     var RehousingText = result.Rehabilitation3Text.split('@@@');
+     if (RehousingText.length > 0) {
+         for (var i = 0; i < RehousingText.length; i++) {
+             $("#Rehabilitation3t0" + (i + 1)).val(RehousingText[i]);
+         }
+     }
     } else if (methodName == "getstudentdhearInfo") {
         assistmanagebrandFunction();//All.js
         $("input[name=assistmanageR]").change();
