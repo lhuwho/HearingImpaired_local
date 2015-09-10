@@ -5,7 +5,7 @@ var _StudentStatu = new Array("會外人士", "會外人士", "會內生", "會�
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
-    AspAjax.getAllStaffDataList([11, 15, 16]);
+    AspAjax.getAllStaffDataList([11, 15, 16,21]);
     initPage();
 
     var $calendar = $('#calendar');
