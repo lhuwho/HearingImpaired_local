@@ -1984,81 +1984,81 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] setCreateStudentPhotoDataBase(CreateStudent StudentData) //學生基本資料(分頁)->個人基本資料
     {
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentPhotoData(StudentData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod] //2015/5/10 aaron fix function name
     public string[] setStudentBaseData(CreateStudent StudentData) //學生基本資料(分頁)->個人基本資料
     {
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentBaseData(StudentData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase2(StudentData2 StudentData) //學生基本資料(分頁)->家庭背景資料
     {
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase2(StudentData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase4(StudentData4 StudentData) //學生基本資料(分頁)->家庭概況
     {
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(SDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase4(StudentData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase5(StudentHearingInformation StudentHearingData) //學生基本資料(分頁)->生產、發展及醫療史
     {
         Audiometry aDB = new Audiometry();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase5(StudentHearingData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase6(StudentHearingInformation StudentHearingData) //學生基本資料(分頁)->聽力
     {
         Audiometry aDB = new Audiometry();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase6(StudentHearingData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase7(StudentTeachingInformation StudentTeachingData) //學生基本資料(分頁)->教學
@@ -2066,14 +2066,14 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase aDB = new TeachDataBase();
         aDB.personnelFunction();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase7(StudentTeachingData);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] setStudentDataBase8(StudentBodyInformation StudentBody) //學生基本資料(分頁)->身高體重-更新
@@ -2081,27 +2081,27 @@ public class AspAjax : System.Web.Services.WebService {
         TeachDataBase aDB = new TeachDataBase();
         aDB.personnelFunction();
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
-        {
+        //if (int.Parse(aDB._StaffhaveRoles[1]) == 1)
+        //{
             return SDB.setStudentDataBase8(StudentBody);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] delStudentDataBase8(string bID) //學生基本資料(分頁)->身高體重-更新
     {
         CaseDataBase SDB = new CaseDataBase();
-        if (int.Parse(SDB._StaffhaveRoles[0]) == 1)
-        {
+        //if (int.Parse(SDB._StaffhaveRoles[0]) == 1)
+        //{
             return SDB.delStudentDataBase8(bID);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
     [WebMethod]
     public string[] creatVolunteerDataBase(CreateVolunteer VolunteerData)
