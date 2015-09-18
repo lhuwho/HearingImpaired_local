@@ -1,6 +1,8 @@
 ﻿var MyBase = new Base();
-var noEmptyItem = [ "propertyID", "propertyCategory", "propertyFitting", "propertyLocation", "propertyCustody", "changeStatus", "fillInDate"];
-var noEmptyShow = [ "財產編號", "財產類別", "是否有配件", "放置地點", "保管人員", "財產增加/減損類型", "填寫日期"];
+//var noEmptyItem = [ "propertyID", "propertyCategory", "propertyFitting", "propertyLocation", "propertyCustody", "changeStatus", "fillInDate"];
+//var noEmptyShow = [ "財產編號", "財產類別", "是否有配件", "放置地點", "保管人員", "財產增加/減損類型", "填寫日期"];
+var noEmptyItem = [  "propertyFitting", "propertyLocation", "propertyCustody", "changeStatus", "fillInDate"];
+var noEmptyShow = [  "是否有配件", "放置地點", "保管人員", "財產增加/減損類型", "填寫日期"];
 var _propertyStatus = new Array("", "使用中", "報廢", "停用","贈出","轉出");
 var _ColumnID = 0;
 var _nowDetailID;
