@@ -96,14 +96,14 @@
 			    <p align="center" id="changeAdd"><label><input type="radio" name="propertyChange" value="1" autocomplete="off" /> 財產增加</label><span class="startMark">*</span>：
 			              <label><input type="radio" name="changeStatus" value="1" autocomplete="off" /> 購買</label>　
 			              <label><input type="radio" name="changeStatus" value="2" autocomplete="off" /> 捐贈</label></p>
-			    <p align="center" id="changeSubtract" style="display:none;"><label><input type="radio" name="propertyChange" value="2" autocomplete="off" /> 財產減損</label><%--<span class="startMark">*</span>--%>：
+			    <p align="center" id="changeSubtract" style="display:none;"><label><input type="radio" name="propertyChange" value="2" autocomplete="off" /> 財產減損</label><span class="startMark">*</span>：
 			              <label><input type="radio" name="changeStatus" value="3" autocomplete="off" /> 報廢</label>　
 			              <label><input type="radio" name="changeStatus" value="4" autocomplete="off" /> 遺失</label>　
 			              <label><input type="radio" name="changeStatus" value="5" autocomplete="off" /> 贈出</label></p>
 			    <table class="tableText" width="780" border="0">
 			        <tr>
 		                <th width="150">財產編號</th>
-		                <td><input id="propertyID" type="text" value="" autocomplete="off" size="30" /><span class="startMark">*</span></td>
+		                <td><input id="propertyID" type="text" value="" autocomplete="off" size="30" /><%--<span class="startMark">*</span>--%></td>
 		            </tr>
 		            <tr>
 		                <th>條　　碼</th>
