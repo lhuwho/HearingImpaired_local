@@ -96,7 +96,7 @@
 			    <p align="center" id="changeAdd"><label><input type="radio" name="propertyChange" value="1" autocomplete="off" /> 財產增加</label><span class="startMark">*</span>：
 			              <label><input type="radio" name="changeStatus" value="1" autocomplete="off" /> 購買</label>　
 			              <label><input type="radio" name="changeStatus" value="2" autocomplete="off" /> 捐贈</label></p>
-			    <p align="center" id="changeSubtract" style="display:none;"><label><input type="radio" name="propertyChange" value="2" autocomplete="off" /> 財產減損</label><span class="startMark">*</span>：
+			    <p align="center" id="changeSubtract" style="display:none;"><label><input type="radio" name="propertyChange" value="2" autocomplete="off" /> 財產減損</label><%--<span class="startMark">*</span>--%>：
 			              <label><input type="radio" name="changeStatus" value="3" autocomplete="off" /> 報廢</label>　
 			              <label><input type="radio" name="changeStatus" value="4" autocomplete="off" /> 遺失</label>　
 			              <label><input type="radio" name="changeStatus" value="5" autocomplete="off" /> 贈出</label></p>
@@ -115,7 +115,7 @@
 		            </tr>
 		            <tr>
 		                <th>類　　別</th>
-		                <td><select id="propertyCategory" name="propertyCategory" autocomplete="off"><option value="0">請選擇</option></select><span class="startMark">*</span></td>
+		                <td><select id="propertyCategory" name="propertyCategory" autocomplete="off"><option value="0">請選擇</option></select><%--<span class="startMark">*</span>--%></td>
 		            </tr>
 		            <tr>
 		                <th>財產名稱</th>
