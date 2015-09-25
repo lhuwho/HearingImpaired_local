@@ -107,6 +107,12 @@
 			                <td colspan="3"><input type="text" value="" size="80" id="staffemail" /></td>
 			            </tr>
 			        </table>
+			        <p class="btnP">
+			            <button class="btnSave" type="button" onclick="SetStaffData(0)">存 檔</button>
+			            <button class="btnUpdate" type="button">更 新</button>
+			            <button class="btnSaveUdapteData" type="button" onclick="SetStaffData(1)">存 檔</button>
+			            <button class="btnCancel" type="button">取 消</button>
+			        </p>
 			        <div id="WorkDiv">
 			            <table class="tableText" width="600" border="0" id="WorkingTime">
 			                <thead>
@@ -143,12 +149,7 @@
                             </table>
 		                </div>
 			        </div>
-			        <p class="btnP">
-			            <button class="btnSave" type="button" onclick="SetStaffData(0)">存 檔</button>
-			            <button class="btnUpdate" type="button">更 新</button>
-			            <button class="btnSaveUdapteData" type="button" onclick="SetStaffData(1)">存 檔</button>
-			            <button class="btnCancel" type="button">取 消</button>
-			        </p>
+			    
 			    </div>
 			    
 			</div>
