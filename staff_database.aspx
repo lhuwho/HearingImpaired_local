@@ -113,6 +113,11 @@
 			                <a class="staffPhotoUrl" href="./images/noAvatar2.jpg"><img id="staffPhoto" src="./images/noAvatar.jpg" alt="" border="0" /></a></p>
 			                <p style="font-weight:normal;">點圖放大</p></th>
 			            </tr>
+			              <tr>
+			                <th width="150">卡號</th>
+			                <td><input id="CardNum" type="text" value="" /><span class="startMark">*</span></td>
+			                <td width="50">&nbsp;</td>
+			            </tr>
 			            <tr>
 			                <th width="150">員工姓名</th>
 			                <td><input id="staffName" type="text" value="" /><span class="startMark">*</span></td>
@@ -129,6 +134,20 @@
 			                <th>離職日</th>
 			                <td>
 			                    <input id="resignDate" class="date" type="text" value=""/>
+			                </td>
+			                <td>&nbsp;</td>
+			            </tr>
+			            <tr>
+			                <th>試用期</th>
+			                <td>
+			                    <input id="TrialStart" class="date" type="text" value=""/>～<input id="TrialEnd" class="date" type="text" value=""/>
+			                </td>
+			                <td>&nbsp;</td>
+			            </tr>
+			             <tr>
+			                <th>合約日期</th>
+			                <td>
+			                    <input id="DealStart" class="date" type="text" value=""/>～<input id="DealEnd" class="date" type="text" value=""/>
 			                </td>
 			                <td>&nbsp;</td>
 			            </tr>

@@ -11,9 +11,10 @@ initPage();
             if ((this.value).length > 0) {
                 var obj = new Object;
                 obj.txtpeopleID = this.value;
-                AspAjax.searchUserData(obj);
+                AspAjax.searchUserDataCardNum(obj);
+               // AspAjax.searchUserData(obj);
             } else {
-                $("#msgDiv").html("請輸入員工ID").fadeIn(function() {
+                $("#msgDiv").html("請輸入正確資料").fadeIn(function() {
                     setTimeout('$("#msgDiv").fadeOut();', '3000');
                 });
             }
@@ -22,7 +23,8 @@ initPage();
 });
 function SucceededCallback(result, userContext, methodName) {
     switch (methodName) {
-        case "searchUserData":
+        case "searchUserDataCardNum":
+//        case "searchUserData":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (parseInt(result[0], 10) != -1 && parseInt(result[0], 10) != 0 && parseInt(result[2], 10) == 1) {
                     $("#staffName").html(result[1]);

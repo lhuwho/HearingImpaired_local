@@ -416,6 +416,53 @@ public class AdministrationDataBase
         return returnValue;
     }
 
+    public string[] searchUserDataCardNum(SearchUser userData)
+    {
+        string[] returnValue = new string[4];
+        returnValue[0] = "0";
+        returnValue[1] = "";
+        returnValue[2] = "0"; //
+        returnValue[3] = "";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                StaffDataBase sDB = new StaffDataBase();
+                CaseDataBase cDB = new CaseDataBase();
+                List<string> CreateFileName = sDB.getStaffDataNameCardNum(userData.txtpeopleID);
+                if (CreateFileName[1].Length == 0)
+                {
+                    CreateFileName = cDB.getStudentDataName(userData.txtpeopleID);
+                    if (CreateFileName[1].Length != 0)
+                    {
+                        CreateFileName[2] = "2";
+                    }
+                    else
+                    {
+                        CreateFileName[0] = "0";
+                    }
+                }
+                else
+                {
+                    CreateFileName[2] = "1";
+                }
+                returnValue[0] = CreateFileName[0];
+                returnValue[1] = CreateFileName[1];
+                returnValue[2] = CreateFileName[2];
+                returnValue[3] = CreateFileName[3];
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+                returnValue[2] = "0";
+            }
+        }
+        return returnValue;
+    }
+
+
     public List<CreateBookSystem> createBookSystemDataBase(CreateBookSystem bookSystemData)
     {
         List<CreateBookSystem> returnValue = new List<CreateBookSystem>();

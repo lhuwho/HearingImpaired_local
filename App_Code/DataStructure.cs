@@ -1819,6 +1819,11 @@ public struct CreateStaff
 {
     public string ID;
     public string unit;
+    public string TrialStart;// 增加 BY WHO
+    public string TrialEnd;// 增加 BY WHO
+    public string DealStart;// 增加 BY WHO
+    public string DealEnd;// 增加 BY WHO
+    public string CardNum;// 增加 BY WHO
     public string staffID;
     public string staffName;
     public string officeDate;

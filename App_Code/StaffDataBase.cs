@@ -442,6 +442,47 @@ public class StaffDataBase
         return returnValue;
     }
 
+    public List<string> getStaffDataNameCardNum(string sID)
+    {
+        List<string> returnValue = new List<string>();
+        returnValue.Add("-1");//ID
+        returnValue.Add("");//NAME
+        returnValue.Add("0");//Unit
+        returnValue.Add("");
+        if (sID.Length > 0)
+        {
+            DataBase Base = new DataBase();
+            using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+            {
+                try
+                {
+                    Sqlconn.Open();
+                    string sql = "SELECT StaffID,StaffName,Unit FROM StaffDatabase where CardNum=(@CardNum)";
+                    SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                    cmd.Parameters.Add("@CardNum", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(sID);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        returnValue[0] = dr["StaffID"].ToString();
+                        returnValue[1] = dr["StaffName"].ToString();
+                        returnValue[2] = dr["Unit"].ToString();
+                    }
+                    dr.Close();
+                    Sqlconn.Close();
+                }
+                catch (Exception e)
+                {
+                    string item = e.Message;
+                    returnValue[0] = "-1";
+                    returnValue[1] = item;
+                    returnValue[2] = "0";
+                }
+
+            }
+        }
+        return returnValue;
+    }
+
     public string[] getStaffDataName2(string sID)
     {
         string[] returnValue = new string[4];
@@ -514,6 +555,7 @@ public class StaffDataBase
                         "ExpertiseSkill1GetUnit, ExpertiseSkill1GetDate, ExpertiseSkill1ValidDate, ExpertiseSkill2, ExpertiseSkill2License, ExpertiseSkill2Progression, " +
                         "ExpertiseSkill2GetUnit, ExpertiseSkill2GetDate, ExpertiseSkill2ValidDate, ExpertiseSkill3, ExpertiseSkill3License, ExpertiseSkill3Progression, " +
                         "ExpertiseSkill3GetUnit, ExpertiseSkill3GetDate, ExpertiseSkill3ValidDate, ExpertiseSkill4, ExpertiseSkill4License, ExpertiseSkill4Progression, " +
+                        "TrialStart,TrialEnd,DealStart,DealEnd,CardNum," + //by WHO
                         "ExpertiseSkill4GetUnit, ExpertiseSkill4GetDate, ExpertiseSkill4ValidDate, Disease, DiseaseExplain, FileDate, CreateFileBy, UpFileBy, UpFileDate)" +
 
                         "VALUES (@Unit, @StaffID, @StaffName, @AppointmentDate, @ResignationDate, @WorkItem, @JobCapacity, @JobGrade, @StaffIdentity, " +
@@ -535,6 +577,7 @@ public class StaffDataBase
                         "@ExpertiseSkill1GetUnit, @ExpertiseSkill1GetDate, @ExpertiseSkill1ValidDate, @ExpertiseSkill2, @ExpertiseSkill2License, @ExpertiseSkill2Progression, " +
                         "@ExpertiseSkill2GetUnit, @ExpertiseSkill2GetDate, @ExpertiseSkill2ValidDate, @ExpertiseSkill3, @ExpertiseSkill3License, @ExpertiseSkill3Progression, " +
                         "@ExpertiseSkill3GetUnit, @ExpertiseSkill3GetDate, @ExpertiseSkill3ValidDate, @ExpertiseSkill4, @ExpertiseSkill4License, @ExpertiseSkill4Progression, " +
+                        "@TrialStart,@TrialEnd,@DealStart,@DealEnd,@CardNum," + //by WHO
                         "@ExpertiseSkill4GetUnit, @ExpertiseSkill4GetDate, @ExpertiseSkill4ValidDate, @Disease, @DiseaseExplain, @FileDate,@CreateFileBy, @UpFileBy, (getDate())) ";
 
                     SqlCommand cmd = new SqlCommand(sql, Sqlconn); 
@@ -675,6 +718,12 @@ public class StaffDataBase
                         cmd.Parameters.Add("@ExpertiseSkill" + (i + 1) + "ValidDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.SpecialtySkill[i][5]);
 
                     }
+                    cmd.Parameters.Add("@TrialStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.TrialStart);//BY WHO
+                    cmd.Parameters.Add("@TrialEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.TrialEnd);
+                    cmd.Parameters.Add("@DealStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.DealStart);
+                    cmd.Parameters.Add("@DealEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.DealEnd);
+                    cmd.Parameters.Add("@CardNum", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffData.CardNum);//BY WHO
+
                     cmd.Parameters.Add("@FileDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.fillInDate);
                     cmd.Parameters.Add("@Disease", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffData.disease);
                     cmd.Parameters.Add("@DiseaseExplain", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffData.diseaseText);
@@ -781,6 +830,7 @@ public class StaffDataBase
                     "ExpertiseSkill3GetDate=@ExpertiseSkill3GetDate, ExpertiseSkill3ValidDate=@ExpertiseSkill3ValidDate, ExpertiseSkill4=@ExpertiseSkill4, " +
                     "ExpertiseSkill4License=@ExpertiseSkill4License, ExpertiseSkill4Progression=@ExpertiseSkill4Progression, ExpertiseSkill4GetUnit=@ExpertiseSkill4GetUnit, " +
                     "ExpertiseSkill4GetDate=@ExpertiseSkill4GetDate, ExpertiseSkill4ValidDate=@ExpertiseSkill4ValidDate, Disease=@Disease, DiseaseExplain=@DiseaseExplain, " +
+                    " TrialStart =@TrialStart , TrialEnd=@TrialEnd , DealStart=@DealStart , DealEnd=@DealEnd , CardNum=@CardNum,  "+ //by WHO
                     "UpFileBy=(@UpFileBy), UpFileDate=(getDate())" +
                     "WHERE ID=(@ID)";
 
@@ -922,6 +972,12 @@ public class StaffDataBase
                     cmd.Parameters.Add("@ExpertiseSkill" + (i + 1) + "ValidDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.SpecialtySkill[i][5]);
 
                 }
+                cmd.Parameters.Add("@TrialStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.TrialStart);
+                cmd.Parameters.Add("@TrialEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.TrialEnd);
+                cmd.Parameters.Add("@DealStart", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.DealStart);
+                cmd.Parameters.Add("@DealEnd", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffData.DealEnd);
+                cmd.Parameters.Add("@CardNum", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffData.CardNum);
+                //" TrialStart =@TrialStart , TrialEnd=@TrialEnd , DealStart=@DealStart , DealEnd=@DealEnd , CardNum=@CardNum,  " + //by WHO
                 cmd.Parameters.Add("@Disease", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffData.disease);
                 cmd.Parameters.Add("@DiseaseExplain", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffData.diseaseText);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
@@ -1749,7 +1805,7 @@ public class StaffDataBase
                     addValue1.prove4 = dr["Experience4Prove"].ToString();
                     addValue1.JTitle4 = dr["Experience4Director"].ToString();
                     addValue1.JTitleName4 = dr["Experience4DirectorName"].ToString();
-
+                    
                     for (int i = 1; i <= 6; i++)
                     {
                         string[] Familyitem = new string[4];
@@ -1799,6 +1855,13 @@ public class StaffDataBase
                     addValue1.disease = dr["Disease"].ToString();
                     addValue1.diseaseText = dr["DiseaseExplain"].ToString();
                     addValue1.fillInDate = DateTime.Parse(dr["FileDate"].ToString()).ToString("yyyy-MM-dd");
+
+                    addValue1.TrialStart = DateTime.Parse(dr["TrialStart"].ToString()).ToString("yyyy-MM-dd");
+                    addValue1.TrialEnd = DateTime.Parse(dr["TrialEnd"].ToString()).ToString("yyyy-MM-dd");
+                    addValue1.DealStart = DateTime.Parse(dr["DealStart"].ToString()).ToString("yyyy-MM-dd");
+                    addValue1.DealEnd = DateTime.Parse(dr["DealEnd"].ToString()).ToString("yyyy-MM-dd");
+                    addValue1.CardNum = dr["CardNum"].ToString();
+
                     returnValue.StaffBaseData = addValue1;
 
                     returnValue.WorkData = this.GetStaffWorkData(dr["StaffID"].ToString());

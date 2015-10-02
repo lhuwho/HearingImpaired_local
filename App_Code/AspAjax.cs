@@ -3440,6 +3440,14 @@ public class AspAjax : System.Web.Services.WebService {
         AdministrationDataBase aDB = new AdministrationDataBase();
         return aDB.searchUserData(userData);
     }
+
+    [WebMethod]
+    public string[] searchUserDataCardNum(SearchUser userData)//Creat BY Who
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        return aDB.searchUserDataCardNum(userData);
+    }
+
     [WebMethod]
     public List<CreateBookSystem> createBookSystemDataBase(CreateBookSystem bookSystemData)
     {

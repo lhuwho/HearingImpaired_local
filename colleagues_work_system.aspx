@@ -68,7 +68,7 @@
 		            </tr>
 		            <tr>
 		                <td width="200">員工ID</td>
-		                <td><input id="staffID" type="text" value="" autocomplete="off" /></td>
+		                <td><input id="staffID" style="color:White;"  type="text" value="" autocomplete="off" /></td>
 		            </tr>
 		            <tr>
 		                <td width="200">員工姓名</td>
