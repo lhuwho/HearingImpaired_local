@@ -159,7 +159,7 @@
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
-			                <th>職務</th>
+			                <th>職等</th>
 			                <td>
 			                    <select id="jobTitle"><option value="0">請選擇</option>
 			                    <option value="1">高專</option><option value="2">專員</option>
@@ -167,12 +167,16 @@
 			                    <option value="5">助佐</option><option value="6">講師</option>
 			                    <option value="7">助理講師</option><option value="8">專業教師</option>
 			                    <option value="9">助理教師</option><option value="10">教師助理</option>
+			                    <option value="11">6職等</option><option value="12">7職等</option>
+			                    <option value="13">8職等</option><option value="14">9職等</option>
+			                    <option value="15">10職等</option><option value="16">11職等</option>
+			                    <option value="17">12職等</option>
 			                    </select><span class="startMark">*</span>
 			                </td>
 			                <td>&nbsp;</td>
 			            </tr>
 			            <tr>
-			                <th>職等</th>
+			                <th>級等</th>
 			                <td>
 			                    <select id="jobLevel"><option value="-1">請選擇</option>
 			                    <option value="0">0</option>
