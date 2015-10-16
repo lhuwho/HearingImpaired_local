@@ -42,7 +42,7 @@ input[name="zip"] {
     text-align: center;
 }
 
-#item2Content > .tableContact th, #item3Content > .tableContact th, #insertDataDiv1 > .tableContact th, #insertDataDiv2 > .tableContact th, #insertDataDiv3 > .tableContact th{
+#item2Content > .tableContact th, #item3Content > .tableContact th, #insertDataDiv1 > .tableContact th, #insertDataDiv2 > .tableContact th, #insertDataDiv3 > .tableContact th, #item4Content > .tableContact th, #insertDataDiv4 > .tableContact th{
 	background-color: #F9AE56;
 	border: 1px solid #ffffff;
 }

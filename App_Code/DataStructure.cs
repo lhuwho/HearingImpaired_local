@@ -3731,8 +3731,13 @@ public struct WorkRecordManage
     public string ID;
     public string StaffID;
     public string Date;
+    public string RealStart;
     public string StartTime;
+    public string StartMin;
+    public string RealEnd;
     public string EndTime;
+    public string EndMin;
+    public string VacationMark;
     public string VacationType;
 }
 
@@ -3750,8 +3755,8 @@ public struct WorkRecordAll
     public string V8;//'喪假'
     public string V9;//'公傷'
     public string V10;// '未打卡'
-    public string V11;//'工作異動'
-
+    public string V11;//'工作異動-減'
+    public string V12;//'工作異動-加'
 
 }
 public struct WorkRecordDetail

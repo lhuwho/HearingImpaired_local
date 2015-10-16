@@ -258,7 +258,7 @@ function getViewData(id, act) {
     
     if (id == null && act == 1) {
         $(".btnSave").fadeIn();
-        $("#item2").add("#item3").hide();
+        $("#item2").add("#item3").add("#item4").hide();
         $("input").add("select").add("textarea").attr("disabled", false);
         $("input[name=unit]").change(function() {
         AspAjax.getUnitAutoNumber("StaffDB_", this.value);

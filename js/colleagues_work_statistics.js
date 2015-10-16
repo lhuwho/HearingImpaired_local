@@ -29,7 +29,8 @@ function SucceededCallback(result, userContext, methodName) {
     SucceededCallbackAll(result, userContext, methodName);
     switch (methodName) {
         case "SearchStaffDataBaseWorkDetail":
-            alert("");
+            alert(result);
+            //alert("");
             break;
         case "SearchStaffDataBaseWorkAllCount":
             var pageCount = parseInt(result[0]);
@@ -89,8 +90,8 @@ function SucceededCallback(result, userContext, methodName) {
 function viewRecord(StaffID) {
     var year = (parseInt($("#yearDate2").val()) + 1911);
     var month = $("#monthDate2").val();
-    
-    alert(AspAjax.SearchStaffDataBaseWorkDetail(StaffID,  year, month));
+    AspAjax.SearchStaffDataBaseWorkDetail(StaffID, year, month);
+    //alert(AspAjax.SearchStaffDataBaseWorkDetail(StaffID,  year, month));
     //alert(AspAjax.SearchStaffDataBaseWorkDetail(StaffID, (parseInt(parseInt($("#yearDate2").val())) + 1911), $("#indexpage").val(), $("#monthDate2").val()));
     //alert(AspAjax.SearchStaffDataBaseWorkAll(( parseInt( parseInt( $("#yearDate2").val())) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10)));
 }

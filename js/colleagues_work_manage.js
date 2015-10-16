@@ -1,5 +1,5 @@
 ﻿var MyBase = new Base();
-
+var Timer = '<option value="0">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option>';
 $(document).ready(function() {
 AspAjax.set_defaultSucceededCallback(SucceededCallback);
 //AspAjax.set_defaultFailedCallback(FailedCallback);
@@ -76,12 +76,17 @@ function SucceededCallback(result, userContext, methodName) {
                 for (var i = 0; i < result.length; i++) {
                     $("#startTime" + (i + 1)).val(result[i].StartTime);
                     $("#endTime" + (i + 1)).val(result[i].EndTime);
+                    $("#startMin" + (i + 1)).val(result[i].StartMin);
+                    $("#EndtMin" + (i + 1)).val(result[i].EndMin);
                     $("#vacationStyle" + (i + 1)).val(result[i].VacationType);
+                    $("#VacationMark" + (i + 1)).val(result[i].VacationMark);
+                    $("#RealStart" + (i + 1)).html(result[i].RealStart);
+                    $("#RealEnd" + (i + 1)).html(result[i].RealEnd);
                 }
-
             }
 
             break;
+
     }
 }
 
@@ -132,46 +137,58 @@ function viewRecord(sid ) {
 		                    '<th width="300">時間</th>' +
 		                    '<th width="200">狀態</th>' +
 		                '</tr>' +
-		            '</thead>' +
+		            '</thead>' + 
 		                '<tr><td width="250">' +
-		                '<select id="startTime1" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
-		                '<select id="endTime1" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
+		                '<span id="RealStart1" class="hideClassSpan"></span><span id="RealEnd1" class="hideClassSpan"></span>' +
+		                '<select id="startTime1" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="startMin1">' + Timer + '</select> ~ ' +
+		                '<select id="endTime1" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="EndtMin1">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle1" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
 	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
 	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
 	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select></td>' +
+	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark1"  maxlength="20" value=""></td>' +
 		                '</tr>' +
-		                '<tr><td width="250">' +
-		                '<select id="startTime2" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
-		                '<select id="endTime2" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
+		                 '<tr><td width="250">' +
+		                '<span id="RealStart2" class="hideClassSpan"></span><span id="RealEnd2" class="hideClassSpan"></span>' +
+		               '<select id="startTime2" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="startMin2">' + Timer + '</select> ~ ' +
+		                '<select id="endTime2" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="EndtMin2">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle2" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
 	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
 	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
 	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select></td>' +
+	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark2"  maxlength="20" value=""></td>' +
 		                '</tr>' +
-		                '<tr><td width="250">' +
-		                '<select id="startTime3" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
-		                '<select id="endTime3" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
+		                 '<tr><td width="250">' +
+		                '<span id="RealStart3" class="hideClassSpan"></span><span id="RealEnd3" class="hideClassSpan"></span>' +
+                        '<select id="startTime3" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="startMin3">' + Timer + '</select> ~ ' +
+		                '<select id="endTime3" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="EndtMin3">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle3" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
 	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
 	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
 	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select></td>' +
+	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark3"  maxlength="20" value=""></td>' +
 		                '</tr>' +
-		                '<tr><td width="250">' +
-		                '<select id="startTime4" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
-		                '<select id="endTime4" ><option value="7">07:00</option><option value="7.5">07:30</option><option value="8">08:00</option><option value="8.5">08:30</option><option value="9">09:00</option><option value="9.5">09:30</option><option value="10">10:00</option><option value="10.5">10:30</option><option value="11">11:00</option><option value="11.5">11:30</option><option value="12">12:00</option><option value="12.5">12:30</option><option value="13">13:00</option><option value="13.5">13:30</option><option value="14">14:00</option><option value="14.5">14:30</option><option value="15">15:00</option><option value="15.5">15:30</option><option value="16">16:00</option><option value="16.5">16:30</option><option value="17">17:00</option><option value="17.5">17:30</option><option value="18">18:00</option><option value="18.5">18:30</option><option value="19">19:00</option><option value="19.5">19:30</option><option value="20">20:00</option><option value="20.5">20:30</option><option value="21">21:00</option></select>' +
+		                 '<tr><td width="250">' +
+		                '<span id="RealStart4" class="hideClassSpan"></span><span id="RealEnd4" class="hideClassSpan"></span>' +
+		                '<select id="startTime4" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="startMin4">' + Timer + '</select> ~ ' +
+		                '<select id="endTime4" ><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option></select>' +
+		                '<select id="EndtMin4">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle4" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
 	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
 	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
 	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select></td>' +
+	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark4"   maxlength="20" value=""></td>' +
 		                '</tr>' +
                     '</table>' +
                     '<div id="inline2">'+
@@ -191,9 +208,14 @@ function viewRecord(sid ) {
                     var data = {};
                     data.StaffID = $("#StaffID").html();
                     data.Date = TransformRepublicReturnValue($("#gosrhstaffBirthdayStart").val());
+                    data.RealStart = $("#RealStart" + i).html();
+                    data.RealEnd = $("#RealEnd" + i).html();
                     data.StartTime = $("#startTime" + i).val();
+                    data.StartMin = $("#startMin" + i).val();
                     data.EndTime = $("#endTime" + i).val();
+                    data.EndMin = $("#EndtMin" + i).val();
                     data.VacationType = $("#vacationStyle" + i).val();
+                    data.VacationMark = $("#VacationMark" + i).val();
                     if (data.VacationType != 0) {
                         obj[obj.length] = data;
                     }

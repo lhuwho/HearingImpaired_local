@@ -1352,9 +1352,10 @@ public class StaffDataBase
                
                 for (int i = 0; i < SearchStaffCondition.Count; i++)
                 {
-                    
-                    sql += " insert into WorkRecordManage ( StaffID,Date,StartTime,EndTime,VacationType) values ( ";
-                    sql += " @StaffID" + i.ToString() + ",@Date" + i.ToString() + ",@StartTime" + i.ToString() + ",@EndTime" + i.ToString() + ",@VacationType" + i.ToString() + ") ";
+
+                    sql += " insert into WorkRecordManage ( StaffID,Date,StartTime,EndTime,VacationType,StartHour,StartMin,EndHour,EndMin,VacationMark) values ( ";
+                    sql += " @StaffID" + i.ToString() + ",@Date" + i.ToString() + ",@StartTime" + i.ToString() + ",@EndTime" + i.ToString();
+                    sql += " ,@VacationType" + i.ToString() + ",@StartHour" + i.ToString() + ",@StartMin" + i.ToString() + ",@EndHour" + i.ToString() + ",@EndMin" + i.ToString() + ",@VacationMark" + i.ToString() + " ) ";
                 }
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 if (SearchStaffCondition.Count > 0)
@@ -1366,9 +1367,14 @@ public class StaffDataBase
                 {
                     cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
                     cmd.Parameters.Add("@Date" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date);
-                    cmd.Parameters.Add("@StartTime" + i.ToString(), SqlDbType.Float).Value =SearchStaffCondition[i].StartTime;
-                    cmd.Parameters.Add("@EndTime" + i.ToString(), SqlDbType.Float).Value = SearchStaffCondition[i].EndTime;
+                    cmd.Parameters.Add("@StartTime" + i.ToString(), SqlDbType.Float).Value = Convert.ToInt16(SearchStaffCondition[i].StartTime) + (Convert.ToInt16(SearchStaffCondition[i].StartMin) >=30 ? 1:0);
+                    cmd.Parameters.Add("@EndTime" + i.ToString(), SqlDbType.Float).Value =  Convert.ToInt16(SearchStaffCondition[i].EndTime) + (Convert.ToInt16(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
+                    cmd.Parameters.Add("@StartHour" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].StartTime;
+                    cmd.Parameters.Add("@StartMin" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].StartMin;
+                    cmd.Parameters.Add("@EndHour" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].EndTime;
+                    cmd.Parameters.Add("@EndMin" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].EndMin;
                     cmd.Parameters.Add("@VacationType" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType);
+                    cmd.Parameters.Add("@VacationMark" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffCondition[i].VacationMark);
                 }
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
@@ -1400,9 +1406,14 @@ public class StaffDataBase
                 {
                     WorkRecordManage addValue = new WorkRecordManage();
                     addValue.Date = DateTime.Parse(dr["Date"].ToString()).ToString("yyyy-MM-dd"); ;
-                    addValue.StartTime = dr["StartTime"].ToString();
-                    addValue.EndTime = dr["EndTime"].ToString();
+                    addValue.StartTime = dr["StartHour"].ToString();
+                    addValue.StartMin = dr["StartMin"].ToString();
+                    addValue.EndTime = dr["EndHour"].ToString();
+                    addValue.EndMin = dr["EndMin"].ToString();
                     addValue.VacationType = dr["VacationType"].ToString();
+                    addValue.VacationMark = dr["VacationMark"].ToString();
+                    addValue.RealStart = dr["starttime"].ToString();
+                    addValue.RealEnd = dr["endtime"].ToString();
                     returnValue.Add(addValue);
                 }
               //  returnValue[0] = cmd.ExecuteNonQuery().ToString();
@@ -1459,7 +1470,7 @@ public class StaffDataBase
     ") as alltable " + 
 ") "+
 "AS NewTable  ";
-                 sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+                // sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + Month + "-01");
                 //cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
