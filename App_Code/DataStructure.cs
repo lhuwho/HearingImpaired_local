@@ -2038,6 +2038,17 @@ public struct CreateNewTeacher
     public string checkNo;
     public string errorMsg;
 }
+public struct YearVacationDataBase
+{
+    public string ID;
+    public string Year;
+    public string YearVacation;
+    public string WorkAdd;
+    public string WorkMinus;
+    public string StaffID;
+
+}
+
 /*
  public struct Temperature
 {

@@ -3306,4 +3306,73 @@ public class StaffDataBase
         }
         return returnValue;
     }
+
+
+    public string[] AddYearVacation(YearVacationDataBase Yv)
+    {
+        string[] returnValue = new string[2];
+        returnValue[0] = "0";
+        returnValue[1] = "該年度已有資料!!";
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "";
+                sql += " IF not EXISTS (SELECT 1 FROM YearVaction WHERE Year=@Year and StaffID=@StaffID ) ";
+                       sql+="INSERT INTO YearVaction (StaffID, Year, YearVaction, WorkAdd, WorkMinus ) " +
+                        "VALUES (@StaffID, @Year, @YearVacation, @WorkAdd, @WorkMinus)";
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.StaffID);
+                Yv.Year = (Convert.ToInt16(Yv.Year) + 1911).ToString(); //改年分格式
+                cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(Yv.Year);//Chk.CheckStringtoIntFunction();
+                cmd.Parameters.Add("@YearVacation", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.YearVacation);
+                cmd.Parameters.Add("@WorkAdd", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.WorkAdd);
+                cmd.Parameters.Add("@WorkMinus", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.WorkMinus);
+                returnValue[0] = cmd.ExecuteNonQuery().ToString();
+            }
+            catch (Exception e)
+            {
+                returnValue[0] = "-1";
+                returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    }
+
+    public List<YearVacationDataBase> GetYearVacation(string StaffID)
+    {
+        List<YearVacationDataBase> returnValue = new List<YearVacationDataBase>();
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = "select * from YearVaction where staffid = @StaffID  ";
+                        
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffID);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    YearVacationDataBase addValue = new YearVacationDataBase();
+                    addValue.ID = dr["ID"].ToString();
+                    addValue.Year = (Convert.ToInt16(dr["year"].ToString()) - 1911).ToString();
+                    addValue.YearVacation = dr["YearVaction"].ToString();
+                    addValue.WorkAdd = dr["WorkAdd"].ToString();
+                    addValue.WorkMinus = dr["workMinus"].ToString();
+                    returnValue.Add(addValue);
+                }
+            }
+            catch (Exception e)
+            {
+                //returnValue[0] = "-1";
+                //returnValue[1] = e.Message.ToString();
+            }
+        }
+        return returnValue;
+    
+    }
 }

@@ -675,7 +675,7 @@
 	                            <th width="290">特休假</th>
 	                            <th width="290">工作異動-加</th>
 	                            <th width="290">工作異動-減</th>
-	                            <th width="100">功能</th>
+	                            <%--<th width="100">功能</th>--%>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -687,18 +687,18 @@
 			        <div id="insertDataDiv4" style="display:none">
 	                    <table class="tableContact" width="780" border="0">
 	                        <tr>
-	                         <th width="100">年分</th>
+	                            <th width="100">年分</th>
 	                            <th width="100">特休假</th>
 	                            <th width="100">工作異動-加</th>
 	                            <th width="100">工作異動-減</th>
 	                            <th width="100">功能</th>
 	                        </tr>
 	                        <tr>
-	                            <td align="center" height="30"><input type="text" value="" size="10" /></td>
-	                            <td align="center"><input  type="text" value="" size="10" /></td>
-	                            <td align="center"><input type="text" value="" size="10" /></textarea></td>
-	                            <td align="center"><input  type="text" value="" size="10" /></textarea></td>
-	                            <td><button class="btnView" type="button">儲 存</button> <button class="btnView canceInsert" type="button" >取 消</button></td>
+	                            <td align="center" height="30"><input id="VaYear" type="text" value="" size="10" /></td>
+	                            <td align="center"><input id="VaYearVa"  type="text" value="" size="10" /></td>
+	                            <td align="center"><input id="VaWorkAdd" type="text" value="" size="10" /></textarea></td>
+	                            <td align="center"><input id="VaWorkMinus"  type="text" value="" size="10" /></textarea></td>
+	                            <td><button class="btnView" type="button" onclick="AddYearVacation()" >儲 存</button> <button class="btnView canceInsert" type="button" >取 消</button></td>
 	                        </tr>
 	                    </table>
 	               </div>	                

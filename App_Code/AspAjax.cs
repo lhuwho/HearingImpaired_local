@@ -1342,6 +1342,20 @@ public class AspAjax : System.Web.Services.WebService {
         return sDB.SearchStaffDataBaseWorkAll(Year, Month,indexpage);
     }
 
+    [WebMethod]
+    public string[] AddYearVacation(YearVacationDataBase YVStructure) 
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.AddYearVacation(YVStructure);
+        //return string[0];
+    }
+    [WebMethod]
+    public List<YearVacationDataBase> GetYearVacation(string StaffID)
+    {
+        StaffDataBase sDB = new StaffDataBase();
+        return sDB.GetYearVacation(StaffID);
+    
+    }
 //  
 
 

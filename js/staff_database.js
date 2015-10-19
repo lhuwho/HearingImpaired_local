@@ -221,6 +221,53 @@ function SucceededCallback(result, userContext, methodName) {
                 window.location.href = "./staff_database.aspx?id=" + result[1] + "&act=2";
             }
             break;
+        case "AddYearVacation":
+            _id = GetQueryString("id");
+            if (parseInt(result[0]) <= 0) {
+                alert("發生錯誤，錯誤訊息如下：" + result[1]);
+            } else {
+                alert("新增年假成功");
+                window.location.href = "./staff_database.aspx?id=" + _id + "&act=2";
+            }
+            break;
+        case "GetYearVacation":
+            if (!(result == null || result.length == 0 || result == undefined)) {
+                if (parseInt(result[0].ID) != -1) {
+                    var inner = "";
+                    for (var i = 0; i < result.length; i++) {
+                        inner += '<tr>' +
+                                //'<td>' + result[i].sID + '</td>' +
+			                    '<td>' + result[i].Year + '</td>' +
+			                    '<td>' + result[i].YearVacation + '</td>' +
+			                    '<td>' + result[i].WorkAdd + '</td>' +
+			                    '<td>' + result[i].WorkMinus + '</td>' +
+			                    //'<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
+			                '</tr>';
+                    }
+                     $("#WorkDataDiv4").children("tbody").html(inner);
+                }
+                //                if (parseInt(result[0].sID) != -1) {
+                //                    var inner = "";
+                //                    for (var i = 0; i < result.length; i++) {
+                //                        inner += '<tr>' +
+                //                                '<td>' + result[i].sID + '</td>' +
+                //			                    '<td>' + _UnitList[result[i].sUnit] + '</td>' +
+                //			                    '<td>' + result[i].sName + '</td>' +
+                //			                    '<td>' + _JobItemList[result[i].sJob] + '</td>' +
+                //			                    '<td>' + TransformADFromStringFunction(result[i].officeDate) + '</td>' +
+                //			                    '<td>' + TransformADFromStringFunction(result[i].resignDate) + '</td>' +
+                //			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +
+                //			                '</tr>';
+                //                    }
+                //                    //
+                //                    $("#mainSearchList .tableList").children("tbody").html(inner);
+                //                } else {
+                //                    alert("發生錯誤，錯誤訊息如下：" + result[0].sName);
+                //                }
+            } else {
+                 $("#WorkDataDiv4").children("tbody").html("<tr><td colspan='7'>查無資料</td></tr>");
+            }
+            break;
     }
 }
 function FailedCallback(error, userContext, methodName) {
@@ -519,7 +566,7 @@ function getOneStaffData(result) {
     }
     _ReturnValue = result.WorkData;
     $("#WorkDataDiv1 input").add("#WorkDataDiv1 textarea").add("#WorkDataDiv2 input").add("#WorkDataDiv2 textarea").add("#WorkDataDiv3 input").add("#WorkDataDiv3 textarea").attr("disabled", true);
-    
+    AspAjax.GetYearVacation(_viewstaffID); 
 }
 
 function insertDataDiv(Type) {
@@ -595,4 +642,14 @@ function DelData(TrID) {
     fancyConfirm("確定刪除此筆資料?", function() {
     AspAjax.delStaffWorkData(parseInt(TrID), _viewstaffID);
     })
+}
+
+function AddYearVacation() {
+    var obj = new Object;
+    obj.StaffID = _viewstaffID;
+    obj.Year = $("#VaYear").val();
+    obj.YearVacation = $("#VaYearVa").val();
+    obj.WorkAdd = $("#VaWorkAdd").val();
+    obj.WorkMinus = $("#VaWorkMinus").val();
+    AspAjax.AddYearVacation(obj); //會在修正寫法
 }
