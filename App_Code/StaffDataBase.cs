@@ -3327,9 +3327,12 @@ public class StaffDataBase
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.StaffID);
                 Yv.Year = (Convert.ToInt16(Yv.Year) + 1911).ToString(); //改年分格式
                 cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(Yv.Year);//Chk.CheckStringtoIntFunction();
-                cmd.Parameters.Add("@YearVacation", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.YearVacation);
-                cmd.Parameters.Add("@WorkAdd", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.WorkAdd);
-                cmd.Parameters.Add("@WorkMinus", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(Yv.WorkMinus);
+                Yv.YearVacation = Math.Round( Convert.ToDouble(Yv.YearVacation), 3, MidpointRounding.AwayFromZero).ToString();
+                cmd.Parameters.Add("@YearVacation", SqlDbType.Decimal).Value = Chk.CheckFloatFunction(Yv.YearVacation);
+                Yv.WorkAdd = Math.Round(Convert.ToDouble(Yv.WorkAdd), 3, MidpointRounding.AwayFromZero).ToString();
+                cmd.Parameters.Add("@WorkAdd", SqlDbType.Decimal).Value = Chk.CheckFloatFunction(Yv.WorkAdd);
+                Yv.WorkMinus = Math.Round(Convert.ToDouble(Yv.WorkMinus), 3, MidpointRounding.AwayFromZero).ToString();
+                cmd.Parameters.Add("@WorkMinus", SqlDbType.Decimal).Value = Chk.CheckFloatFunction(Yv.WorkMinus);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
             }
             catch (Exception e)
