@@ -47,8 +47,9 @@
 			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
-			        <p>出勤月份（年月） <select id="yearDate2"><option value="-1">民國年</option></select>
-                        <select id="monthDate2"><option value="-1">月</option></select>
+			        <p>出勤月份（年月） <select id="yearDate2" onchange="setDay()" ><option value="-1">民國年</option></select>
+                        <select id="monthDate2" onchange="setDay()" ><option value="-1">月</option></select>
+                        <select id="dayDate2"><option value="-1">日</option></select>
                         <button class="btnSearch" type="button" onclick="Search(1)">顯 示</button>
                     </p>
 

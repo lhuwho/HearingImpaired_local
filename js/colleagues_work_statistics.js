@@ -100,7 +100,7 @@ function viewRecord(StaffID) {
 function Search(viewID) {
     switch (viewID) {
         case 1:
-            if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1) {
+            if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1) { //&& $("#dayDate2").val() != -1
                 $("#mainSearchList .tableList").children("tbody").empty();
                 $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月全會每個人出勤表");
                 AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val());
@@ -108,7 +108,7 @@ function Search(viewID) {
 //                obj.monthDate = $("#monthDate2").val();
 //                obj.yearDate = $("#yearDate2").val();
                 //alert(obj.monthDate);
-                //   AspAjax.SearchStaffDataBaseWorkCount(obj);
+                //AspAjax.SearchStaffDataBaseWorkCount(obj);
             }
             else {
                 $("#mainSearchList .tableList").children("tbody").empty(); alert("請選擇日期");
@@ -133,5 +133,39 @@ function setDate(year_start) {
     for (var i = 1; i <= 12; i++) {
         $('#monthDate').add('#monthDate2').append($("<option></option>").attr("value", i).text(i));
     }
+    //日(選定月份日期在做)
 }
 
+function setDay() {
+
+    if ($('#monthDate2').val() > 0 && $('#yearDate2').val() > 0) {
+        var year = parseInt($('#yearDate2').val()) + 1911;
+        var month = parseInt($('#monthDate2').val()) - 1, nDays;
+
+        if (month == 1) {
+            if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+                nDays = 29;
+            } else {
+                nDays = 28;
+            }
+        } else if ((month == 3) || (month == 5) || (month == 8) || (month == 10)) {
+            nDays = 30;
+        } else {
+            nDays = 31;
+        }
+        $('#dayDate').add('#dayDate2').empty().append($("<option></option>").attr("value", '-1').text('日'));
+        for (var i = 1; i <= nDays; i++) {
+            $('#dayDate').add('#dayDate2').append($("<option></option>").attr("value", i).text(i));
+        }
+    }
+    else if ($('#yearDate2').val()<0)
+    {
+        $('#monthDate').add('#monthDate2').val("-1");
+        $('#dayDate').add('#dayDate2').empty().append($("<option></option>").attr("value", '-1').text('日')); 
+    }
+    else  {
+        $('#dayDate').add('#dayDate2').empty().append($("<option></option>").attr("value", '-1').text('日')); 
+    }
+    
+    
+}

@@ -66,6 +66,7 @@
 			                    <th height="30" width="100">員工編號</th>
 			                    <th width="100">員工姓名</th>
 			                    <th>打卡時間</th>
+			                    <th width="100">請假</th>
 			                    <th width="100">詳細紀錄</th>
 			                </tr>
 			            </thead>

@@ -47,19 +47,45 @@ function SucceededCallback(result, userContext, methodName) {
             break;
         case "SearchStaffDataBaseWork":
             if (!(result == null || result.length == 0 || result == undefined)) {
-              //  alert(result.length);
+                //  alert(result.length);
                 //  if (parseInt(result[0].sID) != -1) {
                 var inner = "";
                 for (var i = 0; i < result.length; i++) {
+                    var TimeOK = true;
                     var cardTime = '';
                     for (var j = 0; j < result[i].WorkRecord.length; j++) {
                         cardTime += result[i].WorkRecord[j].CreateFileDate + "<br>";
+                        if (j == 0) {
+                            var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
+                            var CurrentDate = "2015-8-30 08:50:00";
+                            if ((Date.parse(ScheduleDate)).valueOf() >= (Date.parse(CurrentDate)).valueOf()) {
+                                TimeOK = false;
+                            }
+                        }
+                        if (j == result[i].WorkRecord.length - 1) {
+                            var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
+                            var CurrentDate = "2015-8-30 18:00:00";
+                            if ((Date.parse(ScheduleDate)).valueOf() <= (Date.parse(CurrentDate)).valueOf()) {
+                                TimeOK = false;
+                            }
+                        }
+
+
                     }
+
+
                     inner += '<tr>' +
                         '<td>' + result[i].StaffID + '</td>' +
-                        '<td>' + result[i].StaffName + '</td>' +
-                        '<td>' + cardTime + '</td>' +
-                        '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
+                        '<td>' + result[i].StaffName + '</td>';
+                    if (TimeOK) {
+                        inner += '<td>' + cardTime + '</td>';
+                    } else {
+                        inner += '<td><span class="startMark">' + cardTime + '</span></td>';
+                    }
+                    inner += '<td>';
+                    if (result[i].WorkRecordManage.length > 0) { inner += '有請假記錄'; }
+                    inner += '</td>';
+                    inner += '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
 			                '</tr>';
                 }
                 //

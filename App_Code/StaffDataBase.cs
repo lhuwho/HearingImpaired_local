@@ -1270,7 +1270,10 @@ public class StaffDataBase
                     addValue.StaffID = dr["StaffID"].ToString();
                     addValue.StaffName = dr["StaffName"].ToString();
                     addValue.WorkRecord = SearchStaffWorkRecord(dr["StaffID"].ToString(), SearchStaffConditionData.txtstaffBirthdayStart);
-
+                    WorkRecordManage thisValue = new WorkRecordManage();//新增搜尋方法
+                    thisValue.Date = SearchStaffConditionData.txtstaffBirthdayStart;
+                    thisValue.StaffID = dr["StaffID"].ToString();
+                    addValue.WorkRecordManage = GetWorkRecordManage(thisValue);
                     returnValue.Add(addValue);
                 }
                 dr.Close();
@@ -1365,10 +1368,15 @@ public class StaffDataBase
                 }
                 for (int i = 0; i < SearchStaffCondition.Count; i++)
                 {
+                    int StartTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartMin) >= 30 ? 1 : 0);//新的起始時間
+                    int EndTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
+                    int OldStartTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealStart);//舊的起始時間(等於0不判斷)
+                    int OldEndTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealEnd);
+
                     cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
                     cmd.Parameters.Add("@Date" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date);
-                    cmd.Parameters.Add("@StartTime" + i.ToString(), SqlDbType.Float).Value = Convert.ToInt16(SearchStaffCondition[i].StartTime) + (Convert.ToInt16(SearchStaffCondition[i].StartMin) >=30 ? 1:0);
-                    cmd.Parameters.Add("@EndTime" + i.ToString(), SqlDbType.Float).Value =  Convert.ToInt16(SearchStaffCondition[i].EndTime) + (Convert.ToInt16(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
+                    cmd.Parameters.Add("@StartTime" + i.ToString(), SqlDbType.Float).Value = StartTimeint;
+                    cmd.Parameters.Add("@EndTime" + i.ToString(), SqlDbType.Float).Value = EndTimeint;
                     cmd.Parameters.Add("@StartHour" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].StartTime;
                     cmd.Parameters.Add("@StartMin" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].StartMin;
                     cmd.Parameters.Add("@EndHour" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].EndTime;
