@@ -46,7 +46,7 @@ function SucceededCallback(result, userContext, methodName) {
                     //link_to: ,
                     callback: function(index, jq) {
                         //var obj = MyBase.getTextValueBase("searchTable");
-                         AspAjax.SearchStaffDataBaseWorkAll(( parseInt( parseInt( $("#yearDate2").val())) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10));
+                    AspAjax.SearchStaffDataBaseWorkAll((parseInt(parseInt($("#yearDate2").val())) + 1911), $("#monthDate2").val(), parseInt((index + 1) * _LimitPage, 10), $("#dayDate2").val());
                         return false;
                     }
                 });
@@ -75,8 +75,9 @@ function SucceededCallback(result, userContext, methodName) {
                         '<td>' + result[i].V8 + '</td>' +
                         '<td>' + result[i].V9 + '</td>' +
                         '<td>' + result[i].V10 + '</td>' +
-                         '<td>' + result[i].V11 + '</td>' +
-                        '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
+                        '<td>' + result[i].V11 + '</td>' +
+                        '<td>' + result[i].V12 + '</td>' +
+                       // '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
 			                '</tr>';
                 }
                 $("#mainSearchList .tableList").children("tbody").html(inner);
@@ -100,16 +101,29 @@ function viewRecord(StaffID) {
 function Search(viewID) {
     switch (viewID) {
         case 1:
-            if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1) { //&& $("#dayDate2").val() != -1
+        //年
+            if ($("#yearDate2").val() != -1 && $("#monthDate2").val() == -1 && $("#dayDate2").val() == -1) {
                 $("#mainSearchList .tableList").children("tbody").empty();
-                $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月全會每個人出勤表");
-                AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val());
-//                var obj = {};
-//                obj.monthDate = $("#monthDate2").val();
-//                obj.yearDate = $("#yearDate2").val();
+                $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年個人出勤表");
+                AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val(),$("#dayDate2").val());
+            }
+        //月
+            else if ($("#monthDate2").val() != -1 && $("#yearDate2").val() != -1 && $("#dayDate2").val() == -1) { //&& $("#dayDate2").val() != -1
+                $("#mainSearchList .tableList").children("tbody").empty();
+                $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月個人出勤表");
+                AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val(), $("#dayDate2").val());
+                //                var obj = {};
+                //                obj.monthDate = $("#monthDate2").val();
+                //                obj.yearDate = $("#yearDate2").val();
                 //alert(obj.monthDate);
                 //AspAjax.SearchStaffDataBaseWorkCount(obj);
             }
+            else if ($("#yearDate2").val() != -1 && $("#monthDate2").val() != -1 && $("#dayDate2").val() != -1) {
+                $("#mainSearchList .tableList").children("tbody").empty();
+                $("#mainSearchList .tableList").children("caption").html($("#yearDate2").val() + "年" + $("#monthDate2").val() + "月" + $("#dayDate2").val() + "日個人出勤表");
+                AspAjax.SearchStaffDataBaseWorkAllCount((parseInt($("#yearDate2").val()) + 1911), $("#monthDate2").val(), $("#dayDate2").val());
+            }
+            //日
             else {
                 $("#mainSearchList .tableList").children("tbody").empty(); alert("請選擇日期");
             }

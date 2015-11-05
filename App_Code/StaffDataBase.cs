@@ -1520,21 +1520,40 @@ public class StaffDataBase
         return returnValue;
     }
     
-    public string[] SearchStaffDataBaseWorkAllCount(int Year, int Month)
+    public string[] SearchStaffDataBaseWorkAllCount(int Year, int Month,int Day)
     {
         string[] returnValue = new string[2];
         returnValue[0] = "0";
         returnValue[1] = "0";
         DataBase Base = new DataBase();
-        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate>@SearchDate ) and AppointmentDate<@SearchDate";
+        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate > @ResignationDate ) and AppointmentDate<@SearchDate ";
+        //List<string> UserFile = getStaffDataName(HttpContext.Current.User.Identity.Name);
+        //this.personnelFunction();
+        ManageDataBase msg = new ManageDataBase();
+        bool hasRoles = false;
+        string[] Roles = msg.getMembershipStaffRoles(HttpContext.Current.User.Identity.Name);
+        for (int i = 1; i < Roles.Length; i++)
+        {
+            if (Roles[i] == "4" || Roles[i] == "19")
+            {
+                hasRoles = true;
+            }
+        }
+        if (!hasRoles) {
+            SearchStaffCondition += " and staffID = @StffID ";
+        }
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0 " + SearchStaffCondition;
+                string sql = "SELECT COUNT(*) AS QCOUNT FROM StaffDatabase WHERE isDeleted=0  " + SearchStaffCondition;
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year+"-"+Month+"-01");
+//ResignationDate
+                
+                cmd.Parameters.Add("@ResignationDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction( Year + "-" + (Month>0 ? Month : 1 ) + "-" + (Day>0?Day:1));
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + (Month > 0 ? Month : 12) + "-" + (Day > 0 ? Day : 28));//bug 就算了
+                cmd.Parameters.Add("@StffID", HttpContext.Current.User.Identity.Name);
                 returnValue[0] = cmd.ExecuteScalar().ToString();
                 Sqlconn.Close();
             }
@@ -1547,51 +1566,78 @@ public class StaffDataBase
         }
         return returnValue;
     }
-    public List<WorkRecordAll> SearchStaffDataBaseWorkAll(int Year, int Month , int indexpage )
+    public List<WorkRecordAll> SearchStaffDataBaseWorkAll(int Year, int Month, int indexpage, int Day)
     {
         List<WorkRecordAll> returnValue = new List<WorkRecordAll>();
         DataBase Base = new DataBase();
-        string SearchStaffCondition = "and (a.ResignationDate='1900-01-01' or a.ResignationDate>@SearchDate ) and a.AppointmentDate<@SearchDate";
+       // string SearchStaffCondition = "and (a.ResignationDate='1900-01-01' or a.ResignationDate>@SearchDate ) and a.AppointmentDate<@SearchDate";
+        string SearchStaffCondition = "and (ResignationDate='1900-01-01' or ResignationDate > @ResignationDate ) and AppointmentDate<@SearchDate";
+        ManageDataBase msg = new ManageDataBase();
+        bool hasRoles = false;
+        string[] Roles = msg.getMembershipStaffRoles(HttpContext.Current.User.Identity.Name);
+        for (int i = 1; i < Roles.Length; i++)
+        {
+            if (Roles[i] == "4" || Roles[i] == "19")
+            {
+                hasRoles = true;
+            }
+        }
+        if (!hasRoles)
+        {
+            SearchStaffCondition += " and a.staffID = @StffID ";
+        }
         using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
         {
             try
             {
                 Sqlconn.Open();
 
-                string sql  = "SELECT * FROM "+
-"(	"+
-    "SELECT   ROW_NUMBER() OVER (ORDER BY Unit,staffid  asc)AS RowNum, *  " +
-	"FROM  "+
-	"(	select a.staffid ,a.staffname,a.id,a.Unit, b.*  from StaffDatabase a "+
-	"	left join  "+
-	"	("+
-	"		select StaffID  as Teacherid    , "+
-	"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', "+
-	"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', "+
-	"		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', "+
-	"		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', "+
-	"		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', "+
-	"		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', "+
-	"		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', "+
-	"		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', "+
-	"		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', "+
-	"		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', "+
-	"		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11' "+
-	"		from WorkRecordManage  "+
-    "		where Year([date]) = @Year  and MONTH([date]) = @Month " +
-	"		group by StaffID "+
-	"	) b on a.staffid = b.Teacherid "+
-	"	where a.isDeleted=0 "+SearchStaffCondition+
+                string sql = "SELECT * FROM " +
+            "(	" +
+                "SELECT   ROW_NUMBER() OVER (ORDER BY Unit,staffid  asc)AS RowNum, *  " +
+                "FROM  " +
+                "(	select a.staffid ,a.staffname,a.id,a.Unit, b.*  from StaffDatabase a " +
+                "	left join  " +
+                "	(" +
+                "		select StaffID  as Teacherid    , " +
+                "		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
+                "		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
+                "		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', " +
+                "		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', " +
+                "		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', " +
+                "		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', " +
+                "		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', " +
+                "		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', " +
+                "		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', " +
+                "		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', " +
+                "		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11', " +
+                 "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
+                "		from WorkRecordManage  " +
+                " where 1=1  and Year([date]) = @Year ";
+                //WHO 改 年月日 (有點爛 待改)
+                if ( Month > 0 && Day > 0 )
+                {
+                    sql += " and  MONTH([date]) = @Month and Day([date]) = @Day";
+                }
+                else if (Month > 0 && Day < 0) {
+                    sql += " and  MONTH([date]) = @Month ";
+                }
 
-    ") as alltable " + 
-") "+
-"AS NewTable  ";
-                 sql += "WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
+                sql += "		group by StaffID " +
+                "	) b on a.staffid = b.Teacherid " +
+                "	where a.isDeleted=0 " + SearchStaffCondition +
+                ") as alltable " +
+                ") " +
+                "AS NewTable  ";
+                 sql += " WHERE RowNum >= (@indexpage-" + PageMinNumFunction() + ") AND RowNum <= (@indexpage) ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + Month + "-01");
+                cmd.Parameters.Add("@ResignationDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + (Month > 0 ? Month : 1) + "-" + (Day > 0 ? Day : 1));
+                cmd.Parameters.Add("@SearchDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(Year + "-" + (Month > 0 ? Month : 12) + "-" + (Day > 0 ? Day : 28));//bug 就算了
+                cmd.Parameters.Add("@StffID", HttpContext.Current.User.Identity.Name);
                 cmd.Parameters.Add("@indexpage", SqlDbType.Int).Value = indexpage;
                 cmd.Parameters.Add("@Year", SqlDbType.Int).Value = Year;
                 cmd.Parameters.Add("@Month", SqlDbType.Int).Value = Month;
+                cmd.Parameters.Add("@Day", SqlDbType.Int).Value = Day;
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -1609,6 +1655,7 @@ public class StaffDataBase
                     addValue.V9 = dr["V9"].ToString();
                     addValue.V10 = dr["V10"].ToString();
                     addValue.V11 = dr["V11"].ToString();
+                    addValue.V12 = dr["V12"].ToString();
 
                     returnValue.Add(addValue);
                 }
@@ -2668,9 +2715,9 @@ public class StaffDataBase
                 cmd.Parameters.Add("@CreditDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffUpgrade.courseDate);
                 cmd.Parameters.Add("@CreditTeacher", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseLecturer);
                 cmd.Parameters.Add("@Topics", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseName);
-                cmd.Parameters.Add("@Hours", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseTime);
+                cmd.Parameters.Add("@Hours", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseTime);
                 cmd.Parameters.Add("@Prove", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseProve);
-                cmd.Parameters.Add("@CreditNumber", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseCredit);
+                cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseCredit);
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
