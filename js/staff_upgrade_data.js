@@ -133,7 +133,7 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#HS_" + result[i].ID + " .ScourseProve").children('option[value="' + result[i].courseProve + '"]').attr("selected", true);
                     }
                     $(".ScourseTime").add(".ScourseCredit").unbind('keydown').keydown(function(event) {
-                        if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8)) {
+                    if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 46)) {
                             event.preventDefault();
                         }
                     });
