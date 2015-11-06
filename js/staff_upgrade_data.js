@@ -159,6 +159,7 @@ function SucceededCallback(result, userContext, methodName) {
                             'onComplete': function() {
                                 $("#ParticipantsSelectview").show();
                                 $("#ParticipantsSelectview").chosen({
+                                    search_contains: true, //選項模糊查詢
                                     disable_search_threshold: 10,
                                     display_selected_options: false,
                                     no_results_text: "查無資料", //沒有結果匹配
