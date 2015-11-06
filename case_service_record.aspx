@@ -55,7 +55,7 @@
 			            <tr>
 			                <td>服務使用者編號 <input type="text" id="gosrhstudentID" value="" /></td>
 			                <td>個案狀態 <select id="gosrhcaseStatu"></select></td>
-			                <td>訪談日期 <input id="gosrhviewstart" class="date" type="text" size="10" value="" />～<input id="gosrhviewend" class="date" type="text" value="" size="10" /></td>
+			                <td>訪談日期 <input id="gosrhendviewstart" class="date" type="text" size="10" value="" />～<input id="gosrhendviewend" class="date" type="text" value="" size="10" /></td>
 			            </tr>
 			            <tr>
 			                <td colspan="3" align="center"><button class="btnSearch" type="button" onclick="Search()">查 詢</button></td>
@@ -80,6 +80,7 @@
 			               
 			            </tbody>
 			        </table>
+			         <div id="mainPagination" class="pagination"></div>
 			    </div>
 			</div>
 			<div id="main">
