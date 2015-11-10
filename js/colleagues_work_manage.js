@@ -235,6 +235,7 @@ function viewRecord(sid ) {
                     data.StaffID = $("#StaffID").html();
                     data.Date = TransformRepublicReturnValue($("#gosrhstaffBirthdayStart").val());
                     data.RealStart = $("#RealStart" + i).html();
+                    
                     data.RealEnd = $("#RealEnd" + i).html();
                     data.StartTime = $("#startTime" + i).val();
                     data.StartMin = $("#startMin" + i).val();

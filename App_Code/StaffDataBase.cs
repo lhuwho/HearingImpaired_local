@@ -1372,6 +1372,8 @@ public class StaffDataBase
                     int EndTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
                     int OldStartTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealStart);//舊的起始時間(等於0不判斷)
                     int OldEndTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealEnd);
+                    int NewHour = Math.Abs(EndTimeint - StartTimeint);
+                    int oldhour = Math.Abs(OldEndTime - OldStartTime);
 
                     cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
                     cmd.Parameters.Add("@Date" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date);
@@ -1383,6 +1385,22 @@ public class StaffDataBase
                     cmd.Parameters.Add("@EndMin" + i.ToString(), SqlDbType.Int).Value = SearchStaffCondition[i].EndMin;
                     cmd.Parameters.Add("@VacationType" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType);
                     cmd.Parameters.Add("@VacationMark" + i.ToString(), SqlDbType.NVarChar).Value = Chk.CheckStringFunction(SearchStaffCondition[i].VacationMark);
+                    switch (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType)) {
+                        case 13:
+                        case 12:
+                            if (oldhour < NewHour)
+                            {
+                                 AddWorkRecordTime( SearchStaffCondition[i].StaffID,Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date).Year.ToString(),Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType), Math.Abs(oldhour - NewHour), 1);
+                            }
+                            else
+                            {
+                                AddWorkRecordTime(SearchStaffCondition[i].StaffID, Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date).Year.ToString(), Chk.CheckStringtoIntFunction(SearchStaffCondition[i].VacationType), Math.Abs(oldhour - NewHour), -1);
+                            }
+                            break;
+                    }
+    
+                    
+                   
                 }
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
@@ -1395,6 +1413,52 @@ public class StaffDataBase
 
         }
         return returnValue;
+    }
+    public void AddWorkRecordTime( string staffID,string Year, int Type, float hour, int type)
+    {
+        DataBase Base = new DataBase();
+        using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+        {
+            try
+            {
+                Sqlconn.Open();
+                string sql = " IF  EXISTS (SELECT 1 FROM YearVaction WHERE Year=@Year and StaffID=@StaffID ) ";
+                sql += " update YearVaction set yearVaction = yearVaction ";
+                if (Type == 13) {
+                    sql += " , WorkAdd = WorkAdd + @WorkAdd ";
+                }
+                else if (Type == 12)
+                {
+                    sql += " , WorkMinus = WorkMinus + @WorkMinus ";
+                }
+                sql += " where Year=@Year and StaffID=@StaffID ";
+                sql += " else ";
+                sql += "INSERT INTO YearVaction (StaffID, Year, YearVaction, WorkAdd, WorkMinus ) " +
+                         "VALUES (@StaffID, @Year, 0 ";
+                if (Type == 13) {
+                    sql += " ,  @WorkAdd ,0) ";
+
+                }
+                else if (Type == 12)
+                {
+                    sql += " ,  @WorkMinus ,0) ";
+                }
+                
+                SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffID);
+                cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(Year);
+                cmd.Parameters.Add("@WorkAdd", SqlDbType.Float).Value = Chk.CheckFloatFunction(((hour/8) * type).ToString());
+                cmd.Parameters.Add("@WorkMinus", SqlDbType.Float).Value = Chk.CheckFloatFunction(((hour / 8) * type).ToString());
+               // returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                cmd.ExecuteNonQuery();
+                Sqlconn.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
     }
     public List<WorkRecordManage> GetWorkRecordManage(WorkRecordManage SearchStaffCondition)
     {
