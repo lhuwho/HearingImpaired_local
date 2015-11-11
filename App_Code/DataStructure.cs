@@ -3179,6 +3179,7 @@ public class RolesStruct
     public string[] remind = new string[2] { "0000", "0" };
     public string checkNo;
     public string errorMsg;
+    public bool HasPeopleRole;
 }
 
 public struct StudentDataBasic

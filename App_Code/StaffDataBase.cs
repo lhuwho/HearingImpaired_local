@@ -169,6 +169,15 @@ public class StaffDataBase
                 LimitRoles += " cR.ID=" + MembershipStaffRoles[i];
             }
         }
+
+        for (int i = 1; i < MembershipStaffRoles.Length; i++)
+        {
+            //if (MembershipStaffRoles[i] == "4" || MembershipStaffRoles[i] == "19")
+            if (MembershipStaffRoles[i] == "19")
+            {
+                returnValue.HasPeopleRole = true;
+            }
+        }
         if (LimitRoles.Length > 0)
         {
             LimitRoles = " AND " + LimitRoles;
@@ -266,6 +275,14 @@ public class StaffDataBase
                     LimitRoles += " OR ";
                 }
                 LimitRoles += " cR.ID=" + MembershipStaffRoles[i];
+            }
+        }
+        for (int i = 1; i < MembershipStaffRoles.Length; i++)
+        {
+            //if (MembershipStaffRoles[i] == "4" || MembershipStaffRoles[i] == "19")
+            if ( MembershipStaffRoles[i] == "19")
+            {
+                returnValue.HasPeopleRole = true;
             }
         }
         if (LimitRoles.Length > 0) {

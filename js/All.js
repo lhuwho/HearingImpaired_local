@@ -295,9 +295,16 @@ function getMenu(resultRoles) {
 					    '</ul>' +
 					'</li>';
         }
-
+        if (resultRoles.HasPeopleRole) {
+            inner += '<li><a href="#">出勤管理</a>' +
+           '<ul class="sub">' +
+           '<li><a href="./colleagues_work_manage.aspx">出勤紀錄管理</a></li>' +
+            '<li><a href="./colleagues_work_statistics.aspx">出勤統計</a></li>' +
+            '</ul></li>';
+        }
         inner += '</ul>';
     }
+
     $("#menu").html(inner);
 }
 
