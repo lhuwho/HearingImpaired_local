@@ -65,6 +65,12 @@ function SucceededCallback(result, userContext, methodName) {
                     inner += '<tr>' +
                         '<td>' + result[i].StaffID + '</td>' +
                         '<td>' + result[i].StaffName + '</td>' +
+
+                        '<td><span style="color:blue;" >' + (result[i].YearVaction == "0.000"||result[i].YearVaction == '' ? '' :  parseFloat(  result[i].YearVaction)) + '</span></td>' +
+                        '<td><span style="color:blue;" >' + (result[i].WorkMinus == "0.000" || result[i].WorkMinus == '' ? '' : parseFloat(result[i].WorkMinus)) + '</span></td>' +
+                        '<td><span style="color:blue;" >' + (result[i].WorkAdd == "0.000" || result[i].WorkAdd == '' ? '' : parseFloat(result[i].WorkAdd)) + '</span></td>' + 
+//                        '<td>' + result[i].WorkMinus + '</td>' +
+//                        '<td>' + result[i].WorkAdd + '</td>' +
                         '<td>' + result[i].V1 + '</td>' +
                         '<td>' + result[i].V2 + '</td>' +
                         '<td>' + result[i].V3 + '</td>' +

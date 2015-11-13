@@ -282,6 +282,7 @@ function getMenu(resultRoles) {
         if (parseInt(resultRoles.remind[0], 2) > 0) {
             inner += '<li><a href="./remind_system.aspx">提醒系統</a></li>';
         }
+        inner += '<li><a href="./colleagues_work_statistics.aspx">出勤統計</a></li>';
         inner += '</ul>' +
 				'</li>';
 

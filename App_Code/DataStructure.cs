@@ -3769,6 +3769,9 @@ public struct WorkRecordAll
     public string V10;// '未打卡'
     public string V11;//'工作異動-減'
     public string V12;//'工作異動-加'
+    public string YearVaction;
+    public string WorkAdd;
+    public string WorkMinus;
 
 }
 public struct WorkRecordDetail

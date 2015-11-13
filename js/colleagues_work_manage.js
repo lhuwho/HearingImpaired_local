@@ -28,9 +28,11 @@ function SucceededCallback(result, userContext, methodName) {
                 $("#mainPagination").pagination(pageCount, {
                     prev_text: '<', //上一頁按鈕裡text
                     next_text: '>', //下一頁按鈕裡text
+                    //first_text: '<<',
                     items_per_page: _LimitPage, //顯示條數
                     num_display_entries: 4, //連續分頁主體部分分頁條目數
                     num_edge_entries: 2, //兩側首尾分頁條目數
+                   
                     //ellipse_text: "/",
                     //link_to: ,
                     callback: function(index, jq) {

@@ -56,13 +56,15 @@
                 </div>
 			    <div id="mainSearchList" class="mainSearchList">
 			        <table class="tableList" width="780" border="0">
-			            <caption>102年六月全會每個人出勤表</caption>
+			            <caption>個人出勤表</caption>
 			            <thead>
 			                <tr>
                                
                                 <th width="60">同仁<br />編號</th>
-                                <th width="80">姓名</th>
-                                
+                                <th width="60">姓名</th>
+                                <th width="50">特休<br />天數</th>
+                                <th width="50">工作<br />異動<br />(減)</th>
+                                <th width="50">工作<br />異動<br />(加)</th>
                                 <th width="40">事假</th>
                                 <th width="40">病假</th>
 			                    <th width="40">遲到</th>

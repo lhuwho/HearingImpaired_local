@@ -1677,7 +1677,8 @@ public class StaffDataBase
             "(	" +
                 "SELECT   ROW_NUMBER() OVER (ORDER BY Unit,staffid  asc)AS RowNum, *  " +
                 "FROM  " +
-                "(	select a.staffid ,a.staffname,a.id,a.Unit, b.*  from StaffDatabase a " +
+                "(	select a.staffid ,a.staffname,a.id,a.Unit, b.*,c.*  from StaffDatabase a " +
+                "  left join ( select StaffID as TID,YearVaction,workadd,WorkMinus from YearVaction where Year = @Year ) c on a.StaffID = c.TID	"+
                 "	left join  " +
                 "	(" +
                 "		select StaffID  as Teacherid    , " +
@@ -1725,6 +1726,9 @@ public class StaffDataBase
                     WorkRecordAll addValue = new WorkRecordAll();
                     addValue.StaffID = dr["StaffID"].ToString();
                     addValue.StaffName = dr["StaffName"].ToString();
+                    addValue.YearVaction = dr["yearvaction"].ToString();
+                    addValue.WorkAdd = dr["workadd"].ToString();
+                    addValue.WorkMinus = dr["workminus"].ToString();
                     addValue.V1 = dr["V1"].ToString();
                     addValue.V2 = dr["V2"].ToString();
                     addValue.V3 = dr["V3"].ToString();
