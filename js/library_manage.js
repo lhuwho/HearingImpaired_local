@@ -158,6 +158,7 @@ function SucceededCallback(result, userContext, methodName) {
                     for (var i = 0; i < result.length; i++) {
                         inner += '<tr id="HS_' + result[i].bID + '">' +
 			                    '<td height="45">' + result[i].bookNumber + '</td>' +
+			                    '<td>' + result[i].bookUseTo + '</td>' +
 			                    '<td>' + result[i].bookClassificationCode + ' ' + result[i].bookClassificationName + '</td>' +
 			                    '<td><input class="bookTitle" type="text" value="' + result[i].bookTitle + '" size="15"/></td>' +
 			                    '<td><input class="bookAuthor" type="text" value="' + result[i].bookAuthor + '" size="10" /></td>' +
@@ -538,6 +539,10 @@ function saveInsert() {
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
     var categoryName = $("#insertDataDiv select[name='Category']").find("option:selected").text()
     obj.bookClassificationCode = categoryName.substr(0, 4);
+    obj.bookUseTo = $("#bookUseTo").val();
+    obj.bookScrapstatus = $("#bookScrapstatus").val();
+    obj.bookFilingDate =TransformRepublicReturnValue( $("#bookFilingDate").val());
+    //bookUseTo, bookComefrom, bookGeter, bookScrapstatus
     if (checkString.length > 0) {
         alert(checkString);
     } else {

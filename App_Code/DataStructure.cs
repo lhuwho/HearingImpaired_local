@@ -2113,6 +2113,10 @@ public struct CreateBook
     public string bookRemark;
     public string bookFilingDate;
     public string bookStatus;
+    public string bookUseTo;
+    public string bookComefrom;
+    public string bookGeter;
+    public string bookScrapstatus;
     public string checkNo;
     public string errorMsg;
 }

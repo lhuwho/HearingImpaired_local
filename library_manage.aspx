@@ -72,13 +72,14 @@
 			            <thead>
 			                <tr>
 			                    <th width="70">書碼</th>
-			                    <th width="110">分類</th>
+			                    <th width="50">用途</th>
+			                    <th width="70">分類</th>
 			                    <th width="110">書名</th>
 			                    <th width="90">作者</th>
 			                    <th width="90">出版社</th>
 			                    <th width="80">出版日期</th>
 			                    <th width="140">備註</th>
-			                    <th width="40">備註</th>
+			                    <th width="40">轉出<br />報廢</th>
 			                    <th width="50">狀態</th>
 			                </tr>
 			            </thead>
@@ -93,6 +94,10 @@
 		            <p id="Unit" style="background-color:#FFDF71;padding:0 10px;text-align:right;">&nbsp;</p>
 		            <p align="right">建檔日期 <input id="bookFilingDate" class="date" type="text" value="" size="10"  /></p>
 		            <table class="tableText" width="780" border="0" id="insertDataDiv">
+		                <tr>
+		                    <th>用　　途</th>
+		                    <td><select id="bookUseTo" autocomplete="off"><option value="0">請選擇</option><option value="1">外借</option><option value="2">內用</option></select></td>
+		                </tr>
 		                <tr>
 		                    <th width="150">分　　類</th>
 		                    <td><select id="bookClassification" name="Category" autocomplete="off"><option value="0">請選擇分類</option></select><span class="startMark">*</span></td>
@@ -114,6 +119,18 @@
 		                    <td><input id="bookPressDate" type="text" value="" class="date" size="10" autocomplete="off" /></td>
 		                </tr>
 		                <tr>
+		                    <th>圖書來源</th>
+		                    <td><input id="bookComefrom" type="text" value="" size="10" autocomplete="off" /></td>
+		                </tr>
+		                <tr>
+		                    <th>捐 贈 者</th>
+		                    <td><input id="bookGeter" type="text" value="" size="30" autocomplete="off" /></td>
+		                </tr>
+		                 <tr>
+		                    <th>轉出/報廢</th>
+		                    <td><select  id="bookScrapstatus" autocomplete="off"><option value="0">請選擇</option><option value="1">轉出</option><option value="2">報廢</option></select></td>
+		                </tr>
+		                 <tr>
 		                    <th>備　　註</th>
 		                    <td><textarea id="bookRemark" autocomplete="off"></textarea></td>
 		                </tr>

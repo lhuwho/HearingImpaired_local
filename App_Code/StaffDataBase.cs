@@ -1389,8 +1389,15 @@ public class StaffDataBase
                     int EndTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
                     int OldStartTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealStart);//舊的起始時間(等於0不判斷)
                     int OldEndTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealEnd);
+
+                    //從這裡下手 扣12-13
                     int NewHour = Math.Abs(EndTimeint - StartTimeint);
+                    if ((EndTimeint >= 13 && StartTimeint <= 12) || (StartTimeint >= 13 && EndTimeint <= 12))
+                    { NewHour = Math.Abs(EndTimeint - StartTimeint) -1; }
+                    //從這裡下手 扣12-13
                     int oldhour = Math.Abs(OldEndTime - OldStartTime);
+                    if ((OldEndTime >= 13 && OldStartTime <= 12) || (OldStartTime >= 13 && OldEndTime <= 12))
+                    { oldhour = Math.Abs(OldEndTime - OldStartTime) - 1; }
 
                     cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
                     cmd.Parameters.Add("@Date" + i.ToString(), SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(SearchStaffCondition[i].Date);
@@ -1682,21 +1689,33 @@ public class StaffDataBase
                 "	left join  " +
                 "	(" +
                 "		select StaffID  as Teacherid    , " +
-                "		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
-                "		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
-                "		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', " +
-                "		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', " +
-                "		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', " +
-                "		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', " +
-                "		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', " +
-                "		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', " +
-                "		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', " +
-                "		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', " +
-                "		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11', " +
-                 "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
+                "		SUM(case vacationType when 2 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v1', " +
+                "		SUM(case vacationType when 3 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v2', " +
+                "		SUM(case vacationType when 4 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v3', " +
+                "		SUM(case vacationType when 5 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v4', " +
+                "		SUM(case vacationType when 6 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v5', " +
+                "		SUM(case vacationType when 7 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v6', " +
+                "		SUM(case vacationType when 8 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v7', " +
+                "		SUM(case vacationType when 9 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v8', " +
+                "		SUM(case vacationType when 10 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v9', " +
+                "		SUM(case vacationType when 11 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v10', " +
+                "		SUM(case vacationType when 12 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v11', " +
+                 "		SUM(case vacationType when 13 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v12' " +
+                //"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
+                //"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
+                //"		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', " +
+                //"		SUM(case vacationType when 5 then ABS(starttime - endtime) /8 else 0 end) as 'v4', " +
+                //"		SUM(case vacationType when 6 then ABS(starttime - endtime) /8 else 0 end) as 'v5', " +
+                //"		SUM(case vacationType when 7 then ABS(starttime - endtime) /8 else 0 end) as 'v6', " +
+                //"		SUM(case vacationType when 8 then ABS(starttime - endtime) /8 else 0 end) as 'v7', " +
+                //"		SUM(case vacationType when 9 then ABS(starttime - endtime)  /8 else 0 end) as 'v8', " +
+                //"		SUM(case vacationType when 10 then ABS(starttime - endtime) /8 else 0 end) as 'v9', " +
+                //"		SUM(case vacationType when 11 then ABS(starttime - endtime) /8 else 0 end) as 'v10', " +
+                //"		SUM(case vacationType when 12 then ABS(starttime - endtime)  /8 else 0 end) as 'v11', " +
+                // "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
                 "		from WorkRecordManage  " +
                 " where 1=1  and Year([date]) = @Year ";
-                //WHO 改 年月日 (有點爛 待改)
+                //WHO 改 年月日 (有點爛 待改)  ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end)
                 if ( Month > 0 && Day > 0 )
                 {
                     sql += " and  MONTH([date]) = @Month and Day([date]) = @Day";

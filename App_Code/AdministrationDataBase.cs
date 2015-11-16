@@ -129,9 +129,12 @@ public class AdministrationDataBase
                 List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
                 string sql = "INSERT INTO BookDatabase (Unit, BookCodeID, BookName, CategoryID, Author, Press, PressDate, Remark, ArchivingDate, Status, " +
-                    "CreateFileBy, CreateFileDate, UpFileBy, UpFileDate, isDeleted) VALUES " +
+                    "CreateFileBy, CreateFileDate, UpFileBy, UpFileDate, isDeleted ,bookUseTo,bookComefrom ,bookGeter,bookScrapstatus) VALUES " +
                     "(@Unit, @BookCodeID, @BookName, @CategoryID, @Author, @Press, @PressDate, @Remark, @ArchivingDate, 1, " +
-                    "@CreateFileBy, (getDate()), @UpFileBy, (getDate()), 0)";
+                    "@CreateFileBy, (getDate()), @UpFileBy, (getDate()), 0 , @bookUseTo,@bookComefrom ,@bookGeter,@bookScrapstatus)";
+
+               // bookUseTo,bookComefrom ,bookGeter,bookScrapstatus
+
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
                 cmd.Parameters.Add("@BookCodeID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookData.bookNumber);
@@ -144,6 +147,10 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@ArchivingDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(bookData.bookFilingDate);
                 cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                cmd.Parameters.Add("@bookUseTo", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(bookData.bookUseTo);
+                cmd.Parameters.Add("@bookComefrom", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookData.bookComefrom);
+                cmd.Parameters.Add("@bookGeter", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookData.bookGeter);
+                cmd.Parameters.Add("@bookScrapstatus", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(bookData.bookScrapstatus);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 if (returnValue[0] != "0")
                 {
@@ -158,9 +165,10 @@ public class AdministrationDataBase
                     dr.Close();
                     if (Column != 0)
                     {
-                        sql = "SELECT Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) ";
+                        sql = "SELECT Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
                         cmd = new SqlCommand(sql, Sqlconn);
                         cmd.Parameters.Add("@CategoryID", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(bookData.bookClassification);
+                        cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
                         string stuNumber = cmd.ExecuteScalar().ToString();
                         string stuIDName = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(3, '0');
 
@@ -180,6 +188,40 @@ public class AdministrationDataBase
             }
         }
         return returnValue;
+    }
+
+    public string[] GetBookIDData(CreateBook bookData)
+    {
+          string[]  returnValue = new string[2];
+          returnValue[0] = "";
+          DataBase Base = new DataBase();
+          using (SqlConnection Sqlconn = new SqlConnection(Base.GetConnString()))
+          {
+              try
+              {
+                  StaffDataBase sDB = new StaffDataBase();
+                  List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
+                  Sqlconn.Open();
+                  string sql = "";
+                  sql = "SELECT Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
+                  SqlCommand cmd = new SqlCommand(sql, Sqlconn);
+                  cmd = new SqlCommand(sql, Sqlconn);
+                  cmd.Parameters.Add("@CategoryID", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(bookData.bookClassification);
+                  cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
+                  string stuNumber = cmd.ExecuteScalar().ToString();
+                  returnValue[0] = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(3, '0');
+                  //returnValue = stuIDName;
+              }
+              catch
+              {
+
+              }
+              finally {
+                  Sqlconn.Close();
+              }
+          }
+
+          return returnValue;
     }
 
     public string[] searchBookCount(SearchBook bookData)
@@ -256,6 +298,10 @@ public class AdministrationDataBase
                     addValue.bookRemark = dr["Remark"].ToString();
                     addValue.bookFilingDate = DateTime.Parse(dr["ArchivingDate"].ToString()).ToString("yyyy-MM-dd");
                     addValue.bookStatus = dr["Status"].ToString();
+                    addValue.bookScrapstatus = dr["bookScrapstatus"].ToString();
+                    addValue.bookUseTo = dr["bookUseto"].ToString();
+                    addValue.bookGeter = dr["bookgeter"].ToString();
+                    addValue.bookComefrom = dr["bookcomefrom"].ToString();
                     addValue.checkNo = "1";
                     returnValue.Add(addValue);
                 }

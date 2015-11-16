@@ -3398,6 +3398,22 @@ public class AspAjax : System.Web.Services.WebService {
             return new string[2] { _noRole, _errorMsg };
         }
     }
+      [WebMethod]
+    public string[] GetBookIDData(CreateBook bookData)
+    {
+        AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.libraryFunction();
+        if (int.Parse(aDB._StaffhaveRoles[2]) == 1)
+        {
+            return aDB.GetBookIDData(bookData);
+        }
+        else
+        {
+            return new string[2] { _noRole, _errorMsg };
+        }
+    }
+
+    
     [WebMethod]
     public string[] searchBookDataCount(SearchBook bookData)
     {
