@@ -1467,10 +1467,13 @@ public class StaffDataBase
                 {
                     sql += " ,  @WorkMinus ,0) ";
                 }
-                
+
+
+                //sql += " insert into YearVacationLog (staffID , Type,Year , Changed,creatDate) values (@StaffID ,@Type,@Year , @WorkAdd,getdate())  ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffID);
                 cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(Year);
+               // cmd.Parameters.Add("@Type", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(Type);
                 cmd.Parameters.Add("@WorkAdd", SqlDbType.Float).Value = Chk.CheckFloatFunction(((hour/8) * type).ToString());
                 cmd.Parameters.Add("@WorkMinus", SqlDbType.Float).Value = Chk.CheckFloatFunction(((hour / 8) * type).ToString());
                // returnValue[0] = cmd.ExecuteNonQuery().ToString();

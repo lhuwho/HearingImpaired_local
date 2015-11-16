@@ -114,6 +114,18 @@ function SucceededCallback(result, userContext, methodName) {
             }
 
             break;
+        case "SetWorkRecordManage":
+            var pageCount = parseInt(result[0]);
+            if (pageCount > 0) {
+                alert("請假更新成功");
+                $("#fancybox-close").click();
+                
+            }
+            else {
+                alert("請假更新失敗，請在重試");
+                $("#fancybox-close").click();
+            }
+            break;
 
     }
 }
