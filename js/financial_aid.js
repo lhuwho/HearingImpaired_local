@@ -107,15 +107,14 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
 			                    '<td>' + _SexList[result[i].txtstudentSex] + '</td>' +
-			                    '<td><span class="hidSiD" style="display:none;">' + result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
+			                    '<td><span id="hidSiD" style="display:none;">' + result[i].ID + '</span>' + TransformADFromDateFunction(result[i].txtstudentbirthday) + '</td>' +
 			                '</tr>';
                     }
                     $("#StuinlineReturn tbody").html(inner);
 
                     $("#StuinlineReturn .ImgJs").unbind('click').click(function() {
                         $("#studentID").html($(this).children("td:nth-child(1)").html());
-                       //alert();
-                        AspAjax.getStudentDataBaseForBasic($(this).find('span').html());
+                        AspAjax.getStudentDataBaseForBasic($("#hidSiD").html());
                         $.fancybox.close();
                     });
                 } else {
