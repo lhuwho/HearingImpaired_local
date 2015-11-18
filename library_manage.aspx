@@ -72,16 +72,23 @@
 			            <thead>
 			                <tr>
 			                    <th width="70">書碼</th>
-			                    <th width="50">用途</th>
-			                    <th width="70">分類</th>
-			                    <th width="110">書名</th>
+			                  <%--  <th width="50">用途</th>--%>
+			                    <th width="170">分類</th>
+			                    <th width="120">書名</th>
 			                    <th width="90">作者</th>
-			                    <th width="90">出版社</th>
-			                    <th width="80">出版日期</th>
+			                    <th  width="90">出版社</th>
+			                    <th  width="80">出版日期</th>
 			                    <th width="140">備註</th>
-			                    <th width="40">轉出<br />報廢</th>
-			                    <th width="50">狀態</th>
+			                   <%-- <th width="40">轉出<br />報廢</th>--%>
+			                    <th width="50">狀態</th> 
+			                    <th  width="50">功能</th>
 			                </tr>
+			                <%--<tr>
+			                    <th width="70">轉出/報廢</th>
+			                    <th width="170">用途</th>
+			                    <th width="120">來源</th>
+			                    <th width="90">捐贈者</th>
+			                </tr>--%>
 			            </thead>
 			            <tbody>
 			            </tbody>

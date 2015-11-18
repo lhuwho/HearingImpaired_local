@@ -482,6 +482,8 @@ public struct SearchBookResult
     public string executionPress;
     public string executionPressDate;
     public string executionRemark;
+    public string executionbookAuthor;
+   
 }
 
 

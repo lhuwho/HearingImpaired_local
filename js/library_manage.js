@@ -10,6 +10,11 @@ var noEmptyShow4 = ["借閱類別"];
 var _ReturnValue;
 var _bookStatus = new Array("", "在架", "借出");
 var _borrowerStatus = new Array("", "員工", "學生");
+//var _bookScrapstatus = new Array("", "轉出", "報廢");
+var _bookScrapstatus = new Array('<option value="0">請選擇</option><option value="1">轉出</option><option value="2">報廢</option>', '<option value="0">請選擇</option><option value="1"  selected="selected" >轉出</option><option value="2">報廢</option>', '<option value="0">請選擇</option><option value="1">轉出</option><option value="2"  selected="selected" >報廢</option>');
+
+var _bookUseTo = new Array('<option value="0">請選擇</option><option value="1">外借</option><option value="2">內用</option>', '<option value="0">請選擇</option><option value="1"  selected="selected" >外借</option><option value="2">內用</option>', '<option value="0">請選擇</option><option value="1">外借</option><option value="2"  selected="selected" >內用</option>');
+
 
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
@@ -157,15 +162,25 @@ function SucceededCallback(result, userContext, methodName) {
                     var inner = "";
                     for (var i = 0; i < result.length; i++) {
                         inner += '<tr id="HS_' + result[i].bID + '">' +
+                        '<td colspan="8" ><table><tr>' +
 			                    '<td height="45">' + result[i].bookNumber + '</td>' +
-			                    '<td>' + result[i].bookUseTo + '</td>' +
-			                    '<td>' + result[i].bookClassificationCode + ' ' + result[i].bookClassificationName + '</td>' +
+
+			                    '<td width="110" >' + result[i].bookClassificationCode + ' ' + result[i].bookClassificationName + '</td>' +
 			                    '<td><input class="bookTitle" type="text" value="' + result[i].bookTitle + '" size="15"/></td>' +
 			                    '<td><input class="bookAuthor" type="text" value="' + result[i].bookAuthor + '" size="10" /></td>' +
 			                    '<td><input class="bookPress" type="text" value="' + result[i].bookPress + '" size="10" /></td>' +
 			                    '<td><input class="bookPressDate" type="text" class="date" value="' + TransformADFromStringFunction(result[i].bookPressDate) + '" size="10" /></td>' +
 			                    '<td><textarea rows="1" cols="15" class="bookRemark">' + result[i].bookRemark + '</textarea></td>' +
 			                    '<td>' + _bookStatus[result[i].bookStatus] + '</td>' +
+			                    '</tr><tr>' +
+			                    '<td>轉出/報廢：</td>' +
+			                    '<td><select class="HsbookScrapstatus" >' + _bookScrapstatus[result[i].bookScrapstatus] + '</select></td>' +
+			                    '<td>用途：<select class="HsbookUseTo" >' + _bookUseTo[result[i].bookUseTo] + '</select></td>' +
+			                    '<td>來源：</td>' +
+			                    '<td><input class="HsbookComefrom" type="text" value="' + result[i].bookComefrom + '" size="10" /></td>' +
+			                    '<td>捐贈者：</td>' +
+			                    '<td><input class="HsbookGeter" type="text" value="' + result[i].bookGeter + '" size="10" /></td>' +
+			                    '</tr></table></td>' +
 			                    '<td><div class="UD"><button class="btnView" type="button" onclick="UpData(' + result[i].bID + ')">更 新</button>' +
 			                    '<br /><button class="btnView" type="button" onclick="DelData(' + result[i].bID + ')">刪 除</button></div>' +
 			                    '<div class="SC" style="display:none"><button class="btnView" type="button" onclick="SaveData(' + result[i].bID + ')">儲 存</button>' +
@@ -475,7 +490,7 @@ function showView(viewID) {
 }
 
 function UpData(TrID) {
-    $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").attr("disabled", false);
+    $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").add("#HS_" + TrID + " select").attr("disabled", false);
     $("#HS_" + TrID + " .UD").hide();
     $("#HS_" + TrID + " .SC").show();
 }
@@ -503,12 +518,14 @@ function SaveData(TrID) {
     if (BookRemark.length > 0) {
         obj.executionRemark = BookRemark;
     }
+    
+    
 
     if (obj.executionTitle != null && obj.executionAuthor != null && obj.executionPress != null && obj.executionPressDate != null && obj.executionRemark != null) {
         $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").attr("disabled", true);
         $("#HS_" + TrID + " .UD").show();
         $("#HS_" + TrID + " .SC").hide();
-        AspAjax.setBookData1(obj);
+        //AspAjax.setBookData1(obj);
     } else {
         alert("請填寫完整");
     }
