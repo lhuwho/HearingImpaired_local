@@ -365,7 +365,7 @@ public class AdministrationDataBase
                 List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
                 string sql = "UPDATE BookDatabase SET BookName=@executionTitle, Author=@executionAuthor, Press=@executionPress, PressDate=@executionPressDate, " +
-                            "Remark=@executionRemark, UpFileBy=@UpFileBy, UpFileDate=(getDate()) WHERE BookID=@bID AND isDeleted=0";
+                            "Remark=@executionRemark, UpFileBy=@UpFileBy, UpFileDate=(getDate()),bookUseTo=@executionbookUseTo,bookComefrom=@executionbookComefrom,bookGeter=@executionbookGeter,bookScrapstatus=@executionbookScrapstatus WHERE BookID=@bID AND isDeleted=0";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@bID", SqlDbType.BigInt).Value = bookDataResult.bID;
                 cmd.Parameters.Add("@executionTitle", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookDataResult.executionTitle);
@@ -374,6 +374,10 @@ public class AdministrationDataBase
                 cmd.Parameters.Add("@executionPressDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(bookDataResult.executionPressDate);
                 cmd.Parameters.Add("@executionRemark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookDataResult.executionRemark);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                cmd.Parameters.Add("@executionbookUseTo", SqlDbType.Int).Value = Chk.CheckStringFunction(bookDataResult.executionbookUseTo);
+                cmd.Parameters.Add("@executionbookComefrom", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookDataResult.executionbookComefrom);
+                cmd.Parameters.Add("@executionbookGeter", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(bookDataResult.executionbookGeter);
+                cmd.Parameters.Add("@executionbookScrapstatus", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(bookDataResult.executionbookScrapstatus);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
             }

@@ -101,6 +101,11 @@
 		            <p id="Unit" style="background-color:#FFDF71;padding:0 10px;text-align:right;">&nbsp;</p>
 		            <p align="right">建檔日期 <input id="bookFilingDate" class="date" type="text" value="" size="10"  /></p>
 		            <table class="tableText" width="780" border="0" id="insertDataDiv">
+		            
+		                <tr>
+		                    <th>書　　碼</th>
+		                    <td id="bookID" style="color:red"></td>
+		                </tr>
 		                <tr>
 		                    <th>用　　途</th>
 		                    <td><select id="bookUseTo" autocomplete="off"><option value="0">請選擇</option><option value="1">外借</option><option value="2">內用</option></select></td>

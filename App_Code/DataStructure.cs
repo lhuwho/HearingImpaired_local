@@ -483,6 +483,11 @@ public struct SearchBookResult
     public string executionPressDate;
     public string executionRemark;
     public string executionbookAuthor;
+    public string executionbookScrapstatus;
+    public string executionbookUseTo;
+    public string executionbookComefrom;
+    public string executionbookGeter;
+
    
 }
 

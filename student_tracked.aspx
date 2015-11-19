@@ -119,17 +119,24 @@
 			        <tr>
 			            <th>戶籍地址</th>
 			            <td colspan="3">
-			            <span id="censusAddressZip"></span> 
+			           
+			            <input id="censusAddressZip" type="text" maxlength="5" value="" size="5"/> 
+			            <select id="censusAddressCity" class="zoneCity"></select>			             
+			                 <input type="text" id="censusAddress" value="" size="50"/>
+			           <%-- <span id="censusAddressZip"></span> 
 			            <span id="censusAddressCity"></span> 
-			            <span id="censusAddress"></span> 
+			            <span id="censusAddress"></span> --%>
 			            </td>
 			        </tr>
 		            <tr>
 			            <th>通訊地址</th>
 			            <td colspan="3">
-			            <span id="addressZip"></span> 
+			             <input type="text" id="addressZip" value="" size="5" maxlength="5"/> 
+			             <select id="addressCity" class="zoneCity"></select>			               
+			                 <input type="text" id="address" value="" size="50"/>
+			          <%--  <span id="addressZip"></span> 
 			            <span id="addressCity"></span> 
-			            <span id="address"></span> 
+			            <span id="address"></span> --%>
 			            </td>
 			        </tr>
 			        <tr>
@@ -142,42 +149,46 @@
 			                        </tr>
 			                        <tr id="PrimaryContact1">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span> <span id="fPRelation1"></span><div id="fPName1"></div></td>
+			                            <span>關係</span><input type="text" id="fPRelation1" value="" size="2"/><br />
+			                            <span>姓名</span><input type="text" id="fPName1" value=""/></td>
 			                            <td>
-			                                <span>(公)</span> <span id="fPTel1"></span>　
-			                                <span>(手機)</span> <span id="fPPhone1"></span><br />
-			                                <span>(家)</span> <span id="fPHPhone1"></span>　
-			                                <span>(傳真)</span> <span id="fPFax1"></span>
+			                                <span>(公)</span><input type="text" id="fPTel1" value=""/>
+			                                <span>(手機)</span> <input type="text" id="fPPhone1" value=""/><br />
+			                                <span>(家)</span><input type="text" id="fPHPhone1" value=""/>
+			                                <span>(傳真)</span> <input type="text" id="fPFax1" value=""/>
 			                            </td>
 			                        </tr>
 			                        <tr id="PrimaryContact2">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span> <span id="fPRelation2"></span><div id="fPName2"></div></td>
+			                            <span>關係</span><input type="text" id="fPRelation2" value="" size="2"/><br />
+			                            <span>姓名</span><input type="text" id="fPName2" value=""/></td>
 			                            <td>
-			                                <span>(公)</span> <span id="fPTel2"></span>　
-			                                <span>(手機)</span> <span id="fPPhone2"></span><br />
-			                                <span>(家)</span> <span id="fPHPhone2"></span>　
-			                                <span>(傳真)</span> <span id="fPFax2"></span>
+			                                <span>(公)</span><input type="text" id="fPTel2" value=""/> 
+			                                <span>(手機)</span><input type="text" id="fPPhone2" value=""/><br />
+			                                <span>(家)</span><input type="text" id="fPHPhone2" value=""/> 
+			                                <span>(傳真)</span> <input type="text" id="fPFax2" value=""/>
 			                            </td>
 			                        </tr>
 			                        <tr id="PrimaryContact3">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span> <span id="fPRelation3"></span><span id="fPName3"></span></td>
+			                            <span>關係</span><input type="text" id="fPRelation3" value="" size="2"/> <br />
+			                            <span>姓名</span><input type="text" id="fPName3" value=""/></td>
 			                            <td>
-			                                <span>(公)</span> <span id="fPTel3"></span>　
-			                                <span>(手機)</span> <span id="fPPhone3"></span><br />
-			                                <span>(家)</span> <span id="fPHPhone3"></span>　
-			                                <span>(傳真)</span> <span id="fPFax3"></span>
+			                                <span>(公)</span> <input type="text" id="fPTel3" value=""/>
+			                                <span>(手機)</span><input type="text" id="fPPhone3" value=""/><br />
+			                                <span>(家)</span> <input type="text" id="fPHPhone3" value=""/>
+			                                <span>(傳真)</span> <input type="text" id="fPFax3" value=""/>
 			                            </td>
 			                        </tr>
 			                        <tr id="PrimaryContact4">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span> <span id="fPRelation4"></span><span id="fPName4"></span></td>
+			                            <span>關係</span><input type="text" id="fPRelation4" value="" size="2"/> <br />
+			                            <span>姓名</span><input type="text" id="fPName4" value=""/></td>
 			                            <td>
-			                                <span>(公)</span> <span id="fPTel4"></span>　
-			                                <span>(手機)</span> <span id="fPPhone4"></span><br />
-			                                <span>(家)</span> <span id="fPHPhone4"></span>　
-			                                <span>(傳真)</span> <span id="fPFax4"></span>
+			                                <span>(公)</span><input type="text" id="fPTel4" value=""/> 
+			                                <span>(手機)</span><input type="text" id="fPPhone4" value=""/><br />
+			                                <span>(家)</span><input type="text" id="fPHPhone4" value=""/>
+			                                <span>(傳真)</span><input type="text" id="fPFax4" value=""/>
 			                            </td>
 			                        </tr>
 			                    </table>
@@ -185,7 +196,7 @@
 			            </tr>
 			        <tr>
 			            <th>E-mail</th>
-			            <td id="email"></td>
+			            <td><input type="email" id="email" value=""/></td>
 			        </tr>
 			        <tr>
 			            <th>障礙類型</th>

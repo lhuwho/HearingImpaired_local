@@ -4362,6 +4362,7 @@ public class CaseDataBase
         return returnValue;
     }
 
+   
     public string[] setStudentTrackedDataBase(CreateStudentTracked StudentTracked)
     {
         string[] returnValue = new string[2];
@@ -4390,7 +4391,40 @@ public class CaseDataBase
                 "JobSY=@JobSY ,JobSM=@JobSM ,JobEY=@JobEY ,JobEM=@JobEM , " +
                 "OtherSY=@OtherSY ,OtherSM=@OtherSM ,OtherEY=@OtherEY ,OtherEM=@OtherEM , remark=@remark, " +
                     "UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
-                    "WHERE ID=@ID";
+                    "WHERE ID=@ID;";
+
+                sql += "UPDATE StudentDatabase set AddressZip1=@AddressZip1" +
+                    ",AddressCity1=@AddressCity1" +
+                    ",AddressOther1=@AddressOther1" +
+                    ",AddressZip2=@AddressZip2" +
+                    ",AddressCity2=@AddressCity2" +
+                    ",AddressOther2=@AddressOther2" +
+                    ",ContactRelation1=@ContactRelation1" +
+                    ",ContactName1=@ContactName1" +
+                    ",ContactTel_company1=@ContactTel_company1" +
+                    ",ContactTel_home1=@ContactTel_home1" +
+                    ",ContactPhone1=@ContactPhone1" +
+                    ",ContactFax1=@ContactFax1" +
+                    ",ContactRelation2=@ContactRelation2" +
+                    ",ContactName2=@ContactName2" +
+                    ",ContactTel_company2=@ContactTel_company2" +
+                    ",ContactTel_home2=@ContactTel_home2" +
+                    ",ContactPhone2=@ContactPhone2" +
+                    ",ContactFax2=@ContactFax2" +
+                    ",ContactRelation3=@ContactRelation3" +
+                    ",ContactName3=@ContactName3" +
+                    ",ContactTel_company3=@ContactTel_company3" +
+                    ",ContactTel_home3=@ContactTel_home3" +
+                    ",ContactPhone3=@ContactPhone3" +
+                    ",ContactFax3=@ContactFax3" +
+                    ",ContactRelation4=@ContactRelation4" +
+                    ",ContactName4=@ContactName4" +
+                    ",ContactTel_company4=@ContactTel_company4" +
+                    ",ContactTel_home4=@ContactTel_home4" +
+                    ",ContactPhone4=@ContactPhone4" +
+                    ",ContactFax4=@ContactFax4" +
+                    ",StudentEmail=@StudentEmail" +
+                    " WHERE StudentID=@StudentID;";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = Chk.CheckStringtoInt64Function(StudentTracked.ID);
                 cmd.Parameters.Add("@StudentEmail", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.email);
@@ -4448,6 +4482,39 @@ public class CaseDataBase
                 
 
                 cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.remark);
+
+                cmd.Parameters.Add("@AddressZip1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.censusAddressZip);
+                cmd.Parameters.Add("@AddressCity1", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.censusAddressCity);
+                cmd.Parameters.Add("@AddressOther1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.censusAddress);
+                cmd.Parameters.Add("@AddressZip2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.addressZip);
+                cmd.Parameters.Add("@AddressCity2", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentTracked.addressCity);
+                cmd.Parameters.Add("@AddressOther2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.address);
+                cmd.Parameters.Add("@ContactRelation1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPRelation1);
+                cmd.Parameters.Add("@ContactName1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPName1);
+                cmd.Parameters.Add("@ContactTel_company1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPTel1);
+                cmd.Parameters.Add("@ContactTel_home1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPHPhone1);
+                cmd.Parameters.Add("@ContactPhone1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPPhone1);
+                cmd.Parameters.Add("@ContactFax1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPFax1);
+                cmd.Parameters.Add("@ContactRelation2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPRelation2);
+                cmd.Parameters.Add("@ContactName2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPName2);
+                cmd.Parameters.Add("@ContactTel_company2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPTel2);
+                cmd.Parameters.Add("@ContactTel_home2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPHPhone2);
+                cmd.Parameters.Add("@ContactPhone2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPPhone2);
+                cmd.Parameters.Add("@ContactFax2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPFax2);
+                cmd.Parameters.Add("@ContactRelation3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPRelation3);
+                cmd.Parameters.Add("@ContactName3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPName3);
+                cmd.Parameters.Add("@ContactTel_company3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPTel3);
+                cmd.Parameters.Add("@ContactTel_home3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPHPhone3);
+                cmd.Parameters.Add("@ContactPhone3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPPhone3);
+                cmd.Parameters.Add("@ContactFax3", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPFax3);
+                cmd.Parameters.Add("@ContactRelation4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPRelation4);
+                cmd.Parameters.Add("@ContactName4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPName4);
+                cmd.Parameters.Add("@ContactTel_company4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPTel4);
+                cmd.Parameters.Add("@ContactTel_home4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPHPhone4);
+                cmd.Parameters.Add("@ContactPhone4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPPhone4);
+                cmd.Parameters.Add("@ContactFax4", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.fPFax4);
+               // cmd.Parameters.Add("@StudentEmail", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.email);
+                cmd.Parameters.Add("@StudentID", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentTracked.studentID);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
 
                 Sqlconn.Close();

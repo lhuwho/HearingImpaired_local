@@ -158,8 +158,8 @@ function SucceededCallback(result, userContext, methodName) {
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
                     PushPageValue(result);
-                    $("#censusAddressCity").html(getCity(result.censusAddressCity));
-                    $("#addressCity").html(getCity(result.addressCity));
+                    $('#censusAddressCity')[0].selectedIndex =result.censusAddressCity; 
+                    $("#addressCity")[0].selectedIndex =result.addressCity;
                     $("input[name=assistmanageR]").change();
                     $("input[name=assistmanageL]").change();
                     $("#brandR").children("option[value=" + result.brandR + "]").attr("selected", true);
@@ -177,7 +177,7 @@ function SucceededCallback(result, userContext, methodName) {
                     //TransformADFromStringFunction
                     $("#assistmanageR").html(assistmanage(result.assistmanageR));
                     $("#assistmanageL").html(assistmanage(result.assistmanageL));
-                    
+
                     $("#caseUnit").html(_UnitList[result.sUnit]);
                     var inner = "";
                     _ReturnValue = result.Teack;
@@ -212,6 +212,7 @@ function SucceededCallback(result, userContext, methodName) {
                 window.location.reload();
             }
             break;
+     
         case "setStudentTrackedDataBase":
         case "setStudentTrackedRecord":
             if (parseInt(result[0]) <= 0) {
@@ -275,7 +276,7 @@ function saveOffData(Type) {
             $(".btnUpdate").fadeIn();
             $("input").add("select").add("textarea").attr("disabled", true);
             obj.ID = _ColumnID;
-            AspAjax.setStudentTrackedDataBase(obj);
+            AspAjax.setStudentTrackedDataBase(obj);      
             break;
     }
 }
