@@ -1387,6 +1387,18 @@ public class StaffDataBase
                 {
                     int StartTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartMin) >= 30 ? 1 : 0);//新的起始時間
                     int EndTimeint = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndTime) + (Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin) >= 30 ? 1 : 0);
+                    int StartMinInt = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartMin);
+                    int EndMinInt = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin);
+                    //Y + X 少一個時數問題處理
+                    if (EndTimeint >= StartTimeint && StartTimeint >= 30 && EndTimeint < 30)
+                    {
+                        StartTimeint = StartTimeint - 1;
+                    }
+                    else if (StartTimeint >= EndTimeint && EndTimeint >= 30 && StartTimeint < 30)
+                    {
+                        EndTimeint = EndTimeint - 1;
+                    }
+                    //Y + X 少一個時數問題處理
                     int OldStartTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealStart);//舊的起始時間(等於0不判斷)
                     int OldEndTime = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].RealEnd);
 
