@@ -1390,11 +1390,11 @@ public class StaffDataBase
                     int StartMinInt = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].StartMin);
                     int EndMinInt = Chk.CheckStringtoIntFunction(SearchStaffCondition[i].EndMin);
                     //Y + X 少一個時數問題處理
-                    if (EndTimeint >= StartTimeint && StartTimeint >= 30 && EndTimeint < 30)
+                    if (EndTimeint >= StartTimeint && StartMinInt >= 30 && EndMinInt < 30)
                     {
                         StartTimeint = StartTimeint - 1;
                     }
-                    else if (StartTimeint >= EndTimeint && EndTimeint >= 30 && StartTimeint < 30)
+                    else if (StartTimeint >= EndTimeint && EndMinInt >= 30 && StartMinInt < 30)
                     {
                         EndTimeint = EndTimeint - 1;
                     }
