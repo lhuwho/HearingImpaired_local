@@ -313,7 +313,7 @@
 			                <th>領有身心障礙證明</th>
 			                <td colspan="3">
 			                    <p><label><input type="radio" name="manualWhether" value="1" /> 是</label>
-			                    （身心障礙類別 <input type="text" id="manualCategory1" value="" size="15" /> 等級 <input type="text" id="manualGrade1" value="" size="15" />）<br />
+			                    （身心障礙類別(聽障) <input type="text" id="manualCategory1" value="" size="15" /> 等級 <input type="text" id="manualGrade1" value="" size="15" />）<br />
 			                    　 　（身心障礙類別 <input type="text" id="manualCategory2" value="" size="15" /> 等級 <input type="text" id="manualGrade2" value="" size="15" />）<br />
 			                    　 　（身心障礙類別 <input type="text" id="manualCategory3" value="" size="15" /> 等級 <input type="text" id="manualGrade3" value="" size="15" />）</p>
 			                    <p><label><input type="radio" name="manualWhether" value="2" /> 否</label>

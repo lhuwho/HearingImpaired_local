@@ -110,12 +110,40 @@ $(document).ready(function() {
             $("#BorrowerClassTitle").hide();
         }
     });
+
+    $("#bookClassification").change(function() {
+        var obj = new Object();
+
+        if ($(this).val() != "0") {
+            if ($(this).val().length > 0) {
+                obj.bookClassification = $(this).val();
+            }
+            if ($(this).find("option:selected").text().length > 0) {
+                obj.bookClassificationCode = $(this).find("option:selected").text().substr(0, 4);
+            }
+            if (obj.bookClassification != null && obj.bookClassificationCode != null) {
+                AspAjax.GetBookIDData(obj);
+            }
+        } else {
+        $("#bookID").text("");
+        }
+
+
+
+    });
 });
 
 
 function SucceededCallback(result, userContext, methodName) {
     SucceededCallbackAll(result, userContext, methodName);
     switch (methodName) {
+        case "GetBookIDData":
+            if (result[0] != null) {
+                $("#bookID").text(result[0]);
+            } else {
+            alert("發生錯誤，發生錯誤如下：" + result[1]);
+            }
+            break;
         case "getClassificationData":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 var inner = '';
@@ -492,7 +520,7 @@ function showView(viewID) {
 function UpData(TrID) {
     $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").add("#HS_" + TrID + " select").attr("disabled", false);
     $("#HS_" + TrID + " .UD").hide();
-    $("#HS_" + TrID + " .SC").show();
+    $("#HS_" + TrID + " .SC").show();    
 }
 
 function SaveData(TrID) {
@@ -518,14 +546,29 @@ function SaveData(TrID) {
     if (BookRemark.length > 0) {
         obj.executionRemark = BookRemark;
     }
-    
-    
+    var BookScrapstatus = $("#HS_" + TrID + " .HsbookScrapstatus").val();
+    if (BookScrapstatus.length > 0) {
+        obj.executionbookScrapstatus = BookScrapstatus;
+    }
+    var BookUseTo = $("#HS_" + TrID + " .HsbookUseTo").val();
+    if (BookUseTo.length > 0) {
+        obj.executionbookUseTo = BookUseTo;
+    }
+    var BookComefrom = $("#HS_" + TrID + " .HsbookComefrom").val();
+    if (BookComefrom.length > 0) {
+        obj.executionbookComefrom = BookComefrom;
+    }
+    var BookGeter = $("#HS_" + TrID + " .HsbookGeter").val();
+    if (BookGeter.length > 0) {
+        obj.executionbookGeter = BookGeter;
+    }
 
-    if (obj.executionTitle != null && obj.executionAuthor != null && obj.executionPress != null && obj.executionPressDate != null && obj.executionRemark != null) {
+
+    if (obj.executionTitle != null && obj.executionAuthor != null && obj.executionPress != null && obj.executionPressDate != null && obj.executionRemark != null && obj.executionbookScrapstatus != null && obj.executionbookUseTo != null && obj.executionbookComefrom != null && obj.executionbookGeter!=null) {
         $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").attr("disabled", true);
         $("#HS_" + TrID + " .UD").show();
-        $("#HS_" + TrID + " .SC").hide();
-        //AspAjax.setBookData1(obj);
+        $("#HS_" + TrID + " .SC").hide();       
+        AspAjax.setBookData1(obj);
     } else {
         alert("請填寫完整");
     }
@@ -555,7 +598,7 @@ function saveInsert() {
     var obj = MyBase.getTextValueBase("insertDataDiv");
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
     var categoryName = $("#insertDataDiv select[name='Category']").find("option:selected").text()
-    obj.bookClassificationCode = categoryName.substr(0, 4);
+    //obj.bookClassificationCode = categoryName.substr(0, 4);
     obj.bookUseTo = $("#bookUseTo").val();
     obj.bookScrapstatus = $("#bookScrapstatus").val();
     obj.bookFilingDate =TransformRepublicReturnValue( $("#bookFilingDate").val());
@@ -566,6 +609,7 @@ function saveInsert() {
         AspAjax.createBookDataBase(obj);
     }
 }
+
 
 function clearInsert() {
     $("#mainContentInsert").find("input[type='text']").val("");
