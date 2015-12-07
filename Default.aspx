@@ -37,7 +37,7 @@
         }
         .formbody {
             width: 400px;
-            height: 240px;
+            height: 276px;
             background: url(./images/formbody.png) no-repeat top;
         }
         #username {
@@ -55,6 +55,7 @@
             padding: 0 40px 0 20px;
             border: 0;
         }
+       
         #loginok {
             width: 100px;
             height: 40px;
@@ -82,15 +83,23 @@
             filter: alpha(opacity=80);
             opacity: 0.8;
         }
+        .ValidateImg
+        {
+        	 margin: 20px 0 0 22px;
+        	}
+        	
 	</style>
+
 </head>
 <body >
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager" runat="server">
             <Services>
                 <asp:ServiceReference Path="AspAjax.asmx" />
+                  
             </Services>
         </asp:ScriptManager>
+       
     </form>
     
     <div id="cerceve">
@@ -98,6 +107,14 @@
 	<div class="formbody">
         <input id="username" class="validate[required] text-input" type="text" name="username" placeholder="帳號" title="帳號" maxlength="6" autocomplete="off" />
         <input id="password" class="validate[required] text-input" type="password" name="password" placeholder="••••••••••••" title="密碼" maxlength="20" autocomplete="off" />
+        <div>
+         <input	style="width: 50px;height: 40px;float: left;" class="Valid" type="text" maxlength="5" size="5" value="" id="NumberResult"/> 
+   <img src="ValidateNumber.ashx" alt="驗證碼" height="40px" name="imgCode" onclick="imgCode.src='ValidateNumber.ashx?' + Math.random();" class="ValidateImg" /> 
+        </div>
+        
+   
+
+
         <input id="loginok" type="button" value="登入" title="登入" /><a href="#" id="forgot" title="忘記密碼">忘記密碼</a>
 		<div id="validationDiv"></div>
 	</div>

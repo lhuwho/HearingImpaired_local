@@ -12,19 +12,39 @@ $(document).ready(function() {
         }
     });
     $('#loginok').click(function() {
-        var LoginID = $('#cerceve input[type="text"]').val();
-        var LoginPassword = $('#cerceve input[type="password"]').val();
-        if (LoginID.length > 0 && LoginPassword.length > 0) {
-            // 登入
-            //window.location.href = './main.aspx';
+        var nowValidateNumber = $.ajax({
+            url: "readSessionValidateNumber.ashx",
+            type: "post",
+            async: false,
+            data: {},
+            success: function(htmlVal) { }
+        }).responseText;
 
-            Sys.Services.AuthenticationService.login(LoginID, LoginPassword, false, null, null, OnLoginCompleted, OnFailed, LoginID);
+        var userInput = $("#NumberResult").val();
 
-        } else {
-            $('#validationDiv').html('欄位不可空白').fadeIn();
+        var validateResult = ((nowValidateNumber == userInput) ? true : false);
+
+
+        if (validateResult == false) {
+            $('#validationDiv').html('驗證碼輸入不正確').fadeIn();
             setTimeout("$('#validationDiv').fadeOut('1000');", 2000);
-            return false;
+//            alert("驗證碼輸入不正確");
+        } else {
+            var LoginID = $('#cerceve input[type="text"]').val();
+            var LoginPassword = $('#cerceve input[type="password"]').val();
+            if (LoginID.length > 0 && LoginPassword.length > 0) {
+                // 登入
+                //window.location.href = './main.aspx';
+
+                Sys.Services.AuthenticationService.login(LoginID, LoginPassword, false, null, null, OnLoginCompleted, OnFailed, LoginID);
+
+            } else {
+                $('#validationDiv').html('欄位不可空白').fadeIn();
+                setTimeout("$('#validationDiv').fadeOut('1000');", 2000);
+                return false;
+            }
         }
+
     });
 
     $("#forgot").click(function() {
@@ -98,7 +118,7 @@ function OnLoginCompleted(validCredentials, userContext, methodName) {
     }
     else {
         alert("登入失敗");
-//登入失敗
+        //登入失敗
     }
 }
 function LoadFailedCallback(error, userContext, methodName) {
@@ -112,4 +132,25 @@ function OnFailed(error, userContext, methodName) {
     msg += "stack trace:" + error.get_stackTrace() + "\n\n";
     msg += "exceptions type:" + error.get_exceptionType();
     alert(msg + '<br />Please refresh the page.');
+}
+
+function isPassValidateCode() {
+    var nowValidateNumber = jQuery.ajax({
+        url: "readSessionValidateNumber.ashx",
+        type: "post",
+        async: false,
+        data: {},
+        success: function(htmlVal) { }
+    }).responseText;
+
+    var userInput = $("#NumberResult").val();
+
+    var validateResult = ((nowValidateNumber == userInput) ? true : false);
+
+
+    if (validateResult == false) {
+        alert("驗證碼輸入不正確");
+    }
+
+
 }
