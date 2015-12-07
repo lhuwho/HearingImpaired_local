@@ -20,6 +20,11 @@ $(document).ready(function() {
             success: function(htmlVal) { }
         }).responseText;
 
+
+        if (nowValidateNumber == "" || nowValidateNumber == null) {
+            alert("驗證碼逾時，請重新整理");
+            return false;
+        }
         var userInput = $("#NumberResult").val();
 
         var validateResult = ((nowValidateNumber == userInput) ? true : false);

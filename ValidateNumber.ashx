@@ -8,7 +8,7 @@ using System.Web.SessionState;
 //http://www.limingchstudio.com/2009/05/ashx-session-variable.html
 
 
-/*2011.10.5  Shadow 改寫，其他程式要判斷是否驗證成功，請比較Session["ValidateNumber"]的字串*/
+
 public class ValidateNumber : IHttpHandler, IRequiresSessionState
 {
     
