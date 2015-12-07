@@ -134,23 +134,3 @@ function OnFailed(error, userContext, methodName) {
     alert(msg + '<br />Please refresh the page.');
 }
 
-function isPassValidateCode() {
-    var nowValidateNumber = jQuery.ajax({
-        url: "readSessionValidateNumber.ashx",
-        type: "post",
-        async: false,
-        data: {},
-        success: function(htmlVal) { }
-    }).responseText;
-
-    var userInput = $("#NumberResult").val();
-
-    var validateResult = ((nowValidateNumber == userInput) ? true : false);
-
-
-    if (validateResult == false) {
-        alert("驗證碼輸入不正確");
-    }
-
-
-}
