@@ -156,7 +156,7 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#eventStaffList").append($('<option></option>').attr("value", result[i].sID).text(result[i].sName + "(" + result[i].sID + ")"));
                     }
                     $("#eventStaffList").trigger('chosen:updated');
-                    AspAjax.getStudentActivityData(_MainID);
+                   
                 } else {
                     alert("發生錯誤，錯誤訊息如下：" + result[0].errorMsg);
                 }
@@ -244,6 +244,7 @@ function getViewData(id, act) {
         $(".btnUpdate").fadeIn();
         
         AspAjax.getAllStaffDataList([17,18]);
+         AspAjax.getStudentActivityData(_MainID);
         $("input").add("select").add("textarea").attr("disabled", true);
     } else if (id == null && act == 1) {
         AspAjax.getAllStaffDataList([17,18]);
