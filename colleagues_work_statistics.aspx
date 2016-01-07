@@ -62,9 +62,9 @@
                                
                                 <th width="60">同仁<br />編號</th>
                                 <th width="60">姓名</th>
-                                <th width="50">特休<br />天數</th>
-                                <th width="50">工作<br />異動<br />(減)</th>
-                                <th width="50">工作<br />異動<br />(加)</th>
+                                <th width="50">全年特休假核定天數</th>
+                                <th width="50">全年工作異動核准累計天數(加)</th>
+                                <th width="50">全年工作異動使用累計天數(減)</th>
                                 <th width="40">事假</th>
                                 <th width="40">病假</th>
 			                    <th width="40">遲到</th>

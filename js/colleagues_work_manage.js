@@ -59,17 +59,29 @@ function SucceededCallback(result, userContext, methodName) {
                         cardTime += result[i].WorkRecord[j].CreateFileDate + "<br>";
                         if (j == 0) {
                             var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
-                            var CurrentDate = "2015-8-30 08:50:00";
-                            if ((Date.parse(ScheduleDate)).valueOf() >= (Date.parse(CurrentDate)).valueOf()) {
+                            var CurrentDate = "2015-8-30 08:30:00";
+                            if ((Date.parse(ScheduleDate)).valueOf() > (Date.parse(CurrentDate)).valueOf()) {
                                 TimeOK = false;
                             }
                         }
                         if (j == result[i].WorkRecord.length - 1) {
+
                             var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
-                            var CurrentDate = "2015-8-30 18:00:00";
-                            if ((Date.parse(ScheduleDate)).valueOf() <= (Date.parse(CurrentDate)).valueOf()) {
+                            var StratDate = "2015-8-30 " + result[i].WorkRecord[0].CreateFileDate + ":00";
+                            var CurrentDate = "2015-8-30 16:30:00";
+                            var CurrentDate2 = "2015-8-30 07:30:00";
+                            if ((Date.parse(ScheduleDate)).valueOf() < (Date.parse(CurrentDate)).valueOf()) {
                                 TimeOK = false;
                             }
+                            StratDate = (Date.parse(StratDate)).valueOf() <= (Date.parse(CurrentDate2)).valueOf() ? CurrentDate2 : StratDate;
+                            var ONE_HOUR = 1000 * 60 * 60;  // 1小時的毫秒數
+                            var diff = Date.parse(ScheduleDate) - Date.parse(StratDate);
+                            var leftHours = Math.floor(diff / ONE_HOUR);    
+                            if(leftHours<9){
+                                TimeOK = false;
+                            }
+                         
+
                         }
 
 

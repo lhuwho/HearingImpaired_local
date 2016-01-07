@@ -1404,11 +1404,11 @@ public class StaffDataBase
 
                     //從這裡下手 扣12-13
                     int NewHour = Math.Abs(EndTimeint - StartTimeint);
-                    if ((EndTimeint >= 13 && StartTimeint <= 12) || (StartTimeint >= 13 && EndTimeint <= 12))
+                    if (((EndTimeint >= 13 && StartTimeint <= 12) || (StartTimeint >= 13 && EndTimeint <= 12)) &&  SearchStaffCondition[i].VacationType != "13")
                     { NewHour = Math.Abs(EndTimeint - StartTimeint) -1; }
                     //從這裡下手 扣12-13
                     int oldhour = Math.Abs(OldEndTime - OldStartTime);
-                    if ((OldEndTime >= 13 && OldStartTime <= 12) || (OldStartTime >= 13 && OldEndTime <= 12))
+                    if (((OldEndTime >= 13 && OldStartTime <= 12) || (OldStartTime >= 13 && OldEndTime <= 12)) && SearchStaffCondition[i].VacationType != "13")
                     { oldhour = Math.Abs(OldEndTime - OldStartTime) - 1; }
 
                     cmd.Parameters.Add("@StaffID" + i.ToString(), SqlDbType.Int).Value = Chk.CheckStringtoIntFunction( SearchStaffCondition[i].StaffID);
