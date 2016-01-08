@@ -81,8 +81,9 @@ function SucceededCallback(result, userContext, methodName) {
                         '<td>' + result[i].V8 + '</td>' +
                         '<td>' + result[i].V9 + '</td>' +
                         '<td>' + result[i].V10 + '</td>' +
-                        '<td>' + result[i].V11 + '</td>' +
+
                         '<td>' + result[i].V12 + '</td>' +
+                        '<td>' + result[i].V11 + '</td>' +
                        // '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
 			                '</tr>';
                 }
