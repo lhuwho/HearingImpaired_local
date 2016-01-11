@@ -67,14 +67,14 @@
                                 <th width="50">全年工作異動使用累計天數(減)</th>
                                 <th width="40">事假</th>
                                 <th width="40">病假</th>
-			                    <th width="40">遲到</th>
+			                    <th width="40">生理價</th>
 			                    <th width="40">特別<br />休假</th>
-			                    <th width="40">公假</th>
 			                    <th width="40">婚假</th>
                                 <th width="40">產假</th>
                                 <th width="40">喪假</th>
+                                <th width="40">公假</th>
                                 <th width="40">公傷</th>
-			                    <th width="40">未打卡</th>
+			                    <th width="40">逾時假單</th>
 			                    <th width="40">工作<br />異動(加)</th>
 			                    <th width="40">工作<br />異動(減)</th>
 			                   

@@ -75,10 +75,13 @@ function SucceededCallback(result, userContext, methodName) {
                         '<td>' + result[i].V2 + '</td>' +
                         '<td>' + result[i].V3 + '</td>' +
                         '<td>' + result[i].V4 + '</td>' +
-                        '<td>' + result[i].V5 + '</td>' +
+                        
+                       
                         '<td>' + result[i].V6 + '</td>' +
                         '<td>' + result[i].V7 + '</td>' +
                         '<td>' + result[i].V8 + '</td>' +
+                        
+                        '<td>' + result[i].V5 + '</td>' +
                         '<td>' + result[i].V9 + '</td>' +
                         '<td>' + result[i].V10 + '</td>' +
 

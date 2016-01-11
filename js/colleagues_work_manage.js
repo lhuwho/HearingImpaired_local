@@ -198,10 +198,10 @@ function viewRecord(sid ) {
 		                '<select id="EndtMin1">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle1" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
-	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
-	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
-	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark1"  maxlength="20" value=""></td>' +
+	                        '<option value="3">病假</option><option value="4">生理假</option><option value="5">特休</option>' +
+	                        '<option value="7">婚假</option><option value="8">產假</option><option value="9">喪假</option>' +
+	                        '<option value="6">公假</option><option value="10">公傷</option><option value="11">逾時假單</option>' +
+	                        '<option value="13">加-工作異動</option><option value="12">減-工作異動</option></select><input type="text" id="VacationMark1"  maxlength="20" value=""></td>' +
 		                '</tr>' +
 		                 '<tr><td width="250">' +
 		                '<span id="RealStart2" class="hideClassSpan"></span><span id="RealEnd2" class="hideClassSpan"></span>' +
@@ -211,10 +211,10 @@ function viewRecord(sid ) {
 		                '<select id="EndtMin2">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle2" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
-	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
-	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
-	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark2"  maxlength="20" value=""></td>' +
+	                        '<option value="3">病假</option><option value="4">生理假</option><option value="5">特休</option>' +
+	                      '<option value="7">婚假</option><option value="8">產假</option><option value="9">喪假</option>' +
+	                        '<option value="6">公假</option><option value="10">公傷</option><option value="11">逾時假單</option>' +
+	                        '<option value="13">加-工作異動</option><option value="12">減-工作異動</option></select><input type="text" id="VacationMark2"  maxlength="20" value=""></td>' +
 		                '</tr>' +
 		                 '<tr><td width="250">' +
 		                '<span id="RealStart3" class="hideClassSpan"></span><span id="RealEnd3" class="hideClassSpan"></span>' +
@@ -224,10 +224,10 @@ function viewRecord(sid ) {
 		                '<select id="EndtMin3">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle3" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
-	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
-	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
-	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark3"  maxlength="20" value=""></td>' +
+	                        '<option value="3">病假</option><option value="4">生理假</option><option value="5">特休</option>' +
+	                      '<option value="7">婚假</option><option value="8">產假</option><option value="9">喪假</option>' +
+	                        '<option value="6">公假</option><option value="10">公傷</option><option value="11">逾時假單</option>' +
+	                        '<option value="13">加-工作異動</option><option value="12">減-工作異動</option></select><input type="text" id="VacationMark3"  maxlength="20" value=""></td>' +
 		                '</tr>' +
 		                 '<tr><td width="250">' +
 		                '<span id="RealStart4" class="hideClassSpan"></span><span id="RealEnd4" class="hideClassSpan"></span>' +
@@ -237,10 +237,10 @@ function viewRecord(sid ) {
 		                '<select id="EndtMin4">' + Timer + '</select>' +
 		                '</td>' +
 		                '<td align="center"><select  id="vacationStyle4" ><option value="0">請選擇假別</option><option value="1">正常</option><option value="2">事假</option>' +
-	                        '<option value="3">病假</option><option value="4">遲到</option><option value="5">特休</option>' +
-	                        '<option value="6">公假</option><option value="7">婚假</option><option value="8">產假</option>' +
-	                        '<option value="9">喪假</option><option value="10">公傷</option><option value="11">未打卡</option>' +
-	                        '<option value="12">減-工作異動</option><option value="13">加-工作異動</option></select><input type="text" id="VacationMark4"   maxlength="20" value=""></td>' +
+	                        '<option value="3">病假</option><option value="4">生理假</option><option value="5">特休</option>' +
+	                        '<option value="7">婚假</option><option value="8">產假</option><option value="9">喪假</option>' +
+	                        '<option value="6">公假</option><option value="10">公傷</option><option value="11">逾時假單</option>' +
+	                        '<option value="13">加-工作異動</option><option value="12">減-工作異動</option></select><input type="text" id="VacationMark4"   maxlength="20" value=""></td>' +
 		                '</tr>' +
                     '</table>' +
                     '<div id="inline2">'+

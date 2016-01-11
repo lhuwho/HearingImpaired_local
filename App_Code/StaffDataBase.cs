@@ -1715,7 +1715,8 @@ public class StaffDataBase
                 "		SUM(case vacationType when 10 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v9', " +
                 "		SUM(case vacationType when 11 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v10', " +
                 "		SUM(case vacationType when 12 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v11', " +
-                 "		SUM(case vacationType when 13 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v12' " +
+                //"		SUM(case vacationType when 13 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v12' " +
+                "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
                 //"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
                 //"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
                 //"		SUM(case vacationType when 4 then ABS(starttime - endtime) /8 else 0 end) as 'v3', " +
