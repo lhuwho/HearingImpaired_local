@@ -1,6 +1,6 @@
 ﻿var MyBase = new Base();
-var noEmptyItem = ["bookTitle", "bookClassification", "bookAuthor"];
-var noEmptyShow = ["書名", "分類", "作者"];
+var noEmptyItem = ["bookTitle", "bookClassification"];
+var noEmptyShow = ["書名", "分類"];
 var noEmptyItem2 = ["txtbookDayType", "txtbookStartDay", "txtbookEndDay"];
 var noEmptyShow2 = ["借閱類別", "借出天數(起始)", "借出天數(終止)"];
 var noEmptyItem3 = ["txtbookDateStartDate", "txtbookDateEndDate"];
@@ -601,7 +601,8 @@ function saveInsert() {
     obj.bookClassificationCode = categoryName.substr(0, 4);
     obj.bookUseTo = $("#bookUseTo").val();
     obj.bookScrapstatus = $("#bookScrapstatus").val();
-    obj.bookFilingDate =TransformRepublicReturnValue( $("#bookFilingDate").val());
+    obj.bookFilingDate = TransformRepublicReturnValue($("#bookFilingDate").val());
+    
     //bookUseTo, bookComefrom, bookGeter, bookScrapstatus
     if (checkString.length > 0) {
         alert(checkString);
