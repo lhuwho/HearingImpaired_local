@@ -598,7 +598,7 @@ function saveInsert() {
     var obj = MyBase.getTextValueBase("insertDataDiv");
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
     var categoryName = $("#insertDataDiv select[name='Category']").find("option:selected").text()
-    //obj.bookClassificationCode = categoryName.substr(0, 4);
+    obj.bookClassificationCode = categoryName.substr(0, 4);
     obj.bookUseTo = $("#bookUseTo").val();
     obj.bookScrapstatus = $("#bookScrapstatus").val();
     obj.bookFilingDate =TransformRepublicReturnValue( $("#bookFilingDate").val());
