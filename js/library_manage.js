@@ -563,8 +563,9 @@ function SaveData(TrID) {
         obj.executionbookGeter = BookGeter;
     }
 
+    if (obj.executionTitle != null) {
 
-    if (obj.executionTitle != null && obj.executionAuthor != null && obj.executionPress != null && obj.executionPressDate != null && obj.executionRemark != null && obj.executionbookScrapstatus != null && obj.executionbookUseTo != null && obj.executionbookComefrom != null && obj.executionbookGeter!=null) {
+   // if (obj.executionTitle != null && obj.executionAuthor != null && obj.executionPress != null && obj.executionPressDate != null && obj.executionRemark != null && obj.executionbookScrapstatus != null && obj.executionbookUseTo != null && obj.executionbookComefrom != null && obj.executionbookGeter!=null) {
         $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " textarea").attr("disabled", true);
         $("#HS_" + TrID + " .UD").show();
         $("#HS_" + TrID + " .SC").hide();       
