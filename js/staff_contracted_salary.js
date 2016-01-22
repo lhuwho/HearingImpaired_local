@@ -114,6 +114,45 @@ $(document).ready(function() {
             $(this).val((parseInt($(this).val(), 10)));
         }
     });
+
+    $("#special").unbind('keydown').keydown(function(event) {
+        if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 110)) {
+            event.preventDefault();
+        }
+    }).unbind('keyup').keyup(function() {
+        if (parseInt($(this).val(), 10) >= 0 && $(this).val() != "" && ($(this).val()).length > 0) {
+            TotalCountFunction();
+        }
+
+    }).unbind('blur').blur(function() {
+        if (parseInt($(this).val(), 10) <= 0 || $(this).val() == "") {
+            $(this).val("0");
+            TotalCountFunction();
+        }
+        else {
+            $(this).val((parseInt($(this).val(), 10)));
+        }
+    });
+
+    $("#EndPoint").unbind('keydown').keydown(function(event) {
+        if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 110)) {
+            event.preventDefault();
+        }
+    }).unbind('keyup').keyup(function() {
+        if (parseInt($(this).val(), 10) >= 0 && $(this).val() != "" && ($(this).val()).length > 0) {
+            TotalCountFunction();
+        }
+
+    }).unbind('blur').blur(function() {
+        if (parseInt($(this).val(), 10) <= 0 || $(this).val() == "") {
+            $(this).val("0");
+            TotalCountFunction();
+        }
+        else {
+            $(this).val((parseInt($(this).val(), 10)));
+        }
+    });
+    
     /*$("#total").unbind('keydown').keydown(function(event) {
         if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 110)) {
             event.preventDefault();
@@ -140,8 +179,10 @@ function TotalCountFunction() {
     var count3 = $("#count3").html();
     var count4 = $("#count4").html();
     var count5 = $("#count5").val();
+    var count6 = $("#special").val();
+    var count7 = $("#EndPoint").val();
     var total = 0;
-    total = parseInt(count1, 10) + parseInt(count2, 10) + parseInt(count3, 10) + parseInt(count4, 10) + parseInt(count5, 10);
+    total = parseInt(count1, 10) + parseInt(count2, 10) + parseInt(count3, 10) + parseInt(count4, 10) + parseInt(count5, 10) + parseInt(count6, 10) + parseInt(count7, 10);
     $("#total").html(total);
     $("#totalSalary").html(Math.round(total * parseFloat(_SalaryValue)));
 }
@@ -229,6 +270,7 @@ function SucceededCallback(result, userContext, methodName) {
             break;
         case "getStaffContractedSalaryLatestDataBase":
         case "getStaffContractedSalaryDataBase":
+            console.log(result);
             if (!(result == null || result.length == 0 || result == undefined) && result.ID != null) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
                     PushPageValue(result);
@@ -278,7 +320,8 @@ function SucceededCallback(result, userContext, methodName) {
                 alert("發生錯誤，錯誤訊息如下:" + result[1]);
             } else {
                 alert("更新成功");
-                window.location.reload();
+                window.location.href = "./staff_contracted_salary.aspx?id=" + result[0] + "&act=2";
+                //window.location.reload();
             }
             break;
         case "SearchStaffContractedSalaryBaseCount":
@@ -422,7 +465,9 @@ function saveData(Type) {
     obj.count2 = $("#count2").html();
     obj.count3 = $("#count3").html();
     obj.count4 = $("#count4").html();
+    obj.total = $("#total").html();
     obj.totalSalary = $("#totalSalary").html();
+    console.log(obj);
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
     if (checkString.length > 0) {
         alert(checkString);

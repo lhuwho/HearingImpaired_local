@@ -2692,6 +2692,7 @@ public struct CreateStaffContractedSalary
     public string count4;
     public string special;
     public string count5;
+    public string EndPoint;
     public string total;
     public string totalSalary;
     public string explanation;

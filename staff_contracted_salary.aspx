@@ -82,14 +82,14 @@
 			    <div id="mainPagination" class="pagination"></div>
 			</div>
 			<div id="main">
-			<div id="mainContent">
+			<div id="mainContent" style="width:880px;">
 			    <div id="item1Content">
 			        <p style="background-color:#FFDF71;padding:0 10px;">
 			            <font size="3" id="sUnit">派任單位：</font>
 			        </p>
 			        <p>員工姓名 <input id="staffName" type="text" value="" size="10" readonly="readonly"/><span id="staffID" class="hideClassSpan"></span><span class="startMark">*</span>
 			        <span style="float:right;"><span class="startMark">*</span>填表日期 <input id="fillInDate" class="date" type="text" value="" size="10" /></span></p>
-			         <table class="tableContact" width="780" border="0">
+			         <table class="tableContact" width="880" border="0">
 			            <tr>
 			                <th width="195">勞保費</th>
                             <th width="195">健保費</th>
@@ -111,7 +111,7 @@
                             <td><input id="withholdingTax" type="text" value="" /></td>
                         </tr>
                     </table>
-			        <table class="tableContact" width="780" border="0">
+			        <table class="tableContact" width="880" border="0">
 			            <tr>
 			                <th rowspan="3" width="25">敘薪表</th>
 			                <th width="25">每點</th>
@@ -119,7 +119,9 @@
 			                <th colspan="2">資歷</th>
 			                <th colspan="3">職務加給</th>
 			                <th colspan="2">主管加給</th>
-			                <th colspan="2">特硃加給</th>
+			                <th colspan="1">專業加給</th>
+			                <th colspan="1">特硃加給</th>
+			                <th colspan="1">末補實</th>
 			                <th colspan="2">薪資</th>
 			            </tr>
 			            <tr>
@@ -128,12 +130,13 @@
 			                <th width="40">點數</th>
 			                <th width="40">年資</th>
 			                <th width="40">點數</th>
-			                <th>職稱</th>
 			                <th>職等</th>
+			                <th>職級</th>
 			                <th width="40">點數</th>
 			                <th>職稱</th>
 			                <th width="40">點數</th>
-			                <th width="40">職稱</th>
+			                <th width="40">點數</th>
+			                <th width="40">點數</th>
 			                <th width="40">點數</th>
 			                <th>總點數</th>
 			                <th>總金額</th>
@@ -141,7 +144,7 @@
 			            <tr>
 			                <td><select id="education"><option value="0">請選擇</option>
 			                <option value="210">高中(職)</option>
-			                <option value="230">二專、五專</option>
+			                <option value="230">二、五專</option>
 			                <option value="240">三專</option>
 			                <option value="265">大學</option>
 			                <option value="280">碩士</option>
@@ -151,16 +154,20 @@
 			                <td><input id="years" type="text" value="0" size="3" /></td>
 			                <td id="count2">0</td>
 			                <td><select id="applyJob"><option value="0">請選擇</option>
-			                <option value="70">高專</option>
-			                <option value="45">專員</option>
-			                <option value="25">組員</option>
-			                <option value="10">助理</option>
-			                <option value="0">助佐</option>
-			                <option value="90">講師</option>
-			                <option value="65">助理講師</option>
-			                <option value="45">專業教師</option>
-			                <option value="30">助理教師</option>
-			                <option value="20">教師助理</option>
+			                <option value="135">行政12職等</option>
+			                <option value="100">行政11職等</option>
+			                <option value="70">行政10職等</option>
+			                <option value="45">行政9職等</option>
+			                <option value="25">行政8職等</option>
+			                <option value="10">行政7職等</option>
+			                <option value="0">行政6職等</option>
+			                <option value="155">教師12職等</option>
+			                <option value="120">教師11職等</option>
+			                <option value="90">教師10職等</option>
+			                <option value="65">教師9職等</option>
+			                <option value="45">教師8職等</option>
+			                <option value="30">教師7職等</option>
+			                <option value="20">教師6職等</option>
 			                </select></td>
 			                <td><select id="jobLevel"><option value="0">請選擇</option><option value="0">0</option>
 			                    <option value="1">1</option><option value="2">2</option>
@@ -172,24 +179,26 @@
 			                    </select></td>
 			                <td id="count3">0</td>
 			                <td><select id="director"><option value="0">請選擇</option>
-			                <option value="100">總幹事</option>
-			                <option value="70">督導</option>
-			                <option value="50">主任</option>
-			                <option value="25">組長</option>
+			                <option value="200">總幹事</option>
+			                <option value="140">(副總幹事)</option>
+			                <option value="90">督導、(研究員)</option>
+			                <option value="60">主任、組長</option>
+			                <option value="30">(管理長)</option>
 			                </select></td>
 			                <td id="count4">0</td>
-			                <td><input id="special" type="text" value="" size="3" /></td>
+			                <td><input id="special" type="text" value="0" size="3" /></td>
 			                <td><input id="count5" type="text" value="0" size="3" /></td>
+			                <td><input id="EndPoint" type="text" value="0" size="3" /></td>
 			                <td id="total">0</td>
 			                <td id="totalSalary">0</td>
 			            </tr>
 			            <tr>
 			                <th colspan="2">敘薪<br />說明</th>
-			                <td colspan="13"><input id="explanation" type="text" value="" size="100" /></td>
+			                <td colspan="14"><input id="explanation" type="text" value="" size="100" /></td>
 			            </tr>
 			        </table>
 			        <p>歷史敘薪說明</p>
-                    <table id="explanationList" class="tableText" width="780" border="0">
+                    <table id="explanationList" class="tableText" width="880" border="0">
                         <thead>
                             <tr style="background-color:#F9AE56;">
                                 <th width="100">日期</th>

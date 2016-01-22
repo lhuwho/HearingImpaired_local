@@ -48,10 +48,10 @@ public class SalaryManagement
                 List<string> staffFileName = sDB.getStaffDataName(structData.staffID);
                 Sqlconn.Open();
                 string sql = "INSERT INTO StaffNarrativeSalary(Unit, StaffID, WriteDate, LaborInsurance, HealthInsurance, PensionFunds, PensionFundsPer, WithholdingTax, " +
-                    "EducationalBackground, EducationCount, Years, YearsCount, WorkItem, JobGrade, PostCount, Director, DirectorCount, Special, SpecialCount, TotalCount, " +
+                    "EducationalBackground, EducationCount, Years, YearsCount, WorkItem, JobGrade, PostCount, Director, DirectorCount, Special, SpecialCount,EndPoint, TotalCount, " +
                     "BaseSalary, Explain, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate, isDeleted) " +
                     "VALUES(@Unit, @StaffID, @WriteDate, @LaborInsurance, @HealthInsurance, @PensionFunds, @PensionFundsPer, @WithholdingTax, @EducationalBackground, " +
-                    "@EducationCount, @Years, @YearsCount, @WorkItem, @JobGrade, @PostCount, @Director, @DirectorCount, @Special, @SpecialCount, @TotalCount, " +
+                    "@EducationCount, @Years, @YearsCount, @WorkItem, @JobGrade, @PostCount, @Director, @DirectorCount, @Special, @SpecialCount,@EndPoint, @TotalCount, " +
                     "@BaseSalary, @Explain, @CreateFileBy, (getDate()), @UpFileBy, (getDate()), 0)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffFileName[2]);
@@ -73,6 +73,7 @@ public class SalaryManagement
                 cmd.Parameters.Add("@DirectorCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count4);
                 cmd.Parameters.Add("@Special", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.special);
                 cmd.Parameters.Add("@SpecialCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count5);
+                cmd.Parameters.Add("@EndPoint", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.EndPoint);
                 cmd.Parameters.Add("@TotalCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.total);
                 cmd.Parameters.Add("@BaseSalary", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.totalSalary);
                 cmd.Parameters.Add("@Explain", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.explanation);
@@ -141,6 +142,7 @@ public class SalaryManagement
                     returnValue.count4 = dr["DirectorCount"].ToString();
                     returnValue.special = dr["Special"].ToString();
                     returnValue.count5 = dr["SpecialCount"].ToString();
+                    returnValue.EndPoint = dr["EndPoint"].ToString();
                     returnValue.total = dr["TotalCount"].ToString();
                     returnValue.totalSalary = dr["BaseSalary"].ToString();
                     returnValue.explanation = dr["Explain"].ToString();
@@ -170,13 +172,45 @@ public class SalaryManagement
                 StaffDataBase sDB = new StaffDataBase();
                 List<string> staffFileName = sDB.getStaffDataName(structData.staffID);
                 Sqlconn.Open();
-                string sql = "UPDATE StaffNarrativeSalary SET LaborInsurance=@LaborInsurance, HealthInsurance=@HealthInsurance, PensionFunds=@PensionFunds, PensionFundsPer=@PensionFundsPer, " +
-                    "WithholdingTax=@WithholdingTax, EducationalBackground=@EducationalBackground, EducationCount=@EducationCount, Years=@Years, YearsCount=@YearsCount, "+
-                    "WorkItem=@WorkItem, JobGrade=@JobGrade, PostCount=@PostCount, Director=@Director, DirectorCount=@DirectorCount, Special=@Special, "+
-                    "SpecialCount=@SpecialCount, TotalCount=@TotalCount, BaseSalary=@BaseSalary, Explain=@Explain, UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
-                    "WHERE ID=@ID";
+                //string sql = "UPDATE StaffNarrativeSalary SET LaborInsurance=@LaborInsurance, HealthInsurance=@HealthInsurance, PensionFunds=@PensionFunds, PensionFundsPer=@PensionFundsPer, " +
+                //    "WithholdingTax=@WithholdingTax, EducationalBackground=@EducationalBackground, EducationCount=@EducationCount, Years=@Years, YearsCount=@YearsCount, "+
+                //    "WorkItem=@WorkItem, JobGrade=@JobGrade, PostCount=@PostCount, Director=@Director, DirectorCount=@DirectorCount, Special=@Special, "+
+                //    "SpecialCount=@SpecialCount, TotalCount=@TotalCount, BaseSalary=@BaseSalary, Explain=@Explain, UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
+                //    "WHERE ID=@ID";
+                string sql = "INSERT INTO StaffNarrativeSalary(Unit, StaffID, WriteDate, LaborInsurance, HealthInsurance, PensionFunds, PensionFundsPer, WithholdingTax, " +
+                   "EducationalBackground, EducationCount, Years, YearsCount, WorkItem, JobGrade, PostCount, Director, DirectorCount, Special, SpecialCount,EndPoint, TotalCount, " +
+                   "BaseSalary, Explain, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate, isDeleted) " +
+                   "VALUES(@Unit, @StaffID, @WriteDate, @LaborInsurance, @HealthInsurance, @PensionFunds, @PensionFundsPer, @WithholdingTax, @EducationalBackground, " +
+                   "@EducationCount, @Years, @YearsCount, @WorkItem, @JobGrade, @PostCount, @Director, @DirectorCount, @Special, @SpecialCount,@EndPoint, @TotalCount, " +
+                   "@BaseSalary, @Explain, @CreateFileBy, (getDate()), @UpFileBy, (getDate()), 0)";
+                sql += " select @@identity as NewID "; 
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.ID);
+                //cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.ID);
+                //cmd.Parameters.Add("@LaborInsurance", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.laborInsurance);
+                //cmd.Parameters.Add("@HealthInsurance", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.healthInsurance);
+                //cmd.Parameters.Add("@PensionFunds", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.pensionFunds);
+                //cmd.Parameters.Add("@PensionFundsPer", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(structData.pensionFundsPer);
+                //cmd.Parameters.Add("@WithholdingTax", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.withholdingTax);
+                //cmd.Parameters.Add("@EducationalBackground", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.education);
+                //cmd.Parameters.Add("@educationCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count1);
+                //cmd.Parameters.Add("@Years", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.years);
+                //cmd.Parameters.Add("@YearsCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count2);
+                //cmd.Parameters.Add("@WorkItem", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.applyJob);
+                //cmd.Parameters.Add("@JobGrade", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.jobLevel);
+                //cmd.Parameters.Add("@PostCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count3);
+                //cmd.Parameters.Add("@Director", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.director);
+                //cmd.Parameters.Add("@DirectorCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count4);
+                //cmd.Parameters.Add("@Special", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.special);
+                //cmd.Parameters.Add("@SpecialCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count5);
+                //cmd.Parameters.Add("@TotalCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.total);
+                //cmd.Parameters.Add("@BaseSalary", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.totalSalary);
+                //cmd.Parameters.Add("@Explain", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.explanation);
+                //cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
+
+
+                cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffFileName[2]);
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.staffID);
+                cmd.Parameters.Add("@WriteDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(DateTime.Today.ToShortDateString());
                 cmd.Parameters.Add("@LaborInsurance", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.laborInsurance);
                 cmd.Parameters.Add("@HealthInsurance", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.healthInsurance);
                 cmd.Parameters.Add("@PensionFunds", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.pensionFunds);
@@ -193,11 +227,17 @@ public class SalaryManagement
                 cmd.Parameters.Add("@DirectorCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count4);
                 cmd.Parameters.Add("@Special", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.special);
                 cmd.Parameters.Add("@SpecialCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.count5);
+                cmd.Parameters.Add("@EndPoint", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.EndPoint);
                 cmd.Parameters.Add("@TotalCount", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.total);
                 cmd.Parameters.Add("@BaseSalary", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.totalSalary);
                 cmd.Parameters.Add("@Explain", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.explanation);
+                cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
-                returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                //  returnValue[0] = cmd.ExecuteNonQuery().ToString();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read()) {
+                    returnValue[0] = dr["NewID"].ToString();
+                }
                 Sqlconn.Close();
             }
             catch (Exception e)
@@ -261,7 +301,7 @@ public class SalaryManagement
 
                 string sql = "SELECT Top 1 StaffNarrativeSalary.*,StaffDatabase.StaffName FROM StaffNarrativeSalary " +
                     "INNER JOIN StaffDatabase ON StaffNarrativeSalary.StaffID=StaffDatabase.StaffID " +
-                    "WHERE StaffNarrativeSalary.isDeleted=0 AND StaffNarrativeSalary.StaffID=@StaffID " + LimitValueItem + "ORDER BY WriteDate DESC";
+                    "WHERE StaffNarrativeSalary.isDeleted=0 AND StaffNarrativeSalary.StaffID=@StaffID " + LimitValueItem + "ORDER BY WriteDate DESC, CreateFileDate DESC";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staff);
                 cmd.Parameters.Add("@WriteDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(LimitDate);
@@ -290,6 +330,7 @@ public class SalaryManagement
                     returnValue.count4 = dr["DirectorCount"].ToString();
                     returnValue.special = dr["Special"].ToString();
                     returnValue.count5 = dr["SpecialCount"].ToString();
+                    returnValue.EndPoint = dr["EndPoint"].ToString();
                     returnValue.total = dr["TotalCount"].ToString();
                     returnValue.totalSalary = dr["BaseSalary"].ToString();
                     returnValue.explanation = dr["Explain"].ToString();
@@ -383,7 +424,7 @@ public class SalaryManagement
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY StaffNarrativeSalary.WriteDate DESC) " +
+                string sql = "SELECT * FROM (SELECT  ROW_NUMBER() OVER (ORDER BY StaffNarrativeSalary.WriteDate DESC,  StaffNarrativeSalary.CreateFileDate DESC) " +
                              "AS RowNum, StaffNarrativeSalary.*,StaffDatabase.StaffName, StaffDatabase.sex  " +
                              "FROM StaffNarrativeSalary " +
                             "INNER JOIN StaffDatabase ON StaffNarrativeSalary.StaffID=StaffDatabase.StaffID WHERE StaffNarrativeSalary.isDeleted=0 " + SearchStaffCondition + " ) " +

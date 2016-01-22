@@ -7,11 +7,12 @@ var _minusItemLength = 1;
 var _RealWagesInt = 0;
 var _oldAddItem = new Array();
 var _oldMinusItem = new Array();
+
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
     initPage();
-   
+    setDate(1990);
 
 
     $(".btnUpdate").click(function() {
@@ -27,7 +28,7 @@ $(document).ready(function() {
         $("input").add("select").add("textarea").attr("disabled", true);
     });
 
-    
+
     $("#salaryDeductions").unbind('click').click(function() {
         $(this).select();
     }).unbind('keydown').keydown(function(event) {
@@ -45,6 +46,20 @@ $(document).ready(function() {
         }
     });
 });
+function setDate(year_start) {
+    var now = new Date();
+
+    //年(year_start~今年)
+    for (var i = (now.getFullYear() - 1911); i >= (year_start - 1911); i--) {
+        $('#yearDate').append($("<option></option>").attr("value", i).text(i));
+    }
+
+    //月
+    for (var i = 1; i <= 12; i++) {
+        $('#monthDate').append($("<option></option>").attr("value", i).text(i));
+    }
+}
+
 function SucceededCallback(result, userContext, methodName) {
     SucceededCallbackAll(result, userContext, methodName);
     // alert(methodName);
@@ -142,13 +157,14 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#staffName").val(Name);
                         var Unit = $(this).children("td:nth-child(3)").html();
                         $("#Unit").html(_UnitList[Unit]);
-                        AspAjax.getStaffContractedSalaryLatestDataBase(id);
+                        var ThisMonth = (parseInt($('#yearDate').val()) + 1911) + "-" + $('#monthDate').val() + "-28";
+                        AspAjax.getStaffContractedSalaryLatestDataBase(id, ThisMonth, 0);
                         $("#explanationList tbody").html("");
                         $.fancybox.close();
                     });
 
                 } else {
-                    $("#inline .tableList").children("tbody").html("<tr><td colspan='4'>發生錯誤，錯誤訊息如下：" + result[0].errorMsg+"</td></tr>");
+                    $("#inline .tableList").children("tbody").html("<tr><td colspan='4'>發生錯誤，錯誤訊息如下：" + result[0].errorMsg + "</td></tr>");
                 }
             } else {
                 $("#inline .tableList").children("tbody").html("<tr><td colspan='4'>查無資料</td></tr>");

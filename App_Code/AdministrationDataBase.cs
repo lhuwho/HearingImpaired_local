@@ -208,7 +208,8 @@ public class AdministrationDataBase
                   cmd = new SqlCommand(sql, Sqlconn);
                   cmd.Parameters.Add("@CategoryID", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(bookData.bookClassification);
                   cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
-                  string stuNumber = cmd.ExecuteScalar().ToString();
+                  string stuNumber = (Chk.CheckStringtoIntFunction(cmd.ExecuteScalar().ToString()) + 1).ToString();
+                  
                   returnValue[0] = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(3, '0');
                   //returnValue = stuIDName;
               }

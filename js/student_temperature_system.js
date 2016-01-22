@@ -3,7 +3,7 @@
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
-    initPage();
+    //initPage();
     $("#gosrhpeopleID").add("#peopleTemp").add("#parentsTemp").click(function() {
         $(this).select();
     });
