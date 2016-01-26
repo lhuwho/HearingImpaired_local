@@ -150,6 +150,18 @@
 			        <li class="thSystem"></li><li class="thItem"></li><li class="thItem"></li><li class="thItem2"></li><li class="thSystem">實領工資</li>
 			        <li class="thSystem"></li><li class="thItem"></li><li class="thItem"></li><li class="thItem2"></li><li class="thSystem" id="realWages"></li>
 			    </ul>
+			    <br />
+			    <ul class="tableTH">
+			       <li class="thItem">備註</li>
+			    </ul>
+			      <ul><li class="thItem"><textarea id="AddTitle" cols="100" ></textarea></li> 
+			  <%--  <ul class="tableTH"><li class="thItem">說明問題請洽</li></ul>
+			      <ul><li class="thItem"><textarea id="ErMessage" cols="100"  ></textarea></li></ul>--%>
+			   
+
+			    
+
+			    <br />
 		        <p class="btnP">
 		            <button class="btnSave" type="button" onclick="saveData(0)">儲 存</button>
 		            <button class="btnUpdate" type="button">更 新</button>

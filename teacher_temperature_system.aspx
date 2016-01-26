@@ -68,7 +68,7 @@
 		            </tr>
 		            <tr>
 		                <td width="200">教師ID</td>
-		                <td><input id="gosrhpeopleID" type="text" value="" autocomplete="off" /></td>
+		                <td><input id="gosrhpeopleID" style="color:White;"  type="text" value="" autocomplete="off" /></td>
 		            </tr>
 		            <tr>
 		                <td width="200">教師姓名</td>

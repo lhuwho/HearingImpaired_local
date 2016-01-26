@@ -18,6 +18,9 @@
     <script type="text/javascript" src="./js/base.js"></script>
 	<script type="text/javascript" src="./js/All.js"></script>
 	<script type="text/javascript" src="./js/staff_salary.js"></script>
+	<%--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js "></script>--%>
+    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.0.0.js "></script>
+    <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
 	
 	<script src="./js/jquery.pagination.js" type="text/javascript"></script>
     <link type="text/css" href="./css/pagination.css" rel="stylesheet" />
@@ -86,8 +89,61 @@
 			<div id="mainMenuList2">
 			    <div id="item1" class="menuTabs">薪資表</div>
 			</div>
-			<div id="mainContent">
-			    <div id="item1Content">
+
+			<div id="mainContent" style="background:white;" >
+			    <table width="780" border="1" style="border-style:groove">
+			    <tr><td rowspan="2" ><img width="45%" src="./images/print_logo.jpg" /></td><td colspan="2" >財團法人中華民國婦聯聽障文教基金會</td><td rowspan="2" ><p id="Unit"></p></td></tr>
+			    <tr><td colspan="2" ><span id="yearDate"></span> 年 <span id="monthDate"></span> 月份薪津給與明細表</td></tr>
+			    <tr><td colspan="4">&nbsp;</td></tr>
+			    <tr><td >姓名</td><td colspan="3"><span id="staffName"></span></td></tr>
+			    <tr><td >職稱</td><td colspan="3"><span id="WorkItem"></span></td></tr>
+			    <tr><td >職等</td><td colspan="3"><span id="JobCapacity"></span></td></tr>
+			    <tr><td colspan="4">&nbsp;</td></tr>
+			    <tr><td colspan="2" ><p align="center">應發項目</p></td><td colspan="2"><p align="center">應扣項目</p></td></tr>
+			    <tr>
+			        <td  colspan="2"  style="vertical-align:text-top;" >		            
+			            <div id="addItemDiv">
+		                    <ul class="tableTH">
+			                   <li class="thItem">項目名</li><li class="thItem">金額</li>
+			                </ul>
+			                <ul>
+			                   <li class="thItem">本薪</li><li class="thItem">$<span id="totalSalary"></span></li>
+			                </ul>
+		                </div>
+		            </td>
+		            <td  colspan="2"  style="vertical-align:text-top;" >		            
+			              <div id="minusItemDiv">
+		                <ul class="tableTH">
+			                <li class="thItem">項目名</li><li class="thItem">金額</li>
+			            </ul>
+			            <ul>
+			                <li class="thItem">勞保費</li><li class="thItem" >$<span id="laborInsurance"></span></li>
+			            </ul>
+			            <ul>
+			                </li><li class="thItem">健保費</li><li class="thItem" >$<span id="healthInsurance"></span></li>
+			            </ul>
+			            <ul>
+			                </li><li class="thItem">所得稅</li><li class="thItem" >$<span id="withholdingTax"></span></li>
+			            </ul>
+			            <ul>
+			                <li class="thItem">自提退休準備金</li><li class="thItem">$<span id="pensionFunds"></span><span id="pensionFundsPer"></span></li>
+			            </ul>
+			            <ul>
+			                <li class="thItem">請假扣款</li><li class="thItem" >$<span id="salaryDeductions"></span></li>
+			            </ul>
+			            
+		                </div>
+		            </td>
+		        </tr>
+		        <tr><td colspan="4">&nbsp;</td></tr>
+		       <tr><td width="25%" >應發金額</td><td width="25%">$<span id="AddMoney"></span></td><td  width="25%">應扣金額</td><td width="25%">$<span id="MinsMoney"></span></td></tr>
+		        <tr><td colspan="4">&nbsp;</td></tr>
+		        <tr><td >實發金額</td><td colspan="3">$<span id="realWages"></span></td></tr>
+		        <tr><td colspan="4">&nbsp;</td></tr>
+		       <%-- <tr><td colspan="4"><textarea  id="AddTitle" disabled="disabled" rows="3" style="width:100%;border:none;" ></textarea></td></tr>--%>
+			     <tr><td colspan="4"><span  id="AddTitle"  ></span></td></tr>
+			    </table>
+			    <%--<div id="item1Content">
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;margin-bottom:10px;" id="Unit">&nbsp;</p>
 			        <p align="center">民國 <span id="yearDate"></span> 年 <span id="monthDate"></span> 月 薪資明細</p>
 		            <p>員工姓名 <span id="staffName"></span>
@@ -129,8 +185,12 @@
 		            <p class="btnP">
 		                <button class="button" type="button" onclick="">寄 出</button>
 		            </p>
-			    </div>
+			    </div>--%>
 			</div>
+			<p class="btnP">
+			    <button class="btnUpdate"  type="button" onclick="GetImg()"  >列印</button>
+			 </p>
+			<div id="test" ></div>
 			</div>
 		</div>
 		<div id="footer"></div>

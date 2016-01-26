@@ -7,6 +7,9 @@ var _minusItemLength = 1;
 var _RealWagesInt = 0;
 var _oldAddItem = new Array();
 var _oldMinusItem = new Array();
+var _ThisSaly = {};
+var _AddMoney = 0;
+var _MinsMoney = 0;
 
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
@@ -173,6 +176,7 @@ function SucceededCallback(result, userContext, methodName) {
         case "getStaffContractedSalaryLatestDataBase":
             if (!(result == null || result.length == 0 || result == undefined) && result.ID != null) {
                 if (result.checkNo == null && parseInt(result.checkNo) != -1) {
+                    _ThisSaly = result;
                     $("#laborInsurance").html(result.laborInsurance);
                     $("#healthInsurance").html(result.healthInsurance);
                     $("#pensionFunds").html(result.pensionFunds);
@@ -202,7 +206,9 @@ function SucceededCallback(result, userContext, methodName) {
                     $("#pensionFundsPer").html("(" + result.pensionFundsPer + "%)");
                     $("#Unit").html(_UnitList[result.Unit]);
                     $("input").add("select").add("textarea").attr("disabled", false);
-
+                    _AddMoney = result.AddMoney;
+                    _MinsMoney = result.MinsMoney;
+                    console.log(result, _AddMoney, _MinsMoney);
                     for (var i = 0; i < result.addItem.length; i++) {
                         $("#addItem_0 .addSelect").children("option[value='" + result.addItem[i].project + "']").attr("selected", true);
                         getAddItem("add");
@@ -386,18 +392,29 @@ function callStaffSearchfunction() {
 function saveData(Type) {
     var obj = new Object();
     obj = MyBase.getTextValueBase("mainContent");
+   // MergerObject(obj, _ThisSaly);
     obj.staffID = $("#staffID").html();
     obj.realWages = _RealWagesInt;
     obj.addItem = new Object();
     obj.addItem = ItemObjFunction("add");
     obj.minusItem = new Object();
     obj.minusItem = ItemObjFunction("minus");
+    obj.laborInsurance = ItemisNumber($("#laborInsurance").html());
+    obj.healthInsurance = ItemisNumber($("#healthInsurance").html());
+    obj.pensionFunds = ItemisNumber($("#pensionFunds").html());
+    obj.withholdingTax = ItemisNumber($("#withholdingTax").html());
+    obj.salaryDeductions = ItemisNumber($("#salaryDeductions").html());
+    obj.totalSalary = ItemisNumber($("#totalSalary").html());
+    obj.pensionFundsPer = ItemisNumber($("#pensionFundsPer").html().replace("(", "").replace("%)", ""));
+    obj.AddMoney = _AddMoney;
+    obj.MinsMoney = _MinsMoney;
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
     if (checkString.length > 0 && _RealWagesInt >0) {
         alert(checkString);
     } else {
         switch (Type) {
             case 0:
+                console.log(obj);
                 AspAjax.createStaffSalaryDataBase(obj);
                 break;
             case 1:
@@ -467,6 +484,8 @@ function RealwagesFunction() {
     $(".minusItemList .price").each(function() {
         minusSalary += ItemisNumber($(this).val());
     });
+    _AddMoney = baseSalary + addSalary;
+    _MinsMoney = laborInsurance + healthInsurance + pensionFunds + withholdingTax + salaryDeductions + minusSalary;
     realWages = baseSalary - laborInsurance - healthInsurance - pensionFunds - withholdingTax - salaryDeductions + addSalary - minusSalary;
     _RealWagesInt = realWages;
     $("#realWages").html(FormatNumber(realWages.toString()));

@@ -1,4 +1,8 @@
 ﻿var MyBase = new Base();
+var _jobTitle =  new Array("","高專","專員","組員","助理","助佐","講師","助理講師","專業教師","助理教師","教師助理","6職等","7職等","8職等","9職等","10職等","11職等","12職等");
+
+
+
 $(document).ready(function() {
     AspAjax.set_defaultSucceededCallback(SucceededCallback);
     AspAjax.set_defaultFailedCallback(FailedCallback);
@@ -16,6 +20,7 @@ $(document).ready(function() {
         } else {
             $(".btnSaveUdapteData").add(".btnCancel").hide();
             $(".btnUpdate").fadeIn();
+            
         }
         getStudentData(this.id);
     });
@@ -84,15 +89,17 @@ function SucceededCallback(result, userContext, methodName) {
                     PushPageValue(result);
                     $("#pensionFundsPer").html("(" + result.pensionFundsPer + "%)");
                     $("#Unit").html(_UnitList[result.Unit]);
-                    $("input").add("select").add("textarea").attr("disabled", false);
-
+                    $("input").add("select").attr("disabled", false);
+                    $("#WorkItem").html(_JobItemList[result.WorkItem]);
+                    $("#JobCapacity").html(_JobItemList[result.WorkItem] + "-" + _jobTitle[result.JobCapacity] + "(" + result.JobGrade + "級)");
+                    $("#AddTitle").html(result.AddTitle.replace(/\n/g, "<br>"));
                     var inner = '';
                     for (var i = 0; i < result.addItem.length; i++) {
                         inner += '<ul >' +
-		                            '<li class="thSystem"></li>' +
+                        //'<li class="thSystem"></li>' +
 		                            '<li class="thItem">' + result.addItem[i].project + '</li>' +
-		                            '<li class="thItem">' + result.addItem[i].projectMoney + '</li>' +
-		                            '<li class="thItem2">' + result.addItem[i].explain + '</li>' +
+		                            '<li class="thItem">$' + result.addItem[i].projectMoney + '</li>' +
+                        //'<li class="thItem2">' + result.addItem[i].explain + '</li>' +
 		                        '</ul>';
                         $("#addItemDiv").append(inner);
                     }
@@ -100,15 +107,17 @@ function SucceededCallback(result, userContext, methodName) {
                     for (var i = 0; i < result.minusItem.length; i++) {
 
                         inner += '<ul >' +
-		                            '<li class="thSystem"></li>' +
+                        //'<li class="thSystem"></li>' +
 		                            '<li class="thItem">' + result.minusItem[i].project + '</li>' +
-		                            '<li class="thItem">' + result.minusItem[i].projectMoney + '</li>' +
-		                            '<li class="thItem2">' + result.minusItem[i].explain + '</li>' +
+		                            '<li class="thItem">$' + result.minusItem[i].projectMoney + '</li>' +
+                        // '<li class="thItem2">' + result.minusItem[i].explain + '</li>' +
 		                        '</ul>';
                         $("#minusItemDiv").append(inner);
                     }
 
                     $("#realWages").html(FormatNumber(result.realWages));
+                    $("#AddMoney").html(FormatNumber(result.AddMoney));
+                    $("#MinsMoney").html(FormatNumber(result.MinsMoney));
                 } else {
                     alert("發生錯誤，錯誤訊息如下:" + result.errorMsg);
                 }
@@ -154,4 +163,41 @@ function SearchData() {
     } else {
         alert("請填寫完整出生日期區間");
     }
+}
+function GetImg() {
+    html2canvas($("#mainContent"), {
+        onrendered: function(canvas) {
+            var type = 'jpg';
+            var imgData = canvas.toDataURL(type);
+
+            var _fixType = function(type) {
+                type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+                var r = type.match(/png|jpeg|bmp|gif/)[0];
+                return 'image/' + r;
+            };
+
+            // 加工image data，替换mime type
+            imgData = imgData.replace(_fixType(type), 'image/octet-stream');
+
+
+            var saveFile = function(data, filename) {
+                var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                save_link.href = data;
+                save_link.download = filename;
+
+                var event = document.createEvent('MouseEvents');
+                event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                save_link.dispatchEvent(event);
+            };
+           
+            var filename = '薪資單_' + (new Date()).getTime() + '.' + type;
+            // download
+            saveFile(imgData, filename);
+            
+           // var $div = $("#test");
+            //$div.empty();
+            //$("<img />", { src: canvas.toDataURL("image/png") }).appendTo($div);
+        }
+    });
+    
 }

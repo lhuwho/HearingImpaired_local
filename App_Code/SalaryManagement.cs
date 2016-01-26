@@ -512,10 +512,10 @@ public class SalaryManagement
                     Sqlconn.Open();
                     string sql = "INSERT INTO StaffSalary(Unit, SalaryYear, SalaryMonth, StaffID, WriteDate, LaborInsurance, Explain1, HealthInsurance, Explain2, PensionFunds, " +
                         "PensionFundsPer, Explain3, WithholdingTax, Explain4, BaseSalary, Explain5, PayrollDeductions, Explain6, NetTotal,CreateFileBy, CreateFileDate, UpFileBy, " +
-                        "UpFileDate, isDeleted) " +
+                        "UpFileDate, isDeleted , AddTitle , ErMessage , AddMoney , MinsMoney ) " +
                         "VALUES(@Unit, @SalaryYear, @SalaryMonth, @StaffID, @WriteDate, @LaborInsurance, @Explain1, @HealthInsurance, @Explain2, @PensionFunds, " +
                         "@PensionFundsPer, @Explain3, @WithholdingTax, @Explain4, @BaseSalary, @Explain5, @PayrollDeductions, @Explain6, @NetTotal,@CreateFileBy, (getDate()), " +
-                        "@UpFileBy, (getDate()), 0)";
+                        "@UpFileBy, (getDate()), 0, @AddTitle , @ErMessage , @AddMoney , @MinsMoney)";
                     SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                     cmd.Parameters.Add("@Unit", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(staffFileName[2]);
                     cmd.Parameters.Add("@SalaryYear", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.yearDate);
@@ -538,6 +538,10 @@ public class SalaryManagement
                     cmd.Parameters.Add("@NetTotal", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.realWages);
                     cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
                     cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
+                    cmd.Parameters.Add("@AddMoney", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.AddMoney);
+                    cmd.Parameters.Add("@MinsMoney", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.MinsMoney);
+                    cmd.Parameters.Add("@AddTitle", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.AddTitle);
+                    cmd.Parameters.Add("@ErMessage", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.ErMessage);
                     returnValue[0] = cmd.ExecuteNonQuery().ToString();
                     if (returnValue[0] != "0")
                     {
@@ -619,7 +623,7 @@ public class SalaryManagement
             try
             {
                 Sqlconn.Open();
-                string sql = "SELECT StaffSalary.*,StaffDatabase.StaffName FROM StaffSalary " +
+                string sql = "SELECT StaffSalary.*,StaffDatabase.StaffName , WorkItem, JobCapacity, JobGrade FROM StaffSalary " +
                             "INNER JOIN StaffDatabase ON StaffSalary.StaffID=StaffDatabase.StaffID " +
                             "WHERE StaffSalary.isDeleted=0 AND StaffSalary.ID=@ID";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
@@ -648,6 +652,16 @@ public class SalaryManagement
                     returnValue.salaryDeductions = dr["PayrollDeductions"].ToString();
                     returnValue.salaryExplain6 = dr["Explain6"].ToString();
                     returnValue.realWages = dr["NetTotal"].ToString();
+
+                    returnValue.MinsMoney = dr["MinsMoney"].ToString();
+                    returnValue.AddMoney = dr["AddMoney"].ToString();
+                    returnValue.ErMessage = dr["ErMessage"].ToString();
+                    returnValue.AddTitle = dr["AddTitle"].ToString();
+
+                    returnValue.WorkItem = dr["WorkItem"].ToString();
+                    returnValue.JobCapacity = dr["JobCapacity"].ToString();
+                    returnValue.JobGrade = dr["JobGrade"].ToString();
+
                 }
                 dr.Close();
 
@@ -702,7 +716,8 @@ public class SalaryManagement
                     Sqlconn.Open();
                     string sql = "UPDATE StaffSalary SET Explain1=@Explain1, Explain2=@Explain2, Explain3=@Explain3, Explain4=@Explain4, Explain5=@Explain5, "+
                                 "PayrollDeductions=@PayrollDeductions, Explain6=@Explain6, NetTotal=@NetTotal, UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
-                                "WHERE ID=@ID";
+                                ",AddMoney=@AddMoney,MinsMoney=@MinsMoney,AddTitle=@AddTitle,ErMessage=@ErMessage "+
+                                " WHERE ID=@ID";
                     SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                     cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = Chk.CheckStringtoInt64Function(structData.ID);
                     cmd.Parameters.Add("@Explain1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.salaryExplain1);
@@ -714,6 +729,12 @@ public class SalaryManagement
                     cmd.Parameters.Add("@Explain6", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.salaryExplain6);
                     cmd.Parameters.Add("@NetTotal", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.realWages);
                     cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(HttpContext.Current.User.Identity.Name);
+
+                    cmd.Parameters.Add("@AddMoney", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.AddMoney);
+                    cmd.Parameters.Add("@MinsMoney", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(structData.MinsMoney);
+                    cmd.Parameters.Add("@AddTitle", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.AddTitle);
+                    cmd.Parameters.Add("@ErMessage", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(structData.ErMessage);
+
                     returnValue[0] = cmd.ExecuteNonQuery().ToString();
                     Sqlconn.Close();
                     if (structData.addItem.Count > 0)

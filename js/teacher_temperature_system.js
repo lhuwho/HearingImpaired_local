@@ -14,9 +14,10 @@ $(document).ready(function() {
             e.preventDefault();
             if (($("#gosrhpeopleID").val()).length > 0) {
                 var obj = MyBase.getTextValueBase("mainContent");
-                AspAjax.searchUserData(obj);
+               // AspAjax.searchUserData(obj);
+                AspAjax.searchUserDataCardNum(obj);
             } else {
-                $("#msgDiv").html("請輸入教師ID").fadeIn(function() {
+                    $("#msgDiv").html("請輸入正確資料").fadeIn(function() {
                     setTimeout('$("#msgDiv").fadeOut();', '3000');
                 });
             }
@@ -27,7 +28,8 @@ $(document).ready(function() {
 
 function SucceededCallback(result, userContext, methodName) {
     switch (methodName) {
-        case "searchUserData":
+        case "searchUserDataCardNum":
+            // case "searchUserData":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (parseInt(result[0], 10) != -1 && parseInt(result[0], 10) != 0 && parseInt(result[2], 10) == 1) {
                     $("#teacherName").html(result[1]);
@@ -39,6 +41,7 @@ function SucceededCallback(result, userContext, methodName) {
                             e.preventDefault();
                             if (($("#peopleTemp").val()).length > 0) {
                                 var obj = MyBase.getTextValueBase("mainContent");
+                                obj.txtpeopleID = result[0];
                                 AspAjax.createTeacherTemperatureDataBase(obj);
                             } else {
                                 $("#msgDiv").html("請輸入體溫").fadeIn(function() {

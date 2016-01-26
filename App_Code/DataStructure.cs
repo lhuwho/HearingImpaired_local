@@ -2721,11 +2721,20 @@ public struct CreateStaffSalary
     public string salaryExplain5;
     public string salaryDeductions;
     public string salaryExplain6;
+    public string AddMoney;
+    public string MinsMoney;
     public string realWages;
     public List<StaffSalaryList> addItem;
     public List<StaffSalaryList> minusItem;
+
     public string checkNo;
     public string errorMsg;
+    public string AddTitle;
+    public string ErMessage;
+
+    public string WorkItem;
+    public string JobCapacity;
+    public string JobGrade;
 }
 public class StaffSalaryList
 {
