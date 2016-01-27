@@ -1317,7 +1317,7 @@ public class StaffDataBase
             try
             {
                 Sqlconn.Open();
-                string sql = "select  CAST(CreateFileDate AS smalldatetime ) as CreateFileDate  FROM WorkRecord where staffid = @StaffID and  CAST(CreateFileDate AS date ) = @ThisDate ";
+                string sql = "select  CAST(CreateFileDate AS smalldatetime ) as CreateFileDate  FROM WorkRecord where staffid = @StaffID and  CAST(CreateFileDate AS date ) = @ThisDate order by CreateFileDate ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffID);
                 cmd.Parameters.Add("@ThisDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(ThisDate);
