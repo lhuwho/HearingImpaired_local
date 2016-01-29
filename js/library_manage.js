@@ -1,6 +1,6 @@
 ﻿var MyBase = new Base();
-var noEmptyItem = ["bookTitle", "bookClassification"];
-var noEmptyShow = ["書名", "分類"];
+var noEmptyItem = ["bookTitle", "bookClassification", "bookUseTo"];
+var noEmptyShow = ["書名", "分類", "用途"];
 var noEmptyItem2 = ["txtbookDayType", "txtbookStartDay", "txtbookEndDay"];
 var noEmptyShow2 = ["借閱類別", "借出天數(起始)", "借出天數(終止)"];
 var noEmptyItem3 = ["txtbookDateStartDate", "txtbookDateEndDate"];
