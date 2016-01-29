@@ -179,13 +179,15 @@
 			                    </select></td>
 			                <td id="count3">0</td>
 			                <td><select id="director"><option value="0">請選擇</option>
-			                <option value="200">總幹事</option>
-			                <option value="140">(副總幹事)</option>
-			                <option value="90">督導、(研究員)</option>
-			                <option value="60">主任、組長</option>
-			                <option value="30">(管理長)</option>
+			                <option value="1">總幹事</option>
+			                <option value="2">副總幹事</option>
+			                <option value="3">督導</option>
+			                <option value="4">研究員</option>
+			                <option value="5">主任</option>
+			                <option value="6">組長</option>
+			                <option value="7">管理長</option>
 			                </select></td>
-			                <td id="count4">0</td>
+			                <td ><input id="count4" type="text" value="0" size="3"  /></td>
 			                <td><input id="special" type="text" value="0" size="3" /></td>
 			                <td><input id="count5" type="text" value="0" size="3" /></td>
 			                <td><input id="EndPoint" type="text" value="0" size="3" /></td>

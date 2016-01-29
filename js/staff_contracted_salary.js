@@ -1,6 +1,7 @@
 ﻿var MyBase = new Base();
 var noEmptyItem = ["staffName", "staffID", "fillInDate"];
-var noEmptyShow = ["員工姓名", "員工編號抓取錯誤，請重新選擇員工","填表日期"];
+var noEmptyShow = ["員工姓名", "員工編號抓取錯誤，請重新選擇員工", "填表日期"];
+var _director = ["0", "180", "120", "90", "90", "60", "60", "30"];
 var _ColumnID = 0;
 var _SalaryValue = 0; //點值
 var _SalaryLatestData;
@@ -93,7 +94,9 @@ $(document).ready(function() {
         TotalCountFunction();
     });
     $("#director").change(function() {
-        $("#count4").html($("#director :selected").val());
+
+        $("#count4").val(_director[$("#director :selected").val()]);
+        //$("#count4").html($("#director :selected").val());
         TotalCountFunction();
     });
     $("#count5").unbind('keydown').keydown(function(event) {
@@ -177,7 +180,7 @@ function TotalCountFunction() {
     var count1 = $("#count1").html();
     var count2 = $("#count2").html();
     var count3 = $("#count3").html();
-    var count4 = $("#count4").html();
+    var count4 = $("#count4").val();
     var count5 = $("#count5").val();
     var count6 = $("#special").val();
     var count7 = $("#EndPoint").val();
@@ -464,7 +467,7 @@ function saveData(Type) {
     obj.count1 = $("#count1").html();
     obj.count2 = $("#count2").html();
     obj.count3 = $("#count3").html();
-    obj.count4 = $("#count4").html();
+    obj.count4 = $("#count4").val();
     obj.total = $("#total").html();
     obj.totalSalary = $("#totalSalary").html();
     console.log(obj);
