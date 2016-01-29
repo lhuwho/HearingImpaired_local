@@ -165,12 +165,20 @@ public class AdministrationDataBase
                     dr.Close();
                     if (Column != 0)
                     {
-                        sql = "SELECT Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
+                       // sql = "SELECT  Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
+                        sql = "SELECT top 1 CAST (SUBSTRING(BookCodeID,6,4 ) as int) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit order by BookCodeID desc ";
+                       
                         cmd = new SqlCommand(sql, Sqlconn);
                         cmd.Parameters.Add("@CategoryID", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(bookData.bookClassification);
                         cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
-                        string stuNumber = cmd.ExecuteScalar().ToString();
-                        string stuIDName = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(3, '0');
+                        SqlDataReader dr2 = cmd.ExecuteReader();
+                        string stuNumber = "1";
+                        if (dr2.Read())
+                        {
+                            stuNumber = (Chk.CheckStringtoIntFunction(dr2["QCOUNT"].ToString()) + 1).ToString();//cmd.ExecuteScalar().ToString();
+                        }
+                        dr2.Close();
+                        string stuIDName = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(4, '0');
 
                         sql = "UPDATE BookDatabase SET BookCodeID=(@BookCodeID) WHERE BookID=(@BID) ";
                         cmd = new SqlCommand(sql, Sqlconn);
@@ -203,14 +211,19 @@ public class AdministrationDataBase
                   List<string> CreateFileName = sDB.getStaffDataName(HttpContext.Current.User.Identity.Name);
                   Sqlconn.Open();
                   string sql = "";
-                  sql = "SELECT Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
+                  //sql = "SELECT  Count(*) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit ";
+                  sql = "SELECT top 1 CAST (SUBSTRING(BookCodeID,6,4 ) as int) AS QCOUNT FROM BookDatabase WHERE CategoryID=(@CategoryID) and Unit = @Unit order by BookCodeID desc ";
                   SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                   cmd = new SqlCommand(sql, Sqlconn);
                   cmd.Parameters.Add("@CategoryID", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(bookData.bookClassification);
                   cmd.Parameters.Add("@Unit", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(CreateFileName[2]);
-                  string stuNumber = (Chk.CheckStringtoIntFunction(cmd.ExecuteScalar().ToString()) + 1).ToString();
-                  
-                  returnValue[0] = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(3, '0');
+                  SqlDataReader dr = cmd.ExecuteReader();
+                  string stuNumber = "1";
+                  if (dr.Read())
+                  {
+                      stuNumber = (Chk.CheckStringtoIntFunction(dr["QCOUNT"].ToString()) + 1).ToString();
+                  }
+                  returnValue[0] = CreateFileName[2] + Chk.CheckStringFunction(bookData.bookClassificationCode) + stuNumber.PadLeft(4, '0');
                   //returnValue = stuIDName;
               }
               catch

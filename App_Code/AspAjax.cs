@@ -3433,6 +3433,7 @@ public class AspAjax : System.Web.Services.WebService {
     public List<CreateBook> searchBookData(int index, SearchBook bookData)
     {
         AdministrationDataBase aDB = new AdministrationDataBase();
+        aDB.libraryFunction();
         return aDB.searchBook(index, bookData);
     }
     [WebMethod]
