@@ -154,19 +154,19 @@
 			                <td><input id="years" type="text" value="0" size="3" /></td>
 			                <td id="count2">0</td>
 			                <td><select id="applyJob"><option value="0">請選擇</option>
-			                <option value="135">行政12職等</option>
-			                <option value="100">行政11職等</option>
-			                <option value="70">行政10職等</option>
-			                <option value="45">行政9職等</option>
-			                <option value="25">行政8職等</option>
-			                <option value="10">行政7職等</option>
+			                <option value="279">行政12職等</option>
+			                <option value="220">行政11職等</option>
+			                <option value="166">行政10職等</option>
+			                <option value="117">行政9職等</option>
+			                <option value="73">行政8職等</option>
+			                <option value="34">行政7職等</option>
 			                <option value="0">行政6職等</option>
-			                <option value="155">教師12職等</option>
-			                <option value="120">教師11職等</option>
-			                <option value="90">教師10職等</option>
-			                <option value="65">教師9職等</option>
-			                <option value="45">教師8職等</option>
-			                <option value="30">教師7職等</option>
+			                <option value="299">教師12職等</option>
+			                <option value="240">教師11職等</option>
+			                <option value="186">教師10職等</option>
+			                <option value="137">教師9職等</option>
+			                <option value="93">教師8職等</option>
+			                <option value="54">教師7職等</option>
 			                <option value="20">教師6職等</option>
 			                </select></td>
 			                <td><select id="jobLevel"><option value="0">請選擇</option><option value="0">0</option>
