@@ -58,36 +58,44 @@ function SucceededCallback(result, userContext, methodName) {
             break;
         case "SearchStaffDataBaseWorkAll":
             if (!(result == null || result.length == 0 || result == undefined)) {
-
+                console.log(result);
                 var inner = "";
                 for (var i = 0; i < result.length; i++) {
-                    
+
+                    var YearCation = result[i].YearVaction == '' ? parseFloat('0.0') : parseFloat(result[i].YearVaction);
+                    var WorkAdd = result[i].WorkAdd == '' ? parseFloat('0.0') : parseFloat(result[i].WorkAdd);
+                    var WorkMinus = result[i].WorkMinus == '' ? parseFloat('0.0') : parseFloat(result[i].WorkMinus);
+                    var yearvac = YearCation + WorkAdd - WorkMinus;
+                    var V4 = result[i].V4 == '' ? parseFloat('0.0') : parseFloat(result[i].V4);
+                    var V11 = result[i].V11 == '' ? parseFloat('0.0') : parseFloat(result[i].V11);
+                    var YearUser = V4 + V11;
+                    console.log(V4 + "-" + V11 + "-" + YearUser );
                     inner += '<tr>' +
                         '<td>' + result[i].StaffID + '</td>' +
                         '<td>' + result[i].StaffName + '</td>' +
-
-                        '<td><span style="color:blue;" >' + (result[i].YearVaction == "0.000" || result[i].YearVaction == '' ? '' : parseFloat(result[i].YearVaction)) + '</span></td>' +
-                        '<td><span style="color:blue;" >' + (result[i].WorkAdd == "0.000" || result[i].WorkAdd == '' ? '' : parseFloat(result[i].WorkAdd)) + '</span></td>' + 
-                        '<td><span style="color:blue;" >' + (result[i].WorkMinus == "0.000" || result[i].WorkMinus == '' ? '' : parseFloat(result[i].WorkMinus)) + '</span></td>' +
-//                        '<td>' + result[i].WorkMinus + '</td>' +
-//                        '<td>' + result[i].WorkAdd + '</td>' +
+                        '<td><span style="color:blue;" >' + (yearvac == 0 ? '' : yearvac) + '</span></td>' +
+                    //                        '<td><span style="color:blue;" >' + (result[i].YearVaction == "0.000" || result[i].YearVaction == '' ? '' : parseFloat(result[i].YearVaction)) + '</span></td>' +
+                    //                        '<td><span style="color:blue;" >' + (result[i].WorkAdd == "0.000" || result[i].WorkAdd == '' ? '' : parseFloat(result[i].WorkAdd)) + '</span></td>' + 
+                    //                        '<td><span style="color:blue;" >' + (result[i].WorkMinus == "0.000" || result[i].WorkMinus == '' ? '' : parseFloat(result[i].WorkMinus)) + '</span></td>' +
+                    //                        '<td>' + result[i].WorkMinus + '</td>' +
+                    //                        '<td>' + result[i].WorkAdd + '</td>' +
                         '<td>' + result[i].V1 + '</td>' +
                         '<td>' + result[i].V2 + '</td>' +
                         '<td>' + result[i].V3 + '</td>' +
-                        '<td>' + result[i].V4 + '</td>' +
-                        
-                       
+                        '<td>' + (YearUser == 0 ? '' : YearUser) + '</td>' +
+
+
                         '<td>' + result[i].V6 + '</td>' +
                         '<td>' + result[i].V7 + '</td>' +
                         '<td>' + result[i].V8 + '</td>' +
-                        
+
                         '<td>' + result[i].V5 + '</td>' +
                         '<td>' + result[i].V9 + '</td>' +
                         '<td>' + result[i].V10 + '</td>' +
 
                         '<td>' + result[i].V12 + '</td>' +
-                        '<td>' + result[i].V11 + '</td>' +
-                       // '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
+                        //'<td>' + result[i].V11 + '</td>' +
+                    // '<td><button class="btnView" type="button" onclick="viewRecord(' + result[i].StaffID + ')">檢 視</button></td>' +
 			                '</tr>';
                 }
                 $("#mainSearchList .tableList").children("tbody").html(inner);

@@ -62,21 +62,21 @@
                                
                                 <th width="60">同仁<br />編號</th>
                                 <th width="60">姓名</th>
-                                <th width="50">全年特休假核定天數</th>
-                                <th width="50">全年工作異動核准累計天數(加)</th>
-                                <th width="50">全年工作異動使用累計天數(減)</th>
+                                <th width="50">全年特休假總天數</th>
+<%--                                <th width="50">全年工作異動核准累計天數(加)</th>
+                                <th width="50">全年工作異動使用累計天數(減)</th>--%>
                                 <th width="40">事假</th>
                                 <th width="40">病假</th>
 			                    <th width="40">生理假</th>
-			                    <th width="40">特別<br />休假</th>
+			                    <th width="40">已使用<br />特休假</th>
 			                    <th width="40">婚假</th>
                                 <th width="40">產假</th>
                                 <th width="40">喪假</th>
                                 <th width="40">公假</th>
                                 <th width="40">公傷</th>
 			                    <th width="40">逾時假單</th>
-			                    <th width="40">工作<br />異動(加)</th>
-			                    <th width="40">工作<br />異動(減)</th>
+			                    <th width="40">工作<br />異動</th>
+			                  <%--  <th width="40">工作<br />異動(減)</th>--%>
 			                   
 			                    <!--<th width="40">檢視</th>-->
 			
