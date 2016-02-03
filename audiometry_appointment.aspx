@@ -79,6 +79,19 @@
 				            
 				            <li id="item">
 					            <label for="item">檢查項目：</label><select name="item" data-placeholder="選擇檢查項目..." multiple="multiple">
+					            <option value="L">(L)新生諮詢</option>
+					             <option value="M">(M)聽力評估</option>
+					             <option value="N">(N)語音聽知覺</option>
+					             <option value="P">(P)HA/CI評估</option>
+					             <option value="Q">(Q)HA調整/檢修</option>
+					             <option value="R">(R)HA驗證 (#25表格)</option>
+					             <option value="S">(S)CI調圖/檢修</option>
+					             <option value="T">(T)FM評估</option>
+					             <option value="U">(U)FM調整/檢修</option>
+					             <option value="V">(V)助聽輔具借用</option>
+					             <option value="W">(W)ISP會議</option>
+					             <option value="X">(X)其他</option>
+					             <option value="-" disabled="disabled" >-----------</option>
 					            <option value="A">(A)聽力評估</option>
 					            <option value="B">(B)助聽器調整</option>
 					            <option value="C">(C)聽力異常</option>
@@ -90,6 +103,10 @@
 					            <option value="I">(I)輔具功能異常</option>
 					            <option value="J">(J)其他(請說明)</option>
 					             <option value="K">(K)助聽輔具借用</option>
+					             
+
+
+
 					            </select>
 					        </li>
 					        <li id="itemOther">

@@ -1,7 +1,7 @@
 ﻿var MyBase = new Base();
-var itemNumber = new Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
-var itemArray = new Array("(A)定期追蹤", "(B)助聽器調整", "(C)聽力異常", "(D)新生諮詢", "(E)電子耳調圖", "(F)語音聽知覺", "(G)調頻系統評估", "(H)ISP會議", "(I)輔具功能異常原", "(J)其他");
-var _StudentStatu = new Array("會外人士", "會內生", "會內生", "離會生");
+var itemNumber = new Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V","W", "X");
+var itemArray = new Array("(A)定期追蹤", "(B)助聽器調整", "(C)聽力異常", "(D)新生諮詢", "(E)電子耳調圖", "(F)語音聽知覺", "(G)調頻系統評估", "(H)ISP會議", "(I)輔具功能異常原", "(J)其他", "(K)助聽輔具借用","(L)新生諮詢","(M)聽力評估","(N)語音聽知覺"," (P)HA/CI評估"," (Q)HA調整/檢修"," (R)HA驗證 (#25表格)"," (S)CI調圖/檢修"," (T)FM評估"," (U)FM調整/檢修"," (V)助聽輔具借用"," (W)ISP會議"," (X)其他");
+var _StudentStatu = new Array("會外人士", "會外人士", "會內生", "會內生", "離會生");
 //var _ReturnStaffValue;
 var _ReturnValue;
 
@@ -131,6 +131,7 @@ function SucceededCallback(result, userContext, methodName) {
         case "SearchStudentDataBase":
             if (!(result == null || result.length == 0 || result == undefined)) {
                 if (result[0].checkNo == null && parseInt(result[0].checkNo) != -1) {
+                    console.log(result);
                     var inner = "";
                     for (var i = 0; i < result.length; i++) {
                         inner += '<tr class="ImgJs">' +
