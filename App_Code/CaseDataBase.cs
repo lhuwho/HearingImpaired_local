@@ -974,10 +974,13 @@ public class CaseDataBase
         {
             returnValue = 1;
         }
-        if (StructureData.guaranteeDate != null)
-        {
+        if (StructureData.firstClassDate != null) {
             returnValue = 2;
         }
+        //if (StructureData.guaranteeDate != null)
+        //{
+        //    returnValue = 2;
+        //}
         if (StructureData.sendDateSince != null && StructureData.sendDateUntil != null)
         {
             returnValue = 3;
