@@ -663,8 +663,8 @@ function saveHearinghistory(Type) {
         MergerObject(obj, obj1);
         obj.ID = _ColumnID;
         obj.studentID = _StuID;
-        obj.accessory1 = parseInt(obj.accessory1) + "";
-        obj.accessory2 = parseInt(obj.accessory2) + "";
+        obj.accessory1 = parseInt(obj.accessory1) + "" == "NaN" ? "" : parseInt(obj.accessory1) + "";
+        obj.accessory2 = parseInt(obj.accessory2) + "" == "NaN" ? "" : parseInt(obj.accessory1) + "";
         AspAjax.setStudentDataBase6(obj);
     }
    
