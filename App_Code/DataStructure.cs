@@ -1341,7 +1341,8 @@ public struct StudentHearingInformation {
     public string inspectorName;
     public string checkNo;
     public string errorMsg;
-
+    public string accessory1;
+    public string accessory2;
 }
 
 public struct StudentTeachingInformation

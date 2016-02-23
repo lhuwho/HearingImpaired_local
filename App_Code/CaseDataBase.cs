@@ -2221,7 +2221,8 @@ public class CaseDataBase
                     returnValue.problems11t05 = dr["AidsSystem"].ToString();
                     returnValue.problems11t06 = dr["HearingInspection"].ToString();
                     returnValue.problems11t07 = dr["HearingOther"].ToString();
-
+                    returnValue.accessory1 = dr["accessory1"].ToString();
+                    returnValue.accessory2 = dr["accessory2"].ToString();
                     StaffDataBase sDB = new StaffDataBase();
                     List<string> StaffData = sDB.getStaffDataName(dr["Audiologist"].ToString());
                     returnValue.inspectorID = dr["Audiologist"].ToString();
@@ -3030,7 +3031,7 @@ public class CaseDataBase
                   "UseFMsystemBrand=@UseFMsystemBrand, HearingAssessmentSummary=@HearingAssessmentSummary, EarEndoscopy=@EarEndoscopy, " +
                   "EarEndoscopyAbnormalText=@EarEndoscopyAbnormalText, PureToneText=@PureToneText, Tympanogram=@Tympanogram, SATorSDT=@SATorSDT, " +
                   "SpeechRecognition=@SpeechRecognition, AidsSystem=@AidsSystem, HearingInspection=@HearingInspection, HearingOther=@HearingOther, " +
-                  "Audiologist=@Audiologist, SurveyingDate=@SurveyingDate " +
+                  "Audiologist=@Audiologist, SurveyingDate=@SurveyingDate,accessory1=@accessory1,accessory2=@accessory2 " +
                   "WHERE ID=@ID ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = StudentHearing.ID;
@@ -3082,7 +3083,7 @@ public class CaseDataBase
                 cmd.Parameters.Add("@GeneScreening", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentHearing.gene);
                 cmd.Parameters.Add("@GeneScreening_Date", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentHearing.geneTime);
                 cmd.Parameters.Add("@GeneScreening_Agency", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.genePlace);
-                cmd.Parameters.Add("@GeneScreening_Item", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentHearing.geneResult);
+                cmd.Parameters.Add("@GeneScreening_Item", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.geneResult);
                 cmd.Parameters.Add("@FamilyHearingProblemHistory", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentHearing.familyhistory);
                 cmd.Parameters.Add("@FamilyHearingProblemHistoryText", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.familyhistoryText);
                 cmd.Parameters.Add("@HearingChangeHistory", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StudentHearing.changehistory);
@@ -3123,7 +3124,9 @@ public class CaseDataBase
                 cmd.Parameters.Add("@HearingOther", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.problems11t07);
                 cmd.Parameters.Add("@Audiologist", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StudentHearing.inspectorID);
                 cmd.Parameters.Add("@SurveyingDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StudentHearing.inspectorDate);
-
+                cmd.Parameters.Add("@accessory1", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.accessory1);
+                cmd.Parameters.Add("@accessory2", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StudentHearing.accessory2);
+                
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
             }

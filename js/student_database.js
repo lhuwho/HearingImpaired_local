@@ -663,6 +663,8 @@ function saveHearinghistory(Type) {
         MergerObject(obj, obj1);
         obj.ID = _ColumnID;
         obj.studentID = _StuID;
+        obj.accessory1 = parseInt(obj.accessory1) + "";
+        obj.accessory2 = parseInt(obj.accessory2) + "";
         AspAjax.setStudentDataBase6(obj);
     }
    
@@ -921,6 +923,7 @@ function DateOrderCheck(Level) {
     }
 
 }
+
 
 /*
 var loadingUrl = "Image/loading.gif";
