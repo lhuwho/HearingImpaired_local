@@ -622,7 +622,7 @@
 			            </li>
 			            <li>六、曾做過聽損基因篩檢：<br />
 			                <label><input type="radio" name="gene" value="1" /> 否</label>　
-			                <label><input type="radio" name="gene" value="2" /> 是</label>，時間 <input type="text" class="date" id="geneTime"  value="" size="10" /> 地點 <input type="text" id="genePlace"  value="" />，結果 <input type="text" id="geneResult"   value="" />
+			                <label><input type="radio" name="gene" value="2" /> 是</label>，時間 <input type="text" class="date" id="geneTime"  value="" size="10" /> 地點 <input type="text" id="genePlace"  value="" />，結果 <input type="text" id="geneResult"  maxlength="150" value="" />
 			            </li>
 			            <li>七、家族聽損史：
 			                <label><input type="radio" name="familyhistory" value="1" /> 否</label>　
@@ -635,7 +635,7 @@
 			            <li>九、聽覺輔具管理：<br />
 			                <label><input type="radio" name="assistmanage" value="1" /> 無輔具(以下免填)</label>　
 			                <label><input type="radio" name="assistmanage" value="2" /> 耳模製作中(以下免填)</label>　
-			                <label><input type="radio" name="assistmanage" value="3" /> 已選配輔具</label>（初配年齡<input type="text" id="accessory1" value="" size="5" maxlength="3" />歲 <input type="text" id="accessory2" value="" size="5" /> 月）　
+			                <label><input type="radio" name="assistmanage" value="3" /> 已選配輔具</label>（初配年齡<input type="number" id="accessory1" value="" onKeyUp="if(this.value>999){this.value='999';}else if(this.value<1){this.value='0';}"  max="999" min="1" style="width: 6%;" />歲 <input type="number" id="accessory2" onKeyUp="if(this.value>11){this.value='11';}else if(this.value<1){this.value='0';}" max="11" min="0" style="width: 6%;"/> 月）　
 			                <label><input type="radio" name="assistmanage" value="4" /> 已植入人工電子耳</label><br />
 			                右耳：<label><input type="radio" name="assistmanageR" value="1" /> 助聽器</label>　<label><input type="radio" name="assistmanageR" value="2" /> 電子耳</label>　
 			                廠牌 <select id="brandR" ><option value="0">請選擇輔具類型</option></select>　型號<input type="text" id="modelR" value="" /><br />　　　
