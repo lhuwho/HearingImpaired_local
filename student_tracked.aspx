@@ -149,7 +149,7 @@
 			                        </tr>
 			                        <tr id="PrimaryContact1">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span><input type="text" id="fPRelation1" value="" size="2"/><br />
+			                            <span>稱謂</span><input type="text" id="fPRelation1" value="" size="2"/><br />
 			                            <span>姓名</span><input type="text" id="fPName1" value=""/></td>
 			                            <td>
 			                                <span>(公)</span><input type="text" id="fPTel1" value=""/>
@@ -160,7 +160,7 @@
 			                        </tr>
 			                        <tr id="PrimaryContact2">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span><input type="text" id="fPRelation2" value="" size="2"/><br />
+			                            <span>稱謂</span><input type="text" id="fPRelation2" value="" size="2"/><br />
 			                            <span>姓名</span><input type="text" id="fPName2" value=""/></td>
 			                            <td>
 			                                <span>(公)</span><input type="text" id="fPTel2" value=""/> 
@@ -171,7 +171,7 @@
 			                        </tr>
 			                        <tr id="PrimaryContact3">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span><input type="text" id="fPRelation3" value="" size="2"/> <br />
+			                            <span>稱謂</span><input type="text" id="fPRelation3" value="" size="2"/> <br />
 			                            <span>姓名</span><input type="text" id="fPName3" value=""/></td>
 			                            <td>
 			                                <span>(公)</span> <input type="text" id="fPTel3" value=""/>
@@ -182,7 +182,7 @@
 			                        </tr>
 			                        <tr id="PrimaryContact4">
 			                            <td>主要聯絡人<br />
-			                            <span>關係</span><input type="text" id="fPRelation4" value="" size="2"/> <br />
+			                            <span>稱謂</span><input type="text" id="fPRelation4" value="" size="2"/> <br />
 			                            <span>姓名</span><input type="text" id="fPName4" value=""/></td>
 			                            <td>
 			                                <span>(公)</span><input type="text" id="fPTel4" value=""/> 

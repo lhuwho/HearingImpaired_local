@@ -245,7 +245,7 @@
 			                            <th>聯絡方式</th>
 			                        </tr>
 			                        <tr id="PrimaryContact1">
-			                            <td>主要聯絡人<br />關係 <input id="fPRelation1" type="text" value="" size="5" /><br /><input id="fPName1" type="text" value="" /></td>
+			                            <td>主要聯絡人<br />稱謂 <input id="fPRelation1" type="text" value="" size="5" /><br /><input id="fPName1" type="text" value="" /></td>
 			                            <td>
 			                                (公) <input id="fPTel1" type="text" value="" />　
 			                                (手機) <input id="fPPhone1" type="text" value="" /><br />
@@ -254,7 +254,7 @@
 			                            </td>
 			                        </tr>
 			                        <tr id="PrimaryContact2">
-			                            <td>法定代理人<br />關係 <input id="fPRelation2" type="text" size="5" value="" /><br /><input id="fPName2" type="text" value="" /></td>
+			                            <td>法定代理人<br />稱謂 <input id="fPRelation2" type="text" size="5" value="" /><br /><input id="fPName2" type="text" value="" /></td>
 			                            <td>
 			                                (公) <input id="fPTel2" type="text"  value="" />　
 			                                (手機) <input id="fPPhone2" type="text" value="" /><br />
@@ -263,7 +263,7 @@
 			                            </td>
 			                        </tr>
 			                        <tr id="PrimaryContact3">
-			                            <td>關係 <input id="fPRelation3" type="text" size="5" value="" /><br /><input id="fPName3" type="text" value="" /></td>
+			                            <td>稱謂 <input id="fPRelation3" type="text" size="5" value="" /><br /><input id="fPName3" type="text" value="" /></td>
 			                            <td>
 			                                (公) <input id="fPTel3" type="text" value="" />　
 			                                (手機) <input id="fPPhone3" type="text" value="" /><br />
@@ -272,7 +272,7 @@
 			                            </td>
 			                        </tr>
 			                        <tr >
-			                            <td>關係 <input id="fPRelation4" type="text" size="5" value="" /><br /><input id="fPName4" type="text" value="" /></td>
+			                            <td>稱謂 <input id="fPRelation4" type="text" size="5" value="" /><br /><input id="fPName4" type="text" value="" /></td>
 			                            <td>
 			                                (公) <input id="fPTel4" type="text" value="" />　
 			                                (手機) <input id="fPPhone4" type="text" value="" /><br />
