@@ -223,7 +223,10 @@ function SucceededCallback(result, userContext, methodName) {
                                 '<td>' + result[i].txtstudentID + '</td>' +
 			                    '<td>' + _CaseStatu[result[i].txtstudentStatu] + '</td>' +
 			                    '<td>' + result[i].txtstudentName + '</td>' +
+			                    
 			                    '<td>' + result[i].txtLegalRepresentative + '</td>' +
+			                    '<td>' + result[i].txtLegalRepresentativeRelation + '</td>' + 
+			                    
 			                    '<td>' + result[i].txtLegalRepresentativePhone + '</td>' +
 			                    '<td>' + result[i].txtLegalRepresentativeTel + '</td>' +
 			                    '<td><button class="btnView" type="button" onclick="getView(' + result[i].ID + ')">檢 視</button></td>' +

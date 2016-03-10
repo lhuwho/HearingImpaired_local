@@ -642,6 +642,7 @@ public class CaseDataBase
                     addValue.txtstudentID = dr["StudentID"].ToString();
                     addValue.txtstudentName = dr["StudentName"].ToString();
                     addValue.txtstudentStatu = dr["CaseStatu"].ToString();
+                    addValue.txtLegalRepresentativeRelation = dr["ContactRelation2"].ToString();
                     addValue.txtLegalRepresentative = dr["ContactName2"].ToString();
                     addValue.txtLegalRepresentativePhone = dr["ContactPhone2"].ToString();
                     addValue.txtLegalRepresentativeTel = dr["ContactTel_home2"].ToString();

@@ -99,9 +99,10 @@
 			                    <th width="100">服務使用者編號</th>
 			                    <th width="100">個案狀態</th>
 			                    <th width="100">學生姓名</th>
-			                    <th width="130">法定代理人姓名</th>
-			                    <th width="160">法定代理人聯絡電話(手機)</th>
-			                    <th width="150">法定代理人聯絡電話(家)</th>
+			                    <th width="130">主要聯絡人姓名</th>
+			                    <th width="60">稱謂</th>
+			                    <th width="100">手機</th>
+			                    <th width="150">電話</th>
 			                    <th width="60">功能</th>
 			                </tr>
 			            </thead>

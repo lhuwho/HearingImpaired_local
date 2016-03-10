@@ -347,6 +347,7 @@ public struct SearchStudentResult
     public string txtstudentID;
     public string txtstudentStatu;
     public string txtstudentName;
+    public string txtLegalRepresentativeRelation;
     public string txtLegalRepresentative;
     public string txtLegalRepresentativeTel;
     public string txtLegalRepresentativePhone;
