@@ -209,7 +209,7 @@ function chkChangeTime(indexID) {
     var sEndTime = $("#" + indexID + " .serviceEnd").val();
     var sEndTime2 = $.timePicker("#" + indexID + " .serviceEnd").getTime();
     var sSratTime = $.timePicker("#" + indexID + " .serviceBegin").getTime();
-    if (sEndTime.length > 0 && sSratTime >= sEndTime2) { // Only update when second input has a value.
+    if (sEndTime.length > 0 && sSratTime <= sEndTime2) { // Only update when second input has a value.
         // Calculate duration.
         var duration = 1800000; //(sEndTime2 - oldTime);
         var time = $.timePicker("#" + indexID + " .serviceBegin").getTime();
