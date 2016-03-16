@@ -211,7 +211,7 @@ function chkChangeTime(indexID) {
     var sSratTime = $.timePicker("#" + indexID + " .serviceBegin").getTime();
     if (sEndTime.length > 0 ) { // Only update when second input has a value.
         // Calculate duration.
-        if (sSratTime <= sEndTime2) {
+        if (sSratTime >= sEndTime2) {
             var duration = 1800000; //(sEndTime2 - oldTime);
             var time = $.timePicker("#" + indexID + " .serviceBegin").getTime();
             // Calculate and update the time in the second input.
