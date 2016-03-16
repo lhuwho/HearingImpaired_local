@@ -50,6 +50,11 @@ $(document).ready(function() {
         $("input").add("select").add("textarea").attr("disabled", false);
         $("#fillInDate").attr("readonly", "readonly");
     });
+    $(".btnSaveUdapteData").add(".btnCancel").click(function() {
+        $(".btnSaveUdapteData").add(".btnCancel").hide();
+        $(".btnUpdate").fadeIn();
+        $("input").add("select").add("textarea").attr("disabled", true);
+    });
 
     $(".btnAdd").click(function() {
         $("#item8Content>table tr:last-child").after($("#whTable").clone().attr("id", ""));
