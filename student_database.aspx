@@ -791,7 +791,9 @@
 	                                </li>
 	                                <li>　◎ 案家主訴問題：
 	                                    <label><input type="radio" name="caseQ" value="1" /> 無</label>　
-	                                    <label><input type="radio" name="caseQ" value="2" /> 有 </label><input type="text" maxlength="100" id="caseQ01t01" value="" />
+	                                    <label><input type="radio" name="caseQ" value="2" /> 有 </label>
+	                                    <!--<input type="text" maxlength="100" id="caseQ01t01" value="" />-->
+	                                    <textarea class="item7Textarea" maxlength="100" rows="50" id="caseQ01t01" ></textarea> 
 	                                </li>
 	                                <li>　◎ 其他：<br /><textarea class="item7Textarea" rows="50" id="OtherRemark1" ></textarea></li>
 	                            </ul>
@@ -925,7 +927,9 @@
 	                                </li>
 	                                <li>　◎ 檢附相關評估/教學資料：
 	                                    <label><input type="radio" name="related" value="1" /> 無其它資料</label>　
-	                                    <label><input type="radio" name="related" value="2" /> 有</label> <input type="text" maxlength="100" id="related01t01" value="" />
+	                                    <label><input type="radio" name="related" value="2" /> 有</label> 
+	                                    <!--<input type="text" maxlength="100" id="related01t01" value="" />-->
+	                                    <textarea class="item7Textarea" maxlength="100" id="related01t01" ></textarea>
 	                                </li>
 	                                <li>　◎ 其他：<br /><textarea class="item7Textarea" id="OtherRemark2" ></textarea></li>
 	                            </ul>
