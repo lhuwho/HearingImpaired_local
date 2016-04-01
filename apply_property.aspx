@@ -39,7 +39,7 @@
 			<div id="menu"></div>
 		</div>
 		<div id="content">
-			<div id="mainClass">財產管理&gt; 請購、請修單</div>
+			<div id="mainClass">財產管理&gt; 請購單</div>
 			
 			<div id="mainMenuList">
 			    <div id="btnSearch" class="menuTabs2">搜尋</div>
