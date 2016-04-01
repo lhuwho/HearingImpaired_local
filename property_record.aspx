@@ -56,9 +56,11 @@
 			                <td width="260">財產名稱 <input id="gosrhpropertyName" type="text" value="" autocomplete="off" /></td>
 			            </tr>
 			            <tr>
-			                <td>地區 <input id="gosrhapplyID" type="text" value="" autocomplete="off" /></td>
+			            <%--   <td>地區 <input id="gosrhapplyID" type="text" value="" autocomplete="off" /></td>--%>
 			                <td>放置地點 <select id="gosrhLocation" name="propertyLocation" autocomplete="off" runat="server" ><option>請選擇</option></select></td>
 			                <td>保管人員 <select id="gosrhCustody" name="propertyCustody" autocomplete="off" runat="server" ><option>請選擇</option></select></td>
+			                <td>&nbsp;</td>
+			                 
 			            </tr>
 			            <tr>
 			                <td colspan="3" align="center"><button class="btnSearch" type="button" onclick="search()">查 詢</button></td>
