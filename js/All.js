@@ -229,9 +229,9 @@ function getMenu(resultRoles) {
 					'<li><a href="#">人事管理</a>' +
 					    '<ul class="sub">' +
 					        '<li><a href="./staff_database.aspx">員工資料維護</a></li>' +
-                            '<li><a href="./staff_merit_data.aspx">員工考績資料維護</a></li>' +
+                            //'<li><a href="./staff_merit_data.aspx">員工考績資料維護</a></li>' +
                             '<li><a href="./staff_upgrade_data.aspx">員工升等資料查詢</a></li>' +
-                            '<li><a href="./newteacher_estimate_report.aspx">新進教師考評成績</a></li>';
+                            //'<li><a href="./newteacher_estimate_report.aspx">新進教師考評成績</a></li>';
 
 
         if (parseInt(resultRoles.attendance[0], 2) > 0) {
