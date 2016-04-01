@@ -246,7 +246,7 @@ function getMenu(resultRoles) {
         inner += '<li><a href="#">財產管理</a>' +
 					    '<ul class="sub">';
         if (parseInt(resultRoles.apply[0], 2) > 0) {
-            inner += '<li><a href="./apply_property.aspx">請購、請修單</a></li>';
+            inner += '<li><a href="./apply_property.aspx">請購單</a></li>';
         }
 		inner +='<li><a href="./property_record.aspx">財產記錄單</a></li>' +
 					    '</ul>' +
