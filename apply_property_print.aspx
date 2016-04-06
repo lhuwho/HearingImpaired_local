@@ -29,7 +29,7 @@
 			<div id="Info">財團法人中華民國婦聯聽障文教基金會
 			                    <div id="applyTypeMenu"><label><input name="applyType" type="radio" value="1"/><img src="./images/choose.jpg" border="0" alt=""/>請購</label>　
                                 <label><input name="applyType" type="radio" value="2"/><img src="./images/choose2.jpg" border="0" alt="" />請修</label>　　申請暨核銷單</div></div>
-			<div id="UnitInfo"><label><input name="Unit" type="radio" value="1"/><img src="./images/choose.jpg" border="0" alt=""/ >總會　　</label>
+			<div id="UnitInfo"><label><input name="Unit" type="radio" value="1"/><img src="./images/choose.jpg" border="0" alt=""/ >基金會　</label>
                                <label><input name="Unit" type="radio" value="2"/><img src="./images/choose2.jpg" border="0" alt="" />台北至德</label>
                                <label><input name="Unit" type="radio" value="3"/><img src="./images/choose2.jpg" border="0" alt="" />台中至德</label>
                                <label><input name="Unit" type="radio" value="5"/><img src="./images/choose2.jpg" border="0" alt="" />高雄至德</label></div>
