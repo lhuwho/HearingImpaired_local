@@ -44,10 +44,10 @@
 			    <div id="btnSearch" class="menuTabs2">圖書明細</div>
 			    <div id="btnInsert" class="menuTabs2">圖書新增</div>
 			    <a href="./library_system.aspx" target="_blank"><div id="btnReturn" class="menuTabs2">借還管理</div></a>
-			    <div id="btnIndex" class="menuTabs2">圖書借出天數查詢</div>
-			    <div id="btnIndex2" class="menuTabs2">圖書借閱日期統計</div>
-			    <div id="btnIndex3" class="menuTabs2">圖書借閱書目統計</div>
-			    <div id="btnIndex4" class="menuTabs2">圖書借閱統計</div>
+			    <div id="btnIndex" class="menuTabs2">未還圖書查詢</div>
+			    <div id="btnIndex2" class="menuTabs2">借閱數量/人數統計</div>
+			    <%--<div id="btnIndex3" class="menuTabs2">圖書借閱書目統計</div>
+			    <div id="btnIndex4" class="menuTabs2">圖書借閱統計</div>--%>
 			</div>
 		    <div id="mainContentSearch">
 		        <div id="mainSearchForm">
