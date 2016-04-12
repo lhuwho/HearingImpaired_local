@@ -572,7 +572,7 @@
                     var scrollContainerHeight = Math.max(calendarHeight - navHeight - headerHeight, options.minBodyHeight);
                     var timeslotHeight = this.element.find('.wc-time-slots').outerHeight();
                     //this.element.find('.wc-scrollable-grid').height(scrollContainerHeight);
-                    this.element.find('.wc-scrollable-grid').height(640);
+                    this.element.find('.wc-scrollable-grid').height(750);
                     if (timeslotHeight <= scrollContainerHeight) {
                         this.element.find('.wc-scrollbar-shim').width(0);
                     }

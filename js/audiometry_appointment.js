@@ -22,7 +22,7 @@ $(document).ready(function() {
         allowCalEventOverlap: true,
         overlapEventsSeparate: true,
         firstDayOfWeek: 1,
-        businessHours: { start: 9, end: 18, limitDisplay: true },
+        businessHours: { start: 8, end: 18, limitDisplay: true },
         daysToShow: 5,
         buttonText: {
             today: '今天',
