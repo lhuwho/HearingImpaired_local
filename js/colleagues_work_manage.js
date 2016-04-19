@@ -59,7 +59,7 @@ function SucceededCallback(result, userContext, methodName) {
                         cardTime += result[i].WorkRecord[j].CreateFileDate + "<br>";
                         if (j == 0) {
                             var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
-                            var CurrentDate = "2015-8-30 08:30:00";
+                            var CurrentDate = "2015-8-30 08:00:00";
                             if ((Date.parse(ScheduleDate)).valueOf() > (Date.parse(CurrentDate)).valueOf()) {
                                 TimeOK = false;
                             }
@@ -68,8 +68,8 @@ function SucceededCallback(result, userContext, methodName) {
 
                             var ScheduleDate = "2015-8-30 " + result[i].WorkRecord[j].CreateFileDate + ":00";
                             var StratDate = "2015-8-30 " + result[i].WorkRecord[0].CreateFileDate + ":00";
-                            var CurrentDate = "2015-8-30 16:30:00";
-                            var CurrentDate2 = "2015-8-30 07:30:00";
+                            var CurrentDate = "2015-8-30 17:00:00";
+                            var CurrentDate2 = "2015-8-30 08:00:00";
                             if ((Date.parse(ScheduleDate)).valueOf() < (Date.parse(CurrentDate)).valueOf()) {
                                 TimeOK = false;
                             }
