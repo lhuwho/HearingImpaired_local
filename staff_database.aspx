@@ -91,7 +91,7 @@
 			<div id="mainMenuList2">
 			    <div id="item1" class="menuTabs">個人基本資料</div>
 			    <div id="item2" class="menuTabs">人事紀錄</div>
-			    <div id="item3" class="menuTabs">加退保記錄</div>
+			    <%--<div id="item3" class="menuTabs">加退保記錄</div>--%>
 			    <div id="item4" class="menuTabs">特休假日</div>
 			</div>
 			<div id="mainContent">
