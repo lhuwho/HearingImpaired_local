@@ -35,6 +35,19 @@ public class StaffDataBase
         _StaffhaveRoles[3] = haveRolesitem[3].ToString();//查詢
         _StaffhaveRoles[4] = StaffAllRoles.personnel[1];//跨區與否
     }
+    public void attendanceFunction(string StaffID)
+    {
+        RolesStruct StaffAllRoles = this.getStaffRoles(StaffID);
+        //_StaffhaveRoles[0] = StaffAllRoles.caseStu[0];//權限
+
+        char[] haveRolesitem = new char[4] { '0', '0', '0', '0' };
+        haveRolesitem = StaffAllRoles.attendance[0].ToCharArray();
+        _StaffhaveRoles[0] = haveRolesitem[0].ToString();//刪除
+        _StaffhaveRoles[1] = haveRolesitem[1].ToString();//更新
+        _StaffhaveRoles[2] = haveRolesitem[2].ToString();//新增
+        _StaffhaveRoles[3] = haveRolesitem[3].ToString();//查詢
+        _StaffhaveRoles[4] = StaffAllRoles.attendance[1];//跨區與否
+    }
     public void attendanceFunction()
     {
         RolesStruct StaffAllRoles = this.getStaffRoles(HttpContext.Current.User.Identity.Name);

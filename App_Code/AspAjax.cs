@@ -1705,7 +1705,8 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] createWorkDateDataBase(string StaffID)
     {
         StaffDataBase sDB = new StaffDataBase();
-        sDB.attendanceFunction();
+      //  sDB.attendanceFunction();
+        sDB.attendanceFunction(StaffID);
         if (int.Parse(sDB._StaffhaveRoles[2]) == 1)
         {
             return sDB.createWorkDateData(StaffID);
