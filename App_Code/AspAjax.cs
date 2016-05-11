@@ -1706,15 +1706,15 @@ public class AspAjax : System.Web.Services.WebService {
     {
         StaffDataBase sDB = new StaffDataBase();
       //  sDB.attendanceFunction();
-        sDB.attendanceFunction(StaffID);
-        if (int.Parse(sDB._StaffhaveRoles[2]) == 1)
-        {
+        //sDB.attendanceFunction(StaffID);
+        //if (int.Parse(sDB._StaffhaveRoles[2]) == 1)
+        //{
             return sDB.createWorkDateData(StaffID);
-        }
-        else
-        {
-            return new string[2] { _noRole, _errorMsg };
-        }
+        //}
+        //else
+        //{
+        //    return new string[2] { _noRole, _errorMsg };
+        //}
     }
 
 
