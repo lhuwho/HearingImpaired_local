@@ -3587,8 +3587,14 @@ public class CaseDataBase
                     
                     
                     returnValue[0] = cmd.ExecuteNonQuery().ToString();
-                    returnValue[1] = Column.ToString();
-                    
+
+                    sql = "select id from VolunteerData where  VOLID = @VOLID ";
+                    cmd = new SqlCommand(sql, Sqlconn);
+                    cmd.Parameters.Add("@VOLID", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(SearchStructure.volunteerId);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.Read()){
+                        returnValue[1] = dr["id"].ToString(); //Column.ToString();
+                    }
                 }
                 Sqlconn.Close();
             }
