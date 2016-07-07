@@ -686,7 +686,7 @@ function getOneStudentDataBase(result, methodName) {
         _StuID = result.studentID;
         $("#caseStatu").html("個案狀態：" + _CaseStatu[result.caseStatu]);
         $("#Unit").children("option[value=" + result.Unit + "]").attr("selected", true);
-        $("#upDate").unbind().removeClass();
+        //$("#upDate").unbind().removeClass();
         //$("#creatFileName").val(result.FileName);
         var stuAge = BirthdayStringDateFunction(result.studentbirthday);
         $("#studentAge").val(stuAge[0]);
