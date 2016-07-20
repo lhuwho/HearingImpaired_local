@@ -18,8 +18,8 @@ public partial class property_record : System.Web.UI.Page
     {
         Controler myControler = new Controler();
         myControler.setStartControl();
-
-        sUnit.InnerHtml = myControler._Staff_UnitName;
+        string[] _UnitList = new string[]{"", "基金會", "台北至德", "台中至德", "", "高雄至德"};
+       
         loginInfo.InnerHtml = myControler._Header_Info_innerString;
         string Unit = "";
         if (!string.IsNullOrEmpty(Context.Request.QueryString["id"]))
@@ -27,10 +27,12 @@ public partial class property_record : System.Web.UI.Page
             AspAjax Ajax = new AspAjax();
             CreatePropertyRecord myRecord = Ajax.getPropertyRecordDataBase(Context.Request.QueryString["id"].ToString());
             Unit = myRecord.Unit;
+            sUnit.InnerHtml = _UnitList[int.Parse(Unit)];
         }
         else
         {
             Unit = "0";
+            sUnit.InnerHtml = myControler._Staff_UnitName;
         }
         List<string[]> Location = myControler.PropertyLocation(Unit);
         propertyLocation.Items.Add(new ListItem("請選擇", "0"));
