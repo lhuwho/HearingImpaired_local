@@ -1995,6 +1995,20 @@ public struct CreateStaffUpgrade
     public List<StaffDataList> Participants;
     public string checkNo;
     public string errorMsg;
+    public string courseCreditTeacherType;
+    public string courseInTeacher;
+    public string courseInAudiologist;
+    public string courseInSocialWorkers;
+    public string courseInAdministrative;
+    public string courseIsSatisfaction;
+    public string courseDataQuestion;
+    public string courseDataLecturer;
+    public string courseDataLecture;
+    public string courseDataPhoto;
+    public string courseDataTeaching;
+    public string courseDataIsp;
+    public string courseDataOther;
+
 }
 public struct CreateStaffUpgradeSeries
 {

@@ -1521,6 +1521,7 @@ public class AspAjax : System.Web.Services.WebService {
     {
         StaffDataBase sDB = new StaffDataBase();
         sDB.personnelFunction();
+        //return new string[2] { "", "" };
         if (int.Parse(sDB._StaffhaveRoles[2]) == 1)
         {
             return sDB.createStaffCreditData(StaffUpgradeData);
@@ -1555,7 +1556,7 @@ public class AspAjax : System.Web.Services.WebService {
     public string[] setStaffCreditDataBase(CreateStaffUpgrade setStaffUpgradeData)
     {
         StaffDataBase sDB = new StaffDataBase();
-        sDB.personnelFunction();
+        sDB.personnelFunction();       
         if (int.Parse(sDB._StaffhaveRoles[1]) == 1)
         {
             return sDB.setStaffCreditDataBase(setStaffUpgradeData);

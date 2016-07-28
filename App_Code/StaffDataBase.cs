@@ -2596,8 +2596,8 @@ public class StaffDataBase
             {
                 List<string> CreateFileName = this.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
-                string sql = "INSERT INTO StaffUpgradeCredit (CreditDate, CreditTeacher, Topics, Hours, Prove, CreditNumber, Remark, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate ) " +
-                            "VALUES (@CreditDate, @CreditTeacher, @Topics, @Hours, @Prove, @CreditNumber, @Remark, @CreateFileBy, getDate(), @UpFileBy, getDate())";
+                string sql = "INSERT INTO StaffUpgradeCredit (CreditDate, CreditTeacher, Topics, Hours, Prove, CreditNumber, Remark, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate ,CreditTeacherType ,InTeacher ,InAudiologist ,InSocialWorkers ,InAdministrative ,IsSatisfaction ,DataQuestion ,DataLecturer ,DataLecture ,DataPhoto ,DataTeaching ,DataIsp ,DataOther ) " +
+                            "VALUES (@CreditDate, @CreditTeacher, @Topics, @Hours, @Prove, @CreditNumber, @Remark, @CreateFileBy, getDate(), @UpFileBy, getDate() ,@CreditTeacherType ,@InTeacher ,@InAudiologist ,@InSocialWorkers ,@InAdministrative ,@IsSatisfaction ,@DataQuestion ,@DataLecturer ,@DataLecture ,@DataPhoto ,@DataTeaching ,@DataIsp ,@DataOther)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@CreditDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffUpgrade.courseDate);
                 cmd.Parameters.Add("@CreditTeacher", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseLecturer);
@@ -2608,6 +2608,19 @@ public class StaffDataBase
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
                 cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                cmd.Parameters.Add("@CreditTeacherType", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseCreditTeacherType);
+                cmd.Parameters.Add("@InTeacher", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInTeacher);
+                cmd.Parameters.Add("@InAudiologist", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInAudiologist);
+                cmd.Parameters.Add("@InSocialWorkers", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInSocialWorkers);
+                cmd.Parameters.Add("@InAdministrative", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInAdministrative);
+                cmd.Parameters.Add("@IsSatisfaction", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseIsSatisfaction);
+                cmd.Parameters.Add("@DataQuestion", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseDataQuestion);
+                cmd.Parameters.Add("@DataLecturer", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseDataLecturer);
+                cmd.Parameters.Add("@DataLecture", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataLecture);
+                cmd.Parameters.Add("@DataPhoto", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataPhoto);
+                cmd.Parameters.Add("@DataTeaching", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataTeaching);
+                cmd.Parameters.Add("@DataIsp", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataIsp);
+                cmd.Parameters.Add("@DataOther", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataOther);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
 
                 if (returnValue[0] != "0")
@@ -2777,6 +2790,20 @@ public class StaffDataBase
                     addValue.otherExplanation = dr["Remark"].ToString();
                     addValue.Participants = new List<StaffDataList>();
                     addValue.Participants = this.getCreditParticipants(addValue.ID);
+                    addValue.courseCreditTeacherType = dr["CreditTeacherType"].ToString();
+                    addValue.courseInTeacher = dr["InTeacher"].ToString() == "False" ? "" : "Checked";
+                    addValue.courseInAudiologist = dr["InAudiologist"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseInSocialWorkers = dr["InSocialWorkers"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseInAdministrative = dr["InAdministrative"].ToString() == "False" ? "" : "Checked";
+                    addValue.courseIsSatisfaction = dr["IsSatisfaction"].ToString() == "False" ? "0" : "1"; 
+                    addValue.courseDataQuestion = dr["DataQuestion"].ToString();
+                    addValue.courseDataLecturer = dr["DataLecturer"].ToString();
+                    addValue.courseDataLecture = dr["DataLecture"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseDataPhoto = dr["DataPhoto"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseDataTeaching = dr["DataTeaching"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseDataIsp = dr["DataIsp"].ToString() == "False" ? "" : "Checked"; 
+                    addValue.courseDataOther = dr["DataOther"].ToString() == "False" ? "" : "Checked"; 
+
                     returnValue.Add(addValue);
 
                 }
@@ -2841,7 +2868,7 @@ public class StaffDataBase
                 List<string> CreateFileName = this.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
                 string sql = "UPDATE StaffUpgradeCredit SET CreditDate=@CreditDate, CreditTeacher=@CreditTeacher, Topics=@Topics, Hours=@Hours, Prove=@Prove, "+
-                    "CreditNumber=@CreditNumber, Remark=@Remark, UpFileBy=@UpFileBy, UpFileDate=(getDate()) " +
+                    "CreditNumber=@CreditNumber, Remark=@Remark, UpFileBy=@UpFileBy, UpFileDate=(getDate()),CreditTeacherType=@CreditTeacherType ,InTeacher=@InTeacher ,InAudiologist=@InAudiologist ,InSocialWorkers=@InSocialWorkers ,InAdministrative=@InAdministrative ,IsSatisfaction=@IsSatisfaction ,DataQuestion=@DataQuestion ,DataLecturer=@DataLecturer ,DataLecture=@DataLecture ,DataPhoto=@DataPhoto ,DataTeaching=@DataTeaching ,DataIsp=@DataIsp ,DataOther=@DataOther " +
                     "WHERE CreditID=@CreditID AND isDeleted=0 ";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@CreditID", SqlDbType.BigInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.ID);
@@ -2853,6 +2880,19 @@ public class StaffDataBase
                 cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseCredit);
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
+                cmd.Parameters.Add("@CreditTeacherType", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseCreditTeacherType);
+                cmd.Parameters.Add("@InTeacher", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInTeacher);
+                cmd.Parameters.Add("@InAudiologist", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInAudiologist);
+                cmd.Parameters.Add("@InSocialWorkers", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInSocialWorkers);
+                cmd.Parameters.Add("@InAdministrative", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseInAdministrative);
+                cmd.Parameters.Add("@IsSatisfaction", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseIsSatisfaction);
+                cmd.Parameters.Add("@DataQuestion", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseDataQuestion);
+                cmd.Parameters.Add("@DataLecturer", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseDataLecturer);
+                cmd.Parameters.Add("@DataLecture", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataLecture);
+                cmd.Parameters.Add("@DataPhoto", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataPhoto);
+                cmd.Parameters.Add("@DataTeaching", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataTeaching);
+                cmd.Parameters.Add("@DataIsp", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataIsp);
+                cmd.Parameters.Add("@DataOther", SqlDbType.Bit).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseDataOther);
                 returnValue[0] = cmd.ExecuteNonQuery().ToString();
                 Sqlconn.Close();
             }

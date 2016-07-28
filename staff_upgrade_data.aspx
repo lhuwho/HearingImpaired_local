@@ -111,8 +111,43 @@
 					                </select>
 			                    </td>
 			                    <td><textarea id="otherExplanation" rows="1" cols="7"></textarea></td>
-			                    <td><div class="UD"><button class="btnView" type="button" onclick="SaveStaffCreditData();">儲 存</button><br /><button class="btnView" type="button" onclick="cancelInsert(1)">取 消</button></div>
+			                    <td rowspan="3"><div class="UD"><button class="btnView" type="button" onclick="SaveStaffCreditData();">儲 存</button><br /><button class="btnView" type="button" onclick="cancelInsert(1)">取 消</button></div>
 			                    </td>
+			                </tr>
+			                <tr>
+			                    <td>內部/外聘：</td>
+			                    <td><select id="courseCreditTeacherType" class="HsbookScrapstatus" disabled="disabled"><option value="0">請選擇</option><option value="1">內部</option><option value="2">外聘</option></select></td>
+			                    <td colspan="2">滿意度調查： <input type="radio" name="courseIsSatisfaction" value="1"> 有 <input type="radio" name="courseIsSatisfaction" checked value="0"> 無</td>
+			                    <td >出席人員： </td>
+                                <td colspan="2"> 
+                                <label><input type="checkbox" name="courseInTeacher" value="1"> 教師  </label>
+                                <label><input type="checkbox" name="courseInAudiologist" value="1"> 社工  </label>
+                                <label><input type="checkbox" name="courseInSocialWorkers" value="1" > 行政 </label>
+                                <label><input type="checkbox" name="courseInAdministrative" value="1" > 聽力師</label>
+                                </td> 
+                                <td></td>
+			                </tr>
+			                  
+			                <tr>
+			                    <td colspan="2" style="text-align: right;">  
+			                    <div>講題滿意百分比：</div>
+			                    <div>講師表現滿意百分比：</div>
+			                    </td>
+			                    <td  style="text-align: left;">
+			                    <div><input id="courseDataQuestion" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
+			                    <div><input id="courseDataLecturer" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
+			                    </td>
+			                    <td  colspan="5">檢附資料： 
+			                    <label><input type="checkbox" name="courseDataLecture" value="1"> 講義  </label>
+                                <label><input type="checkbox" name="courseDataPhoto" value="1"> 照片  </label>
+                                <label><input type="checkbox" name="courseDataTeaching" value="1" > 教學/研討記錄 </label>
+                                <label><input type="checkbox" name="courseDataIsp" value="1" > ISP</label>
+                                <label><input type="checkbox" name="courseDataOther" value="1" > 其它</label></td>
+			               
+			               
+			            
+			               
+			                   
 			                </tr>
                         </tbody>
                     </table>
