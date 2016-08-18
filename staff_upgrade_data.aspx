@@ -42,8 +42,8 @@
 			
 			<div id="mainMenuList">
 			    <div id="btnSearch" class="menuTabs2">教師升等在職進修學分</div>
-			    <div id="btnIndex" class="menuTabs2">教師升等專業表現</div>
-			</div>
+<%--			    <div id="btnIndex" class="menuTabs2">教師升等專業表現</div>
+--%>			</div>
 			<div id="mainContentSearch">
 			    <div id="mainSearchForm">
 			        <table width="780" border="0" id="searchTable">
