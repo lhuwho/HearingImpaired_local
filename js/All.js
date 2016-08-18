@@ -283,7 +283,7 @@ function getMenu(resultRoles) {
             inner += '<li><a href="./remind_system.aspx">提醒系統</a></li>';
         }
         inner += '<li><a href="./colleagues_work_statistics.aspx">出勤統計</a></li>';
-        inner += '<li><a href="./staff_merit_data.aspx">員工考績資料維護</a></li>';
+        inner += '<li><a href="./staff_merit_data.aspx">簽到表</a></li>';
         inner += '</ul>' +
 				'</li>';
 
