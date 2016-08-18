@@ -293,7 +293,7 @@ function getMenu(resultRoles) {
 					        '<li><a href="./staff_contracted_salary.aspx">敘薪表</a></li>' +
 					        '<li><a href="./salarytable.aspx">薪資明細</a></li>' +
 					        '<li><a href="./staff_salary.aspx">薪資表</a></li>' +
-                            '<li><a href="./staff_external_database.aspx">外聘教師資料維護</a></li>' +
+                            '<li><a href="./staff_upgrade_data.aspx">外聘教師資料維護</a></li>' +
 					    '</ul>' +
 					'</li>';
         }
