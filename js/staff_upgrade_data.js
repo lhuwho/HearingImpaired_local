@@ -517,7 +517,9 @@ function showInsert(insertID) {
     }
     $(DivName).fadeIn();
     $(DivName + " input[type=text]").add(DivName + " select").attr("disabled", false);
+    AspAjax.getAllStaffDataList([0]);
     //$(".btnAdd").fadeOut();
+    
 }
 function SaveStaffCreditData() {
     var obj = MyBase.getTextValueBase("setStaffCredit");
@@ -551,11 +553,11 @@ function SaveStaffCreditData() {
                 checkString += "、講師表現滿意百分比";
             }
         }
-        if (checkOK) {
+        if (checkOK && checkString != "未填寫：") {
           checkString=  checkString.substr(0, checkString.length - 1);
         }
     }
-    if (checkString.length > 0) {
+    if (checkString.length > 0 && checkString != "未填寫：") {
         alert(checkString);
     } else {
         AspAjax.createStaffCreditDataBase(obj);
