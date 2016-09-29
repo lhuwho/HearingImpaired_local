@@ -39,9 +39,9 @@
 			<div id="menu"></div>
 		</div>
 		<div id="content">
-			<div id="mainClass">薪資管理&gt; 出勤統計</div>
+			<div id="mainClass"  style="width: 842px;" >薪資管理&gt; 出勤統計</div>
 			
-			<div id="mainMenuList">
+			<div id="mainMenuList"  style="width: 842px;" >
 			    <div id="btnSearch" class="menuTabs2">每月全會每個人出勤表</div>
 			   <%-- <div id="btnIndex" class="menuTabs2">年度教職員個人出勤統計表</div>--%>
 			</div>
@@ -54,8 +54,8 @@
                     </p>
 
                 </div>
-			    <div id="mainSearchList" class="mainSearchList">
-			        <table class="tableList" width="780" border="0">
+			    <div id="mainSearchList" style="width: 820px;" class="mainSearchList">
+			        <table class="tableList" width="820" border="0">
 			            <caption>個人出勤表</caption>
 			            <thead>
 			                <tr>
@@ -76,6 +76,7 @@
                                 <th width="40">公傷</th>
 			                    <th width="40">逾時假單</th>
 			                    <th width="40">工作<br />異動</th>
+			                    <th width="40">颱風假</th>
 			                  <%--  <th width="40">工作<br />異動(減)</th>--%>
 			                   
 			                    <!--<th width="40">檢視</th>-->

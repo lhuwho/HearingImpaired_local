@@ -1729,6 +1729,7 @@ public class StaffDataBase
                 "		SUM(case vacationType when 11 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v10', " +
                 "		SUM(case vacationType when 12 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v11', " +
                 //"		SUM(case vacationType when 13 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v12' " +
+                "		SUM(case vacationType when 14 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v14', " +
                 "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
                 //"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
                 //"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
@@ -1789,6 +1790,7 @@ public class StaffDataBase
                     addValue.V10 = dr["V10"].ToString();
                     addValue.V11 = dr["V11"].ToString();
                     addValue.V12 = dr["V12"].ToString();
+                    addValue.V14 = dr["V14"].ToString();
 
                     returnValue.Add(addValue);
                 }
@@ -2596,13 +2598,13 @@ public class StaffDataBase
             {
                 List<string> CreateFileName = this.getStaffDataName(HttpContext.Current.User.Identity.Name);
                 Sqlconn.Open();
-                string sql = "INSERT INTO StaffUpgradeCredit (CreditDate, CreditTeacher, Topics, Hours, Prove, CreditNumber, Remark, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate ,CreditTeacherType ,InTeacher ,InAudiologist ,InSocialWorkers ,InAdministrative ,IsSatisfaction ,DataQuestion ,DataLecturer ,DataLecture ,DataPhoto ,DataTeaching ,DataIsp ,DataOther ) " +
-                            "VALUES (@CreditDate, @CreditTeacher, @Topics, @Hours, @Prove, @CreditNumber, @Remark, @CreateFileBy, getDate(), @UpFileBy, getDate() ,@CreditTeacherType ,@InTeacher ,@InAudiologist ,@InSocialWorkers ,@InAdministrative ,@IsSatisfaction ,@DataQuestion ,@DataLecturer ,@DataLecture ,@DataPhoto ,@DataTeaching ,@DataIsp ,@DataOther)";
+                string sql = "INSERT INTO StaffUpgradeCredit (CreditDate, CreditTeacher, Topics, Prove, CreditNumber, Remark, CreateFileBy, CreateFileDate, UpFileBy, UpFileDate ,CreditTeacherType ,InTeacher ,InAudiologist ,InSocialWorkers ,InAdministrative ,IsSatisfaction ,DataQuestion ,DataLecturer ,DataLecture ,DataPhoto ,DataTeaching ,DataIsp ,DataOther ) " +
+                            "VALUES (@CreditDate, @CreditTeacher, @Topics, @Prove, @CreditNumber, @Remark, @CreateFileBy, getDate(), @UpFileBy, getDate() ,@CreditTeacherType ,@InTeacher ,@InAudiologist ,@InSocialWorkers ,@InAdministrative ,@IsSatisfaction ,@DataQuestion ,@DataLecturer ,@DataLecture ,@DataPhoto ,@DataTeaching ,@DataIsp ,@DataOther)";
                 SqlCommand cmd = new SqlCommand(sql, Sqlconn);
                 cmd.Parameters.Add("@CreditDate", SqlDbType.Date).Value = Chk.CheckStringtoDateFunction(StaffUpgrade.courseDate);
                 cmd.Parameters.Add("@CreditTeacher", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseLecturer);
                 cmd.Parameters.Add("@Topics", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseName);
-                cmd.Parameters.Add("@Hours", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseTime);
+               // cmd.Parameters.Add("@Hours", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseTime);
                 cmd.Parameters.Add("@Prove", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseProve);
                 cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseCredit);
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
