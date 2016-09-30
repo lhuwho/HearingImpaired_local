@@ -1730,6 +1730,7 @@ public class StaffDataBase
                 "		SUM(case vacationType when 12 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v11', " +
                 //"		SUM(case vacationType when 13 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v12' " +
                 "		SUM(case vacationType when 14 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v14', " +
+                "		SUM(case vacationType when 15 then ( Case when((starttime <=12 and endtime >=13 ) or (endtime <=12 and starttime >=13 )) then (ABS(starttime - endtime )- 1)  /8 else ABS(starttime - endtime) /8 end) else 0 end) as 'v15', " +
                 "		SUM(case vacationType when 13 then ABS(starttime - endtime)  /8 else 0 end) as 'v12' " +
                 //"		SUM(case vacationType when 2 then ABS(starttime - endtime) /8 else 0 end) as 'v1', " +
                 //"		SUM(case vacationType when 3 then ABS(starttime - endtime) /8 else 0 end) as 'v2', " +
@@ -1791,6 +1792,7 @@ public class StaffDataBase
                     addValue.V11 = dr["V11"].ToString();
                     addValue.V12 = dr["V12"].ToString();
                     addValue.V14 = dr["V14"].ToString();
+                    addValue.V15 = dr["V15"].ToString();
 
                     returnValue.Add(addValue);
                 }

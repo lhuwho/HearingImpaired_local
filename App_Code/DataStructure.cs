@@ -3807,6 +3807,7 @@ public struct WorkRecordAll
     public string V11;//'工作異動-減'
     public string V12;//'工作異動-加'
     public string V14;//'颱風假
+    public string V15;//'特休-其他'
     public string YearVaction;
     public string WorkAdd;
     public string WorkMinus;

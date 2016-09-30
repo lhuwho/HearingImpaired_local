@@ -68,7 +68,8 @@ function SucceededCallback(result, userContext, methodName) {
                     var yearvac = YearCation + WorkAdd - WorkMinus;
                     var V4 = result[i].V4 == '' ? parseFloat('0.0') : parseFloat(result[i].V4);
                     var V11 = result[i].V11 == '' ? parseFloat('0.0') : parseFloat(result[i].V11);
-                    var YearUser = V4 + V11;
+                    var V15 = result[i].V15 == '' ? parseFloat('0.0') : parseFloat(result[i].V15);
+                    var YearUser = V4 + V11 + V15;
                     console.log(V4 + "-" + V11 + "-" + YearUser );
                     inner += '<tr>' +
                         '<td>' + result[i].StaffID + '</td>' +
