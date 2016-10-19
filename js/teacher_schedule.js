@@ -501,7 +501,7 @@ function eventNew(calEvent, $event) {
                         Participants[Participants.length] = data;
                     });
                     obj.TeacherSchuduleStudent = Participants;
-                    //obj.Unit = _uUnit;
+                    obj.Unit = _uUnit;
                     //alert(obj.appDate)
                     // alert(obj.startTime + "---WHO---" + obj.endTime);
                     var id = $('#teacherName').val().substring($('#teacherName').val().indexOf("(")+1,$('#teacherName').val().indexOf(")"));
