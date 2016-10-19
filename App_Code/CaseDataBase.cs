@@ -232,7 +232,7 @@ public class CaseDataBase
         }
         if (SearchStructure.txtjoindaystart != null && SearchStructure.txtjoindayend != null && SearchStructure.txtjoindaystart != DateBase && SearchStructure.txtjoindayend != DateBase)
         {
-            ConditionReturn += " AND GuaranteeDate BETWEEN (@sGuaranteeDateStart) AND (@sGuaranteeDateEnd) ";
+            ConditionReturn += " AND ClassDate BETWEEN (@sGuaranteeDateStart) AND (@sGuaranteeDateEnd) ";
         }
         if (SearchStructure.txtendReasonDatestart != null && SearchStructure.txtendReasonDateend != null && SearchStructure.txtendReasonDatestart != DateBase && SearchStructure.txtendReasonDateend != DateBase)
         {
