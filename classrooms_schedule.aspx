@@ -62,12 +62,16 @@
 			        <p align="right" style="background-color:#FFDF71;padding:0 10px;margin-bottom:10px;">台北至德</p>
 			        <p>教室名稱 <select id="ClassName" >
 				            <option value="0">請選擇教室</option>
-					            				             <option value="1">E01</option>
-					             <option value="2">E02</option>
-					             <option value="3">E03</option>
-					             <option value="4">E04</option>
-					             <option value="5">E05</option>
-					             <option value="6">E06</option>
+					            				             					             <option value="1">個1</option>
+					             <option value="2">個2</option>
+					             <option value="3">個3</option>
+					             <option value="4">個4</option>
+					             <option value="5">個5</option>
+					             <option value="6">團1</option>
+					             <option value="7">團2</option>
+					             <option value="8">團3</option>
+					             <option value="9">團4</option>
+					             <option value="10">團5</option>
 					             </select> <input type="button" value="確定" onclick="Search()" /><br /><br /></p>
 			        <div id="calendar"></div>
 		        </div>
