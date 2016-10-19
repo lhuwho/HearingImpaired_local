@@ -89,12 +89,25 @@
 				            <li>
 				            <select id="ClassNameID" >
 				            <option value="0">請選擇教室</option>
-					             <option value="1">E01</option>
-					             <option value="2">E02</option>
-					             <option value="3">E03</option>
-					             <option value="4">E04</option>
-					             <option value="5">E05</option>
-					             <option value="6">E06</option>
+					             <option value="1">個1</option>
+					             <option value="2">個2</option>
+					             <option value="3">個3</option>
+					             <option value="4">個4</option>
+					             <option value="5">個5</option>
+					             <option value="6">團1</option>
+					             <option value="7">團2</option>
+					             <option value="8">團3</option>
+					             <option value="9">團4</option>
+					             <option value="10">團5</option>
+					             </select>
+					             <select id="ClassType" >
+				                 <option value="0">請選擇課別</option>
+					             <option value="1">個別課</option>
+					             <option value="2">團體課</option>
+					             <option value="3">聽覺技巧</option>
+					             <option value="4">單週</option>
+					             <option value="5">雙週</option>
+	
 					             </select>
 					             </li>
 			            </ul>
