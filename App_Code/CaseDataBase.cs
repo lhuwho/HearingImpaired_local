@@ -2619,9 +2619,9 @@ public class CaseDataBase
                 if (atom.sUnit == StudentData.Unit)
                 {
                     CreateRemind Remind = new CreateRemind();
-                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.assessDate).AddDays(25).ToShortDateString();
+                    Remind.executionDate = Chk.CheckStringtoDateFunction(StudentData.firstClassDate).AddDays(25).ToShortDateString();
                     Remind.recipientID = atom.sID;
-                    Remind.executionContent = StudentData.studentName + " 首次上課30天內要完家訪和 ISP，首次上課日期 ： " + Chk.CheckStringtoDateFunction(StudentData.assessDate).ToShortDateString() + " ";
+                    Remind.executionContent = StudentData.studentName + " 首次上課30天內要完家訪和 ISP，首次上課日期 ： " + Chk.CheckStringtoDateFunction(StudentData.firstClassDate).ToShortDateString() + " ";
                     oDB.CreateRemindSystem(Remind);
                 }
             }
