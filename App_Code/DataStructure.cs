@@ -2008,6 +2008,9 @@ public struct CreateStaffUpgrade
     public string courseDataTeaching;
     public string courseDataIsp;
     public string courseDataOther;
+    public string courseDataOtherText;
+    public string courseStartH;
+    public string courseEndH;
 
 }
 public struct CreateStaffUpgradeSeries

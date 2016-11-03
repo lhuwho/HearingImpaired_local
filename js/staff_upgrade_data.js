@@ -1,6 +1,6 @@
 ﻿var MyBase = new Base();
-var noEmptyItem = ["courseDate", "courseLecturer", "courseName", "courseTime", "courseProve", "courseCredit","courseCreditTeacherType"];
-var noEmptyShow = ["日期", "講師", "主題", "小時", "研習證明", "本會學分數","內部/外聘"];
+var noEmptyItem = ["courseDate", "courseLecturer", "courseName", "courseProve", "courseCredit","courseCreditTeacherType"];
+var noEmptyShow = ["日期", "講師", "主題", "研習證明", "小時", "內部/外聘"];
 var _ReturnStaffValue;
 var _ReturnValue;
 $(document).ready(function() {
@@ -121,48 +121,77 @@ function SucceededCallback(result, userContext, methodName) {
                         //                        			                    '</td>' +
                         //                              			                '</tr>';
                         inner += ' <tr id="HS_' + result[i].ID + '" class="sStaffData" >' +
-                                    '<td colspan="8"> ' +
-                                    '<table style="width: 100%;"><tbody> ' +
+                                    '<td colspan="7"> ' +
+
+                                    '<table style="width: 100%; border:0;border-collapse: collapse;">' +
+                                        '<thead style="line-height: 1px; opacity: 0;"><tr>' +
+                                        '<th width="127" ></th>' +
+                                        '<th width="160" ></th>' +
+                                        '<th width="90" ></th>' +
+                                        '<th width="80" ></th>' +
+                                        '<th width="88" ></th>' +
+                                        '<th width="41" ></th>' +
+                                        '<th width="130" ></th>' +
+                                        '</tr></thead>' +
+
+                                    '<tbody> ' +
                                     '<tr> ' +
-                                    '<td><input type="text" class="ScourseDate date" value="' + TransformADFromStringFunction(result[i].courseDate) + '" size="9"/></td>' +
-                                    '<td><input type="text" class="ScourseLecturer" value="' + result[i].courseLecturer + '" size="9"/></td>' +
-                                    '<td><input type="text" class="ScourseName" value="' + result[i].courseName + '"  /></td>' +
-                                    '<td><input type="text" class="ScourseTime" value="' + result[i].courseTime + '" size="5" /></td>' +
-                                    '<td><select class="ScourseProve"><option value="0">請選擇</option><option value="1">會內研習</option><option value="2">會外研習</option><option value="3">委派出席</option></select></td>' +
-                                    '<td><input type="text" class="ScourseCredit" value="' + result[i].courseCredit + '" size="5" /></td>' +
-                                    '<td><input type="text" class="SotherExplanation" value="' + result[i].otherExplanation + '" size="20" /></td>' +
-                                    '<td rowspan="2"><button id="sV_' + i + '" class="btnView ScourseStaffView" type="button" onclick="">詳細</button></td>' +
+                                         '<td ><select class="ScourseProve"><option value="0">請選擇</option><option value="1">教學/個案研討</option><option value="2">聽力課程研討</option><option value="3">相關專業課程</option><option value="3">一般性研習課程</option><option value="3">行政工作/管理</option></select></td>' +
+                                         '<td><input type="text" class="ScourseName" value="' + result[i].courseName + '"  /></td>' +
+                                         '<td>' +
+                                              '<select class="ScourseCreditTeacherType" disabled="disabled"><option value="1">內部</option><option value="2">外聘</option></select>'+
+                                              '<input type="text" class="ScourseLecturer" value="' + result[i].courseLecturer + '" size="9"/>'+
+                                         '</td>' +
+                                         '<td><input type="text" class="ScourseDate date" value="' + TransformADFromStringFunction(result[i].courseDate) + '" size="9"/></td>' +
+                                         '<td > <input type="text" class="courseStartH"  value="' + result[i].courseStartH + '"  size="3" />～<input type="text" class="courseEndH" value="' + result[i].courseEndH + '"  size="3" /></td>' +
+                                         '<td ><input type="text" class="ScourseCredit" value="' + result[i].courseCredit + '" size="3" /></td>' +
+                                         '<td><textarea class="SotherExplanation" rows="3" cols="15" disabled="disabled">' + result[i].otherExplanation + '</textarea></td>' +
                                     '</tr> ' +
 
                                     '<tr> ' +
-                                    '<td>內部/外聘：</td> ' +
-                                    '<td><select class="ScourseCreditTeacherType" disabled="disabled"><option value="1">內部</option><option value="2">外聘</option></select></td> ' +
-                                    '<td colspan="2">滿意度調查： <input type="radio" name="IsSatisfaction_' + result[i].ID + '" class="ScourseIsSatisfaction" value="1" disabled="disabled" > 有 <input name="IsSatisfaction_' + result[i].ID + '" type="radio" class="ScourseIsSatisfaction" value="0" disabled="disabled"> 無</td>' +
-                                    '<td>出席人員： </td>' +
+                                        '<td colspan="1">滿意度調查： <br /><input type="radio" name="IsSatisfaction_' + result[i].ID + '" class="ScourseIsSatisfaction" value="1" disabled="disabled" > 有 <input name="IsSatisfaction_' + result[i].ID + '" type="radio" class="ScourseIsSatisfaction" value="0" disabled="disabled"> 無</td>' +
+                                        '<td colspan="1" style="text-align: right;">  ' +
+                                            '<div>講題滿意百分比：</div>' +
+                                            '<div>講師表現滿意百分比：</div>' +
+                                        '</td>' +
+                                        '<td style="text-align: left;">' +
+                                            '<div><input class="ScourseDataQuestion" style="width:40px;" type="text" placeholder="%" value="' + result[i].courseDataQuestion + '" disabled="disabled"></div>' +
+                                            '<div><input class="ScourseDataLecturer" style="width:40px;" type="text" placeholder="%" value="' + result[i].courseDataLecturer + '" disabled="disabled"></div>' +
+                                        '</td>' +
+                                        '<td>出席人員： </td>' +
                                         '<td colspan="2"> ' +
                                         '<label><input type="checkbox" class="ScourseInTeacher" value="1" ' + result[i].courseInTeacher + ' disabled="disabled"> 教師  </label>' +
                                         '<label><input type="checkbox" class="ScourseInAudiologist" value="1" ' + result[i].courseInAudiologist + ' disabled="disabled"> 社工  </label>' +
+                                        '<br>'+
                                         '<label><input type="checkbox" class="ScourseInSocialWorkers" value="1" ' + result[i].courseInSocialWorkers + ' disabled="disabled"> 行政 </label>' +
                                         '<label><input type="checkbox" class="ScourseInAdministrative" value="1" ' + result[i].courseInAdministrative + ' disabled="disabled"> 聽力師</label>' +
                                         '</td> ' +
-                                        
-                                        '</tr>' +
-                                        '<tr>' +
-                                        '<td colspan="2" style="text-align: right;">  ' +
-                                        '<div>講題滿意百分比：</div>' +
-                                        '<div>講師表現滿意百分比：</div>' +
-                                        '</td>' +
-                                        '<td style="text-align: left;">' +
-                                        '<div><input class="ScourseDataQuestion" type="text" placeholder="%" value="' + result[i].courseDataQuestion + '" disabled="disabled"></div>' +
-                                        '<div><input class="ScourseDataLecturer" type="text" placeholder="%" value="' + result[i].courseDataLecturer + '" disabled="disabled"></div>' +
-                                        '</td>' +
+                                        '<td ><button id="sV_' + i + '" class="btnView ScourseStaffView" type="button" onclick="">詳細</button></td>' +
+                                    '</tr>' +
+
+                                    '<tr>' +
                                         '<td colspan="5">檢附資料： <label><input type="checkbox" class="ScourseDataLecture" value="1" ' + result[i].courseDataLecture + ' disabled="disabled"> 講義  </label>' +
                                         '<label><input type="checkbox" class="ScourseDataPhoto" value="1" ' + result[i].courseDataPhoto + ' disabled="disabled"> 照片  </label>' +
                                         '<label><input type="checkbox" class="ScourseDataTeaching" value="1" ' + result[i].courseDataTeaching + ' disabled="disabled"> 教學/研討記錄 </label>' +
                                         '<label><input type="checkbox" class="ScourseDataIsp" value="1" ' + result[i].courseDataIsp + ' disabled="disabled"> ISP</label>' +
-                                        '<label><input type="checkbox" class="ScourseDataOther" value="1" ' + result[i].courseDataOther + ' disabled="disabled"> 其它</label></td>' +
-                                        '</tr>' +
+                                        '<label><input type="checkbox" class="ScourseDataOther" value="1" ' + result[i].courseDataOther + ' disabled="disabled"> 其它</label>'+
+                                        '<input class="courseDataOtherText"  value="' + result[i].courseDataOtherText + '" type="text" />' +
+                                        '</td>' +
+                                    '</tr>' +
+
+                                    
+                                    
+                        //'<td><input type="text" class="ScourseTime" value="' + result[i].courseTime + '" size="5" /></td>' +
+                                    
+                                   
+                                    
+                                   
+                                    
+
+
                                         '</tbody></table>' +
+                                   
+                                   
                                     '</td>' +
                                     '<td>' +
                                         '<div class="UD"><button class="btnView" type="button" onclick="UpData(\'' + result[i].ID + '\')">更 新</button>' +
@@ -422,7 +451,7 @@ function getViewData(id, act) {
 
 function UpData(TrID) {
    // $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " select").attr("disabled", false);
-    $("#HS_" + TrID + " input").add("#HS_" + TrID + " select").attr("disabled", false);
+    $("#HS_" + TrID + " input").add("#HS_" + TrID + " select").add("#HS_" + TrID + " textarea").attr("disabled", false);
     $("#HS_" + TrID + " .UD").hide();
     $("#HS_" + TrID + " .SC").show();
 }
@@ -454,6 +483,10 @@ function SaveData(TrID) {
     obj.courseDataTeaching = (typeof ($("#HS_" + TrID + " .ScourseDataTeaching:checked").val()) == "undefined") ? "0" : "1";
     obj.courseDataIsp = (typeof ($("#HS_" + TrID + " .ScourseDataIsp:checked").val()) == "undefined") ? "0" : "1";
     obj.courseDataOther = (typeof ($("#HS_" + TrID + " .ScourseDataOther:checked").val()) == "undefined") ? "0" : "1";
+
+    obj.courseDataOtherText = $("#HS_" + TrID + " .courseDataOtherText").val();
+    obj.courseStartH = $("#HS_" + TrID + " .courseStartH").val();
+    obj.courseEndH = $("#HS_" + TrID + " .courseEndH").val();
     
 
     var checkString = MyBase.noEmptyCheck(noEmptyItem, obj, null, noEmptyShow);
@@ -538,21 +571,21 @@ function SaveStaffCreditData() {
             checkString = "未填寫：";
             checkOK = true;
         }
-        if ($('#courseDataQuestion').val().length == 0) {
-            if (checkOK) {
-                checkString += "講題滿意百分比、";
-            } else {
-                checkString += "、講題滿意百分比";
-            }
-            
-        }
-        if ($('#courseDataLecturer').val().length == 0) {
-            if (checkOK) {
-                checkString += "講師表現滿意百分比、";
-            } else {
-                checkString += "、講師表現滿意百分比";
-            }
-        }
+//        if ($('#courseDataQuestion').val().length == 0) {
+//            if (checkOK) {
+//                checkString += "講題滿意百分比、";
+//            } else {
+//                checkString += "、講題滿意百分比";
+//            }
+//            
+//        }
+//        if ($('#courseDataLecturer').val().length == 0) {
+//            if (checkOK) {
+//                checkString += "講師表現滿意百分比、";
+//            } else {
+//                checkString += "、講師表現滿意百分比";
+//            }
+//        }
         if (checkOK && checkString != "未填寫：") {
           checkString=  checkString.substr(0, checkString.length - 1);
         }
@@ -570,7 +603,7 @@ function cancelUpData(TrID, vIndex) {
     $("#HS_" + TrID + " .SexecutionDate").val(TransformADFromStringFunction(_ReturnValue[vIndex].executionDate));*/
 
 //    $("#HS_" + TrID + " input[type=text]").add("#HS_" + TrID + " select").attr("disabled", true);
-    $("#HS_" + TrID + " input").add("#HS_" + TrID + " select").attr("disabled", true);
+    $("#HS_" + TrID + " input").add("#HS_" + TrID + " select").add("#HS_" + TrID + " textarea").attr("disabled", true);
     $("#HS_" + TrID + " .UD").show();
     $("#HS_" + TrID + " .SC").hide();
 

@@ -65,7 +65,7 @@
 			    <div id="mainSearchList" class="mainSearchList">
 			        <table class="tableList" width="780" border="0">
 			            <thead>
-			                <tr>
+			               <%-- <tr>
 			                    <th width="85">日期</th>
 			                    <th width="85">講師</th>
 			                    <th width="120">課程主題</th>
@@ -75,6 +75,17 @@
 			                    <th width="140">備註</th>
 			                    <th width="60">參與<br />同仁</th>
 			                    <th width="60">功能</th>
+			                </tr>--%>
+			                <tr>
+			                    <th width="127">研習類別</th>
+			                    <th width="160">研習主題</th>
+			                    <th width="90">講師</th>
+			                    <th width="80">日期</th>
+			                    <th width="88">時間</th>
+			                    <th width="41">研習<br />時數</th>
+			                    <%--<th width="170">參加同仁</th>--%>
+			                    <th width="130">備註</th>
+			                    <th width="63">功能</th>
 			                </tr>
 			            </thead>
 			            <tbody>
@@ -87,62 +98,67 @@
 			        <table class="tableList" width="780" border="0" id="setStaffCredit">
 			            <thead>
 			                <tr>
-			                    <th width="85">日期</th>
-			                    <th width="85">講師</th>
-			                    <th width="100">課程主題</th>
-			                    <th width="40">時數</th>
-			                    <th width="80">研習證明</th>
-			                    <th width="60">本會<br />學分數</th>
-			                    <th width="170">參加同仁</th>
-			                    <th width="80">備註</th>
-			                    <th width="60">功能</th>
+			                    <th width="127">研習類別</th>
+			                    <th width="160">研習主題</th>
+			                    <th width="90">講師</th>
+			                    <th width="80">日期</th>
+			                    <th width="88">時間</th>
+			                    <th width="41">研習<br />時數</th>
+			                    <%--<th width="170">參加同仁</th>--%>
+			                    <th width="130">備註</th>
+			                    <th width="63">功能</th>
 			                </tr>
 			            </thead>
 			            <tbody>
 			                <tr>
-			                    <td><input id="courseDate" class="date" type="text" value="" size="9" /></td>
-			                    <td><input id="courseLecturer" type="text" value="" size="9" /></td>
+			                    <td><select id="courseProve" ><option value="0">請選擇</option><option value="1">教學/個案研討</option><option value="2">聽力課程研討</option><option value="3">相關專業課程</option><option value="3">一般性研習課程</option><option value="3">行政工作/管理</option></select></td>
 			                    <td><input id="courseName" type="text" value="" size="" /></td>
-			                    <td><input id="courseTime" type="text" value="" size="3" /></td>
-			                    <td><select id="courseProve" ><option value="0">請選擇</option><option value="1">會內研習</option><option value="2">會外研習</option><option value="3">委派出席</option></select></td>
-			                    <td><input id="courseCredit" type="text" value="" size="5" /></td>
-			                    <td>
-			                        <select id="ParticipantsSelect" name="item" data-placeholder="選擇教師..." class="chosen-select" multiple="multiple">
-					                </select>
-			                    </td>
-			                    <td><textarea id="otherExplanation" rows="1" cols="7"></textarea></td>
+			                    <td><select id="courseCreditTeacherType" class="HsbookScrapstatus" disabled="disabled"><option value="0">請選擇</option><option value="1">內部</option><option value="2">外聘</option></select><input id="courseLecturer" type="text" value="" size="9" /></td>
+			                    
+			                    <td><input id="courseDate" class="date" type="text" value="" size="9" /></td>
+                                <td> <input type="text" id="courseStartH"  size="3" />～<input type="text" id="courseEndH"  size="3" /></td>
+			                    <td><input id="courseCredit" type="text" value="" size="3" /></td>
+			                 
+			                    <td><textarea id="otherExplanation" rows="3" cols="15"></textarea></td>
 			                    <td rowspan="3"><div class="UD"><button class="btnView" type="button" onclick="SaveStaffCreditData();">儲 存</button><br /><button class="btnView" type="button" onclick="cancelInsert(1)">取 消</button></div>
 			                    </td>
 			                </tr>
 			                <tr>
-			                    <td>內部/外聘：</td>
-			                    <td><select id="courseCreditTeacherType" class="HsbookScrapstatus" disabled="disabled"><option value="0">請選擇</option><option value="1">內部</option><option value="2">外聘</option></select></td>
-			                    <td colspan="2">滿意度調查： <input type="radio" name="courseIsSatisfaction" value="1"> 有 <input type="radio" name="courseIsSatisfaction" checked value="0"> 無</td>
-			                    <td >出席人員： </td>
-                                <td colspan="2"> 
-                                <label><input type="checkbox" name="courseInTeacher" value="1"> 教師  </label>
-                                <label><input type="checkbox" name="courseInAudiologist" value="1"> 社工  </label>
-                                <label><input type="checkbox" name="courseInSocialWorkers" value="1" > 行政 </label>
-                                <label><input type="checkbox" name="courseInAdministrative" value="1" > 聽力師</label>
-                                </td> 
-                                <td></td>
-			                </tr>
-			                  
-			                <tr>
-			                    <td colspan="2" style="text-align: right;">  
+
+			                    <td colspan="1">滿意度調查：<br /> <input type="radio" name="courseIsSatisfaction" value="1"> 有 <input type="radio" name="courseIsSatisfaction" checked value="0"> 無</td>
+			                    <td colspan="1" style="text-align: right;">  
 			                    <div>講題滿意百分比：</div>
 			                    <div>講師表現滿意百分比：</div>
 			                    </td>
 			                    <td  style="text-align: left;">
-			                    <div><input id="courseDataQuestion" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
-			                    <div><input id="courseDataLecturer" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
+			                    <div><input id="courseDataQuestion" style="width:40px;" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
+			                    <div><input id="courseDataLecturer" style="width:40px;" class="HsbookGeter" type="text" placeholder="%" value=""  disabled="disabled"></div>
 			                    </td>
-			                    <td  colspan="5">檢附資料： 
+			                    	                            <td >出席人員： </td>
+                                <td colspan="2"> 
+                                <label><input type="checkbox" name="courseInTeacher" value="1"> 教師  </label>
+                                <label><input type="checkbox" name="courseInAudiologist" value="1"> 社工  </label><br />
+                                <label><input type="checkbox" name="courseInSocialWorkers" value="1" > 行政 </label>
+                                <label><input type="checkbox" name="courseInAdministrative" value="1" > 聽力師</label>
+                                </td> 
+			                     <td colspan="1">
+			                        <select id="ParticipantsSelect" name="item" data-placeholder="選擇教師..." class="chosen-select" multiple="multiple">
+					                </select>
+			                    </td>
+			                   
+			                </tr>
+			                  
+			                <tr>
+
+                              
+			                    <td  colspan="7">檢附資料： 
 			                    <label><input type="checkbox" name="courseDataLecture" value="1"> 講義  </label>
                                 <label><input type="checkbox" name="courseDataPhoto" value="1"> 照片  </label>
                                 <label><input type="checkbox" name="courseDataTeaching" value="1" > 教學/研討記錄 </label>
                                 <label><input type="checkbox" name="courseDataIsp" value="1" > ISP</label>
-                                <label><input type="checkbox" name="courseDataOther" value="1" > 其它</label></td>
+                                <label><input type="checkbox" name="courseDataOther" value="1" > 其它</label>
+                                <input id="courseDataOtherText" type="text" />
+                                </td>
 			               
 			               
 			            
