@@ -221,11 +221,11 @@ function SucceededCallback(result, userContext, methodName) {
                         $("#HS_" + result[i].ID + " .ScourseIsSatisfaction[value='" + result[i].courseIsSatisfaction + "']").attr('checked', true);
                     }
                     
-                    $(".ScourseTime").add(".ScourseCredit").unbind('keydown').keydown(function(event) {
-                        if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 46)) {
-                            event.preventDefault();
-                        }
-                    });
+//                    $(".ScourseTime").add(".ScourseCredit").unbind('keydown').keydown(function(event) {
+//                        if (!(event.keyCode >= 48 && event.keyCode <= 57) && !(event.keyCode >= 96 && event.keyCode <= 105) && !(event.keyCode == 8) && !(event.keyCode == 46)) {
+//                            event.preventDefault();
+//                        }
+//                    });
                     $(".ScourseStaffView").unbind("click").click(function() {
                         var index = ($(this).attr("id")).replace("sV_", "");
                         var inner2 = "";
@@ -325,7 +325,7 @@ function SucceededCallback(result, userContext, methodName) {
                     alert("發生錯誤，請重新整理頁面");
                 } else {
                     alert("新增成功");
-                    window.location.reload();
+                    //window.location.reload();
                 }
             }
             break;        
@@ -336,7 +336,7 @@ function SucceededCallback(result, userContext, methodName) {
                 alert("發生錯誤，錯誤訊息如下:" + result[1]);
             } else {
                 alert("更新成功");
-                window.location.reload();
+                //window.location.reload();
             }
             break;
         case "delStaffCreditDataBase":
@@ -352,7 +352,7 @@ function SucceededCallback(result, userContext, methodName) {
                 alert("發生錯誤，錯誤訊息如下：" + result[1]);
             } else {
                 alert("新增成功");
-                window.location.reload();
+                //window.location.reload();
             }
             break; 
         /**/

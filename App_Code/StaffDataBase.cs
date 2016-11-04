@@ -2608,7 +2608,7 @@ public class StaffDataBase
                 cmd.Parameters.Add("@Topics", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseName);
                // cmd.Parameters.Add("@Hours", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseTime);
                 cmd.Parameters.Add("@Prove", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseProve);
-                cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseCredit);
+                cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckStringFunction(StaffUpgrade.courseCredit);
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
                 cmd.Parameters.Add("@CreateFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
@@ -2889,7 +2889,7 @@ public class StaffDataBase
                 cmd.Parameters.Add("@Topics", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.courseName);
                 cmd.Parameters.Add("@Hours", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseTime);
                 cmd.Parameters.Add("@Prove", SqlDbType.TinyInt).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseProve);
-                cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckFloatFunction(StaffUpgrade.courseCredit);
+                cmd.Parameters.Add("@CreditNumber", SqlDbType.Float).Value = Chk.CheckStringFunction(StaffUpgrade.courseCredit);
                 cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = Chk.CheckStringFunction(StaffUpgrade.otherExplanation);
                 cmd.Parameters.Add("@UpFileBy", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(CreateFileName[0]);
                 cmd.Parameters.Add("@CreditTeacherType", SqlDbType.Int).Value = Chk.CheckStringtoIntFunction(StaffUpgrade.courseCreditTeacherType);
